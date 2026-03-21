@@ -1,0 +1,33 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "theia"
+version = "0.1.0"
+description = "Theia — Design Titan. UI/UX methodology, component architecture, design systems, accessibility."
+readme = "README.md"
+license = "Apache-2.0"
+requires-python = ">=3.11"
+authors = [{ name = "Reza Malik" }]
+dependencies = [
+    "fastmcp>=2.0.0",
+]
+
+[project.optional-dependencies]
+graph = ["real-ladybug>=0.15.0"]
+dev = [
+    "pytest>=8.0",
+    "pytest-asyncio>=0.23",
+    "real-ladybug>=0.15.0",
+]
+
+[project.scripts]
+theia = "theia.server:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/theia"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"

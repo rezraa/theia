@@ -1,0 +1,173 @@
+{
+  "methodologies": [
+    {
+      "id": "design_thinking",
+      "name": "Design Thinking",
+      "origin": "IDEO / Stanford d.school",
+      "phases": ["empathize", "define", "ideate", "prototype", "test"],
+      "best_for": ["complex_problems", "user_research", "innovation", "new_products"],
+      "avoid_when": ["tight_deadlines", "well_defined_requirements", "incremental_updates"],
+      "description": "Human-centered iterative methodology. Start with empathy, define the real problem, ideate broadly, prototype rapidly, test with real users.",
+      "key_principles": ["empathy_first", "diverge_then_converge", "bias_toward_action", "radical_collaboration", "embrace_experimentation"]
+    },
+    {
+      "id": "double_diamond",
+      "name": "Double Diamond",
+      "origin": "British Design Council",
+      "phases": ["discover", "define", "develop", "deliver"],
+      "best_for": ["service_design", "organizational_design", "policy_design", "complex_systems"],
+      "avoid_when": ["single_component_redesign", "pure_visual_polish"],
+      "description": "Two phases of divergent/convergent thinking. First diamond: find the right problem. Second diamond: find the right solution.",
+      "key_principles": ["be_people_centred", "communicate_visually", "collaborate_cocreate", "iterate_relentlessly"]
+    },
+    {
+      "id": "lean_ux",
+      "name": "Lean UX",
+      "origin": "Jeff Gothelf",
+      "phases": ["think", "make", "check"],
+      "best_for": ["startups", "agile_teams", "mvp_design", "hypothesis_driven_design"],
+      "avoid_when": ["regulated_industries", "complex_enterprise", "mission_critical_systems"],
+      "description": "Outcomes over deliverables. Hypotheses over requirements. Experiments over specs. Get to validated learning as fast as possible.",
+      "key_principles": ["cross_functional_teams", "small_focused_dedicated", "continuous_discovery", "shared_understanding", "anti_pattern_recognition"]
+    },
+    {
+      "id": "atomic_design",
+      "name": "Atomic Design",
+      "origin": "Brad Frost",
+      "levels": ["atoms", "molecules", "organisms", "templates", "pages"],
+      "best_for": ["design_systems", "component_libraries", "large_scale_apps", "multi_product_orgs"],
+      "avoid_when": ["small_one_off_projects", "rapid_prototyping", "marketing_pages"],
+      "description": "Build interfaces from the smallest units up. Atoms combine into molecules, molecules into organisms, organisms into templates, templates into pages.",
+      "key_principles": ["modularity", "composition", "hierarchy", "consistency", "reusability"]
+    },
+    {
+      "id": "material_design",
+      "name": "Material Design",
+      "origin": "Google",
+      "best_for": ["android_apps", "cross_platform", "data_heavy_interfaces", "enterprise_tools"],
+      "avoid_when": ["ios_native", "luxury_brands", "editorial_design"],
+      "description": "Design system based on physical metaphors (material surfaces, light, shadow). Rational grid, elevation system, motion principles, adaptive layout.",
+      "key_principles": ["material_is_metaphor", "bold_graphic_intentional", "motion_provides_meaning", "adaptive_design", "cross_platform_consistency"],
+      "tokens": {"elevation_levels": 6, "grid_unit": "8dp", "typography_scale": 13, "shape_categories": 3}
+    },
+    {
+      "id": "human_interface_guidelines",
+      "name": "Human Interface Guidelines",
+      "origin": "Apple",
+      "best_for": ["ios_apps", "macos_apps", "watchos", "visionos", "apple_ecosystem"],
+      "avoid_when": ["android_primary", "web_only", "cross_platform_priority"],
+      "description": "Platform-native design philosophy. Respect platform conventions, leverage system capabilities, prioritize clarity, deference, and depth.",
+      "key_principles": ["clarity", "deference", "depth", "direct_manipulation", "feedback", "metaphors", "user_control"]
+    },
+    {
+      "id": "fluent_design",
+      "name": "Fluent Design System",
+      "origin": "Microsoft",
+      "best_for": ["windows_apps", "microsoft_365", "enterprise_tools", "mixed_reality"],
+      "avoid_when": ["mobile_first", "consumer_apps", "ios_native"],
+      "description": "Sensory design system built on light, depth, motion, material, and scale. Designed for a world of holographic, mixed-reality interfaces.",
+      "key_principles": ["light", "depth", "motion", "material", "scale"]
+    },
+    {
+      "id": "lightning_design",
+      "name": "Lightning Design System",
+      "origin": "Salesforce",
+      "best_for": ["enterprise_crm", "data_tables", "forms_heavy", "salesforce_ecosystem"],
+      "avoid_when": ["consumer_apps", "creative_tools", "gaming"],
+      "description": "Enterprise design system optimized for data-dense applications. Blueprint patterns for complex workflows, data tables, and record pages.",
+      "key_principles": ["clarity", "efficiency", "consistency", "beauty", "accessibility"]
+    },
+    {
+      "id": "carbon_design",
+      "name": "Carbon Design System",
+      "origin": "IBM",
+      "best_for": ["enterprise_ai", "data_visualization", "complex_workflows", "ibm_ecosystem"],
+      "avoid_when": ["consumer_social", "gaming", "e_commerce"],
+      "description": "Open-source design system for products and digital experiences. Strong data visualization patterns. AI and machine learning UI patterns.",
+      "key_principles": ["universal", "just_enough", "flexible", "always_inclusive", "thoughtful"]
+    },
+    {
+      "id": "spectrum_design",
+      "name": "Spectrum Design System",
+      "origin": "Adobe",
+      "best_for": ["creative_tools", "media_applications", "adobe_ecosystem", "professional_software"],
+      "avoid_when": ["simple_consumer_apps", "text_heavy_content"],
+      "description": "Design system for creative professionals. Optimized for precision tools, canvas-based interfaces, and professional workflows.",
+      "key_principles": ["rational", "human", "focused", "inclusive"]
+    },
+    {
+      "id": "polaris_design",
+      "name": "Polaris Design System",
+      "origin": "Shopify",
+      "best_for": ["e_commerce", "merchant_tools", "admin_interfaces", "shopify_ecosystem"],
+      "avoid_when": ["consumer_facing", "content_sites", "gaming"],
+      "description": "Design system for commerce. Optimized for merchant workflows, product management, order processing, and analytics dashboards.",
+      "key_principles": ["empowering", "crafted", "efficient", "trustworthy", "familiar"]
+    },
+    {
+      "id": "ant_design",
+      "name": "Ant Design",
+      "origin": "Ant Group",
+      "best_for": ["enterprise_react", "admin_panels", "data_heavy_chinese_market", "rapid_prototyping"],
+      "avoid_when": ["brand_differentiation", "ios_native", "unique_visual_identity"],
+      "description": "Enterprise-grade React component library with exhaustive component set. Strong form patterns, table patterns, and data entry workflows.",
+      "key_principles": ["natural", "certain", "meaningful", "growing"]
+    },
+    {
+      "id": "jobs_to_be_done",
+      "name": "Jobs to Be Done",
+      "origin": "Clayton Christensen / Tony Ulwick",
+      "best_for": ["product_strategy", "feature_prioritization", "market_research", "innovation"],
+      "avoid_when": ["visual_redesign", "component_updates", "bug_fixes"],
+      "description": "People don't buy products, they hire them to do a job. Understanding the job reveals the real competition and the real opportunity.",
+      "key_principles": ["functional_jobs", "emotional_jobs", "social_jobs", "outcome_driven_innovation"]
+    },
+    {
+      "id": "inclusive_design",
+      "name": "Inclusive Design",
+      "origin": "Microsoft / Kat Holmes",
+      "best_for": ["accessibility", "diverse_user_base", "global_products", "public_services"],
+      "avoid_when": ["never_avoid_this"],
+      "description": "Design for human diversity. Recognize exclusion, learn from diversity, solve for one extend to many. Permanent, temporary, and situational disabilities.",
+      "key_principles": ["recognize_exclusion", "learn_from_diversity", "solve_for_one_extend_to_many", "persona_spectrum"]
+    },
+    {
+      "id": "gestalt_principles",
+      "name": "Gestalt Principles of Perception",
+      "origin": "Berlin School of Psychology",
+      "best_for": ["layout_design", "visual_hierarchy", "information_grouping", "icon_design"],
+      "avoid_when": ["never_avoid_this"],
+      "description": "The brain organizes visual information into groups. Proximity, similarity, continuity, closure, figure-ground, common fate, and symmetry.",
+      "key_principles": ["proximity", "similarity", "continuity", "closure", "figure_ground", "common_region", "symmetry", "common_fate"]
+    },
+    {
+      "id": "design_sprint",
+      "name": "Design Sprint",
+      "origin": "Google Ventures / Jake Knapp",
+      "phases": ["map", "sketch", "decide", "prototype", "test"],
+      "duration": "5 days",
+      "best_for": ["new_product_validation", "critical_feature_decisions", "cross_team_alignment"],
+      "avoid_when": ["ongoing_iteration", "small_tweaks", "well_understood_patterns"],
+      "description": "Compressed design process. Map the problem on Monday, sketch solutions Tuesday, decide Wednesday, prototype Thursday, test with users Friday.",
+      "key_principles": ["time_boxed", "cross_functional", "real_prototype", "real_users", "decide_dont_debate"]
+    },
+    {
+      "id": "responsive_design",
+      "name": "Responsive Web Design",
+      "origin": "Ethan Marcotte",
+      "best_for": ["web_applications", "multi_device", "content_sites", "progressive_web_apps"],
+      "avoid_when": ["native_mobile_only", "desktop_only_enterprise"],
+      "description": "Fluid grids, flexible images, and media queries. One codebase, every viewport. Mobile-first or desktop-first breakpoint strategy.",
+      "key_principles": ["fluid_grids", "flexible_media", "media_queries", "mobile_first", "content_out_breakpoints"]
+    },
+    {
+      "id": "design_tokens",
+      "name": "Design Tokens",
+      "origin": "Salesforce / W3C Design Tokens Community Group",
+      "best_for": ["multi_platform_design_systems", "theming", "white_label_products", "design_dev_handoff"],
+      "avoid_when": ["single_page_projects", "one_off_marketing"],
+      "description": "Platform-agnostic design decisions as data. Colors, spacing, typography, shadows, motion — all expressed as tokens that compile to any platform.",
+      "key_principles": ["platform_agnostic", "single_source_of_truth", "hierarchical_naming", "semantic_aliases", "composable"]
+    }
+  ]
+}
