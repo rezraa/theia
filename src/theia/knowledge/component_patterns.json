@@ -1,0 +1,2415 @@
+{
+  "schema_version": "1.0.0",
+  "catalog": "theia_component_patterns",
+  "description": "Comprehensive UI component patterns catalog for structural recognition and design system generation",
+  "last_updated": "2026-03-19",
+  "patterns": [
+    {
+      "id": "navbar",
+      "name": "Navigation Bar",
+      "category": "navigation",
+      "description": "Top-level horizontal navigation bar anchored to the top of the viewport, providing primary site-wide navigation, branding, and global actions.",
+      "anatomy": ["container", "brand_logo", "nav_links", "action_area", "mobile_toggle", "search_slot"],
+      "states": ["default", "scrolled", "expanded", "collapsed", "transparent", "sticky"],
+      "variants": [
+        {"name": "fixed", "when_to_use": "When navigation must remain visible during scrolling"},
+        {"name": "transparent", "when_to_use": "Hero sections where nav overlays content"},
+        {"name": "centered", "when_to_use": "Marketing sites with symmetrical branding"},
+        {"name": "double_row", "when_to_use": "Complex apps with primary and secondary nav tiers"}
+      ],
+      "accessibility_requirements": [
+        "role='navigation' with aria-label describing the nav purpose",
+        "Landmark region so screen readers can jump to it",
+        "Skip-to-content link as first focusable element",
+        "Keyboard arrow navigation between top-level items",
+        "aria-current='page' on active link",
+        "Mobile menu toggle must have aria-expanded"
+      ],
+      "responsive_behavior": [
+        "Collapses to hamburger menu below tablet breakpoint",
+        "Logo may shrink or switch to icon-only on small screens",
+        "Action items may move into overflow menu",
+        "Search may collapse to icon trigger on mobile"
+      ],
+      "common_mistakes": [
+        "Missing skip-to-content link",
+        "Hamburger menu not trapping focus when open",
+        "Using div instead of nav element",
+        "Z-index wars with modals and drawers",
+        "Not announcing menu open/close state to screen readers"
+      ],
+      "design_tokens_needed": ["color.surface.navbar", "spacing.navbar.padding", "typography.nav.link", "elevation.navbar", "sizing.navbar.height"],
+      "signals": ["Fixed top bar", "Horizontal link list", "Logo on left", "Hamburger icon on mobile", "nav element at top of DOM"]
+    },
+    {
+      "id": "sidebar",
+      "name": "Sidebar Navigation",
+      "category": "navigation",
+      "description": "Vertical navigation panel typically anchored to the left edge, providing hierarchical navigation for applications and dashboards.",
+      "anatomy": ["container", "header_area", "nav_sections", "nav_items", "section_labels", "collapse_toggle", "footer_area"],
+      "states": ["default", "expanded", "collapsed", "hover_expand", "overlay", "hidden"],
+      "variants": [
+        {"name": "collapsible", "when_to_use": "When users need to maximize content area"},
+        {"name": "icon_only", "when_to_use": "Minimized state showing only icons"},
+        {"name": "nested", "when_to_use": "Multi-level navigation hierarchies"},
+        {"name": "floating", "when_to_use": "Overlay sidebar on mobile viewports"}
+      ],
+      "accessibility_requirements": [
+        "role='navigation' with descriptive aria-label",
+        "aria-expanded on collapsible sections",
+        "Tree pattern (role='tree', role='treeitem') for nested nav",
+        "Keyboard up/down arrow navigation between items",
+        "Visual focus indicator on all interactive items",
+        "aria-current='page' on active item"
+      ],
+      "responsive_behavior": [
+        "Collapses to icon-only rail on medium screens",
+        "Becomes overlay drawer on mobile with backdrop",
+        "Touch-swipe to open/close on mobile",
+        "Content area adjusts width when sidebar toggles"
+      ],
+      "common_mistakes": [
+        "Sidebar pushes content off-screen instead of resizing",
+        "Nested items lack proper indentation cues",
+        "Active state not visible in collapsed mode",
+        "Missing keyboard navigation between sections",
+        "Scrollbar inside sidebar not styled or accessible"
+      ],
+      "design_tokens_needed": ["color.surface.sidebar", "sizing.sidebar.width", "sizing.sidebar.collapsed_width", "spacing.sidebar.item.padding", "color.sidebar.active", "typography.sidebar.label"],
+      "signals": ["Vertical nav on left edge", "Icon + label items", "Collapsible sections", "Fixed height full viewport", "aside or nav element"]
+    },
+    {
+      "id": "breadcrumb",
+      "name": "Breadcrumb",
+      "category": "navigation",
+      "description": "Horizontal trail showing the user's current location within the site hierarchy, enabling upward navigation to parent pages.",
+      "anatomy": ["container", "breadcrumb_items", "separators", "current_page_indicator"],
+      "states": ["default", "truncated", "overflow"],
+      "variants": [
+        {"name": "simple", "when_to_use": "Shallow hierarchies with 3-4 levels"},
+        {"name": "collapsed", "when_to_use": "Deep hierarchies where middle items are hidden behind ellipsis"},
+        {"name": "with_icons", "when_to_use": "When icons aid recognition of hierarchy levels"}
+      ],
+      "accessibility_requirements": [
+        "nav element with aria-label='Breadcrumb'",
+        "Ordered list (ol) for semantic structure",
+        "aria-current='page' on the last item",
+        "Separators are decorative and hidden from screen readers via aria-hidden",
+        "Last item should not be a link"
+      ],
+      "responsive_behavior": [
+        "Truncate middle items with ellipsis on narrow screens",
+        "May show only parent and current page on mobile",
+        "Horizontal scroll with overflow hidden as fallback"
+      ],
+      "common_mistakes": [
+        "Making the current page a clickable link",
+        "Separators read aloud by screen readers",
+        "Using div instead of nav and ol elements",
+        "Not truncating on small screens causing horizontal overflow",
+        "Incorrect hierarchy order"
+      ],
+      "design_tokens_needed": ["color.text.breadcrumb", "color.text.breadcrumb.active", "typography.breadcrumb", "spacing.breadcrumb.gap", "color.breadcrumb.separator"],
+      "signals": ["Horizontal text trail with separators", "Slash or chevron between items", "Located below navbar above content", "Last item is non-interactive"]
+    },
+    {
+      "id": "tabs",
+      "name": "Tabs",
+      "category": "navigation",
+      "description": "Horizontal or vertical tab interface for switching between related content panels within the same context without page navigation.",
+      "anatomy": ["tab_list", "tab_items", "active_indicator", "tab_panels", "overflow_controls"],
+      "states": ["default", "hover", "focus", "active", "disabled"],
+      "variants": [
+        {"name": "underline", "when_to_use": "Standard content tabs with bottom border indicator"},
+        {"name": "pill", "when_to_use": "Contained tabs for segmented control appearance"},
+        {"name": "vertical", "when_to_use": "Settings or configuration panels with many sections"},
+        {"name": "scrollable", "when_to_use": "When tab count exceeds visible space"},
+        {"name": "closable", "when_to_use": "Document or editor tabs that can be dismissed"}
+      ],
+      "accessibility_requirements": [
+        "role='tablist' on container, role='tab' on each tab, role='tabpanel' on panels",
+        "aria-selected='true' on active tab",
+        "Arrow key navigation between tabs (left/right or up/down for vertical)",
+        "Tab key moves focus into the active panel, not to next tab",
+        "Each tab has aria-controls pointing to its panel id",
+        "Each panel has aria-labelledby pointing to its tab id"
+      ],
+      "responsive_behavior": [
+        "Overflow tabs become scrollable with arrow controls",
+        "May collapse into dropdown select on very narrow screens",
+        "Vertical tabs may stack into horizontal on mobile",
+        "Active indicator animation adapts to layout direction"
+      ],
+      "common_mistakes": [
+        "Tab key moves between tabs instead of into panel",
+        "Missing ARIA roles and relationships",
+        "All panels rendered and visible simultaneously",
+        "No visible focus indicator on tabs",
+        "Tabs wrapping to multiple rows instead of scrolling"
+      ],
+      "design_tokens_needed": ["color.tab.active", "color.tab.inactive", "color.tab.indicator", "spacing.tab.padding", "typography.tab.label", "sizing.tab.indicator.height"],
+      "signals": ["Horizontal row of labels", "One highlighted/underlined item", "Content changes below without page load", "role='tablist' in DOM"]
+    },
+    {
+      "id": "pagination",
+      "name": "Pagination",
+      "category": "navigation",
+      "description": "Page-based navigation control for browsing through large datasets or content collections divided into discrete pages.",
+      "anatomy": ["container", "previous_button", "page_numbers", "ellipsis_gaps", "next_button", "page_size_selector", "results_summary"],
+      "states": ["default", "first_page", "last_page", "loading", "disabled"],
+      "variants": [
+        {"name": "numbered", "when_to_use": "When users need to jump to specific pages"},
+        {"name": "simple", "when_to_use": "Previous/next only for sequential browsing"},
+        {"name": "cursor_based", "when_to_use": "Infinite datasets without known total count"},
+        {"name": "load_more", "when_to_use": "Appending content without page breaks"}
+      ],
+      "accessibility_requirements": [
+        "nav element with aria-label='Pagination'",
+        "aria-current='page' on active page number",
+        "Previous/next buttons disabled (not hidden) at bounds",
+        "aria-label on each page button (e.g., 'Go to page 3')",
+        "Announce page changes to screen readers via live region"
+      ],
+      "responsive_behavior": [
+        "Reduce visible page numbers on smaller screens",
+        "Show only prev/next with current page indicator on mobile",
+        "Page size selector may hide on mobile",
+        "Center alignment or full-width on narrow viewports"
+      ],
+      "common_mistakes": [
+        "Hiding instead of disabling prev/next at boundaries",
+        "No indication of current page",
+        "Not preserving scroll position on page change",
+        "Missing keyboard support for page number buttons",
+        "Loading state not communicated to assistive tech"
+      ],
+      "design_tokens_needed": ["color.pagination.active", "color.pagination.default", "sizing.pagination.button", "spacing.pagination.gap", "border.pagination.radius"],
+      "signals": ["Row of numbers with arrows", "Previous/Next buttons", "Ellipsis between number groups", "Located at bottom of lists or tables"]
+    },
+    {
+      "id": "command_palette",
+      "name": "Command Palette",
+      "category": "navigation",
+      "description": "Keyboard-driven search overlay (typically triggered by Cmd+K or Ctrl+K) enabling rapid navigation, action execution, and content search.",
+      "anatomy": ["overlay_backdrop", "dialog_container", "search_input", "results_list", "result_items", "category_headers", "keyboard_hints", "footer_actions"],
+      "states": ["closed", "open_empty", "searching", "results_shown", "no_results", "loading", "nested_context"],
+      "variants": [
+        {"name": "search_only", "when_to_use": "Pure navigation search without command execution"},
+        {"name": "with_commands", "when_to_use": "Combined search and action palette like VS Code"},
+        {"name": "nested", "when_to_use": "Drill-down sub-menus for complex action trees"},
+        {"name": "contextual", "when_to_use": "Results filtered by current application context"}
+      ],
+      "accessibility_requirements": [
+        "role='combobox' on search input with aria-expanded",
+        "role='listbox' on results list",
+        "aria-activedescendant for virtual focus on results",
+        "Escape key closes palette and returns focus to trigger",
+        "Keyboard shortcut announced or discoverable",
+        "Results list uses role='option' for each item"
+      ],
+      "responsive_behavior": [
+        "Full-width on mobile with no backdrop margins",
+        "Results list may have reduced max-height on small screens",
+        "Touch-friendly result item sizing on mobile",
+        "May replace standard search on mobile"
+      ],
+      "common_mistakes": [
+        "Not trapping focus within the palette when open",
+        "Search not debounced causing performance issues",
+        "Keyboard shortcut conflicting with browser or OS shortcuts",
+        "Results not keyboard-navigable",
+        "Not restoring focus after palette closes"
+      ],
+      "design_tokens_needed": ["color.surface.palette", "elevation.palette", "sizing.palette.width", "sizing.palette.max_height", "color.palette.result.hover", "typography.palette.input"],
+      "signals": ["Centered floating search box", "Cmd+K or Ctrl+K trigger", "Categorized results list", "Keyboard shortcut hints on items", "Overlay with backdrop"]
+    },
+    {
+      "id": "bottom_navigation",
+      "name": "Bottom Navigation",
+      "category": "navigation",
+      "description": "Fixed bottom bar with 3-5 primary navigation destinations, standard pattern for mobile-first applications.",
+      "anatomy": ["container", "nav_items", "icons", "labels", "active_indicator", "badge_overlays"],
+      "states": ["default", "active", "hidden_on_scroll", "with_badge"],
+      "variants": [
+        {"name": "labeled", "when_to_use": "Standard bottom nav with icon and text label"},
+        {"name": "shifting", "when_to_use": "Active item expands while others shrink (Material Design)"},
+        {"name": "fab_integrated", "when_to_use": "Center item is a raised floating action button"},
+        {"name": "hidden_on_scroll", "when_to_use": "Hides on scroll down, reappears on scroll up"}
+      ],
+      "accessibility_requirements": [
+        "role='navigation' with aria-label",
+        "aria-current='page' on active destination",
+        "Labels always visible, not icon-only",
+        "Minimum 48x48dp touch targets",
+        "Badge count announced via aria-label on the nav item"
+      ],
+      "responsive_behavior": [
+        "Only shown on mobile viewports, replaced by sidebar or navbar on desktop",
+        "Safe area inset padding on notched devices",
+        "Landscape orientation may reduce icon size"
+      ],
+      "common_mistakes": [
+        "More than 5 items causing crowding",
+        "Icon-only without labels reducing discoverability",
+        "Not accounting for safe area insets on modern phones",
+        "Active state not distinct enough from inactive",
+        "Navigation items triggering on touch-down instead of touch-up"
+      ],
+      "design_tokens_needed": ["color.surface.bottom_nav", "color.bottom_nav.active", "color.bottom_nav.inactive", "sizing.bottom_nav.height", "spacing.bottom_nav.item", "elevation.bottom_nav"],
+      "signals": ["Fixed bar at bottom of viewport", "3-5 icon+label items", "Only visible on mobile", "Active item highlighted"]
+    },
+    {
+      "id": "mega_menu",
+      "name": "Mega Menu",
+      "category": "navigation",
+      "description": "Large dropdown panel triggered from the top navigation, displaying categorized links, featured content, and promotional areas across multiple columns.",
+      "anatomy": ["trigger_item", "dropdown_panel", "column_groups", "category_headers", "link_lists", "featured_content", "cta_area", "close_button"],
+      "states": ["closed", "open", "hover_intent", "focused"],
+      "variants": [
+        {"name": "full_width", "when_to_use": "Spans the entire viewport width for content-rich sites"},
+        {"name": "contained", "when_to_use": "Fixed-width dropdown aligned to trigger"},
+        {"name": "tabbed", "when_to_use": "Top-level categories as tabs within the mega menu"},
+        {"name": "with_media", "when_to_use": "Includes images or promotional content alongside links"}
+      ],
+      "accessibility_requirements": [
+        "Trigger uses aria-expanded and aria-haspopup='true'",
+        "Menu content accessible via keyboard Tab and arrow keys",
+        "Escape closes menu and returns focus to trigger",
+        "Hover intent delay prevents accidental open/close",
+        "Screen reader announces menu open state",
+        "Links organized in semantic groups with headings"
+      ],
+      "responsive_behavior": [
+        "Converts to accordion or nested list on mobile",
+        "Full-width panel may become scrollable column on tablet",
+        "Featured content may be hidden on small screens",
+        "Touch-friendly with explicit open/close instead of hover"
+      ],
+      "common_mistakes": [
+        "Opens on hover with no delay causing flicker",
+        "Diagonal mouse movement closes menu (missing hover intent triangles)",
+        "Not keyboard navigable",
+        "Panel obscures important content without dismiss option",
+        "Too many links overwhelming users"
+      ],
+      "design_tokens_needed": ["color.surface.mega_menu", "elevation.mega_menu", "spacing.mega_menu.column_gap", "typography.mega_menu.heading", "sizing.mega_menu.max_width"],
+      "signals": ["Large multi-column dropdown", "Categories with link lists", "Opens from top navigation item", "May contain images or promotions"]
+    },
+    {
+      "id": "stepper",
+      "name": "Stepper",
+      "category": "navigation",
+      "description": "Multi-step process navigation showing progress through a sequential workflow, such as checkout flows, onboarding, or form wizards.",
+      "anatomy": ["container", "step_indicators", "step_labels", "connector_lines", "step_content_area", "navigation_buttons"],
+      "states": ["incomplete", "current", "completed", "error", "disabled", "optional"],
+      "variants": [
+        {"name": "horizontal", "when_to_use": "Standard left-to-right step progression"},
+        {"name": "vertical", "when_to_use": "Steps with substantial inline content"},
+        {"name": "non_linear", "when_to_use": "Users can jump to any completed or available step"},
+        {"name": "compact", "when_to_use": "Limited space showing only current step with count"}
+      ],
+      "accessibility_requirements": [
+        "aria-current='step' on the active step",
+        "Each step has aria-label describing its status (e.g., 'Step 2 of 4: Shipping, completed')",
+        "Navigation buttons clearly labeled (not just 'Next')",
+        "Error states on steps announced to screen readers",
+        "Progress communicated via aria-live region on step change"
+      ],
+      "responsive_behavior": [
+        "Horizontal stepper may collapse to show only current step on mobile",
+        "Step labels may truncate or hide on narrow screens",
+        "Vertical stepper works well on all screen sizes",
+        "Navigation buttons stack vertically on mobile"
+      ],
+      "common_mistakes": [
+        "Allowing forward navigation to steps with incomplete prerequisites",
+        "No way to return to previous steps",
+        "Step count not visible making users uncertain of remaining work",
+        "Losing form data when navigating between steps",
+        "Not validating current step before allowing progression"
+      ],
+      "design_tokens_needed": ["color.stepper.completed", "color.stepper.current", "color.stepper.incomplete", "color.stepper.connector", "sizing.stepper.indicator", "typography.stepper.label"],
+      "signals": ["Numbered circles connected by lines", "Sequential step labels", "Current step highlighted", "Back/Next navigation buttons"]
+    },
+    {
+      "id": "text_input",
+      "name": "Text Input",
+      "category": "forms",
+      "description": "Single-line text field for capturing short-form user input such as names, emails, or search queries.",
+      "anatomy": ["container", "label", "input_field", "placeholder", "helper_text", "prefix_icon", "suffix_icon", "clear_button", "character_count"],
+      "states": ["default", "hover", "focus", "filled", "disabled", "readonly", "error", "success"],
+      "variants": [
+        {"name": "outlined", "when_to_use": "Standard bordered input for most form contexts"},
+        {"name": "filled", "when_to_use": "Filled background style for denser forms"},
+        {"name": "underlined", "when_to_use": "Minimal style with only bottom border"},
+        {"name": "with_addon", "when_to_use": "Prefix or suffix text/icons for formatted input (e.g., currency)"}
+      ],
+      "accessibility_requirements": [
+        "Visible label associated via for/id or aria-labelledby",
+        "aria-describedby linking to helper text and error messages",
+        "aria-invalid='true' when in error state",
+        "aria-required='true' for required fields",
+        "Error messages announced via aria-live='polite'",
+        "Sufficient color contrast for placeholder text"
+      ],
+      "responsive_behavior": [
+        "Full-width on mobile viewports",
+        "Appropriate input type triggers correct mobile keyboard (email, tel, url)",
+        "Font size >= 16px to prevent iOS zoom on focus",
+        "Touch target meets minimum 44x44 points"
+      ],
+      "common_mistakes": [
+        "Placeholder used as the only label",
+        "Error message not associated with input via aria-describedby",
+        "Label disappears on focus (floating label without fallback)",
+        "Input too small for expected content",
+        "Not using appropriate input type for data format"
+      ],
+      "design_tokens_needed": ["color.input.border", "color.input.border.focus", "color.input.border.error", "color.input.background", "color.input.text", "color.input.placeholder", "spacing.input.padding", "border.input.radius", "typography.input.value", "typography.input.label"],
+      "signals": ["Single-line input element", "Label above or beside", "Border or underline styling", "Placeholder text visible when empty"]
+    },
+    {
+      "id": "textarea",
+      "name": "Textarea",
+      "category": "forms",
+      "description": "Multi-line text field for capturing longer-form content such as comments, descriptions, or messages.",
+      "anatomy": ["container", "label", "textarea_field", "placeholder", "helper_text", "character_count", "resize_handle"],
+      "states": ["default", "hover", "focus", "filled", "disabled", "readonly", "error", "success"],
+      "variants": [
+        {"name": "fixed_height", "when_to_use": "Predetermined height for consistent layouts"},
+        {"name": "auto_grow", "when_to_use": "Expands vertically as content increases"},
+        {"name": "with_toolbar", "when_to_use": "Basic formatting options above the field"},
+        {"name": "with_character_limit", "when_to_use": "When input length must be constrained"}
+      ],
+      "accessibility_requirements": [
+        "Visible label associated via for/id",
+        "aria-describedby for helper text and character count",
+        "aria-invalid='true' in error state",
+        "Resize handle must be keyboard operable or auto-grow used",
+        "Character count announced periodically, not on every keystroke"
+      ],
+      "responsive_behavior": [
+        "Full-width on mobile viewports",
+        "Min-height ensures usable touch target",
+        "Auto-grow prevents need for scrolling within field",
+        "Font size >= 16px to prevent iOS zoom"
+      ],
+      "common_mistakes": [
+        "Too small default height making content invisible",
+        "Resize disabled without auto-grow alternative",
+        "Character count not accessible to screen readers",
+        "No max-height causing page layout disruption with auto-grow",
+        "Horizontal resize allowed causing layout breaks"
+      ],
+      "design_tokens_needed": ["color.textarea.border", "color.textarea.background", "spacing.textarea.padding", "sizing.textarea.min_height", "typography.textarea.value", "border.textarea.radius"],
+      "signals": ["Multi-line input element", "Resize handle in corner", "Taller than single-line input", "textarea HTML element"]
+    },
+    {
+      "id": "select",
+      "name": "Select",
+      "category": "forms",
+      "description": "Dropdown selection control allowing users to choose one option from a predefined list.",
+      "anatomy": ["container", "label", "trigger_button", "selected_value", "dropdown_icon", "options_list", "option_items", "option_groups", "helper_text"],
+      "states": ["default", "hover", "focus", "open", "disabled", "error", "filled"],
+      "variants": [
+        {"name": "native", "when_to_use": "Simple selections where native OS dropdown is acceptable"},
+        {"name": "custom", "when_to_use": "When options need custom rendering (icons, descriptions)"},
+        {"name": "searchable", "when_to_use": "Long option lists that benefit from filtering"},
+        {"name": "multi_select", "when_to_use": "When multiple options can be selected simultaneously"},
+        {"name": "grouped", "when_to_use": "Options organized into logical categories"}
+      ],
+      "accessibility_requirements": [
+        "role='combobox' for custom selects with aria-expanded",
+        "role='listbox' on the options list, role='option' on items",
+        "Arrow key navigation through options",
+        "Type-ahead to jump to matching options",
+        "Selected option announced by screen reader",
+        "Label associated via aria-labelledby"
+      ],
+      "responsive_behavior": [
+        "Native select may be preferred on mobile for OS picker",
+        "Custom dropdown positions above if near viewport bottom",
+        "Full-width trigger on mobile",
+        "Options list may become scrollable with max-height"
+      ],
+      "common_mistakes": [
+        "Custom select not keyboard navigable",
+        "Options list renders off-screen",
+        "No type-ahead search in long lists",
+        "Using select for fewer than 5 options (radio group is better)",
+        "Placeholder option ('Select...') submitted as valid value"
+      ],
+      "design_tokens_needed": ["color.select.trigger", "color.select.option.hover", "color.select.option.selected", "elevation.select.dropdown", "spacing.select.option.padding", "sizing.select.max_height"],
+      "signals": ["Dropdown arrow indicator", "Single value displayed in trigger", "Options list appears below on interaction", "select element or custom combobox pattern"]
+    },
+    {
+      "id": "checkbox",
+      "name": "Checkbox",
+      "category": "forms",
+      "description": "Boolean toggle for selecting one or more independent options from a set, or toggling a single option on/off.",
+      "anatomy": ["container", "checkbox_input", "checkmark_icon", "label", "helper_text"],
+      "states": ["unchecked", "checked", "indeterminate", "hover", "focus", "disabled", "error"],
+      "variants": [
+        {"name": "single", "when_to_use": "Standalone boolean toggle like terms acceptance"},
+        {"name": "group", "when_to_use": "Multiple related options that can be independently selected"},
+        {"name": "with_description", "when_to_use": "Options that need additional explanation text"},
+        {"name": "parent_child", "when_to_use": "Hierarchical select-all with indeterminate state"}
+      ],
+      "accessibility_requirements": [
+        "role='checkbox' with aria-checked (true, false, or mixed)",
+        "Label clickable and associated with input",
+        "Space key toggles the checkbox",
+        "Group wrapped in fieldset with legend",
+        "Indeterminate state communicated via aria-checked='mixed'",
+        "Error state linked via aria-describedby"
+      ],
+      "responsive_behavior": [
+        "Touch target minimum 44x44 points",
+        "Label text wraps, checkbox stays aligned to first line",
+        "Group may switch from horizontal to vertical on mobile"
+      ],
+      "common_mistakes": [
+        "Checkbox without associated label",
+        "Indeterminate state not communicated to assistive tech",
+        "Group without fieldset/legend context",
+        "Visual-only checkbox without proper input element",
+        "Using checkboxes for mutually exclusive options (use radio)"
+      ],
+      "design_tokens_needed": ["color.checkbox.checked", "color.checkbox.border", "color.checkbox.checkmark", "sizing.checkbox", "border.checkbox.radius", "spacing.checkbox.gap"],
+      "signals": ["Small square with optional checkmark", "Label text beside square", "Multiple independent toggleable options", "input[type='checkbox'] in DOM"]
+    },
+    {
+      "id": "radio_group",
+      "name": "Radio Group",
+      "category": "forms",
+      "description": "Set of mutually exclusive options where exactly one option must be selected from the group.",
+      "anatomy": ["fieldset", "legend", "radio_items", "radio_input", "radio_indicator", "labels", "helper_text"],
+      "states": ["unselected", "selected", "hover", "focus", "disabled", "error"],
+      "variants": [
+        {"name": "vertical_list", "when_to_use": "Standard vertical stack for 3-7 options"},
+        {"name": "horizontal", "when_to_use": "Few short options that fit in a row"},
+        {"name": "card_select", "when_to_use": "Rich options with icons and descriptions"},
+        {"name": "button_group", "when_to_use": "Segmented control appearance for 2-4 options"}
+      ],
+      "accessibility_requirements": [
+        "Wrapped in fieldset with legend describing the group",
+        "role='radiogroup' if not using fieldset",
+        "Arrow keys move selection between options",
+        "Tab moves focus into/out of the group, not between items",
+        "Only the selected radio (or first if none selected) is in tab order",
+        "aria-required on the group if selection is mandatory"
+      ],
+      "responsive_behavior": [
+        "Horizontal groups stack vertically on mobile",
+        "Card-style options may shift to single column",
+        "Touch targets meet minimum size requirements"
+      ],
+      "common_mistakes": [
+        "Tab key moves between radios instead of arrow keys",
+        "No default selection when one is required",
+        "Missing fieldset/legend grouping",
+        "Using radios for multi-select (use checkboxes)",
+        "All radios in tab order instead of roving tabindex"
+      ],
+      "design_tokens_needed": ["color.radio.selected", "color.radio.border", "sizing.radio", "spacing.radio.gap", "color.radio.dot"],
+      "signals": ["Small circles with one filled", "Mutually exclusive options", "Grouped options with a question", "input[type='radio'] elements"]
+    },
+    {
+      "id": "toggle_switch",
+      "name": "Toggle Switch",
+      "category": "forms",
+      "description": "Binary on/off control that takes effect immediately without requiring form submission, commonly used for settings and preferences.",
+      "anatomy": ["container", "track", "thumb", "label", "on_off_text", "helper_text"],
+      "states": ["off", "on", "hover", "focus", "disabled", "loading"],
+      "variants": [
+        {"name": "simple", "when_to_use": "Standard toggle without text indicators"},
+        {"name": "with_labels", "when_to_use": "On/Off text shown on track for clarity"},
+        {"name": "with_icon", "when_to_use": "Icons (check/x) on thumb for visual reinforcement"},
+        {"name": "color_coded", "when_to_use": "Different track colors for on/off states"}
+      ],
+      "accessibility_requirements": [
+        "role='switch' with aria-checked",
+        "Associated visible label describing what is toggled",
+        "Space or Enter key toggles the switch",
+        "State change announced by screen reader",
+        "Not relying solely on color to indicate state"
+      ],
+      "responsive_behavior": [
+        "Touch target meets minimum 44x44 points",
+        "Label and switch may reflow on narrow screens",
+        "Thumb size remains consistent across viewports"
+      ],
+      "common_mistakes": [
+        "Using toggle for actions that need form submission (use checkbox)",
+        "No visible label, only relying on context",
+        "State not immediately obvious (which side is on?)",
+        "Using role='checkbox' instead of role='switch'",
+        "Animation interferes with reduced-motion preferences"
+      ],
+      "design_tokens_needed": ["color.toggle.track.on", "color.toggle.track.off", "color.toggle.thumb", "sizing.toggle.track", "sizing.toggle.thumb", "motion.toggle.duration"],
+      "signals": ["Pill-shaped track with sliding circle", "Binary on/off control", "Takes effect immediately", "Often in settings pages"]
+    },
+    {
+      "id": "slider",
+      "name": "Slider",
+      "category": "forms",
+      "description": "Range input control allowing users to select a value or range within a minimum and maximum by dragging a thumb along a track.",
+      "anatomy": ["container", "label", "track", "filled_track", "thumb", "value_label", "min_label", "max_label", "tick_marks"],
+      "states": ["default", "hover", "active", "focus", "disabled"],
+      "variants": [
+        {"name": "single", "when_to_use": "Selecting one value from a range"},
+        {"name": "range", "when_to_use": "Selecting a min-max range with two thumbs"},
+        {"name": "with_input", "when_to_use": "Paired with number input for precise value entry"},
+        {"name": "stepped", "when_to_use": "Discrete values with visible tick marks"}
+      ],
+      "accessibility_requirements": [
+        "role='slider' with aria-valuemin, aria-valuemax, aria-valuenow",
+        "aria-valuetext for human-readable value (e.g., '$50' not '50')",
+        "Arrow keys adjust value by step increment",
+        "Page up/down for larger increments",
+        "Home/End keys jump to min/max",
+        "Visible label associated via aria-labelledby"
+      ],
+      "responsive_behavior": [
+        "Full-width track on mobile for easier thumb targeting",
+        "Value tooltip may show on touch instead of hover",
+        "Paired number input may stack below on mobile",
+        "Thumb size increases for touch interaction"
+      ],
+      "common_mistakes": [
+        "Thumb too small for touch interaction",
+        "No way to enter precise value (pair with input)",
+        "Missing aria-valuetext for non-numeric semantics",
+        "Step increments too fine for the use case",
+        "Track click doesn't move thumb to clicked position"
+      ],
+      "design_tokens_needed": ["color.slider.track", "color.slider.filled", "color.slider.thumb", "sizing.slider.thumb", "sizing.slider.track_height", "color.slider.tick"],
+      "signals": ["Horizontal track with draggable thumb", "Value label near thumb", "Min/max labels at ends", "input[type='range'] in DOM"]
+    },
+    {
+      "id": "date_picker",
+      "name": "Date Picker",
+      "category": "forms",
+      "description": "Calendar-based date selection control supporting single date, date range, and various date format requirements.",
+      "anatomy": ["trigger_input", "calendar_popup", "month_header", "navigation_arrows", "day_grid", "today_indicator", "selected_indicator", "range_highlight", "time_selector", "action_buttons"],
+      "states": ["closed", "open", "date_selected", "range_selecting", "disabled_dates", "error", "loading"],
+      "variants": [
+        {"name": "single", "when_to_use": "Selecting one specific date"},
+        {"name": "range", "when_to_use": "Selecting a start and end date"},
+        {"name": "datetime", "when_to_use": "Date combined with time selection"},
+        {"name": "inline", "when_to_use": "Calendar always visible, not in a popup"},
+        {"name": "month_year", "when_to_use": "Selecting only month and year without specific day"}
+      ],
+      "accessibility_requirements": [
+        "Grid pattern with role='grid' for the calendar",
+        "Arrow keys navigate between days",
+        "Page up/down navigate between months",
+        "aria-selected='true' on chosen date",
+        "Disabled dates use aria-disabled='true'",
+        "Live region announces month changes",
+        "Input accepts typed date format as alternative to calendar"
+      ],
+      "responsive_behavior": [
+        "Calendar popup may go full-width on mobile",
+        "Touch-friendly day cells with adequate sizing",
+        "May use native date picker on mobile as fallback",
+        "Range picker may show single month instead of two on mobile"
+      ],
+      "common_mistakes": [
+        "No keyboard navigation in calendar grid",
+        "Date format not matching user's locale",
+        "No text input alternative to calendar interaction",
+        "Disabled dates not visually or programmatically distinct",
+        "Calendar popup not repositioned to stay in viewport"
+      ],
+      "design_tokens_needed": ["color.datepicker.selected", "color.datepicker.today", "color.datepicker.range", "color.datepicker.disabled", "sizing.datepicker.day_cell", "elevation.datepicker", "typography.datepicker.day"],
+      "signals": ["Calendar grid with days", "Month/year navigation arrows", "Input field that opens calendar popup", "Date format in input field"]
+    },
+    {
+      "id": "file_upload",
+      "name": "File Upload",
+      "category": "forms",
+      "description": "Input control for selecting and uploading files from the user's device, supporting drag-and-drop, multiple files, and upload progress.",
+      "anatomy": ["drop_zone", "browse_button", "file_list", "file_item", "progress_bar", "remove_button", "icon", "size_label", "error_message"],
+      "states": ["empty", "drag_over", "uploading", "completed", "error", "disabled"],
+      "variants": [
+        {"name": "button", "when_to_use": "Simple file selection via button click"},
+        {"name": "dropzone", "when_to_use": "Large drop area for drag-and-drop workflows"},
+        {"name": "avatar", "when_to_use": "Single image upload with preview (profile pictures)"},
+        {"name": "multi", "when_to_use": "Multiple file upload with file list management"}
+      ],
+      "accessibility_requirements": [
+        "File input accessible via keyboard",
+        "Drop zone has role='button' and keyboard activation",
+        "Upload progress announced via aria-live region",
+        "File type restrictions communicated in helper text",
+        "Error messages associated with specific files",
+        "Remove button for each file has descriptive aria-label"
+      ],
+      "responsive_behavior": [
+        "Drop zone may use camera/gallery on mobile devices",
+        "File list stacks vertically on narrow screens",
+        "Progress indicators remain visible during upload",
+        "Drop zone sizing adapts to container"
+      ],
+      "common_mistakes": [
+        "No feedback during upload progress",
+        "File type restrictions not communicated before selection",
+        "No way to remove files before submission",
+        "Drag-and-drop only with no button fallback",
+        "Large file uploads without chunking or resumability"
+      ],
+      "design_tokens_needed": ["color.upload.border", "color.upload.background", "color.upload.drag_active", "color.upload.progress", "spacing.upload.padding", "border.upload.style"],
+      "signals": ["Dashed border drop area", "Upload icon (cloud with arrow)", "Browse button", "File list with progress bars"]
+    },
+    {
+      "id": "autocomplete",
+      "name": "Autocomplete",
+      "category": "forms",
+      "description": "Text input with search-as-you-type suggestion dropdown, enabling efficient selection from large datasets or API-driven results.",
+      "anatomy": ["input_field", "label", "clear_button", "loading_indicator", "suggestions_list", "suggestion_items", "highlight_match", "no_results_message", "create_option"],
+      "states": ["empty", "typing", "loading", "suggestions_visible", "no_results", "selected", "error", "disabled"],
+      "variants": [
+        {"name": "single", "when_to_use": "Select one value from suggestions"},
+        {"name": "multi", "when_to_use": "Select multiple values shown as tags/chips"},
+        {"name": "freesolo", "when_to_use": "Accept typed value even if not in suggestions"},
+        {"name": "grouped", "when_to_use": "Suggestions organized by category"}
+      ],
+      "accessibility_requirements": [
+        "role='combobox' with aria-expanded, aria-autocomplete",
+        "role='listbox' on suggestions, role='option' on items",
+        "aria-activedescendant for virtual focus management",
+        "Arrow keys navigate suggestions, Enter selects",
+        "Escape clears suggestions and restores input value",
+        "Screen reader announces suggestion count"
+      ],
+      "responsive_behavior": [
+        "Suggestions list positioned to stay within viewport",
+        "Full-width suggestions panel on mobile",
+        "Virtual keyboard accounted for in suggestion positioning",
+        "Touch-friendly suggestion item height"
+      ],
+      "common_mistakes": [
+        "Suggestions not keyboard navigable",
+        "No debounce on API calls during typing",
+        "Suggestions cover the input field on mobile",
+        "Not clearing suggestions when input is emptied",
+        "Race conditions between fast typing and slow API responses"
+      ],
+      "design_tokens_needed": ["color.autocomplete.suggestion.hover", "color.autocomplete.highlight", "elevation.autocomplete.list", "spacing.autocomplete.item.padding", "sizing.autocomplete.list.max_height"],
+      "signals": ["Input field with dropdown suggestions", "Suggestions update as user types", "Highlighted matching text in suggestions", "Loading spinner in input"]
+    },
+    {
+      "id": "form_validation",
+      "name": "Form Validation",
+      "category": "forms",
+      "description": "System pattern for communicating field-level and form-level validation states including errors, warnings, and success confirmations.",
+      "anatomy": ["error_icon", "error_message", "success_icon", "success_message", "warning_message", "field_border_state", "summary_alert", "inline_indicators"],
+      "states": ["pristine", "valid", "invalid", "warning", "validating"],
+      "variants": [
+        {"name": "inline", "when_to_use": "Error messages directly below each field"},
+        {"name": "summary", "when_to_use": "Error list at top of form with anchor links to fields"},
+        {"name": "real_time", "when_to_use": "Validation on blur or after initial submit attempt"},
+        {"name": "progressive", "when_to_use": "Only validate after user interacts with field"}
+      ],
+      "accessibility_requirements": [
+        "aria-invalid='true' on invalid fields",
+        "Error messages linked via aria-describedby",
+        "Error summary uses role='alert' or aria-live='assertive'",
+        "Focus moves to first error on form submission failure",
+        "Error icons have aria-hidden with text alternatives",
+        "Required fields marked with aria-required='true'"
+      ],
+      "responsive_behavior": [
+        "Error messages don't cause layout shifts that push content off-screen",
+        "Error summary scrolls to top on mobile submission",
+        "Inline errors visible without scrolling on mobile"
+      ],
+      "common_mistakes": [
+        "Validating on every keystroke (validate on blur instead)",
+        "Error messages not associated with fields programmatically",
+        "Only using color to indicate errors (add icon and text)",
+        "Not moving focus to first error after submission",
+        "Clearing all field values on submission failure",
+        "Displaying errors before user has finished typing"
+      ],
+      "design_tokens_needed": ["color.validation.error", "color.validation.success", "color.validation.warning", "typography.validation.message", "spacing.validation.gap", "sizing.validation.icon"],
+      "signals": ["Red border on input fields", "Error text below fields", "Error icon beside messages", "Error summary at form top"]
+    },
+    {
+      "id": "search_input",
+      "name": "Search Input",
+      "category": "forms",
+      "description": "Specialized text input for search functionality with clear button, submit action, and optional inline results.",
+      "anatomy": ["container", "search_icon", "input_field", "clear_button", "submit_button", "loading_indicator", "voice_search_button"],
+      "states": ["empty", "typing", "filled", "loading", "focused", "disabled"],
+      "variants": [
+        {"name": "simple", "when_to_use": "Basic search input with icon"},
+        {"name": "expandable", "when_to_use": "Collapsed icon that expands to input on click"},
+        {"name": "with_filters", "when_to_use": "Search combined with filter dropdowns"},
+        {"name": "with_suggestions", "when_to_use": "Autocomplete suggestions as user types"}
+      ],
+      "accessibility_requirements": [
+        "role='search' on containing form or div",
+        "aria-label='Search' if no visible label",
+        "Clear button has aria-label='Clear search'",
+        "Submit via Enter key",
+        "Loading state announced via aria-live",
+        "Search results count announced to screen readers"
+      ],
+      "responsive_behavior": [
+        "May collapse to icon-only on narrow screens",
+        "Full-width on mobile when expanded",
+        "Filters may move to separate filter panel on mobile"
+      ],
+      "common_mistakes": [
+        "No clear button when field has content",
+        "Missing search icon making input purpose unclear",
+        "No loading feedback during search",
+        "Not using input type='search' for semantic meaning",
+        "Submit button hidden or missing"
+      ],
+      "design_tokens_needed": ["color.search.icon", "color.search.background", "spacing.search.padding", "border.search.radius", "sizing.search.height"],
+      "signals": ["Magnifying glass icon", "input[type='search']", "Clear (x) button when filled", "role='search' landmark"]
+    },
+    {
+      "id": "number_input",
+      "name": "Number Input",
+      "category": "forms",
+      "description": "Numeric input field with increment/decrement controls for entering precise numerical values within defined bounds.",
+      "anatomy": ["container", "label", "input_field", "increment_button", "decrement_button", "unit_label", "helper_text"],
+      "states": ["default", "hover", "focus", "disabled", "error", "at_minimum", "at_maximum"],
+      "variants": [
+        {"name": "with_stepper", "when_to_use": "Plus/minus buttons for easy adjustment"},
+        {"name": "plain", "when_to_use": "Simple numeric input without stepper buttons"},
+        {"name": "with_unit", "when_to_use": "Input with unit suffix (kg, px, %)"},
+        {"name": "currency", "when_to_use": "Formatted currency input with symbol prefix"}
+      ],
+      "accessibility_requirements": [
+        "role='spinbutton' with aria-valuemin, aria-valuemax, aria-valuenow",
+        "Arrow up/down to increment/decrement",
+        "Buttons labeled with aria-label ('Increase quantity', 'Decrease quantity')",
+        "Disabled increment at max, decrement at min",
+        "Input accepts direct keyboard entry"
+      ],
+      "responsive_behavior": [
+        "Uses inputmode='numeric' for mobile number keyboard",
+        "Stepper buttons sized for touch targets",
+        "Full-width or fixed-width depending on value range"
+      ],
+      "common_mistakes": [
+        "Accepting non-numeric characters without feedback",
+        "No bounds enforcement on direct keyboard entry",
+        "Stepper buttons too small for touch",
+        "Not formatting large numbers with separators",
+        "Scrolling page while trying to use arrow keys in field"
+      ],
+      "design_tokens_needed": ["color.number_input.border", "color.number_input.button", "sizing.number_input.button", "spacing.number_input.padding", "typography.number_input.value"],
+      "signals": ["Input with +/- buttons", "Number-only field", "input[type='number']", "Stepper arrows on right side"]
+    },
+    {
+      "id": "color_picker",
+      "name": "Color Picker",
+      "category": "forms",
+      "description": "Interactive color selection control supporting various color models (HEX, RGB, HSL) with visual preview and precision input.",
+      "anatomy": ["trigger_swatch", "popup_panel", "saturation_area", "hue_slider", "alpha_slider", "color_input", "preset_swatches", "preview_swatch", "format_toggle"],
+      "states": ["closed", "open", "selecting", "disabled"],
+      "variants": [
+        {"name": "swatch_only", "when_to_use": "Simple selection from predefined palette"},
+        {"name": "full", "when_to_use": "Complete picker with gradient area and sliders"},
+        {"name": "input_only", "when_to_use": "Text input for HEX/RGB value entry"},
+        {"name": "with_presets", "when_to_use": "Combination of preset swatches and custom picker"}
+      ],
+      "accessibility_requirements": [
+        "Trigger swatch shows current color with text label",
+        "Gradient area navigable via arrow keys",
+        "Slider accessible as range input",
+        "Color value announced to screen readers",
+        "Preset swatches have descriptive labels (not just 'Red')",
+        "Text input alternative for precise values"
+      ],
+      "responsive_behavior": [
+        "Popup may go full-width on mobile",
+        "Gradient area resizes proportionally",
+        "Preset swatches wrap to available width",
+        "Touch-friendly slider thumbs"
+      ],
+      "common_mistakes": [
+        "No text input alternative for accessibility",
+        "Gradient area not keyboard navigable",
+        "Color names not provided alongside values",
+        "Preset colors not sufficient for common needs",
+        "Alpha channel ignored when needed"
+      ],
+      "design_tokens_needed": ["sizing.color_picker.swatch", "sizing.color_picker.gradient", "elevation.color_picker", "spacing.color_picker.gap", "border.color_picker.swatch"],
+      "signals": ["Color swatch trigger", "Gradient/saturation area", "Hue/alpha sliders", "HEX input field"]
+    },
+    {
+      "id": "rich_text_editor",
+      "name": "Rich Text Editor",
+      "category": "forms",
+      "description": "WYSIWYG formatted text editing component supporting bold, italic, lists, links, images, and other structured content.",
+      "anatomy": ["toolbar", "formatting_buttons", "content_area", "link_dialog", "image_handler", "source_toggle", "character_count", "placeholder"],
+      "states": ["empty", "editing", "focused", "disabled", "readonly", "source_mode"],
+      "variants": [
+        {"name": "minimal", "when_to_use": "Basic formatting: bold, italic, links, lists"},
+        {"name": "standard", "when_to_use": "Common formatting plus headings, images, tables"},
+        {"name": "full", "when_to_use": "Complete feature set including code blocks, embeds"},
+        {"name": "markdown", "when_to_use": "Markdown input with live preview"}
+      ],
+      "accessibility_requirements": [
+        "Toolbar buttons have aria-label and aria-pressed for toggle states",
+        "Content area has role='textbox' with aria-multiline='true'",
+        "Keyboard shortcuts for all formatting actions (Ctrl+B, etc.)",
+        "Focus management between toolbar and content area",
+        "Content structure uses semantic HTML (h1-h6, ul, ol)",
+        "Screen reader announces formatting changes"
+      ],
+      "responsive_behavior": [
+        "Toolbar wraps or becomes scrollable on narrow screens",
+        "Less common formatting options hidden behind overflow menu",
+        "Image insertion uses mobile camera/gallery",
+        "Content area minimum height ensures usability"
+      ],
+      "common_mistakes": [
+        "Outputting insecure HTML (XSS vulnerability)",
+        "Toolbar buttons without accessible labels",
+        "Pasting content that breaks layout",
+        "No sanitization of pasted HTML",
+        "Content area too small for meaningful editing"
+      ],
+      "design_tokens_needed": ["color.editor.toolbar", "color.editor.border", "color.editor.content", "spacing.editor.toolbar.gap", "sizing.editor.min_height", "typography.editor.content"],
+      "signals": ["Toolbar with B/I/U buttons", "Editable content area below toolbar", "contenteditable='true' in DOM", "Formatting options in toolbar"]
+    },
+    {
+      "id": "data_table",
+      "name": "Data Table",
+      "category": "data_display",
+      "description": "Structured data grid supporting sorting, filtering, pagination, row selection, and column customization for tabular data presentation.",
+      "anatomy": ["container", "header_row", "column_headers", "sort_indicators", "body_rows", "cells", "selection_checkboxes", "row_actions", "toolbar", "pagination", "empty_state", "loading_overlay"],
+      "states": ["default", "loading", "empty", "error", "row_selected", "row_expanded", "sorting", "filtering"],
+      "variants": [
+        {"name": "simple", "when_to_use": "Static data display without interaction"},
+        {"name": "sortable", "when_to_use": "Columns can be sorted ascending/descending"},
+        {"name": "selectable", "when_to_use": "Rows can be selected for bulk actions"},
+        {"name": "expandable", "when_to_use": "Rows expand to show additional detail"},
+        {"name": "editable", "when_to_use": "Inline cell editing for data management"},
+        {"name": "virtualized", "when_to_use": "Large datasets with virtualized scrolling"}
+      ],
+      "accessibility_requirements": [
+        "Proper table semantics (table, thead, tbody, th, td)",
+        "Column headers use scope='col'",
+        "Sort state communicated via aria-sort on th",
+        "Row selection uses aria-selected",
+        "Caption or aria-label describes the table",
+        "Keyboard navigation through cells (arrow keys optional but preferred)",
+        "Selection checkbox has descriptive label per row"
+      ],
+      "responsive_behavior": [
+        "Horizontal scroll with sticky first column on narrow screens",
+        "Column hiding by priority on smaller viewports",
+        "Card layout transformation on mobile",
+        "Stacked layout where each cell is labeled on mobile"
+      ],
+      "common_mistakes": [
+        "Using div layout instead of table elements",
+        "Horizontal overflow without scroll indication",
+        "Sort state not communicated to screen readers",
+        "No loading or empty states",
+        "Fixed column widths causing text truncation",
+        "Missing caption or summary for table purpose"
+      ],
+      "design_tokens_needed": ["color.table.header", "color.table.row.stripe", "color.table.row.hover", "color.table.row.selected", "color.table.border", "spacing.table.cell.padding", "typography.table.header", "typography.table.cell"],
+      "signals": ["Rows and columns of data", "Column headers with sort arrows", "Alternating row colors", "table element with thead/tbody"]
+    },
+    {
+      "id": "list",
+      "name": "List",
+      "category": "data_display",
+      "description": "Vertical arrangement of related items, each containing primary text, optional secondary text, icons, and actions.",
+      "anatomy": ["container", "list_items", "primary_text", "secondary_text", "leading_element", "trailing_element", "dividers", "section_headers"],
+      "states": ["default", "hover", "active", "selected", "disabled", "loading"],
+      "variants": [
+        {"name": "simple", "when_to_use": "Text-only list items"},
+        {"name": "two_line", "when_to_use": "Items with primary and secondary text"},
+        {"name": "interactive", "when_to_use": "Clickable items that navigate or trigger actions"},
+        {"name": "with_avatars", "when_to_use": "User or entity lists with visual identifiers"},
+        {"name": "ordered", "when_to_use": "Numbered sequential items"}
+      ],
+      "accessibility_requirements": [
+        "Semantic list element (ul, ol, or role='list')",
+        "List items use role='listitem'",
+        "Interactive items are keyboard focusable",
+        "Selection state uses aria-selected or aria-current",
+        "Group label via aria-label on list container",
+        "Action buttons within items have descriptive labels"
+      ],
+      "responsive_behavior": [
+        "Full-width items on mobile",
+        "Trailing actions may collapse into overflow menu",
+        "Leading icons may resize on smaller screens",
+        "Two-line items may become three-line on narrow screens"
+      ],
+      "common_mistakes": [
+        "Not using semantic list elements",
+        "Clickable items without keyboard support",
+        "Dividers included for last item",
+        "Inconsistent item heights in same list",
+        "Too many actions per item creating clutter"
+      ],
+      "design_tokens_needed": ["color.list.item.hover", "color.list.item.selected", "color.list.divider", "spacing.list.item.padding", "typography.list.primary", "typography.list.secondary"],
+      "signals": ["Vertically stacked items", "Consistent item structure", "Optional dividers between items", "ul or ol element in DOM"]
+    },
+    {
+      "id": "card",
+      "name": "Card",
+      "category": "data_display",
+      "description": "Self-contained content block with optional media, text, and actions, serving as an entry point to more detailed information.",
+      "anatomy": ["container", "media_area", "header", "title", "subtitle", "body_content", "action_area", "overflow_menu", "badge"],
+      "states": ["default", "hover", "active", "selected", "loading", "disabled"],
+      "variants": [
+        {"name": "basic", "when_to_use": "Simple content container without media"},
+        {"name": "media", "when_to_use": "Card with image or video header"},
+        {"name": "horizontal", "when_to_use": "Media on the side for wider layouts"},
+        {"name": "interactive", "when_to_use": "Entire card is clickable as a link"},
+        {"name": "elevated", "when_to_use": "Shadow-based visual separation"},
+        {"name": "outlined", "when_to_use": "Border-based visual separation"}
+      ],
+      "accessibility_requirements": [
+        "Card title should be a heading element for structure",
+        "Interactive cards use a single anchor or button wrapping content",
+        "Action buttons have descriptive labels (not just 'Learn more')",
+        "Images use meaningful alt text",
+        "Clickable cards should not nest interactive elements",
+        "Focus indicator visible on the interactive boundary"
+      ],
+      "responsive_behavior": [
+        "Cards reflow from multi-column to single column on mobile",
+        "Horizontal cards may stack media above content on mobile",
+        "Card width adapts to grid column or container",
+        "Image aspect ratio maintained during resize"
+      ],
+      "common_mistakes": [
+        "Nesting links/buttons inside clickable card (nested interactives)",
+        "Image without alt text",
+        "Inconsistent card heights in a grid",
+        "No truncation strategy for variable-length content",
+        "Card actions with generic labels like 'Click here'"
+      ],
+      "design_tokens_needed": ["color.card.background", "color.card.border", "elevation.card", "border.card.radius", "spacing.card.padding", "spacing.card.gap"],
+      "signals": ["Rounded rectangle container", "Image above text content", "Action buttons at bottom", "Elevated or bordered block"]
+    },
+    {
+      "id": "avatar",
+      "name": "Avatar",
+      "category": "data_display",
+      "description": "Visual representation of a user or entity, displaying a photo, initials, or fallback icon in a circular or rounded container.",
+      "anatomy": ["container", "image", "initials_text", "fallback_icon", "status_indicator", "notification_badge"],
+      "states": ["with_image", "with_initials", "fallback_icon", "loading", "error"],
+      "variants": [
+        {"name": "image", "when_to_use": "User has uploaded a profile photo"},
+        {"name": "initials", "when_to_use": "No photo available, show first/last initials"},
+        {"name": "icon", "when_to_use": "Generic user placeholder icon"},
+        {"name": "group", "when_to_use": "Overlapping stack showing multiple users"},
+        {"name": "with_status", "when_to_use": "Online/offline/away status indicator dot"}
+      ],
+      "accessibility_requirements": [
+        "Image avatar has alt text with user's name",
+        "Initials have aria-label with full name",
+        "Status indicator has screen reader text (e.g., 'Online')",
+        "Group avatar announces count (e.g., '5 team members')",
+        "Decorative avatars use aria-hidden='true'"
+      ],
+      "responsive_behavior": [
+        "Size scales across predefined size tokens (xs, sm, md, lg, xl)",
+        "Group avatar overlap adjusts with avatar size",
+        "Status dot scales proportionally"
+      ],
+      "common_mistakes": [
+        "No fallback when image fails to load",
+        "Initials not contrasted against background color",
+        "Status indicator too small to perceive",
+        "Group avatars without count indicator for overflow",
+        "Alt text says 'avatar' instead of user's name"
+      ],
+      "design_tokens_needed": ["sizing.avatar.xs", "sizing.avatar.sm", "sizing.avatar.md", "sizing.avatar.lg", "sizing.avatar.xl", "color.avatar.background", "color.avatar.initials", "color.avatar.status.online", "color.avatar.status.offline", "typography.avatar.initials"],
+      "signals": ["Circular image or colored circle with letters", "Small profile picture", "Status dot overlay", "Overlapping circle group"]
+    },
+    {
+      "id": "badge",
+      "name": "Badge",
+      "category": "data_display",
+      "description": "Small overlaid indicator showing count, status, or attention marker on another element such as an icon, avatar, or button.",
+      "anatomy": ["container", "badge_content", "anchor_element"],
+      "states": ["visible", "hidden", "dot_only", "overflow"],
+      "variants": [
+        {"name": "count", "when_to_use": "Numeric count (notifications, items)"},
+        {"name": "dot", "when_to_use": "Simple attention indicator without count"},
+        {"name": "status", "when_to_use": "Colored indicator for online/error/warning states"},
+        {"name": "label", "when_to_use": "Short text label (e.g., 'New', 'Beta')"}
+      ],
+      "accessibility_requirements": [
+        "Count announced via aria-label on parent (e.g., 'Notifications, 5 unread')",
+        "Dot badge has screen reader text describing its meaning",
+        "Badge content updates trigger aria-live announcement",
+        "Visual badge not the sole method of communication"
+      ],
+      "responsive_behavior": [
+        "Badge size and position remain consistent across viewports",
+        "Overflow value (99+) used for large counts",
+        "Dot variant used when space is extremely constrained"
+      ],
+      "common_mistakes": [
+        "Badge hidden behind adjacent elements due to z-index",
+        "No maximum count cap (showing '10432' in tiny badge)",
+        "Count not accessible to screen readers",
+        "Badge position inconsistent across anchor element sizes",
+        "Using badge color alone to convey meaning"
+      ],
+      "design_tokens_needed": ["color.badge.background", "color.badge.text", "sizing.badge.min_width", "sizing.badge.dot", "typography.badge", "spacing.badge.padding"],
+      "signals": ["Small circle overlaid on corner of element", "Number in colored circle", "Dot indicator on icon", "Position: top-right corner of anchor"]
+    },
+    {
+      "id": "tag",
+      "name": "Tag",
+      "category": "data_display",
+      "description": "Compact label element for categorization, filtering, or metadata display, often displayed in groups and optionally dismissible.",
+      "anatomy": ["container", "label_text", "icon", "remove_button"],
+      "states": ["default", "hover", "active", "selected", "disabled"],
+      "variants": [
+        {"name": "static", "when_to_use": "Display-only categorization labels"},
+        {"name": "removable", "when_to_use": "User can dismiss/remove the tag"},
+        {"name": "selectable", "when_to_use": "Tags act as filter toggles"},
+        {"name": "with_icon", "when_to_use": "Icon reinforces the tag category"},
+        {"name": "colored", "when_to_use": "Category-specific color coding"}
+      ],
+      "accessibility_requirements": [
+        "Remove button has aria-label (e.g., 'Remove tag: JavaScript')",
+        "Selectable tags use aria-pressed or aria-selected",
+        "Tag group wrapped with descriptive label",
+        "Remove action not focus-trapping (focus moves logically)",
+        "Color not the only differentiator between tag types"
+      ],
+      "responsive_behavior": [
+        "Tags wrap to new lines within container",
+        "Touch targets meet minimum 44px for interactive tags",
+        "Tag text truncates with ellipsis if needed",
+        "Group may horizontally scroll on mobile"
+      ],
+      "common_mistakes": [
+        "Remove button too small to tap on mobile",
+        "Relying only on color to distinguish categories",
+        "Tags not wrapping, causing horizontal overflow",
+        "No keyboard support for selectable tags",
+        "Inconsistent tag sizes within same group"
+      ],
+      "design_tokens_needed": ["color.tag.background", "color.tag.text", "color.tag.border", "border.tag.radius", "spacing.tag.padding", "typography.tag", "sizing.tag.remove_button"],
+      "signals": ["Small rounded pill with text", "Close/X icon for removal", "Group of small labels", "Colored background with text"]
+    },
+    {
+      "id": "tooltip",
+      "name": "Tooltip",
+      "category": "data_display",
+      "description": "Small informational text overlay that appears on hover or focus to describe an element, providing supplementary but non-essential information.",
+      "anatomy": ["trigger_element", "tooltip_container", "tooltip_text", "arrow_indicator"],
+      "states": ["hidden", "visible", "positioned"],
+      "variants": [
+        {"name": "simple", "when_to_use": "Plain text description of an element"},
+        {"name": "rich", "when_to_use": "Formatted content with links or actions (use popover instead)"},
+        {"name": "positioned", "when_to_use": "Explicit placement (top, right, bottom, left)"}
+      ],
+      "accessibility_requirements": [
+        "Tooltip content set via aria-describedby on trigger",
+        "Appears on keyboard focus, not just mouse hover",
+        "Escape key dismisses tooltip",
+        "role='tooltip' on tooltip element",
+        "Tooltip remains visible while hovered (WCAG 1.4.13)",
+        "Not used for essential information (use visible text instead)"
+      ],
+      "responsive_behavior": [
+        "Reposition to stay within viewport",
+        "May not appear on touch devices (use alternatives)",
+        "Arrow points to trigger regardless of position",
+        "Consider alternatives on mobile where hover doesn't exist"
+      ],
+      "common_mistakes": [
+        "Used for essential information not available elsewhere",
+        "Not appearing on keyboard focus",
+        "Disappears when trying to hover the tooltip itself",
+        "Content too long for tooltip format",
+        "Not repositioning when clipped by viewport",
+        "Used on touch devices where hover is unreliable"
+      ],
+      "design_tokens_needed": ["color.tooltip.background", "color.tooltip.text", "border.tooltip.radius", "spacing.tooltip.padding", "elevation.tooltip", "typography.tooltip", "motion.tooltip.delay"],
+      "signals": ["Small dark box near element on hover", "Arrow pointing to trigger element", "Text that appears/disappears on hover", "role='tooltip' in DOM"]
+    },
+    {
+      "id": "popover",
+      "name": "Popover",
+      "category": "data_display",
+      "description": "Click-triggered floating overlay containing interactive content such as forms, menus, or detailed information, positioned relative to a trigger element.",
+      "anatomy": ["trigger_element", "popover_container", "header", "body_content", "footer_actions", "close_button", "arrow"],
+      "states": ["hidden", "visible", "positioned"],
+      "variants": [
+        {"name": "informational", "when_to_use": "Displaying detailed information on demand"},
+        {"name": "interactive", "when_to_use": "Contains form elements or actions"},
+        {"name": "confirmation", "when_to_use": "Inline confirmation before destructive action"},
+        {"name": "menu", "when_to_use": "Action list triggered from element"}
+      ],
+      "accessibility_requirements": [
+        "Trigger has aria-expanded and aria-haspopup",
+        "Focus moves into popover when opened",
+        "Escape closes popover and returns focus to trigger",
+        "Focus trapped within popover while open",
+        "role='dialog' for interactive popovers",
+        "Close button available within popover"
+      ],
+      "responsive_behavior": [
+        "Repositions to stay within viewport",
+        "May become full-width sheet on mobile",
+        "Arrow adjusts position to maintain trigger alignment",
+        "Touch outside closes popover on mobile"
+      ],
+      "common_mistakes": [
+        "Not trapping focus within interactive popovers",
+        "Multiple popovers open simultaneously",
+        "Popover content inaccessible via keyboard",
+        "Not closing on outside click",
+        "Popover renders off-screen without repositioning"
+      ],
+      "design_tokens_needed": ["color.popover.background", "elevation.popover", "border.popover.radius", "spacing.popover.padding", "sizing.popover.max_width"],
+      "signals": ["Floating box near trigger element", "Appears on click (not hover)", "Contains interactive content", "Arrow pointing to trigger"]
+    },
+    {
+      "id": "stat_card",
+      "name": "Stat Card",
+      "category": "data_display",
+      "description": "Dashboard metric display showing a key value with optional label, trend indicator, icon, and comparison context.",
+      "anatomy": ["container", "metric_value", "metric_label", "trend_indicator", "trend_value", "icon", "sparkline", "comparison_text"],
+      "states": ["default", "loading", "positive_trend", "negative_trend", "neutral_trend"],
+      "variants": [
+        {"name": "simple", "when_to_use": "Value and label only"},
+        {"name": "with_trend", "when_to_use": "Shows change direction and percentage"},
+        {"name": "with_sparkline", "when_to_use": "Mini chart showing recent trend"},
+        {"name": "with_comparison", "when_to_use": "Compared against previous period or target"}
+      ],
+      "accessibility_requirements": [
+        "Value and label create meaningful combined text",
+        "Trend direction communicated via text, not just color/icon",
+        "Sparkline has aria-label summarizing the trend",
+        "Use appropriate heading level for metric label",
+        "Comparison context included in accessible description"
+      ],
+      "responsive_behavior": [
+        "Cards reflow from horizontal row to grid on mobile",
+        "Value font size may scale down slightly on mobile",
+        "Sparkline may hide on very small viewports",
+        "Grid typically 4-across on desktop, 2-across on tablet, stacked on mobile"
+      ],
+      "common_mistakes": [
+        "Trend color as only indicator (red/green without icon/text)",
+        "No loading state causing layout shift when data arrives",
+        "Metric value without context (what does '432' mean?)",
+        "Inconsistent card heights in a row",
+        "Sparkline without accessible description"
+      ],
+      "design_tokens_needed": ["color.stat.positive", "color.stat.negative", "color.stat.neutral", "typography.stat.value", "typography.stat.label", "spacing.stat.padding"],
+      "signals": ["Large number prominently displayed", "Small label below or above number", "Arrow or percentage showing change", "Dashboard grid of metric blocks"]
+    },
+    {
+      "id": "timeline",
+      "name": "Timeline",
+      "category": "data_display",
+      "description": "Chronological display of events or activities along a vertical or horizontal axis with timestamps, descriptions, and status indicators.",
+      "anatomy": ["container", "timeline_axis", "event_nodes", "event_content", "timestamps", "connector_lines", "status_icons"],
+      "states": ["default", "loading", "empty", "expanded"],
+      "variants": [
+        {"name": "vertical", "when_to_use": "Standard chronological feed of events"},
+        {"name": "horizontal", "when_to_use": "Process or milestone visualization"},
+        {"name": "alternating", "when_to_use": "Events alternate left/right of axis"},
+        {"name": "compact", "when_to_use": "Condensed activity log format"}
+      ],
+      "accessibility_requirements": [
+        "Ordered list semantics (ol) for chronological order",
+        "Timestamps use time element with datetime attribute",
+        "Status icons have text alternatives",
+        "Visual connectors are decorative (aria-hidden)",
+        "Screen reader experiences content in chronological order"
+      ],
+      "responsive_behavior": [
+        "Alternating layout collapses to single column on mobile",
+        "Horizontal timeline may become vertical on narrow screens",
+        "Content width adapts to container",
+        "Timestamps may move from beside to above content on mobile"
+      ],
+      "common_mistakes": [
+        "Not using semantic ordered list",
+        "Visual order doesn't match DOM order",
+        "Connector lines break on varying content heights",
+        "No empty state when timeline has no events",
+        "Timestamps in ambiguous format without locale handling"
+      ],
+      "design_tokens_needed": ["color.timeline.connector", "color.timeline.node", "sizing.timeline.node", "spacing.timeline.gap", "typography.timeline.timestamp"],
+      "signals": ["Vertical line with event dots", "Timestamps beside content blocks", "Sequential event display", "Status icons along axis"]
+    },
+    {
+      "id": "tree_view",
+      "name": "Tree View",
+      "category": "data_display",
+      "description": "Hierarchical data display with expandable/collapsible nodes for navigating nested structures like file systems, organization charts, or category trees.",
+      "anatomy": ["container", "tree_nodes", "expand_toggle", "node_icon", "node_label", "indent_guides", "selection_indicator"],
+      "states": ["collapsed", "expanded", "selected", "focused", "loading_children", "disabled"],
+      "variants": [
+        {"name": "simple", "when_to_use": "Plain expandable text hierarchy"},
+        {"name": "with_icons", "when_to_use": "File/folder type icons for each node"},
+        {"name": "selectable", "when_to_use": "Single or multi-select nodes"},
+        {"name": "checkbox", "when_to_use": "Checkable nodes with parent/child selection"},
+        {"name": "lazy_loaded", "when_to_use": "Children fetched on expand for large trees"}
+      ],
+      "accessibility_requirements": [
+        "role='tree' on container, role='treeitem' on nodes",
+        "aria-expanded on parent nodes",
+        "Arrow key navigation (up/down between nodes, left/right to collapse/expand)",
+        "aria-level for depth indication",
+        "aria-selected for selectable trees",
+        "Home/End keys jump to first/last visible node"
+      ],
+      "responsive_behavior": [
+        "Horizontal scroll for deeply nested trees on narrow screens",
+        "Indentation may reduce on mobile",
+        "Touch-friendly expand/collapse targets",
+        "May offer breadcrumb-style drill-down as mobile alternative"
+      ],
+      "common_mistakes": [
+        "Missing tree ARIA roles and keyboard patterns",
+        "Arrow keys not implemented per WAI-ARIA tree pattern",
+        "No visual indentation guides for deep nesting",
+        "Expand/collapse not keyboard accessible",
+        "Loading state not communicated when fetching children"
+      ],
+      "design_tokens_needed": ["spacing.tree.indent", "color.tree.node.selected", "color.tree.node.hover", "color.tree.guide", "sizing.tree.toggle", "typography.tree.label"],
+      "signals": ["Indented nested items", "Expand/collapse chevrons", "Folder/file icons", "Hierarchical structure"]
+    },
+    {
+      "id": "accordion",
+      "name": "Accordion",
+      "category": "data_display",
+      "description": "Vertically stacked expandable sections where each header toggles the visibility of its associated content panel.",
+      "anatomy": ["container", "accordion_items", "header_trigger", "expand_icon", "content_panel"],
+      "states": ["collapsed", "expanded", "hover", "focus", "disabled"],
+      "variants": [
+        {"name": "single", "when_to_use": "Only one section can be expanded at a time"},
+        {"name": "multi", "when_to_use": "Multiple sections can be open simultaneously"},
+        {"name": "flush", "when_to_use": "No outer border, sections divided only by lines"},
+        {"name": "nested", "when_to_use": "Accordions within accordion sections"}
+      ],
+      "accessibility_requirements": [
+        "Headers are button elements (or role='button')",
+        "aria-expanded on each header button",
+        "aria-controls linking header to panel id",
+        "Panel has role='region' with aria-labelledby pointing to header",
+        "Enter/Space toggles expansion",
+        "Optionally, Home/End navigate between accordion headers"
+      ],
+      "responsive_behavior": [
+        "Full-width on all viewports",
+        "Content panels adapt to container width",
+        "May replace tabs on mobile viewports",
+        "Expand icon rotates to indicate state"
+      ],
+      "common_mistakes": [
+        "Headers not keyboard focusable",
+        "Content hidden with display:none but still in tab order",
+        "No visual indication of expanded state",
+        "Using accordion for content that should all be visible",
+        "Expand/collapse animation ignoring prefers-reduced-motion"
+      ],
+      "design_tokens_needed": ["color.accordion.header", "color.accordion.header.hover", "color.accordion.border", "spacing.accordion.header.padding", "spacing.accordion.content.padding", "motion.accordion.duration"],
+      "signals": ["Stacked headers with expand icons", "Chevron rotates on expand", "Content slides open/closed", "Only visible headers when collapsed"]
+    },
+    {
+      "id": "description_list",
+      "name": "Description List",
+      "category": "data_display",
+      "description": "Key-value pair display for presenting labeled data such as metadata, specifications, or profile details in a structured format.",
+      "anatomy": ["container", "term", "description", "dividers", "group_headers"],
+      "states": ["default", "loading"],
+      "variants": [
+        {"name": "vertical", "when_to_use": "Term above description, stacked layout"},
+        {"name": "horizontal", "when_to_use": "Term and description side by side"},
+        {"name": "striped", "when_to_use": "Alternating background colors for readability"},
+        {"name": "inline", "when_to_use": "Compact inline display for simple pairs"}
+      ],
+      "accessibility_requirements": [
+        "Uses dl, dt, dd semantic HTML elements",
+        "Terms and descriptions are properly paired",
+        "Group headers can use heading elements within dt",
+        "Screen readers announce term-description relationships"
+      ],
+      "responsive_behavior": [
+        "Horizontal layout collapses to vertical on mobile",
+        "Term column width adapts or becomes full-width label",
+        "Long descriptions wrap naturally"
+      ],
+      "common_mistakes": [
+        "Not using dl/dt/dd semantic elements",
+        "Inconsistent alignment between terms and descriptions",
+        "Term column too narrow causing wrapping",
+        "Missing dividers or structure in long lists",
+        "No loading skeleton for async data"
+      ],
+      "design_tokens_needed": ["typography.dl.term", "typography.dl.description", "color.dl.stripe", "spacing.dl.gap", "spacing.dl.term_width", "color.dl.divider"],
+      "signals": ["Label: Value pairs in a list", "Two-column layout with terms and descriptions", "dl/dt/dd elements in DOM", "Profile or spec sheet layout"]
+    },
+    {
+      "id": "code_block",
+      "name": "Code Block",
+      "category": "data_display",
+      "description": "Syntax-highlighted code display with optional line numbers, copy button, language indicator, and code highlighting.",
+      "anatomy": ["container", "language_label", "copy_button", "line_numbers", "code_content", "highlight_lines", "scroll_area"],
+      "states": ["default", "copied", "highlighted_lines", "wrapped", "scrollable"],
+      "variants": [
+        {"name": "inline", "when_to_use": "Short code snippet within paragraph text"},
+        {"name": "block", "when_to_use": "Multi-line code with syntax highlighting"},
+        {"name": "with_filename", "when_to_use": "Code shown with file path header"},
+        {"name": "diff", "when_to_use": "Showing additions and deletions"},
+        {"name": "executable", "when_to_use": "Run button for interactive code examples"}
+      ],
+      "accessibility_requirements": [
+        "Uses pre and code semantic elements",
+        "Language announced via aria-label or visible label",
+        "Copy button has accessible label and announces success",
+        "Line numbers are decorative (not selectable for copy)",
+        "Scrollable area is keyboard accessible",
+        "Syntax highlighting not relying solely on color"
+      ],
+      "responsive_behavior": [
+        "Horizontal scroll for long lines",
+        "Word wrap option for narrow screens",
+        "Copy button remains visible within scroll context",
+        "Font size may reduce slightly on mobile"
+      ],
+      "common_mistakes": [
+        "No horizontal scroll causing layout break",
+        "Line numbers copied with code content",
+        "Syntax colors with insufficient contrast",
+        "No copy-to-clipboard functionality",
+        "Language not indicated anywhere"
+      ],
+      "design_tokens_needed": ["color.code.background", "color.code.text", "color.code.line_number", "color.code.highlight_line", "typography.code", "spacing.code.padding", "border.code.radius"],
+      "signals": ["Monospace text in colored block", "Line numbers on left", "Copy button in corner", "pre/code elements in DOM"]
+    },
+    {
+      "id": "data_chart",
+      "name": "Data Chart",
+      "category": "data_display",
+      "description": "Visualization container for rendering data as bar charts, line charts, pie charts, and other graphical representations.",
+      "anatomy": ["container", "chart_area", "axes", "legend", "data_series", "tooltips", "title", "subtitle", "empty_state"],
+      "states": ["default", "loading", "empty", "error", "hover_data_point", "filtered"],
+      "variants": [
+        {"name": "bar", "when_to_use": "Comparing quantities across categories"},
+        {"name": "line", "when_to_use": "Showing trends over time"},
+        {"name": "pie", "when_to_use": "Showing parts of a whole (few segments)"},
+        {"name": "area", "when_to_use": "Volume or cumulative trends"},
+        {"name": "scatter", "when_to_use": "Correlation between two variables"},
+        {"name": "combo", "when_to_use": "Multiple chart types overlaid"}
+      ],
+      "accessibility_requirements": [
+        "Provide data table alternative for all charts",
+        "aria-label with chart summary on container",
+        "Color not sole differentiator for data series (use patterns)",
+        "Keyboard navigable data points",
+        "Tooltip content accessible via keyboard focus",
+        "role='img' with aria-label for decorative charts"
+      ],
+      "responsive_behavior": [
+        "Chart resizes to container width",
+        "Legend may move from side to bottom on narrow screens",
+        "Horizontal bar chart may be preferred on mobile",
+        "Axis labels may rotate or reduce on small viewports",
+        "Touch-friendly tooltip activation"
+      ],
+      "common_mistakes": [
+        "No alternative text or data table for accessibility",
+        "Relying only on color for series differentiation",
+        "Charts not responsive to container size",
+        "Missing loading and empty states",
+        "Axis truncation hiding important values",
+        "Y-axis not starting at zero for bar charts (misleading)"
+      ],
+      "design_tokens_needed": ["color.chart.series_1", "color.chart.series_2", "color.chart.series_3", "color.chart.axis", "color.chart.grid", "typography.chart.label", "typography.chart.title"],
+      "signals": ["SVG or canvas rendering", "Axes with labels", "Colored bars, lines, or segments", "Legend showing data series"]
+    },
+    {
+      "id": "alert",
+      "name": "Alert",
+      "category": "feedback",
+      "description": "Inline notification banner conveying contextual feedback messages at info, success, warning, or error severity levels.",
+      "anatomy": ["container", "icon", "title", "message", "close_button", "action_link"],
+      "states": ["info", "success", "warning", "error"],
+      "variants": [
+        {"name": "standard", "when_to_use": "Basic alert with icon and message"},
+        {"name": "with_title", "when_to_use": "Alert with bold title and description"},
+        {"name": "with_actions", "when_to_use": "Alert with action buttons or links"},
+        {"name": "dismissible", "when_to_use": "User can close the alert"},
+        {"name": "accent_border", "when_to_use": "Left border accent for subtler appearance"}
+      ],
+      "accessibility_requirements": [
+        "role='alert' for important messages that need immediate attention",
+        "role='status' for informational messages",
+        "aria-live='polite' for non-urgent updates",
+        "Close button has aria-label='Dismiss alert'",
+        "Icon has aria-hidden='true' when text conveys the same meaning",
+        "Not using color alone to convey severity (icon + text required)"
+      ],
+      "responsive_behavior": [
+        "Full-width within content area",
+        "Text wraps naturally on narrow screens",
+        "Close button remains accessible and visible",
+        "Action links may stack below message on mobile"
+      ],
+      "common_mistakes": [
+        "Using role='alert' for non-urgent information (causes interruption)",
+        "Alert disappearing too quickly for users to read",
+        "Color as sole severity indicator",
+        "No close mechanism for persistent alerts",
+        "Stacking too many alerts overwhelming the user"
+      ],
+      "design_tokens_needed": ["color.alert.info.background", "color.alert.success.background", "color.alert.warning.background", "color.alert.error.background", "color.alert.info.border", "spacing.alert.padding", "typography.alert.title", "typography.alert.message"],
+      "signals": ["Colored banner with icon", "Info/success/warning/error styling", "Located within content flow", "role='alert' or role='status' in DOM"]
+    },
+    {
+      "id": "toast",
+      "name": "Toast",
+      "category": "feedback",
+      "description": "Temporary floating notification that appears briefly to confirm an action or provide transient feedback without interrupting workflow.",
+      "anatomy": ["container", "icon", "message", "action_button", "close_button", "progress_bar"],
+      "states": ["entering", "visible", "exiting", "stacked"],
+      "variants": [
+        {"name": "simple", "when_to_use": "Brief confirmation message"},
+        {"name": "with_action", "when_to_use": "Includes undo or follow-up action"},
+        {"name": "persistent", "when_to_use": "Stays until manually dismissed"},
+        {"name": "stacked", "when_to_use": "Multiple toasts queued in a stack"}
+      ],
+      "accessibility_requirements": [
+        "role='status' with aria-live='polite'",
+        "Auto-dismiss timing allows adequate reading time (minimum 5 seconds)",
+        "Action button is keyboard accessible before toast dismisses",
+        "Toast queue doesn't overwhelm screen readers",
+        "Pause auto-dismiss on hover or focus",
+        "Respect prefers-reduced-motion for entrance animation"
+      ],
+      "responsive_behavior": [
+        "Positioned at bottom-center or top-right depending on context",
+        "Full-width on mobile viewports",
+        "Stacking direction adjusts to position",
+        "Safe area inset respected on mobile"
+      ],
+      "common_mistakes": [
+        "Disappearing before user can read or interact",
+        "Using toast for critical errors (use alert or dialog instead)",
+        "No way to access toast content after dismissal",
+        "Too many simultaneous toasts",
+        "Action button not reachable by keyboard before auto-dismiss"
+      ],
+      "design_tokens_needed": ["color.toast.background", "color.toast.text", "elevation.toast", "border.toast.radius", "spacing.toast.padding", "motion.toast.enter", "motion.toast.exit", "timing.toast.duration"],
+      "signals": ["Small floating box at screen edge", "Appears and disappears automatically", "Fixed position on viewport", "Brief text message"]
+    },
+    {
+      "id": "modal",
+      "name": "Modal",
+      "category": "feedback",
+      "description": "Focused overlay dialog that requires user interaction before returning to the main content, used for important content or forms that need full attention.",
+      "anatomy": ["backdrop", "dialog_container", "header", "title", "close_button", "body_content", "footer_actions"],
+      "states": ["closed", "opening", "open", "closing"],
+      "variants": [
+        {"name": "standard", "when_to_use": "Default centered modal with header, body, footer"},
+        {"name": "scrollable", "when_to_use": "Content exceeds viewport height"},
+        {"name": "fullscreen", "when_to_use": "Complex flows needing maximum space"},
+        {"name": "nested", "when_to_use": "Modal launched from within another modal (avoid if possible)"},
+        {"name": "alert_dialog", "when_to_use": "Urgent confirmation requiring immediate response"}
+      ],
+      "accessibility_requirements": [
+        "role='dialog' with aria-modal='true'",
+        "aria-labelledby pointing to title element",
+        "aria-describedby pointing to body content if applicable",
+        "Focus trapped within modal while open",
+        "Focus moves to modal (first focusable element or close button) on open",
+        "Escape key closes modal",
+        "Focus returns to trigger element on close",
+        "Background content inert (aria-hidden on main content)"
+      ],
+      "responsive_behavior": [
+        "Full-width with margins on mobile",
+        "May become full-screen sheet on very small viewports",
+        "Footer buttons stack vertically on mobile",
+        "Scrollable body, fixed header and footer"
+      ],
+      "common_mistakes": [
+        "Focus not trapped within modal",
+        "Focus not returned to trigger on close",
+        "Background content still interactive",
+        "Escape key doesn't close modal",
+        "Nested modals creating confusing UX",
+        "Modal used for content that should be a page"
+      ],
+      "design_tokens_needed": ["color.modal.backdrop", "color.modal.background", "elevation.modal", "sizing.modal.width", "sizing.modal.max_height", "spacing.modal.padding", "border.modal.radius", "motion.modal.enter", "motion.modal.exit"],
+      "signals": ["Centered box over dimmed backdrop", "Close X in top corner", "Header/body/footer structure", "Backdrop click to close"]
+    },
+    {
+      "id": "dialog",
+      "name": "Dialog",
+      "category": "feedback",
+      "description": "Decision-point overlay presenting a question or confirmation to the user, typically with two or three action buttons (confirm, cancel, alternative).",
+      "anatomy": ["backdrop", "dialog_container", "icon", "title", "message", "action_buttons", "checkbox_option"],
+      "states": ["closed", "open", "confirming"],
+      "variants": [
+        {"name": "confirmation", "when_to_use": "Confirm before proceeding with action"},
+        {"name": "destructive", "when_to_use": "Warn before irreversible destructive action"},
+        {"name": "information", "when_to_use": "Acknowledge information before continuing"},
+        {"name": "prompt", "when_to_use": "Collect simple input within dialog"}
+      ],
+      "accessibility_requirements": [
+        "role='alertdialog' for urgent confirmations",
+        "aria-labelledby on title, aria-describedby on message",
+        "Focus moves to the least destructive action button",
+        "Escape key triggers cancel/dismiss action",
+        "Focus trapped within dialog",
+        "Background content inert"
+      ],
+      "responsive_behavior": [
+        "Centered with margins on all viewports",
+        "Buttons may stack on very narrow screens",
+        "Dialog width constrained with max-width",
+        "Content scrolls within dialog if needed"
+      ],
+      "common_mistakes": [
+        "Destructive action as the visually prominent button",
+        "Ambiguous button labels ('Yes'/'No' instead of action verbs)",
+        "Using dialog for content that doesn't need interruption",
+        "No way to dismiss without choosing an action",
+        "Focus on destructive button by default"
+      ],
+      "design_tokens_needed": ["color.dialog.background", "color.dialog.backdrop", "elevation.dialog", "spacing.dialog.padding", "sizing.dialog.max_width", "typography.dialog.title", "typography.dialog.message"],
+      "signals": ["Small centered overlay with question", "Two or three action buttons", "Warning icon for destructive actions", "Dimmed backdrop"]
+    },
+    {
+      "id": "progress_bar",
+      "name": "Progress Bar",
+      "category": "feedback",
+      "description": "Linear progress indicator showing completion status of a task or process as a horizontal bar that fills from left to right.",
+      "anatomy": ["track", "fill_bar", "label", "percentage_text", "buffer_bar"],
+      "states": ["determinate", "indeterminate", "completed", "error", "paused"],
+      "variants": [
+        {"name": "determinate", "when_to_use": "Known completion percentage"},
+        {"name": "indeterminate", "when_to_use": "Unknown duration, shows activity"},
+        {"name": "with_label", "when_to_use": "Percentage or step text displayed"},
+        {"name": "segmented", "when_to_use": "Multi-step progress with distinct segments"},
+        {"name": "buffer", "when_to_use": "Shows loaded buffer ahead of playback position"}
+      ],
+      "accessibility_requirements": [
+        "role='progressbar' with aria-valuemin, aria-valuemax, aria-valuenow",
+        "aria-valuetext for human-readable progress description",
+        "aria-label describing what is progressing",
+        "Indeterminate uses aria-valuenow removal",
+        "Progress updates announced via aria-live at reasonable intervals"
+      ],
+      "responsive_behavior": [
+        "Full-width within container",
+        "Label may move from beside to above on narrow screens",
+        "Bar height remains consistent across viewports"
+      ],
+      "common_mistakes": [
+        "No accessible label for what is being measured",
+        "Progress jumping backwards confusing users",
+        "Indeterminate bar used when progress is known",
+        "Updates too frequent causing screen reader verbosity",
+        "No error or completion state"
+      ],
+      "design_tokens_needed": ["color.progress.track", "color.progress.fill", "color.progress.buffer", "sizing.progress.height", "border.progress.radius", "motion.progress.indeterminate"],
+      "signals": ["Horizontal bar partially filled", "Percentage text nearby", "Animated fill or shimmer", "role='progressbar' in DOM"]
+    },
+    {
+      "id": "progress_circle",
+      "name": "Progress Circle",
+      "category": "feedback",
+      "description": "Circular progress indicator showing completion as a ring that fills clockwise, often used for compact progress or loading states.",
+      "anatomy": ["track_ring", "fill_arc", "center_content", "percentage_text", "label"],
+      "states": ["determinate", "indeterminate", "completed", "error"],
+      "variants": [
+        {"name": "determinate", "when_to_use": "Known percentage displayed as arc fill"},
+        {"name": "indeterminate", "when_to_use": "Spinning animation for unknown duration"},
+        {"name": "with_content", "when_to_use": "Percentage or icon displayed in center"},
+        {"name": "semi_circle", "when_to_use": "Gauge-style half-circle display"}
+      ],
+      "accessibility_requirements": [
+        "role='progressbar' with aria-valuemin, aria-valuemax, aria-valuenow",
+        "aria-label describing what is progressing",
+        "Center text is decorative if same info is in aria attributes",
+        "SVG-based implementation needs role='img' with accessible name"
+      ],
+      "responsive_behavior": [
+        "Scales with defined size tokens",
+        "Center text scales proportionally",
+        "Remains circular at all sizes"
+      ],
+      "common_mistakes": [
+        "Too small to see progress clearly",
+        "Spinning animation ignoring prefers-reduced-motion",
+        "No text alternative for the visual progress",
+        "Center content overlapping ring on small sizes",
+        "Using circle for long-running processes where bar is more informative"
+      ],
+      "design_tokens_needed": ["color.progress_circle.track", "color.progress_circle.fill", "sizing.progress_circle.sm", "sizing.progress_circle.md", "sizing.progress_circle.lg", "sizing.progress_circle.stroke_width"],
+      "signals": ["Circular arc or ring", "Percentage in center", "Spinning animation", "SVG circle elements"]
+    },
+    {
+      "id": "skeleton",
+      "name": "Skeleton",
+      "category": "feedback",
+      "description": "Loading placeholder that mimics the shape and layout of the content being loaded, reducing perceived wait time and preventing layout shift.",
+      "anatomy": ["container", "text_lines", "circular_placeholder", "rectangular_placeholder", "animation_overlay"],
+      "states": ["loading", "loaded"],
+      "variants": [
+        {"name": "text", "when_to_use": "Placeholder for text paragraphs"},
+        {"name": "circular", "when_to_use": "Placeholder for avatars or icons"},
+        {"name": "rectangular", "when_to_use": "Placeholder for images or cards"},
+        {"name": "custom", "when_to_use": "Matches exact layout of target component"}
+      ],
+      "accessibility_requirements": [
+        "aria-busy='true' on skeleton container",
+        "aria-label describing loading state",
+        "Screen reader announces when loading completes",
+        "Animation respects prefers-reduced-motion",
+        "Not used as the only loading indicator (announce loading state)"
+      ],
+      "responsive_behavior": [
+        "Matches the responsive behavior of the content it represents",
+        "Skeleton widths adapt to container",
+        "Number of skeleton items may reduce on mobile"
+      ],
+      "common_mistakes": [
+        "Skeleton layout doesn't match actual content layout",
+        "No accessible loading announcement",
+        "Skeleton visible for too brief a time causing flash",
+        "Not animating (static gray boxes look broken)",
+        "Using skeleton for actions that take under 300ms"
+      ],
+      "design_tokens_needed": ["color.skeleton.base", "color.skeleton.highlight", "border.skeleton.radius", "motion.skeleton.duration", "sizing.skeleton.text_height"],
+      "signals": ["Gray animated shapes matching content layout", "Shimmer or pulse animation", "Replaced by real content on load", "Rectangular and circular gray shapes"]
+    },
+    {
+      "id": "spinner",
+      "name": "Spinner",
+      "category": "feedback",
+      "description": "Indeterminate loading indicator showing that a process is in progress without known completion time, typically a rotating circular animation.",
+      "anatomy": ["spinning_element", "label_text"],
+      "states": ["spinning", "hidden"],
+      "variants": [
+        {"name": "inline", "when_to_use": "Small spinner within buttons or inputs"},
+        {"name": "overlay", "when_to_use": "Centered over content area with backdrop"},
+        {"name": "page", "when_to_use": "Full-page loading state"},
+        {"name": "with_label", "when_to_use": "Spinner with descriptive loading text"}
+      ],
+      "accessibility_requirements": [
+        "role='status' with aria-live='polite'",
+        "aria-label describing what is loading (e.g., 'Loading search results')",
+        "Visible label preferred over aria-label alone",
+        "Screen reader announces loading start and completion",
+        "Animation respects prefers-reduced-motion"
+      ],
+      "responsive_behavior": [
+        "Size scales across predefined tokens",
+        "Centered within its context area",
+        "Label may wrap below spinner on narrow screens"
+      ],
+      "common_mistakes": [
+        "No accessible label for what is loading",
+        "Spinner too small to notice",
+        "Used when progress percentage is known (use progress bar)",
+        "No completion announcement for screen readers",
+        "Animation continues after content has loaded"
+      ],
+      "design_tokens_needed": ["color.spinner.track", "color.spinner.fill", "sizing.spinner.sm", "sizing.spinner.md", "sizing.spinner.lg", "motion.spinner.duration"],
+      "signals": ["Rotating circular element", "Partial ring or dots in circle", "Centered in loading area", "Animated rotation"]
+    },
+    {
+      "id": "empty_state",
+      "name": "Empty State",
+      "category": "feedback",
+      "description": "Placeholder content shown when a view or container has no data to display, guiding users on what to do next.",
+      "anatomy": ["container", "illustration", "title", "description", "primary_action", "secondary_action"],
+      "states": ["empty", "no_results", "error", "first_use"],
+      "variants": [
+        {"name": "no_data", "when_to_use": "Collection exists but has no items yet"},
+        {"name": "no_results", "when_to_use": "Search or filter returned no matches"},
+        {"name": "error", "when_to_use": "Data failed to load"},
+        {"name": "first_use", "when_to_use": "Feature not yet configured, onboarding moment"},
+        {"name": "permission", "when_to_use": "User lacks access to this content"}
+      ],
+      "accessibility_requirements": [
+        "Illustration has role='img' with alt text or aria-hidden if decorative",
+        "Title and description are semantic heading and paragraph",
+        "Action buttons are clearly labeled",
+        "State announced to screen readers when view transitions to empty"
+      ],
+      "responsive_behavior": [
+        "Centered within container",
+        "Illustration may scale down or hide on mobile",
+        "Text centered with max-width constraint",
+        "Actions stack vertically on narrow screens"
+      ],
+      "common_mistakes": [
+        "No guidance on what to do next",
+        "Generic message without context ('No data')",
+        "Missing illustration making the state look broken",
+        "Action button label doesn't match the empty state context",
+        "Empty state not occupying enough visual space"
+      ],
+      "design_tokens_needed": ["sizing.empty_state.illustration", "typography.empty_state.title", "typography.empty_state.description", "spacing.empty_state.gap", "color.empty_state.text"],
+      "signals": ["Centered illustration with text", "Create or add action button", "Message like 'No items yet'", "Full-area placeholder"]
+    },
+    {
+      "id": "error_boundary",
+      "name": "Error Boundary",
+      "category": "feedback",
+      "description": "Error recovery display that catches component-level failures and presents a graceful fallback UI with retry or recovery options.",
+      "anatomy": ["container", "error_icon", "title", "error_details", "retry_button", "report_link", "fallback_content"],
+      "states": ["normal", "error_caught", "retrying"],
+      "variants": [
+        {"name": "inline", "when_to_use": "Error within a section, rest of page works"},
+        {"name": "page", "when_to_use": "Full page error recovery"},
+        {"name": "minimal", "when_to_use": "Compact error indicator with retry"},
+        {"name": "with_details", "when_to_use": "Expandable error details for debugging"}
+      ],
+      "accessibility_requirements": [
+        "Error state announced via aria-live='assertive'",
+        "Retry button clearly labeled and keyboard accessible",
+        "Error details accessible but not overwhelming",
+        "Focus moves to error boundary when error occurs",
+        "Report link opens in new context with warning"
+      ],
+      "responsive_behavior": [
+        "Fills the space of the failed component",
+        "Error message centered within boundary",
+        "Actions stack on narrow screens",
+        "Details collapsible to save space"
+      ],
+      "common_mistakes": [
+        "Showing raw error stack trace to users",
+        "No retry mechanism",
+        "Error boundary too granular or too broad",
+        "Not logging errors for debugging",
+        "Retry causes same error in a loop without backoff"
+      ],
+      "design_tokens_needed": ["color.error_boundary.background", "color.error_boundary.icon", "typography.error_boundary.title", "spacing.error_boundary.padding", "border.error_boundary.radius"],
+      "signals": ["Error icon with message", "Retry button", "Located where component should render", "Fallback UI for crashed component"]
+    },
+    {
+      "id": "banner",
+      "name": "Banner",
+      "category": "feedback",
+      "description": "Persistent message bar at the top of the page or section for site-wide announcements, system status, or cookie consent notices.",
+      "anatomy": ["container", "icon", "message", "action_button", "close_button"],
+      "states": ["visible", "dismissed", "info", "warning", "error"],
+      "variants": [
+        {"name": "announcement", "when_to_use": "Marketing or feature announcement"},
+        {"name": "system_status", "when_to_use": "System maintenance or outage notice"},
+        {"name": "consent", "when_to_use": "Cookie or privacy consent banner"},
+        {"name": "upgrade", "when_to_use": "Plan upgrade or trial expiration notice"}
+      ],
+      "accessibility_requirements": [
+        "role='banner' or role='complementary' depending on purpose",
+        "Not role='alert' unless truly urgent (avoid interrupting)",
+        "Close button has descriptive aria-label",
+        "Banner content readable by screen readers in page flow",
+        "Does not push content below in a jarring way"
+      ],
+      "responsive_behavior": [
+        "Full-width across viewport",
+        "Text wraps, actions may stack on mobile",
+        "Fixed position or scrolls with content",
+        "May reduce to single-line with expand trigger on mobile"
+      ],
+      "common_mistakes": [
+        "Banner covers important UI elements",
+        "No close/dismiss mechanism for non-essential banners",
+        "Too many banners stacking at top of page",
+        "Reappearing after user has dismissed",
+        "Using banner for errors that should be inline alerts"
+      ],
+      "design_tokens_needed": ["color.banner.background", "color.banner.text", "color.banner.action", "spacing.banner.padding", "sizing.banner.height", "typography.banner"],
+      "signals": ["Full-width bar at top of page", "Announcement or status text", "Close X button", "Distinct background color from page"]
+    },
+    {
+      "id": "container",
+      "name": "Container",
+      "category": "layout",
+      "description": "Content width constraint wrapper that centers content and applies a maximum width, providing consistent horizontal margins across the layout.",
+      "anatomy": ["wrapper_element", "content_area"],
+      "states": ["default"],
+      "variants": [
+        {"name": "fixed", "when_to_use": "Fixed max-width at each breakpoint"},
+        {"name": "fluid", "when_to_use": "Full-width with consistent padding"},
+        {"name": "narrow", "when_to_use": "Reading-optimized narrow content width"},
+        {"name": "wide", "when_to_use": "Wide content for dashboards or data views"}
+      ],
+      "accessibility_requirements": [
+        "Semantic main, section, or article element",
+        "Content readable at all container widths",
+        "No horizontal scroll caused by content overflow"
+      ],
+      "responsive_behavior": [
+        "Max-width changes at breakpoints",
+        "Horizontal padding adjusts for mobile vs desktop",
+        "Fluid variant fills viewport with consistent padding"
+      ],
+      "common_mistakes": [
+        "Nesting containers causing double padding",
+        "Inconsistent container widths across pages",
+        "Content overflowing container on mobile",
+        "Using container for full-bleed backgrounds (need wrapper outside)"
+      ],
+      "design_tokens_needed": ["sizing.container.sm", "sizing.container.md", "sizing.container.lg", "sizing.container.xl", "spacing.container.padding"],
+      "signals": ["Centered content block", "Max-width applied", "Consistent horizontal margins", "Content narrower than viewport"]
+    },
+    {
+      "id": "grid",
+      "name": "Grid",
+      "category": "layout",
+      "description": "Column-based layout system dividing content into a configurable number of equal or variable-width columns with consistent gutters.",
+      "anatomy": ["grid_container", "grid_columns", "grid_rows", "gutters"],
+      "states": ["default"],
+      "variants": [
+        {"name": "fixed_columns", "when_to_use": "Standard 12-column layout grid"},
+        {"name": "auto_fit", "when_to_use": "Columns auto-fill based on minimum width"},
+        {"name": "asymmetric", "when_to_use": "Unequal column widths (2/3 + 1/3)"},
+        {"name": "masonry", "when_to_use": "Variable-height items filling vertical gaps"}
+      ],
+      "accessibility_requirements": [
+        "Visual grid order matches DOM reading order",
+        "Grid is presentational, not table semantics",
+        "Content remains meaningful when linearized on mobile",
+        "Focus order follows logical content flow, not visual position"
+      ],
+      "responsive_behavior": [
+        "Column count reduces at smaller breakpoints",
+        "12 columns on desktop, 6 on tablet, 1 on mobile typical",
+        "Gutter size may reduce on mobile",
+        "Items may reorder based on priority"
+      ],
+      "common_mistakes": [
+        "Visual order doesn't match focus/DOM order",
+        "Grid items overflowing gutters",
+        "Inconsistent gutter sizes within the same grid",
+        "Not testing grid collapse on mobile",
+        "Using CSS grid order creating confusing tab sequences"
+      ],
+      "design_tokens_needed": ["sizing.grid.columns", "spacing.grid.gutter", "sizing.grid.max_width", "spacing.grid.margin"],
+      "signals": ["Multi-column content layout", "Consistent gutter spacing", "display: grid or column-based layout", "Items aligned in rows and columns"]
+    },
+    {
+      "id": "stack",
+      "name": "Stack",
+      "category": "layout",
+      "description": "Flexbox-based layout utility for arranging child elements vertically (VStack) or horizontally (HStack) with consistent spacing.",
+      "anatomy": ["container", "child_elements", "spacers"],
+      "states": ["default"],
+      "variants": [
+        {"name": "vertical", "when_to_use": "Stack items top to bottom"},
+        {"name": "horizontal", "when_to_use": "Stack items left to right"},
+        {"name": "responsive", "when_to_use": "Horizontal on desktop, vertical on mobile"},
+        {"name": "with_dividers", "when_to_use": "Visual dividers between stacked items"}
+      ],
+      "accessibility_requirements": [
+        "DOM order matches visual order",
+        "Spacing is visual only, not affecting content semantics",
+        "Use appropriate semantic wrapper (div, section, etc.)"
+      ],
+      "responsive_behavior": [
+        "Direction may switch at breakpoints",
+        "Spacing may adjust at breakpoints",
+        "Wrapping behavior for horizontal stacks",
+        "Items may change alignment on different viewports"
+      ],
+      "common_mistakes": [
+        "Inconsistent spacing values within same stack",
+        "Using margins on children instead of gap on container",
+        "Not handling wrapping for horizontal stacks",
+        "Flex direction not responsive when it should be"
+      ],
+      "design_tokens_needed": ["spacing.stack.xs", "spacing.stack.sm", "spacing.stack.md", "spacing.stack.lg", "spacing.stack.xl"],
+      "signals": ["Evenly spaced children", "Flex container with gap", "Vertical or horizontal arrangement", "Consistent spacing between items"]
+    },
+    {
+      "id": "divider",
+      "name": "Divider",
+      "category": "layout",
+      "description": "Visual separator line between content sections, available in horizontal and vertical orientations with optional label.",
+      "anatomy": ["line_element", "label_text"],
+      "states": ["default"],
+      "variants": [
+        {"name": "horizontal", "when_to_use": "Separate stacked content sections"},
+        {"name": "vertical", "when_to_use": "Separate side-by-side elements"},
+        {"name": "with_label", "when_to_use": "Divider with centered text like 'OR'"},
+        {"name": "inset", "when_to_use": "Indented divider that doesn't span full width"}
+      ],
+      "accessibility_requirements": [
+        "role='separator' for semantic meaning",
+        "aria-orientation='horizontal' or 'vertical'",
+        "Decorative dividers use aria-hidden='true'",
+        "Label text should be in the accessibility tree if meaningful"
+      ],
+      "responsive_behavior": [
+        "Horizontal dividers span container width",
+        "Vertical dividers span container height",
+        "Orientation may change between viewports if layout changes"
+      ],
+      "common_mistakes": [
+        "Using hr without considering its semantic weight",
+        "Excessive dividers reducing whitespace effectiveness",
+        "Divider color too prominent or too subtle",
+        "Vertical dividers not stretching to container height"
+      ],
+      "design_tokens_needed": ["color.divider", "sizing.divider.thickness", "spacing.divider.margin", "sizing.divider.inset"],
+      "signals": ["Thin horizontal line", "hr element in DOM", "Line between content sections", "Visual separator"]
+    },
+    {
+      "id": "aspect_ratio",
+      "name": "Aspect Ratio",
+      "category": "layout",
+      "description": "Container that maintains a fixed width-to-height proportion regardless of content or viewport size, commonly used for images and video embeds.",
+      "anatomy": ["outer_container", "inner_content"],
+      "states": ["default", "loading"],
+      "variants": [
+        {"name": "square", "when_to_use": "1:1 ratio for thumbnails and avatars"},
+        {"name": "video", "when_to_use": "16:9 ratio for video embeds"},
+        {"name": "photo", "when_to_use": "4:3 or 3:2 ratio for photography"},
+        {"name": "custom", "when_to_use": "Any custom ratio specified"}
+      ],
+      "accessibility_requirements": [
+        "Content within must remain accessible at all aspect ratios",
+        "Images have alt text regardless of container",
+        "No content clipping that hides important information",
+        "aspect-ratio CSS property preferred over padding-top hack"
+      ],
+      "responsive_behavior": [
+        "Width fills container, height calculated from ratio",
+        "Content scales or crops within the ratio container",
+        "Object-fit controls how content fills the space"
+      ],
+      "common_mistakes": [
+        "Content distorted due to incorrect object-fit",
+        "Important content cropped at certain ratios",
+        "Using padding-top hack when aspect-ratio CSS is available",
+        "Not handling content that doesn't match the expected ratio"
+      ],
+      "design_tokens_needed": ["sizing.aspect_ratio.square", "sizing.aspect_ratio.video", "sizing.aspect_ratio.photo"],
+      "signals": ["Fixed proportion container", "Image or video maintaining ratio", "aspect-ratio CSS property", "Responsive media container"]
+    },
+    {
+      "id": "responsive_columns",
+      "name": "Responsive Columns",
+      "category": "layout",
+      "description": "Adaptive column layout that automatically adjusts the number of columns based on viewport width and minimum column width constraints.",
+      "anatomy": ["container", "columns", "gutters"],
+      "states": ["default"],
+      "variants": [
+        {"name": "auto_fit", "when_to_use": "Columns fill available space, wrapping as needed"},
+        {"name": "auto_fill", "when_to_use": "Columns maintain min-width, leaving gaps if needed"},
+        {"name": "breakpoint", "when_to_use": "Column count set explicitly at each breakpoint"},
+        {"name": "sidebar_main", "when_to_use": "One fixed-width sidebar with fluid main content"}
+      ],
+      "accessibility_requirements": [
+        "Content order in DOM matches reading order",
+        "No content hidden by column overflow",
+        "Content readable when linearized to single column"
+      ],
+      "responsive_behavior": [
+        "Columns reflow automatically based on container width",
+        "Minimum column width prevents content from becoming too narrow",
+        "Gutters may adjust at breakpoints",
+        "Single column on mobile is the natural fallback"
+      ],
+      "common_mistakes": [
+        "Columns too narrow causing unreadable content",
+        "Content reordering creating confusing reading flow",
+        "Not testing intermediate viewport sizes",
+        "Fixed column counts that don't adapt"
+      ],
+      "design_tokens_needed": ["sizing.column.min_width", "spacing.column.gutter", "sizing.column.max_count"],
+      "signals": ["Content in multiple columns that reflows", "auto-fit or auto-fill in CSS grid", "Column count changes at breakpoints", "Even-width content columns"]
+    },
+    {
+      "id": "sidebar_layout",
+      "name": "Sidebar Layout",
+      "category": "layout",
+      "description": "Two-panel layout with a fixed or resizable sidebar alongside a fluid main content area, common in applications and documentation sites.",
+      "anatomy": ["layout_container", "sidebar_panel", "main_content", "resize_handle", "toggle_control"],
+      "states": ["both_visible", "sidebar_collapsed", "sidebar_hidden", "sidebar_overlay"],
+      "variants": [
+        {"name": "left_sidebar", "when_to_use": "Navigation or tooling sidebar on the left"},
+        {"name": "right_sidebar", "when_to_use": "Details or properties panel on the right"},
+        {"name": "dual_sidebar", "when_to_use": "Both left and right sidebars"},
+        {"name": "resizable", "when_to_use": "User can drag to resize sidebar width"}
+      ],
+      "accessibility_requirements": [
+        "Sidebar and main content are distinct landmarks",
+        "Toggle button has aria-expanded state",
+        "Resize handle is keyboard operable",
+        "Content in sidebar remains in focus order when visible",
+        "Sidebar overlay traps focus when active on mobile"
+      ],
+      "responsive_behavior": [
+        "Sidebar collapses or becomes overlay on mobile",
+        "Main content takes full width when sidebar is hidden",
+        "Toggle control appears at mobile breakpoint",
+        "Sidebar width may reduce on tablet"
+      ],
+      "common_mistakes": [
+        "Main content not expanding when sidebar collapses",
+        "Sidebar overlay not dismissible on mobile",
+        "Resize handle not keyboard accessible",
+        "Content in collapsed sidebar still receives focus",
+        "No smooth transition between states"
+      ],
+      "design_tokens_needed": ["sizing.sidebar_layout.sidebar_width", "sizing.sidebar_layout.min_width", "spacing.sidebar_layout.gutter", "color.sidebar_layout.divider"],
+      "signals": ["Two-panel layout", "One narrow panel beside wide content", "Collapsible side panel", "aside element beside main element"]
+    },
+    {
+      "id": "drawer",
+      "name": "Drawer",
+      "category": "overlay",
+      "description": "Panel that slides in from a screen edge (left, right, top, or bottom) to display secondary content, navigation, or forms without leaving the current context.",
+      "anatomy": ["backdrop", "drawer_panel", "header", "close_button", "body_content", "footer_actions", "resize_handle"],
+      "states": ["closed", "opening", "open", "closing"],
+      "variants": [
+        {"name": "left", "when_to_use": "Navigation drawer from left edge"},
+        {"name": "right", "when_to_use": "Detail panel or form from right edge"},
+        {"name": "top", "when_to_use": "Notifications or search from top edge"},
+        {"name": "bottom", "when_to_use": "Mobile-friendly bottom sheet alternative"},
+        {"name": "persistent", "when_to_use": "Always-visible side panel without backdrop"}
+      ],
+      "accessibility_requirements": [
+        "role='dialog' with aria-modal='true' for modal drawers",
+        "aria-labelledby pointing to drawer title",
+        "Focus trapped within drawer while open",
+        "Escape key closes drawer",
+        "Focus returns to trigger on close",
+        "Background content inert when drawer is modal"
+      ],
+      "responsive_behavior": [
+        "May go full-width on mobile",
+        "Persistent drawers become overlay on mobile",
+        "Swipe gesture to close on touch devices",
+        "Bottom drawer uses sheet-like behavior on mobile"
+      ],
+      "common_mistakes": [
+        "Drawer pushes content off-screen instead of overlaying",
+        "Focus not trapped in modal drawer",
+        "No backdrop for modal drawers",
+        "Drawer content not scrollable",
+        "Closing animation janky or missing"
+      ],
+      "design_tokens_needed": ["color.drawer.background", "color.drawer.backdrop", "sizing.drawer.width", "sizing.drawer.max_width", "elevation.drawer", "motion.drawer.slide", "spacing.drawer.padding"],
+      "signals": ["Panel sliding from screen edge", "Overlay with backdrop", "Close button in header", "Slide-in animation"]
+    },
+    {
+      "id": "dropdown_menu",
+      "name": "Dropdown Menu",
+      "category": "overlay",
+      "description": "Floating action menu that appears when triggered by a button click, displaying a list of actions or options.",
+      "anatomy": ["trigger_button", "menu_container", "menu_items", "icons", "keyboard_shortcuts", "dividers", "sub_menu_triggers", "section_labels"],
+      "states": ["closed", "open", "item_hover", "item_focus", "sub_menu_open"],
+      "variants": [
+        {"name": "simple", "when_to_use": "Flat list of action items"},
+        {"name": "with_icons", "when_to_use": "Actions paired with recognizable icons"},
+        {"name": "with_shortcuts", "when_to_use": "Keyboard shortcut hints shown per item"},
+        {"name": "nested", "when_to_use": "Sub-menus for categorized actions"},
+        {"name": "with_sections", "when_to_use": "Grouped actions with section headers"}
+      ],
+      "accessibility_requirements": [
+        "Trigger has aria-haspopup='menu' and aria-expanded",
+        "role='menu' on container, role='menuitem' on items",
+        "Arrow key navigation between items",
+        "Enter/Space activates focused item",
+        "Escape closes menu and returns focus to trigger",
+        "Type-ahead to jump to items by first letter",
+        "Sub-menus open with right arrow, close with left arrow"
+      ],
+      "responsive_behavior": [
+        "Menu repositions to stay within viewport",
+        "Touch-friendly item sizing on mobile",
+        "May become full-width bottom sheet on mobile",
+        "Sub-menus may inline-expand instead of flying out"
+      ],
+      "common_mistakes": [
+        "Not using menu ARIA roles (using listbox instead)",
+        "Tab key moves between items instead of arrow keys",
+        "Menu opens on hover without click trigger",
+        "No type-ahead functionality for long menus",
+        "Menu renders outside viewport"
+      ],
+      "design_tokens_needed": ["color.menu.background", "color.menu.item.hover", "elevation.menu", "spacing.menu.item.padding", "sizing.menu.min_width", "border.menu.radius", "typography.menu.item"],
+      "signals": ["Floating list of actions", "Appears below/beside trigger button", "Role='menu' in DOM", "Items with optional icons and shortcuts"]
+    },
+    {
+      "id": "context_menu",
+      "name": "Context Menu",
+      "category": "overlay",
+      "description": "Right-click triggered action menu appearing at the cursor position, providing contextual actions relevant to the clicked element.",
+      "anatomy": ["menu_container", "menu_items", "icons", "keyboard_shortcuts", "dividers", "sub_menus", "section_labels"],
+      "states": ["closed", "open", "item_hover", "item_focus", "sub_menu_open"],
+      "variants": [
+        {"name": "simple", "when_to_use": "Basic right-click menu with actions"},
+        {"name": "with_sub_menus", "when_to_use": "Nested action categories"},
+        {"name": "contextual", "when_to_use": "Different items based on clicked element type"},
+        {"name": "with_preview", "when_to_use": "Action items with result preview"}
+      ],
+      "accessibility_requirements": [
+        "Menu accessible via keyboard alternative (Shift+F10 or Menu key)",
+        "role='menu' with role='menuitem' items",
+        "Arrow key navigation",
+        "Escape closes menu, focus returns to triggering context",
+        "Alternative access to all actions via visible UI elements",
+        "Not the sole way to access important actions"
+      ],
+      "responsive_behavior": [
+        "Positioned at cursor/touch point",
+        "Repositions to stay within viewport bounds",
+        "May not apply on touch devices (use long-press or action menu instead)",
+        "Actions available through other UI paths on mobile"
+      ],
+      "common_mistakes": [
+        "Context menu as only access point for actions",
+        "No keyboard alternative to right-click",
+        "Menu extends outside viewport",
+        "Overriding browser context menu without good reason",
+        "Not providing same actions in visible UI"
+      ],
+      "design_tokens_needed": ["color.context_menu.background", "color.context_menu.item.hover", "elevation.context_menu", "spacing.context_menu.padding", "border.context_menu.radius", "typography.context_menu.item"],
+      "signals": ["Menu at cursor position", "Appears on right-click", "Action items with icons/shortcuts", "Contextual to clicked element"]
+    },
+    {
+      "id": "sheet",
+      "name": "Sheet",
+      "category": "overlay",
+      "description": "Mobile-first bottom sheet overlay that slides up from the bottom of the screen, providing actions, content, or navigation with drag-to-dismiss gesture support.",
+      "anatomy": ["backdrop", "sheet_container", "drag_handle", "header", "body_content", "action_area", "snap_points"],
+      "states": ["closed", "peek", "half_open", "full_open", "dragging", "closing"],
+      "variants": [
+        {"name": "action", "when_to_use": "List of action items (mobile alternative to dropdown)"},
+        {"name": "content", "when_to_use": "Scrollable content panel from bottom"},
+        {"name": "modal", "when_to_use": "Requires interaction before dismissal"},
+        {"name": "persistent", "when_to_use": "Map-style sheet that stays visible at a peek height"}
+      ],
+      "accessibility_requirements": [
+        "role='dialog' with aria-modal for modal sheets",
+        "Drag handle has aria-label and keyboard operability",
+        "Content accessible via keyboard scrolling",
+        "Escape or swipe down to dismiss",
+        "Focus trapped within modal sheets",
+        "Snap points communicated or intuitive"
+      ],
+      "responsive_behavior": [
+        "Primary pattern on mobile, may become drawer or modal on desktop",
+        "Respects safe area insets on notched devices",
+        "Snap points at percentage heights of viewport",
+        "Content scrolls within sheet when at max snap point"
+      ],
+      "common_mistakes": [
+        "No drag handle making sheet look like fixed content",
+        "Sheet content not scrollable at full height",
+        "Backdrop interaction not properly handled",
+        "Missing snap points causing awkward half-states",
+        "No keyboard alternative for drag gesture"
+      ],
+      "design_tokens_needed": ["color.sheet.background", "color.sheet.backdrop", "color.sheet.handle", "border.sheet.radius", "elevation.sheet", "sizing.sheet.handle", "motion.sheet.snap"],
+      "signals": ["Panel sliding up from bottom", "Drag handle bar at top", "Rounded top corners", "Mobile overlay pattern"]
+    },
+    {
+      "id": "button",
+      "name": "Button",
+      "category": "actions",
+      "description": "Primary interactive element for triggering actions, submitting forms, or navigating, available in multiple emphasis levels and sizes.",
+      "anatomy": ["container", "label_text", "leading_icon", "trailing_icon", "loading_spinner"],
+      "states": ["default", "hover", "focus", "active", "disabled", "loading"],
+      "variants": [
+        {"name": "primary", "when_to_use": "Main call-to-action on the page or section"},
+        {"name": "secondary", "when_to_use": "Supporting actions alongside primary"},
+        {"name": "tertiary", "when_to_use": "Low-emphasis actions or text-style buttons"},
+        {"name": "destructive", "when_to_use": "Delete, remove, or other irreversible actions"},
+        {"name": "outline", "when_to_use": "Medium emphasis with border, no fill"},
+        {"name": "ghost", "when_to_use": "Minimal emphasis, text-only appearance"}
+      ],
+      "accessibility_requirements": [
+        "Semantic button element (not div or span with click handler)",
+        "Descriptive text label (not just 'Click here' or 'Submit')",
+        "Disabled state uses disabled attribute, not just visual styling",
+        "Loading state communicated via aria-busy='true' and aria-disabled",
+        "Focus indicator visible and high contrast",
+        "Minimum touch target 44x44 points"
+      ],
+      "responsive_behavior": [
+        "May go full-width on mobile viewports",
+        "Text truncation or wrapping for long labels",
+        "Icon-only with tooltip on very narrow screens (last resort)",
+        "Button sizing adjusts via size tokens, not viewport"
+      ],
+      "common_mistakes": [
+        "Using div or anchor as button without proper role",
+        "Multiple primary buttons on the same view",
+        "Disabled buttons without explanation of why",
+        "No loading state for async actions",
+        "Generic labels like 'OK' or 'Click here'",
+        "Missing focus indicator"
+      ],
+      "design_tokens_needed": ["color.button.primary.background", "color.button.primary.text", "color.button.secondary.background", "color.button.destructive.background", "spacing.button.padding", "border.button.radius", "typography.button", "sizing.button.height.sm", "sizing.button.height.md", "sizing.button.height.lg"],
+      "signals": ["Colored or bordered rectangle with text", "Click/tap triggers action", "button element in DOM", "Hover/active state changes"]
+    },
+    {
+      "id": "icon_button",
+      "name": "Icon Button",
+      "category": "actions",
+      "description": "Compact button containing only an icon, used for actions where the icon alone is universally understood (close, menu, settings, etc.).",
+      "anatomy": ["container", "icon", "tooltip"],
+      "states": ["default", "hover", "focus", "active", "disabled", "toggled"],
+      "variants": [
+        {"name": "standard", "when_to_use": "Default icon button with hover background"},
+        {"name": "filled", "when_to_use": "Colored background for higher emphasis"},
+        {"name": "outlined", "when_to_use": "Border outline for medium emphasis"},
+        {"name": "toggle", "when_to_use": "Icon changes state on toggle (like/unlike, star/unstar)"}
+      ],
+      "accessibility_requirements": [
+        "aria-label describing the action (e.g., 'Close dialog', not 'X')",
+        "Tooltip on hover/focus for sighted users",
+        "Toggle buttons use aria-pressed",
+        "Minimum 44x44 point touch target despite visual size",
+        "Focus indicator visible around the button boundary"
+      ],
+      "responsive_behavior": [
+        "Touch target may be larger than visual icon area",
+        "Spacing between icon buttons prevents mis-taps",
+        "Tooltip may become title attribute on touch devices",
+        "Icon size scales with button size token"
+      ],
+      "common_mistakes": [
+        "Missing aria-label making button inaccessible",
+        "Icon not universally understood without tooltip",
+        "Touch target smaller than minimum requirements",
+        "No tooltip for ambiguous icons",
+        "Using icon button for actions that need visible labels"
+      ],
+      "design_tokens_needed": ["sizing.icon_button.sm", "sizing.icon_button.md", "sizing.icon_button.lg", "color.icon_button.default", "color.icon_button.hover", "color.icon_button.active", "sizing.icon_button.icon"],
+      "signals": ["Small button with only an icon", "No visible text label", "Circular or square with rounded corners", "Common icons like X, hamburger, gear"]
+    },
+    {
+      "id": "button_group",
+      "name": "Button Group",
+      "category": "actions",
+      "description": "Related action buttons visually connected as a group, often sharing borders and appearing as a unified control.",
+      "anatomy": ["container", "buttons", "dividers"],
+      "states": ["default", "one_active", "disabled_partial"],
+      "variants": [
+        {"name": "toolbar", "when_to_use": "Related formatting or view actions grouped together"},
+        {"name": "segmented", "when_to_use": "Mutually exclusive options acting as toggle group"},
+        {"name": "split_action", "when_to_use": "Primary action with dropdown for alternatives"},
+        {"name": "vertical", "when_to_use": "Stacked vertical group of related actions"}
+      ],
+      "accessibility_requirements": [
+        "role='group' with aria-label on container",
+        "role='toolbar' for toolbar variant with arrow key navigation",
+        "Segmented variant uses aria-pressed for toggle state",
+        "Individual buttons retain their own labels",
+        "Keyboard navigation between buttons in group"
+      ],
+      "responsive_behavior": [
+        "May switch from horizontal to vertical on mobile",
+        "May collapse into dropdown on very narrow screens",
+        "Button labels may truncate or show icons only",
+        "Group width adapts to container"
+      ],
+      "common_mistakes": [
+        "No grouping semantics (role='group' or role='toolbar')",
+        "Inconsistent button sizes within group",
+        "Too many buttons in group (consider dropdown)",
+        "Group border radius not applied correctly to first/last",
+        "Segmented control without toggle state management"
+      ],
+      "design_tokens_needed": ["color.button_group.divider", "border.button_group.radius", "spacing.button_group.gap", "color.button_group.active"],
+      "signals": ["Connected buttons sharing borders", "Joined rectangular controls", "Toolbar of related actions", "role='group' or role='toolbar' in DOM"]
+    },
+    {
+      "id": "floating_action_button",
+      "name": "Floating Action Button",
+      "category": "actions",
+      "description": "Prominent circular button floating above the UI, representing the primary action for the current view (e.g., compose, add, create).",
+      "anatomy": ["container", "icon", "label_text", "shadow"],
+      "states": ["default", "hover", "focus", "active", "extended", "mini"],
+      "variants": [
+        {"name": "standard", "when_to_use": "Default circular FAB with icon"},
+        {"name": "mini", "when_to_use": "Smaller FAB for secondary floating actions"},
+        {"name": "extended", "when_to_use": "FAB with icon and text label for clarity"},
+        {"name": "speed_dial", "when_to_use": "FAB that expands to show multiple actions"}
+      ],
+      "accessibility_requirements": [
+        "aria-label describing the action",
+        "Extended variant preferred for clarity",
+        "Fixed position must not obscure important content",
+        "Focus indicator visible against any background",
+        "Speed dial items announced as menu",
+        "Keyboard accessible including speed dial actions"
+      ],
+      "responsive_behavior": [
+        "Position adjusts for safe area insets on mobile",
+        "Extended FAB may collapse to icon-only on scroll",
+        "FAB should not overlap bottom navigation",
+        "Z-index managed to stay above scrolling content"
+      ],
+      "common_mistakes": [
+        "FAB covering important content or actions",
+        "Multiple FABs on the same screen",
+        "FAB action not the actual primary action",
+        "Speed dial without labels on action items",
+        "No label making the FAB purpose ambiguous"
+      ],
+      "design_tokens_needed": ["color.fab.background", "color.fab.icon", "elevation.fab", "sizing.fab.standard", "sizing.fab.mini", "sizing.fab.icon", "motion.fab.enter"],
+      "signals": ["Circular button floating over content", "Fixed position bottom-right", "Prominent shadow/elevation", "Plus or compose icon"]
+    },
+    {
+      "id": "split_button",
+      "name": "Split Button",
+      "category": "actions",
+      "description": "Dual-action button combining a primary action button with a dropdown trigger for alternative actions, separated by a visual divider.",
+      "anatomy": ["primary_action", "divider", "dropdown_trigger", "dropdown_menu", "menu_items"],
+      "states": ["default", "hover_primary", "hover_trigger", "open", "disabled", "loading"],
+      "variants": [
+        {"name": "standard", "when_to_use": "Primary action with dropdown for alternatives"},
+        {"name": "with_default_change", "when_to_use": "Selected menu item becomes the primary action"},
+        {"name": "destructive", "when_to_use": "Primary destructive action with safe alternatives"}
+      ],
+      "accessibility_requirements": [
+        "Two distinct button elements, not one button",
+        "Dropdown trigger has aria-haspopup='menu' and aria-expanded",
+        "aria-label on dropdown trigger (e.g., 'More save options')",
+        "Menu follows dropdown menu ARIA pattern",
+        "Tab moves between primary button and dropdown trigger",
+        "Arrow keys navigate within the dropdown menu"
+      ],
+      "responsive_behavior": [
+        "May collapse into single button with dropdown on mobile",
+        "Full-width with proportional split on mobile",
+        "Dropdown repositions to stay in viewport"
+      ],
+      "common_mistakes": [
+        "Treating both parts as a single button",
+        "No visual divider between primary action and dropdown trigger",
+        "Dropdown trigger too small for touch",
+        "Primary action unclear from button label",
+        "No keyboard navigation between the two parts"
+      ],
+      "design_tokens_needed": ["color.split_button.background", "color.split_button.divider", "sizing.split_button.trigger", "border.split_button.radius", "elevation.split_button.menu"],
+      "signals": ["Button with two distinct click areas", "Dropdown arrow on right portion", "Dividing line within button", "Menu appears from arrow portion"]
+    }
+  ]
+}

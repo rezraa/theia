@@ -1,0 +1,2661 @@
+{
+  "version": "1.0.0",
+  "generated": "2026-03-19",
+  "source": "design-knowledge-primer + authored",
+  "systems": [
+    {
+      "id": "atomic_design",
+      "name": "Atomic Design",
+      "category": "methodology",
+      "description": "Brad Frost's methodology that breaks UI into five hierarchical levels: atoms, molecules, organisms, templates, and pages. Provides a clear mental model for building component libraries from the smallest indivisible elements up to full page compositions.",
+      "principles": [
+        "Build from the smallest indivisible UI elements upward",
+        "Each level composes elements from the level below",
+        "Templates define layout structure without real content",
+        "Pages are specific instances of templates with real content",
+        "Components should be context-agnostic at lower levels"
+      ],
+      "when_to_use": [
+        "Building a component library or design system from scratch",
+        "Team needs shared vocabulary for component granularity",
+        "Large-scale application with many reusable UI pieces",
+        "Establishing a pattern library for multi-product organization"
+      ],
+      "avoid_when": [
+        "Small project with few reusable components",
+        "Team is unfamiliar with component-based architecture",
+        "Rapid prototype where formality slows iteration",
+        "Single-page marketing site with no recurring patterns"
+      ],
+      "signals": [
+        "Codebase has components at mixed granularity with no naming convention",
+        "Designers and developers disagree on what constitutes a component",
+        "Pattern library lacks organizational hierarchy",
+        "Component reuse is low despite visual repetition"
+      ],
+      "key_concepts": [
+        "Atoms: buttons, labels, inputs, icons",
+        "Molecules: search bar (input + button), form field (label + input + error)",
+        "Organisms: navigation header, product card grid, footer",
+        "Templates: page-level layout scaffolding without real data",
+        "Pages: template instances with actual content"
+      ],
+      "related_systems": [
+        "design_tokens",
+        "material_design_3",
+        "shadcn_patterns"
+      ],
+      "origin": "Brad Frost",
+      "levels": [
+        "atoms",
+        "molecules",
+        "organisms",
+        "templates",
+        "pages"
+      ],
+      "best_for": [
+        "design_systems",
+        "component_libraries",
+        "large_scale_apps",
+        "multi_product_orgs"
+      ],
+      "key_principles": [
+        "modularity",
+        "composition",
+        "hierarchy",
+        "consistency",
+        "reusability"
+      ]
+    },
+    {
+      "id": "design_thinking",
+      "name": "Design Thinking",
+      "category": "methodology",
+      "description": "IDEO's human-centered design methodology that emphasizes empathy with users, clear problem definition, broad ideation, rapid prototyping, and iterative testing. Prioritizes understanding real human needs before jumping to solutions.",
+      "principles": [
+        "Empathy is the foundation of all design decisions",
+        "Define the right problem before solving",
+        "Diverge broadly before converging on solutions",
+        "Bias toward action through rapid prototyping",
+        "Fail early, fail fast, learn quickly"
+      ],
+      "when_to_use": [
+        "Complex problem space with unclear user needs",
+        "New product or feature with high uncertainty",
+        "Innovation projects requiring fresh perspectives",
+        "Cross-functional team alignment on user problems"
+      ],
+      "avoid_when": [
+        "Requirements are well-defined and validated",
+        "Tight deadline with no room for user research",
+        "Incremental UI polish on existing patterns",
+        "Technical infrastructure work with no user-facing impact"
+      ],
+      "signals": [
+        "Stakeholders disagree on what users actually need",
+        "Features are being built without user validation",
+        "Product-market fit is uncertain",
+        "Team is solution-jumping before understanding the problem"
+      ],
+      "key_concepts": [
+        "Empathize: interviews, observation, journey mapping",
+        "Define: problem statements, How Might We questions",
+        "Ideate: brainstorming, crazy eights, dot voting",
+        "Prototype: low-fidelity mockups, paper prototypes, clickable wireframes",
+        "Test: usability testing, A/B testing, user feedback sessions"
+      ],
+      "related_systems": [
+        "double_diamond",
+        "lean_ux",
+        "user_centered_design",
+        "jobs_to_be_done"
+      ],
+      "origin": "IDEO / Stanford d.school",
+      "phases": [
+        "empathize",
+        "define",
+        "ideate",
+        "prototype",
+        "test"
+      ],
+      "best_for": [
+        "complex_problems",
+        "user_research",
+        "innovation",
+        "new_products"
+      ],
+      "key_principles": [
+        "empathy_first",
+        "diverge_then_converge",
+        "bias_toward_action",
+        "radical_collaboration",
+        "embrace_experimentation"
+      ]
+    },
+    {
+      "id": "double_diamond",
+      "name": "Double Diamond",
+      "category": "methodology",
+      "description": "British Design Council's framework with two phases of divergent and convergent thinking. The first diamond explores the problem space (Discover and Define). The second diamond explores the solution space (Develop and Deliver). Ensures teams solve the right problem before solving it right.",
+      "principles": [
+        "Diverge before converging in each phase",
+        "First diamond: find the right problem",
+        "Second diamond: find the right solution",
+        "Be people-centred throughout",
+        "Communicate visually and iterate relentlessly"
+      ],
+      "when_to_use": [
+        "Service design or organizational design projects",
+        "Complex systems with multiple stakeholder groups",
+        "Policy design requiring research and synthesis",
+        "Projects where the problem itself is unclear"
+      ],
+      "avoid_when": [
+        "Single-component visual redesign",
+        "Well-scoped feature request with clear acceptance criteria",
+        "Pure visual polish or brand refresh",
+        "Time-boxed sprint work with defined tickets"
+      ],
+      "signals": [
+        "Team is oscillating between problem and solution without structure",
+        "Stakeholders want to jump to solutions immediately",
+        "Research insights are not being synthesized into actionable problem statements",
+        "Design process lacks clear phases or milestones"
+      ],
+      "key_concepts": [
+        "Discover: broad research, ethnography, market analysis",
+        "Define: synthesis, insight clustering, problem framing",
+        "Develop: co-design, prototyping, concept testing",
+        "Deliver: final testing, implementation, launch, measurement"
+      ],
+      "related_systems": [
+        "design_thinking",
+        "user_centered_design",
+        "lean_ux"
+      ],
+      "origin": "British Design Council",
+      "phases": [
+        "discover",
+        "define",
+        "develop",
+        "deliver"
+      ],
+      "best_for": [
+        "service_design",
+        "organizational_design",
+        "policy_design",
+        "complex_systems"
+      ],
+      "key_principles": [
+        "be_people_centred",
+        "communicate_visually",
+        "collaborate_cocreate",
+        "iterate_relentlessly"
+      ]
+    },
+    {
+      "id": "user_centered_design",
+      "name": "User-Centered Design (UCD)",
+      "category": "methodology",
+      "description": "ISO 9241-210 iterative process that places users at the center of every design decision. Involves understanding usage context, specifying user requirements, producing design solutions, and evaluating against requirements in repeating cycles.",
+      "principles": [
+        "Design is based upon explicit understanding of users, tasks, and environments",
+        "Users are involved throughout design and development",
+        "Design is driven and refined by user-centered evaluation",
+        "Process is iterative",
+        "Design addresses the whole user experience"
+      ],
+      "when_to_use": [
+        "Product development requiring regulatory compliance",
+        "Enterprise software with complex user workflows",
+        "Medical, aviation, or safety-critical interfaces",
+        "Redesigning existing product based on usability findings"
+      ],
+      "avoid_when": [
+        "Building developer tools where designers are the users",
+        "Internal tooling with direct access to users for informal feedback",
+        "Rapid experimental prototyping with no defined user base",
+        "Infrastructure or backend work with no UI"
+      ],
+      "signals": [
+        "Usability issues are discovered late in development",
+        "User research is disconnected from design decisions",
+        "Product requirements are based on stakeholder opinions not user data",
+        "No iterative evaluation cycle exists"
+      ],
+      "key_concepts": [
+        "Context of use analysis",
+        "User requirements specification",
+        "Design solution production",
+        "Evaluation against requirements",
+        "Iterative refinement cycles"
+      ],
+      "related_systems": [
+        "design_thinking",
+        "double_diamond",
+        "jobs_to_be_done"
+      ]
+    },
+    {
+      "id": "lean_ux",
+      "name": "Lean UX",
+      "category": "methodology",
+      "description": "Jeff Gothelf's approach emphasizing outcomes over deliverables. Replaces heavy documentation with hypotheses, MVPs, and validated learning. Tightly integrates with agile development to get designs in front of users as fast as possible.",
+      "principles": [
+        "Outcomes over outputs",
+        "Hypotheses over requirements",
+        "Experiments over specifications",
+        "Cross-functional collaboration over handoffs",
+        "Validated learning over opinion"
+      ],
+      "when_to_use": [
+        "Agile teams needing lightweight design process",
+        "Startups validating product-market fit",
+        "Feature experiments requiring rapid iteration",
+        "Teams where designers and developers work in same sprint"
+      ],
+      "avoid_when": [
+        "Regulated industries requiring documentation",
+        "Complex enterprise systems needing thorough specification",
+        "Mission-critical interfaces where failure is costly",
+        "Large-scale design system creation requiring comprehensive specs"
+      ],
+      "signals": [
+        "Design documentation is never read by developers",
+        "Weeks pass between design and user validation",
+        "Team treats mockups as final specifications",
+        "No measurement framework for design success"
+      ],
+      "key_concepts": [
+        "Assumption mapping and prioritization",
+        "Hypothesis statements: We believe [outcome] for [persona] if [feature]",
+        "Minimum viable product (MVP) for testing",
+        "Build-Measure-Learn feedback loop",
+        "Collaborative design studios"
+      ],
+      "related_systems": [
+        "design_thinking",
+        "jobs_to_be_done",
+        "user_centered_design"
+      ],
+      "origin": "Jeff Gothelf",
+      "phases": [
+        "think",
+        "make",
+        "check"
+      ],
+      "best_for": [
+        "startups",
+        "agile_teams",
+        "mvp_design",
+        "hypothesis_driven_design"
+      ],
+      "key_principles": [
+        "cross_functional_teams",
+        "small_focused_dedicated",
+        "continuous_discovery",
+        "shared_understanding",
+        "anti_pattern_recognition"
+      ]
+    },
+    {
+      "id": "jobs_to_be_done",
+      "name": "Jobs to Be Done (JTBD)",
+      "category": "methodology",
+      "description": "Framework for understanding customer motivations through the lens of functional, emotional, and social jobs they hire products to do. Shifts focus from demographics to progress-making forces: push, pull, anxiety, and habit.",
+      "principles": [
+        "People hire products to make progress in their lives",
+        "Jobs are stable over time even as solutions change",
+        "Every job has functional, emotional, and social dimensions",
+        "Competition is defined by the job, not the product category",
+        "Understanding the struggling moment reveals innovation opportunities"
+      ],
+      "when_to_use": [
+        "Defining product strategy and positioning",
+        "Identifying unmet user needs for new features",
+        "Understanding why users switch between products",
+        "Prioritizing feature development based on user progress"
+      ],
+      "avoid_when": [
+        "Purely visual design decisions",
+        "Micro-interaction design within established patterns",
+        "Technical architecture decisions",
+        "Component-level design system work"
+      ],
+      "signals": [
+        "Feature requests that don't align with clear user outcomes",
+        "Product roadmap driven by competitor features rather than user jobs",
+        "High churn with unclear reasons",
+        "Users adopting workarounds for tasks the product should handle"
+      ],
+      "key_concepts": [
+        "Functional job: the practical task to accomplish",
+        "Emotional job: how the user wants to feel",
+        "Social job: how the user wants to be perceived",
+        "Push forces: dissatisfaction with current solution",
+        "Pull forces: attraction to new solution",
+        "Anxieties: fears about switching",
+        "Habits: attachment to current behavior"
+      ],
+      "related_systems": [
+        "design_thinking",
+        "lean_ux",
+        "user_centered_design"
+      ],
+      "origin": "Clayton Christensen / Tony Ulwick",
+      "best_for": [
+        "product_strategy",
+        "feature_prioritization",
+        "market_research",
+        "innovation"
+      ],
+      "key_principles": [
+        "functional_jobs",
+        "emotional_jobs",
+        "social_jobs",
+        "outcome_driven_innovation"
+      ]
+    },
+    {
+      "id": "gestalt_principles",
+      "name": "Gestalt Principles of Visual Perception",
+      "category": "methodology",
+      "description": "Psychological principles describing how humans perceive visual elements as organized patterns and groups. Foundational to layout, grouping, hierarchy, and visual communication in interface design.",
+      "principles": [
+        "The whole is perceived as more than the sum of its parts",
+        "Humans naturally seek patterns and order",
+        "Visual grouping reduces cognitive load",
+        "Perception is influenced by context and surroundings",
+        "Simplicity and regularity are preferred interpretations"
+      ],
+      "when_to_use": [
+        "Designing layouts and information hierarchy",
+        "Grouping related UI elements without explicit borders",
+        "Creating visual flow and reading order",
+        "Evaluating why a layout feels disorganized or confusing"
+      ],
+      "avoid_when": [
+        "Principle application would conflict with accessibility needs",
+        "Over-reliance on implicit grouping when explicit labels are needed",
+        "Cultural context where perception patterns differ significantly"
+      ],
+      "signals": [
+        "Users cannot identify related elements on a page",
+        "Layout feels cluttered despite adequate whitespace",
+        "Form fields and labels are visually disconnected",
+        "Navigation structure does not match visual grouping"
+      ],
+      "key_concepts": [
+        "Proximity: elements close together are perceived as a group",
+        "Similarity: elements sharing visual traits are perceived as related",
+        "Closure: the mind completes incomplete shapes",
+        "Continuity: the eye follows smooth paths and lines",
+        "Figure-ground: elements are perceived as either foreground or background",
+        "Common region: elements within a boundary are perceived as grouped",
+        "Common fate: elements moving together are perceived as a unit"
+      ],
+      "related_systems": [
+        "spacing_systems",
+        "grid_systems",
+        "color_theory",
+        "typography_scales"
+      ],
+      "origin": "Berlin School of Psychology",
+      "best_for": [
+        "layout_design",
+        "visual_hierarchy",
+        "information_grouping",
+        "icon_design"
+      ],
+      "key_principles": [
+        "proximity",
+        "similarity",
+        "continuity",
+        "closure",
+        "figure_ground",
+        "common_region",
+        "symmetry",
+        "common_fate"
+      ]
+    },
+    {
+      "id": "material_design_3",
+      "name": "Material Design 3 (Material You)",
+      "category": "system",
+      "description": "Google's comprehensive design system emphasizing personal expression through dynamic color, updated components, and adaptive layouts. M3 introduces dynamic color extraction from wallpapers, a refined token system, and full support for large screens and foldables.",
+      "principles": [
+        "Personal: dynamic color adapts to user preference",
+        "Adaptive: responsive across all screen sizes and form factors",
+        "Expressive: updated shape, color, and typography for emotional range",
+        "Accessible: built-in accessibility with WCAG compliance",
+        "Unified: consistent cross-platform experience"
+      ],
+      "when_to_use": [
+        "Android or cross-platform applications",
+        "Products requiring strong theming and personalization",
+        "Applications targeting material ecosystem consistency",
+        "Projects needing comprehensive component library with tokens"
+      ],
+      "avoid_when": [
+        "Apple-only applications where HIG is expected",
+        "Brand identity requires significant departure from Material aesthetics",
+        "Minimal or brutalist design direction",
+        "Projects where dynamic color adds unwanted complexity"
+      ],
+      "signals": [
+        "Android-first or Android-primary product",
+        "Flutter or Jetpack Compose codebase",
+        "Requirement for wallpaper-based dynamic theming",
+        "Cross-platform product needing unified design language"
+      ],
+      "key_concepts": [
+        "Dynamic color: tonal palettes extracted from user content",
+        "Color roles: primary, secondary, tertiary, error, surface, outline",
+        "Shape scale: none, extra-small, small, medium, large, extra-large, full",
+        "Type scale: display, headline, title, body, label in large/medium/small",
+        "Elevation: tonal color overlay replacing drop shadows",
+        "Component tokens: each component has a defined token contract"
+      ],
+      "related_systems": [
+        "design_tokens",
+        "semantic_tokens",
+        "color_theory",
+        "elevation_system"
+      ],
+      "origin": "Google",
+      "tokens": {
+        "elevation_levels": 6,
+        "grid_unit": "8dp",
+        "typography_scale": 13,
+        "shape_categories": 3
+      },
+      "best_for": [
+        "android_apps",
+        "cross_platform",
+        "data_heavy_interfaces",
+        "enterprise_tools"
+      ],
+      "key_principles": [
+        "material_is_metaphor",
+        "bold_graphic_intentional",
+        "motion_provides_meaning",
+        "adaptive_design",
+        "cross_platform_consistency"
+      ]
+    },
+    {
+      "id": "apple_hig",
+      "name": "Apple Human Interface Guidelines (HIG)",
+      "category": "system",
+      "description": "Apple's design guidelines for iOS, macOS, watchOS, tvOS, and visionOS. Emphasizes clarity, deference to content, depth through layering, and platform-specific conventions. The gold standard for native Apple platform experiences.",
+      "principles": [
+        "Clarity: text is legible, icons precise, adornments subtle and purposeful",
+        "Deference: fluid motion and crisp interface help users understand content",
+        "Depth: visual layers and realistic motion convey hierarchy and vitality",
+        "Direct manipulation: users feel connected to content through gestures",
+        "Consistency: familiar patterns across the Apple ecosystem"
+      ],
+      "when_to_use": [
+        "Native iOS or macOS application development",
+        "SwiftUI or UIKit projects targeting Apple platforms",
+        "Apps intended for App Store approval",
+        "visionOS spatial computing interfaces"
+      ],
+      "avoid_when": [
+        "Cross-platform product where platform consistency matters more",
+        "Android-primary applications",
+        "Web applications not embedded in Apple platforms",
+        "Brand experience that intentionally diverges from platform norms"
+      ],
+      "signals": [
+        "Swift or Objective-C codebase",
+        "Product targets iPhone, iPad, Mac, or Apple Watch",
+        "App Store distribution planned",
+        "Users expect native platform behavior"
+      ],
+      "key_concepts": [
+        "SF Symbols: 5000+ consistent iconography symbols",
+        "Dynamic Type: system-wide text size preferences",
+        "Safe Area: respecting notches, home indicator, status bar",
+        "Navigation patterns: tab bar, navigation stack, modal presentation",
+        "Haptic feedback: taptic engine integration patterns",
+        "Live Activities and widgets: glanceable information design"
+      ],
+      "related_systems": [
+        "typography_scales",
+        "spacing_systems",
+        "motion_principles",
+        "dark_mode"
+      ],
+      "origin": "Apple",
+      "best_for": [
+        "ios_apps",
+        "macos_apps",
+        "watchos",
+        "visionos",
+        "apple_ecosystem"
+      ],
+      "key_principles": [
+        "clarity",
+        "deference",
+        "depth",
+        "direct_manipulation",
+        "feedback",
+        "metaphors",
+        "user_control"
+      ]
+    },
+    {
+      "id": "ant_design",
+      "name": "Ant Design",
+      "category": "system",
+      "description": "Enterprise-level UI design language and React UI library from Ant Group. Focuses on practical, efficient interfaces for data-heavy enterprise applications with comprehensive component coverage and strong i18n support.",
+      "principles": [
+        "Natural: visual behavior reflects real-world interactions",
+        "Certain: provide clear, predictable design patterns",
+        "Meaningful: purposeful design with clear information hierarchy",
+        "Growing: design that evolves and improves continuously"
+      ],
+      "when_to_use": [
+        "Enterprise dashboards and admin panels",
+        "Data-heavy applications with complex forms and tables",
+        "React applications needing comprehensive component library",
+        "Internal tools requiring rapid development"
+      ],
+      "avoid_when": [
+        "Consumer-facing product requiring unique brand identity",
+        "Minimalist design direction with few components",
+        "Non-React technology stack",
+        "Mobile-first applications requiring native feel"
+      ],
+      "signals": [
+        "React codebase for enterprise application",
+        "Complex data tables, forms, and filters",
+        "Admin panel or back-office tool",
+        "Chinese market or international enterprise product"
+      ],
+      "key_concepts": [
+        "Design values: natural, certain, meaningful, growing",
+        "Token system: seed tokens, map tokens, alias tokens",
+        "ProComponents: high-level business components",
+        "ConfigProvider: global theme and locale configuration",
+        "Dense mode: compact layouts for data-heavy interfaces"
+      ],
+      "related_systems": [
+        "design_tokens",
+        "grid_systems",
+        "color_semantics",
+        "semantic_tokens"
+      ],
+      "origin": "Ant Group",
+      "best_for": [
+        "enterprise_react",
+        "admin_panels",
+        "data_heavy_chinese_market",
+        "rapid_prototyping"
+      ],
+      "key_principles": [
+        "natural",
+        "certain",
+        "meaningful",
+        "growing"
+      ]
+    },
+    {
+      "id": "carbon_design",
+      "name": "Carbon Design System",
+      "category": "system",
+      "description": "IBM's open-source design system built for products and digital experiences. Features a strong 2x grid, comprehensive accessibility support, and a token-based theme system. Designed for complex enterprise software at scale.",
+      "principles": [
+        "Be essential: every element serves a purpose",
+        "Be inclusive: accessible to all users regardless of ability",
+        "Be consistent: unified experience across IBM products",
+        "Be humanistic: design for real people in real contexts"
+      ],
+      "when_to_use": [
+        "IBM ecosystem products or integrations",
+        "Enterprise applications requiring strong accessibility",
+        "Products needing comprehensive grid and layout system",
+        "React or web-components based projects"
+      ],
+      "avoid_when": [
+        "Consumer-facing product needing playful aesthetics",
+        "Small projects where Carbon's weight is excessive",
+        "Non-web platforms without Carbon support",
+        "Brand identity conflicts with IBM's visual language"
+      ],
+      "signals": [
+        "IBM product or partner integration",
+        "Strong accessibility compliance requirements",
+        "Complex data visualization needs",
+        "Enterprise React application"
+      ],
+      "key_concepts": [
+        "2x grid: everything aligns to 2px mini-unit grid",
+        "Themes: white, g10, g90, g100 with token mappings",
+        "Shell: common application frame with header and side nav",
+        "Data visualization: comprehensive charting guidelines",
+        "Motion: productive and expressive motion categories"
+      ],
+      "related_systems": [
+        "grid_systems",
+        "design_tokens",
+        "contrast_ratios",
+        "motion_principles"
+      ],
+      "origin": "IBM",
+      "best_for": [
+        "enterprise_ai",
+        "data_visualization",
+        "complex_workflows",
+        "ibm_ecosystem"
+      ],
+      "key_principles": [
+        "universal",
+        "just_enough",
+        "flexible",
+        "always_inclusive",
+        "thoughtful"
+      ]
+    },
+    {
+      "id": "fluent_design",
+      "name": "Fluent Design System",
+      "category": "system",
+      "description": "Microsoft's cross-platform design system for Windows, web, iOS, and Android. Features Fluent UI components, a depth system using Acrylic and Reveal effects, and adaptive design for diverse input modes including touch, pen, keyboard, and mouse.",
+      "principles": [
+        "Light: use light to guide attention and convey hierarchy",
+        "Depth: create layers that establish hierarchy and focus",
+        "Motion: connect experiences with purposeful animation",
+        "Material: use textures and effects that feel tangible",
+        "Scale: adapt to every screen size and input mode"
+      ],
+      "when_to_use": [
+        "Microsoft ecosystem applications (Teams, Office, Windows)",
+        "Cross-platform apps requiring consistent Microsoft experience",
+        "Enterprise products targeting Windows-heavy user base",
+        "React-based web applications needing corporate design system"
+      ],
+      "avoid_when": [
+        "Apple or Google ecosystem-primary products",
+        "Products requiring minimal, content-first aesthetic",
+        "Small projects where Fluent's complexity is overkill",
+        "Highly branded consumer products"
+      ],
+      "signals": [
+        "Microsoft 365 or Teams integration",
+        "Windows-primary desktop application",
+        "React codebase targeting enterprise users",
+        "Multi-input modality requirements (touch, pen, mouse)"
+      ],
+      "key_concepts": [
+        "Acrylic: translucent material effect for depth",
+        "Reveal: highlight effect showing interactive elements",
+        "Connected animations: shared element transitions between views",
+        "Responsive breakpoints: small, medium, large, extra-large",
+        "Fluent UI React: comprehensive component library",
+        "Tokens: design tokens for cross-platform consistency"
+      ],
+      "related_systems": [
+        "elevation_system",
+        "motion_principles",
+        "design_tokens",
+        "responsive_design"
+      ],
+      "origin": "Microsoft",
+      "best_for": [
+        "windows_apps",
+        "microsoft_365",
+        "enterprise_tools",
+        "mixed_reality"
+      ],
+      "key_principles": [
+        "light",
+        "depth",
+        "motion",
+        "material",
+        "scale"
+      ]
+    },
+    {
+      "id": "spectrum_design",
+      "name": "Adobe Spectrum",
+      "category": "system",
+      "description": "Adobe's design system powering Creative Cloud, Document Cloud, and Experience Cloud products. Built for complex creative and enterprise tools with emphasis on precision, information density, and cross-platform consistency.",
+      "principles": [
+        "Rational: logical, consistent foundation for every decision",
+        "Human: warm, approachable, and considerate of diverse needs",
+        "Focused: direct attention to what matters most",
+        "Unified: coherent experience across all Adobe products"
+      ],
+      "when_to_use": [
+        "Adobe ecosystem integrations or plugins",
+        "Complex creative tool interfaces",
+        "High information density applications",
+        "Products requiring precise control interfaces (sliders, color pickers)"
+      ],
+      "avoid_when": [
+        "Simple consumer applications",
+        "Products with minimal UI surface area",
+        "Non-web platforms without Spectrum support",
+        "Highly playful or casual brand identities"
+      ],
+      "signals": [
+        "Adobe product integration or plugin development",
+        "Complex creative workflows with toolbars and panels",
+        "High information density with many controls",
+        "Web components or React-based creative tools"
+      ],
+      "key_concepts": [
+        "Spectrum CSS: skin-based component styling",
+        "Spectrum Web Components: lit-based component library",
+        "Scale: medium and large UI density modes",
+        "Color themes: lightest, light, dark, darkest",
+        "Express theme: more colorful variant for creative tools"
+      ],
+      "related_systems": [
+        "design_tokens",
+        "dark_mode",
+        "color_theory",
+        "typography_scales"
+      ],
+      "origin": "Adobe",
+      "best_for": [
+        "creative_tools",
+        "media_applications",
+        "adobe_ecosystem",
+        "professional_software"
+      ],
+      "key_principles": [
+        "rational",
+        "human",
+        "focused",
+        "inclusive"
+      ]
+    },
+    {
+      "id": "lightning_design",
+      "name": "Salesforce Lightning Design System",
+      "category": "system",
+      "description": "Salesforce's design system for building enterprise CRM interfaces. Provides comprehensive patterns for data tables, record layouts, and complex form workflows. Includes styling hooks (CSS custom properties) for controlled customization.",
+      "principles": [
+        "Clarity: eliminate ambiguity with clear visual hierarchy",
+        "Efficiency: streamline repetitive tasks with smart defaults",
+        "Consistency: unified experience across Salesforce ecosystem",
+        "Beauty: professional polish that builds trust"
+      ],
+      "when_to_use": [
+        "Salesforce platform development (Lightning, LWC)",
+        "CRM and sales workflow interfaces",
+        "Enterprise applications with record-based layouts",
+        "Data-heavy applications with complex table interactions"
+      ],
+      "avoid_when": [
+        "Consumer-facing products outside Salesforce ecosystem",
+        "Simple marketing sites or landing pages",
+        "Products requiring distinctive brand identity",
+        "Non-enterprise contexts where Lightning looks heavy"
+      ],
+      "signals": [
+        "Salesforce Lightning Web Components (LWC) codebase",
+        "CRM-style record detail and list views",
+        "Enterprise sales or service workflow",
+        "Apex and Visualforce integration"
+      ],
+      "key_concepts": [
+        "Blueprints: design patterns for common enterprise scenarios",
+        "Styling hooks: CSS custom properties for safe customization",
+        "Lightning Web Components: standards-based component model",
+        "Record layouts: compound, related lists, detail panels",
+        "Utility bar: persistent footer with quick actions"
+      ],
+      "related_systems": [
+        "grid_systems",
+        "design_tokens",
+        "color_semantics",
+        "responsive_design"
+      ],
+      "origin": "Salesforce",
+      "best_for": [
+        "enterprise_crm",
+        "data_tables",
+        "forms_heavy",
+        "salesforce_ecosystem"
+      ],
+      "key_principles": [
+        "clarity",
+        "efficiency",
+        "consistency",
+        "beauty",
+        "accessibility"
+      ]
+    },
+    {
+      "id": "polaris",
+      "name": "Shopify Polaris",
+      "category": "system",
+      "description": "Shopify's design system for building merchant-facing admin experiences. Optimized for commerce workflows including product management, order processing, and analytics. Features strong mobile patterns and a token-based theme system.",
+      "principles": [
+        "Put merchants first: every decision serves the merchant",
+        "Empower but don't overwhelm: progressive disclosure of complexity",
+        "Be consistent but not rigid: allow contextual adaptation",
+        "Optimize for clarity: unambiguous labels, actions, and feedback"
+      ],
+      "when_to_use": [
+        "Shopify app or integration development",
+        "Commerce and merchant dashboard interfaces",
+        "Admin panels with product/order/customer management",
+        "React-based e-commerce applications"
+      ],
+      "avoid_when": [
+        "Consumer-facing storefront design",
+        "Non-commerce applications",
+        "Products with no relation to Shopify ecosystem",
+        "Highly creative or editorial design directions"
+      ],
+      "signals": [
+        "Shopify app or plugin development",
+        "Commerce admin interface with product management",
+        "Merchant-facing dashboard or analytics",
+        "React codebase targeting e-commerce"
+      ],
+      "key_concepts": [
+        "Resource pages: index, detail, create, edit patterns",
+        "Action patterns: primary, secondary, destructive actions",
+        "App Bridge: embedding in Shopify admin",
+        "Token system: color, spacing, typography, shape tokens",
+        "Patterns: error handling, loading states, empty states"
+      ],
+      "related_systems": [
+        "design_tokens",
+        "responsive_design",
+        "color_semantics",
+        "spacing_systems"
+      ],
+      "origin": "Shopify",
+      "best_for": [
+        "e_commerce",
+        "merchant_tools",
+        "admin_interfaces",
+        "shopify_ecosystem"
+      ],
+      "key_principles": [
+        "empowering",
+        "crafted",
+        "efficient",
+        "trustworthy",
+        "familiar"
+      ]
+    },
+    {
+      "id": "primer",
+      "name": "GitHub Primer",
+      "category": "system",
+      "description": "GitHub's design system providing components, patterns, and guidelines for building GitHub's UI. Features a robust token system, strong accessibility focus, and components available in React, Rails ViewComponents, and CSS.",
+      "principles": [
+        "Responsive: works across all screen sizes",
+        "Accessible: meets WCAG 2.1 AA standards",
+        "Themeable: supports light, dark, and high contrast modes",
+        "Consistent: unified patterns across GitHub's surface area"
+      ],
+      "when_to_use": [
+        "GitHub integrations or extensions",
+        "Developer-facing tools and dashboards",
+        "Code-centric interfaces with diffs, files, and repos",
+        "React or Rails applications needing developer-oriented UI"
+      ],
+      "avoid_when": [
+        "Consumer products unrelated to development",
+        "Highly branded marketing experiences",
+        "Mobile-native applications",
+        "Enterprise CRM or business workflow tools"
+      ],
+      "signals": [
+        "GitHub App or Action development",
+        "Developer tool with code-centric UI",
+        "React or Rails ViewComponent codebase",
+        "Interface with repository, issue, or PR workflows"
+      ],
+      "key_concepts": [
+        "Primer React: React component library",
+        "Primer ViewComponents: Rails server-rendered components",
+        "Primer CSS: utility-first CSS framework",
+        "Color modes: light, dark, dark dimmed, high contrast",
+        "ActionList: flexible list pattern for menus, navigation, selections"
+      ],
+      "related_systems": [
+        "design_tokens",
+        "dark_mode",
+        "contrast_ratios",
+        "tailwind_utility"
+      ]
+    },
+    {
+      "id": "chakra_patterns",
+      "name": "Chakra UI Component Philosophy",
+      "category": "system",
+      "description": "Chakra UI's approach to building accessible React components with style props. Emphasizes composability through granular component APIs, built-in accessibility, and a theme-driven style system using CSS-in-JS.",
+      "principles": [
+        "Style props: apply styles directly as component props",
+        "Composable: combine small components to build complex UIs",
+        "Accessible: WAI-ARIA compliant out of the box",
+        "Themeable: comprehensive theme object for global customization",
+        "Developer experience: intuitive API with TypeScript support"
+      ],
+      "when_to_use": [
+        "React projects needing quick accessible component setup",
+        "Teams preferring style props over CSS-in-JS or utility classes",
+        "Projects requiring strong theming with minimal configuration",
+        "Rapid prototyping with production-quality accessibility"
+      ],
+      "avoid_when": [
+        "Performance-critical applications where CSS-in-JS overhead matters",
+        "Projects requiring zero-runtime CSS solution",
+        "Server-side rendering with strict CSS extraction needs",
+        "Non-React technology stacks"
+      ],
+      "signals": [
+        "React codebase with emphasis on accessibility",
+        "Team prefers component-level styling over separate CSS",
+        "Need for rapid UI development with consistent design",
+        "TypeScript project wanting typed style props"
+      ],
+      "key_concepts": [
+        "Style props: <Box p={4} bg='blue.500' />",
+        "Theme object: colors, fonts, sizes, breakpoints, components",
+        "Component variants: size, variant, colorScheme props",
+        "useColorMode: light/dark mode hook",
+        "Compound components: Menu, Tabs, Accordion patterns"
+      ],
+      "related_systems": [
+        "radix_patterns",
+        "shadcn_patterns",
+        "design_tokens",
+        "dark_mode"
+      ]
+    },
+    {
+      "id": "radix_patterns",
+      "name": "Radix UI Headless Component Architecture",
+      "category": "system",
+      "description": "Radix's approach to building unstyled, accessible UI primitives. Provides behavior, accessibility, and keyboard interactions without any visual styling. Designed to be composed with any styling solution.",
+      "principles": [
+        "Headless: zero visual styling, complete behavior implementation",
+        "Accessible: full WAI-ARIA compliance and keyboard navigation",
+        "Composable: granular part-based API for custom composition",
+        "Uncontrolled by default: works without state management, controllable when needed",
+        "Developer ownership: full control over markup and styling"
+      ],
+      "when_to_use": [
+        "Custom design system requiring accessible primitives",
+        "Projects needing complete visual control with guaranteed accessibility",
+        "Building branded components that don't look like any design system",
+        "Pairing with Tailwind CSS or CSS Modules for styling"
+      ],
+      "avoid_when": [
+        "Team needs pre-styled components for rapid development",
+        "Project lacks design resources to style all components",
+        "Quick prototype where visual polish is secondary",
+        "Non-React projects"
+      ],
+      "signals": [
+        "Custom design system build in progress",
+        "Team has designers creating bespoke component designs",
+        "Accessibility compliance is a hard requirement",
+        "Tailwind CSS or CSS Modules in the codebase"
+      ],
+      "key_concepts": [
+        "Part-based API: <Dialog.Root>, <Dialog.Trigger>, <Dialog.Content>",
+        "Polymorphic asChild: render as any element with <Slot>",
+        "Animation support: data-state attributes for enter/exit animations",
+        "Collision-aware positioning: popper-based floating elements",
+        "Controlled/uncontrolled: value and defaultValue patterns"
+      ],
+      "related_systems": [
+        "shadcn_patterns",
+        "chakra_patterns",
+        "tailwind_utility",
+        "contrast_ratios"
+      ]
+    },
+    {
+      "id": "shadcn_patterns",
+      "name": "shadcn/ui Copy-Paste Component Philosophy",
+      "category": "system",
+      "description": "A collection of re-usable React components built on Radix UI primitives and styled with Tailwind CSS. Unlike traditional component libraries, code is copied into your project rather than installed as a dependency, giving full ownership and customization control.",
+      "principles": [
+        "Own your code: components live in your codebase, not node_modules",
+        "Copy-paste over dependency: no version lock-in or breaking changes",
+        "Tailwind-native: utility classes as the styling primitive",
+        "Radix-powered: headless accessibility from Radix primitives",
+        "Composable: components are building blocks, not black boxes"
+      ],
+      "when_to_use": [
+        "Next.js or React projects using Tailwind CSS",
+        "Teams wanting full control over component code",
+        "Projects where dependency updates cause friction",
+        "Building custom design system on top of accessible primitives"
+      ],
+      "avoid_when": [
+        "Team prefers managed dependency updates",
+        "Project does not use Tailwind CSS",
+        "Need for automatic security patches in components",
+        "Large team where component code divergence is a risk"
+      ],
+      "signals": [
+        "Next.js + Tailwind CSS project",
+        "components.json file in project root",
+        "components/ui directory with copied component files",
+        "cn() utility function for className merging"
+      ],
+      "key_concepts": [
+        "CLI: npx shadcn-ui@latest add [component]",
+        "cn() utility: clsx + tailwind-merge for className composition",
+        "components.json: project configuration for paths and styling",
+        "Variants: class-variance-authority (cva) for component variants",
+        "Registry: browsable component catalog with preview"
+      ],
+      "related_systems": [
+        "radix_patterns",
+        "tailwind_utility",
+        "atomic_design",
+        "design_tokens"
+      ]
+    },
+    {
+      "id": "tailwind_utility",
+      "name": "Tailwind CSS Utility-First Methodology",
+      "category": "system",
+      "description": "Utility-first CSS framework where designs are built by composing small, single-purpose utility classes directly in HTML markup. Eliminates custom CSS by providing a comprehensive set of constrained design tokens as classes.",
+      "principles": [
+        "Utility-first: compose designs from atomic utility classes",
+        "Constrained design: predefined scales prevent arbitrary values",
+        "Responsive: mobile-first breakpoint prefixes (sm:, md:, lg:)",
+        "State variants: hover:, focus:, dark: modifiers on any utility",
+        "Just-in-time: generate only the CSS you actually use"
+      ],
+      "when_to_use": [
+        "Rapid UI development with consistent spacing and color",
+        "Projects where developers own the styling process",
+        "Component-based frameworks (React, Vue, Svelte)",
+        "Teams wanting to avoid CSS naming conventions and specificity"
+      ],
+      "avoid_when": [
+        "Team strongly prefers semantic CSS or BEM methodology",
+        "Large legacy codebase with established CSS architecture",
+        "Projects requiring dynamic runtime style changes",
+        "Content-heavy sites where prose styling needs are dominant"
+      ],
+      "signals": [
+        "tailwind.config.js or tailwind.config.ts in project root",
+        "Class strings with patterns like p-4 text-lg bg-blue-500",
+        "PostCSS or Vite with Tailwind plugin configured",
+        "@apply directives in CSS files"
+      ],
+      "key_concepts": [
+        "Spacing scale: 0, 0.5, 1, 1.5, 2, 2.5, 3, 4, 5, 6, 8, 10, 12...",
+        "Color palette: 50-950 shades for each color",
+        "Responsive prefixes: sm:, md:, lg:, xl:, 2xl:",
+        "Arbitrary values: w-[137px] for one-off values",
+        "Plugins: extend with custom utilities and components",
+        "@layer: base, components, utilities for organization"
+      ],
+      "related_systems": [
+        "shadcn_patterns",
+        "spacing_systems",
+        "responsive_design",
+        "design_tokens"
+      ]
+    },
+    {
+      "id": "color_theory",
+      "name": "Color Theory for Interface Design",
+      "category": "foundation",
+      "description": "Foundational principles of color including the color wheel, color harmony models, color psychology, and accessibility requirements. Provides the scientific and perceptual basis for all color decisions in digital interfaces.",
+      "principles": [
+        "Color communicates meaning, mood, and hierarchy",
+        "Harmony models create visually pleasing combinations",
+        "Context changes color perception (simultaneous contrast)",
+        "Accessibility requires sufficient contrast ratios",
+        "Cultural associations with color vary globally"
+      ],
+      "when_to_use": [
+        "Establishing brand color palette for a product",
+        "Evaluating whether color choices are harmonious",
+        "Diagnosing readability or accessibility issues",
+        "Creating data visualization color scales"
+      ],
+      "avoid_when": [
+        "Color palette is already established and validated",
+        "Working within a design system with fixed color tokens",
+        "Grayscale-first design approach is more appropriate"
+      ],
+      "signals": [
+        "Colors feel random or clash visually",
+        "Brand colors fail accessibility contrast checks",
+        "Data visualization colors are indistinguishable",
+        "Color palette does not scale to dark mode"
+      ],
+      "key_concepts": [
+        "Color wheel: primary, secondary, tertiary colors",
+        "Complementary: opposite on the color wheel, high contrast",
+        "Analogous: adjacent on the wheel, harmonious",
+        "Triadic: three equidistant colors, vibrant",
+        "Split-complementary: base + two adjacent to complement",
+        "HSL model: hue, saturation, lightness for digital color",
+        "OKLCH: perceptually uniform color space for modern CSS",
+        "Color blindness: deuteranopia, protanopia, tritanopia considerations"
+      ],
+      "related_systems": [
+        "color_60_30_10",
+        "contrast_ratios",
+        "dark_mode",
+        "color_semantics"
+      ]
+    },
+    {
+      "id": "typography_scales",
+      "name": "Typographic Scales and Hierarchies",
+      "category": "foundation",
+      "description": "Systems for establishing harmonious type size relationships using mathematical ratios. Modular scales create consistent visual rhythm and clear information hierarchy across headings, body text, captions, and labels.",
+      "principles": [
+        "Use a mathematical ratio for consistent size progression",
+        "Fewer sizes create cleaner hierarchy",
+        "Line height decreases proportionally as font size increases",
+        "Font weight and size work together for hierarchy",
+        "Responsive scales may need different ratios per breakpoint"
+      ],
+      "when_to_use": [
+        "Establishing type system for a new design system",
+        "Auditing inconsistent font sizes in existing product",
+        "Creating responsive typography that scales smoothly",
+        "Setting up design tokens for type sizes"
+      ],
+      "avoid_when": [
+        "Using a design system with pre-established type scale",
+        "Single-size text interfaces (terminal, code editor)",
+        "Experimental typography where mathematical harmony is undesirable"
+      ],
+      "signals": [
+        "Font sizes in codebase are arbitrary px values",
+        "No consistent ratio between heading levels",
+        "Typography tokens are missing or inconsistent",
+        "Type hierarchy is flat and lacks visual distinction"
+      ],
+      "key_concepts": [
+        "Base size: typically 16px for body text",
+        "Scale ratio: multiplier between each step",
+        "Minor second (1.067), Major second (1.125)",
+        "Minor third (1.200), Major third (1.250)",
+        "Perfect fourth (1.333), Augmented fourth (1.414)",
+        "Perfect fifth (1.500), Golden ratio (1.618)",
+        "Steps: typically 6-10 sizes in a complete scale"
+      ],
+      "related_systems": [
+        "type_scale_major_third",
+        "type_scale_perfect_fourth",
+        "type_scale_augmented_fourth",
+        "fluid_typography",
+        "vertical_rhythm"
+      ]
+    },
+    {
+      "id": "spacing_systems",
+      "name": "Spacing Systems and Spatial Rhythm",
+      "category": "foundation",
+      "description": "Systematic approaches to spacing using base-unit grids (4px or 8px). Creates consistent padding, margins, and gaps throughout an interface. Spatial rhythm improves scanability and reduces visual noise.",
+      "principles": [
+        "Use a base unit (4px or 8px) for all spacing values",
+        "Larger spacing separates unrelated groups",
+        "Smaller spacing connects related elements",
+        "Consistent spacing reduces cognitive load",
+        "Spacing scale should have enough steps for flexibility"
+      ],
+      "when_to_use": [
+        "Establishing spacing tokens for a design system",
+        "Auditing inconsistent spacing in existing product",
+        "Aligning elements to a consistent spatial grid",
+        "Creating Tailwind or token-based spacing scale"
+      ],
+      "avoid_when": [
+        "Organic or editorial layouts where rigid grids are undesirable",
+        "Pixel-art or retro interfaces with non-standard spacing",
+        "Already using a design system with established spacing"
+      ],
+      "signals": [
+        "Spacing values in CSS are arbitrary and inconsistent",
+        "Elements feel randomly placed without visual rhythm",
+        "Padding and margins differ between similar components",
+        "Developers are guessing spacing values"
+      ],
+      "key_concepts": [
+        "4px grid: 4, 8, 12, 16, 20, 24, 32, 40, 48, 64",
+        "8px grid: 8, 16, 24, 32, 40, 48, 64, 80, 96",
+        "T-shirt sizes: xs(4), sm(8), md(16), lg(24), xl(32), 2xl(48)",
+        "Component spacing: internal padding vs external margin",
+        "Stack spacing: consistent vertical rhythm between sections",
+        "Inline spacing: horizontal rhythm between inline elements"
+      ],
+      "related_systems": [
+        "grid_systems",
+        "gestalt_principles",
+        "design_tokens",
+        "tailwind_utility"
+      ]
+    },
+    {
+      "id": "elevation_system",
+      "name": "Elevation and Visual Depth System",
+      "category": "foundation",
+      "description": "System for conveying hierarchy and interactivity through shadows, z-index layering, and surface tinting. Elevation communicates which elements sit above others, which are interactive, and how content is organized in layers.",
+      "principles": [
+        "Higher elevation indicates greater importance or interactivity",
+        "Elevation levels should be distinct and limited",
+        "Shadows simulate real-world light sources consistently",
+        "Dark mode may use surface tinting instead of shadows",
+        "Z-index should follow a managed scale, not arbitrary values"
+      ],
+      "when_to_use": [
+        "Designing overlays, modals, dropdowns, and tooltips",
+        "Creating visual hierarchy between surface layers",
+        "Establishing a z-index management system",
+        "Dark mode implementation where shadows are less visible"
+      ],
+      "avoid_when": [
+        "Flat design direction with no depth cues",
+        "Interfaces with minimal layering (single-surface apps)",
+        "Print or static design where depth is irrelevant"
+      ],
+      "signals": [
+        "Z-index values are arbitrary and conflicting",
+        "Shadows are inconsistent across components",
+        "Modal and dropdown layering causes rendering issues",
+        "Dark mode shadows are invisible or muddy"
+      ],
+      "key_concepts": [
+        "Elevation levels: 0 (flat), 1 (raised), 2 (overlay), 3 (modal), 4 (toast)",
+        "Shadow tokens: offset-x, offset-y, blur, spread, color per level",
+        "Z-index scale: base(0), dropdown(1000), sticky(1100), modal(1300), toast(1400)",
+        "Surface tinting: lighter surface = higher elevation in dark mode",
+        "Ring/outline: alternative to shadow for subtle elevation"
+      ],
+      "related_systems": [
+        "material_design_3",
+        "dark_mode",
+        "design_tokens",
+        "fluent_design"
+      ]
+    },
+    {
+      "id": "iconography",
+      "name": "Iconography Design Principles",
+      "category": "foundation",
+      "description": "Principles for designing, selecting, and implementing icons in digital interfaces. Covers icon grids, optical sizing, stroke consistency, accessibility labeling, and icon system management.",
+      "principles": [
+        "Icons supplement text; they rarely replace it for critical actions",
+        "Consistent stroke weight, corner radius, and grid across all icons",
+        "Optical sizing ensures icons look correct at different scales",
+        "Every interactive icon needs an accessible label",
+        "Decorative icons should be hidden from screen readers"
+      ],
+      "when_to_use": [
+        "Building or selecting an icon set for a product",
+        "Auditing icon consistency across an interface",
+        "Implementing icon accessibility (aria-label, role)",
+        "Creating icon component with size and color variants"
+      ],
+      "avoid_when": [
+        "Text-only interface where icons add noise",
+        "Icon meaning is ambiguous without established convention",
+        "Using icons as the sole means of communication"
+      ],
+      "signals": [
+        "Icons from multiple sets with inconsistent style",
+        "Interactive icons missing accessible labels",
+        "Icons rendered at inconsistent sizes",
+        "SVG icons with hardcoded colors that don't theme"
+      ],
+      "key_concepts": [
+        "Icon grid: 24x24px with 2px padding, 20x20 live area",
+        "Stroke weight: 1.5px or 2px consistent across set",
+        "Filled vs outlined: outlined for unselected, filled for selected",
+        "Optical sizing: adjust weight and detail for small vs large sizes",
+        "SVG sprite: inline SVG with currentColor for theming",
+        "Icon fonts vs inline SVG: SVG preferred for accessibility"
+      ],
+      "related_systems": [
+        "apple_hig",
+        "material_design_3",
+        "spacing_systems",
+        "contrast_ratios"
+      ]
+    },
+    {
+      "id": "illustration_system",
+      "name": "Illustration System and Style Guidelines",
+      "category": "foundation",
+      "description": "Framework for maintaining consistent illustration style, subject matter, and usage across a product. Covers style definition, composition rules, color palette constraints, and guidelines for when to use illustration vs photography vs iconography.",
+      "principles": [
+        "Illustrations reinforce brand personality and tone",
+        "Consistent style across all illustrations (stroke, color, proportion)",
+        "Illustrations should clarify, not decorate",
+        "Accessible: illustrations need alt text describing their content",
+        "Cultural sensitivity in representation of people and places"
+      ],
+      "when_to_use": [
+        "Defining illustration style for a brand or product",
+        "Empty states, onboarding, and error pages",
+        "Marketing and landing page visual storytelling",
+        "Creating illustration guidelines for multiple artists"
+      ],
+      "avoid_when": [
+        "Product has no illustration needs (dev tools, terminals)",
+        "Photography is more appropriate for the content type",
+        "Budget does not allow for custom illustration creation",
+        "Illustrations would slow page load without adding value"
+      ],
+      "signals": [
+        "Illustrations from different sources lack visual cohesion",
+        "Empty states use generic stock illustrations",
+        "No style guide exists for illustration contributors",
+        "Illustrations are decorative with no informational value"
+      ],
+      "key_concepts": [
+        "Style definition: line weight, color palette, perspective, shading",
+        "Spot illustrations: small, focused, single-concept (empty states)",
+        "Hero illustrations: large, complex, narrative (landing pages)",
+        "Character design: consistent proportions and style for people",
+        "Illustration tokens: constrained color palette matching design system",
+        "SVG optimization: SVGO for production illustration assets"
+      ],
+      "related_systems": [
+        "color_theory",
+        "iconography",
+        "color_60_30_10"
+      ]
+    },
+    {
+      "id": "design_tokens",
+      "name": "W3C Design Tokens Specification",
+      "category": "token_system",
+      "description": "The W3C Design Tokens Community Group specification for a standard file format to exchange design tokens between tools and platforms. Defines how to represent colors, dimensions, typography, shadows, and other design decisions as platform-agnostic data.",
+      "principles": [
+        "Tokens are the single source of truth for design decisions",
+        "Platform-agnostic: one definition, multiple output formats",
+        "Hierarchical: organize tokens in nested groups",
+        "Typed: each token has a defined type (color, dimension, etc.)",
+        "Aliasable: tokens can reference other tokens"
+      ],
+      "when_to_use": [
+        "Building a design system that spans multiple platforms",
+        "Syncing design tools (Figma) with code implementation",
+        "Creating a theme system with swappable token sets",
+        "Establishing a single source of truth for design decisions"
+      ],
+      "avoid_when": [
+        "Single-platform project with simple styling needs",
+        "Prototype or throwaway project",
+        "Team has no design system infrastructure",
+        "Design decisions are still highly volatile"
+      ],
+      "signals": [
+        "Hardcoded color values scattered across CSS files",
+        "Design-to-code handoff loses fidelity",
+        "Multiple platforms (web, iOS, Android) with inconsistent values",
+        "Theme switching requires touching many files"
+      ],
+      "key_concepts": [
+        "Token types: color, dimension, fontFamily, fontWeight, duration, cubicBezier",
+        "Groups: hierarchical namespacing for organization",
+        "Aliases: {color.primary.500} references another token",
+        "Composite tokens: typography, shadow, border as structured values",
+        "Style Dictionary: build system for transforming tokens to platform code",
+        "DTCG format: $value, $type, $description fields"
+      ],
+      "related_systems": [
+        "semantic_tokens",
+        "component_tokens",
+        "theme_tokens",
+        "material_design_3"
+      ],
+      "origin": "Salesforce / W3C Design Tokens Community Group",
+      "best_for": [
+        "multi_platform_design_systems",
+        "theming",
+        "white_label_products",
+        "design_dev_handoff"
+      ],
+      "key_principles": [
+        "platform_agnostic",
+        "single_source_of_truth",
+        "hierarchical_naming",
+        "semantic_aliases",
+        "composable"
+      ]
+    },
+    {
+      "id": "semantic_tokens",
+      "name": "Semantic Token Architecture",
+      "category": "token_system",
+      "description": "Layer of alias tokens that map meaningful names to primitive values. Instead of using color.blue.500, semantic tokens use color.action.primary or color.text.secondary. This abstraction enables theming and ensures tokens communicate intent rather than appearance.",
+      "principles": [
+        "Token names describe purpose, not appearance",
+        "Semantic tokens alias primitive tokens, never hardcoded values",
+        "Enable theme switching by remapping semantic to primitive",
+        "Reduce decision fatigue: developers choose by intent",
+        "Semantic layer is the public API of the token system"
+      ],
+      "when_to_use": [
+        "Design system needs to support multiple themes",
+        "Developers are choosing wrong primitive tokens for components",
+        "Dark mode requires different primitives for same semantic purpose",
+        "Token names like blue-500 are used where intent matters"
+      ],
+      "avoid_when": [
+        "Single-theme application with no foreseeable theme changes",
+        "Very small project where token abstraction adds overhead",
+        "Primitive palette is not yet established"
+      ],
+      "signals": [
+        "Primitive color names used directly in component styles",
+        "Dark mode implementation requires finding every color usage",
+        "Developers unsure which shade of gray to use for text",
+        "New theme requires touching every component file"
+      ],
+      "key_concepts": [
+        "Primitive tokens: color.blue.500, space.4, font.size.md",
+        "Semantic tokens: color.bg.primary, color.text.secondary, space.gap.md",
+        "Mapping: color.bg.primary -> color.white (light) or color.gray.900 (dark)",
+        "Intent categories: action, feedback, surface, border, text",
+        "State modifiers: default, hover, active, disabled, focus"
+      ],
+      "related_systems": [
+        "design_tokens",
+        "component_tokens",
+        "theme_tokens",
+        "dark_mode"
+      ]
+    },
+    {
+      "id": "component_tokens",
+      "name": "Component-Level Token Contracts",
+      "category": "token_system",
+      "description": "Per-component token definitions that create a stable API between design and engineering. Each component declares its own tokens (button.bg, button.text, button.border) that map to semantic tokens, enabling component-level theming without global side effects.",
+      "principles": [
+        "Each component has an explicit token contract",
+        "Component tokens reference semantic tokens, not primitives",
+        "Token contract is the component's styling API",
+        "Changes to component tokens don't leak to other components",
+        "Variants (size, state) are expressed through token overrides"
+      ],
+      "when_to_use": [
+        "Building a component library with per-component theming",
+        "Component customization needs to be safe and contained",
+        "Design handoff requires precise component-level specifications",
+        "White-label product where components are themed per customer"
+      ],
+      "avoid_when": [
+        "Utility-first CSS approach (Tailwind) is the styling method",
+        "Small project with few custom components",
+        "Token system is not yet established at semantic level",
+        "Components are simple enough to style inline"
+      ],
+      "signals": [
+        "Components use global CSS variables causing unintended side effects",
+        "Theming a single component requires understanding the whole token tree",
+        "Component styling is tightly coupled to implementation details",
+        "No clear contract between design specs and component code"
+      ],
+      "key_concepts": [
+        "Contract: button.bg.default, button.bg.hover, button.text, button.border",
+        "Mapping: button.bg.default -> color.action.primary -> color.blue.600",
+        "Variants: button.bg.default.secondary -> color.action.secondary",
+        "States: default, hover, active, focus, disabled per token",
+        "CSS custom properties: --button-bg as the component API"
+      ],
+      "related_systems": [
+        "semantic_tokens",
+        "design_tokens",
+        "theme_tokens",
+        "lightning_design"
+      ]
+    },
+    {
+      "id": "theme_tokens",
+      "name": "Multi-Theme Token Architecture",
+      "category": "token_system",
+      "description": "Architecture for supporting multiple themes (light, dark, high contrast, brand variants) through token set swapping. The semantic layer remains constant while the underlying primitive mappings change per theme, enabling runtime theme switching.",
+      "principles": [
+        "Themes swap primitive mappings, not semantic names",
+        "All themes must satisfy the same semantic token contract",
+        "Theme tokens are applied via CSS custom properties or context",
+        "High contrast theme is an accessibility requirement, not optional",
+        "Theme preference should respect system settings"
+      ],
+      "when_to_use": [
+        "Product requires light and dark mode support",
+        "White-label or multi-brand product",
+        "Accessibility compliance requires high contrast mode",
+        "User preference for theme selection is a feature"
+      ],
+      "avoid_when": [
+        "Single fixed theme with no planned variation",
+        "Prototype or MVP where theming is premature",
+        "Static marketing site with fixed brand colors"
+      ],
+      "signals": [
+        "Dark mode is planned or requested by users",
+        "Multiple brands or tenants need different visual identity",
+        "prefers-color-scheme media query is not being respected",
+        "Theme switching causes flash of unstyled content"
+      ],
+      "key_concepts": [
+        "Theme sets: light, dark, high-contrast, brand-a, brand-b",
+        "Token override: same semantic name, different primitive value per theme",
+        "CSS custom properties: applied on :root or [data-theme] selector",
+        "System preference: prefers-color-scheme and prefers-contrast",
+        "Theme persistence: localStorage or server-side cookie",
+        "Flash prevention: blocking script or server-rendered theme class"
+      ],
+      "related_systems": [
+        "semantic_tokens",
+        "design_tokens",
+        "dark_mode",
+        "contrast_ratios"
+      ]
+    },
+    {
+      "id": "grid_systems",
+      "name": "Grid Systems for Interface Layout",
+      "category": "layout",
+      "description": "Structured layout systems using columns, gutters, and margins to organize content. Includes column grids for page layout, baseline grids for vertical rhythm, and modular grids combining both. Provides structure and consistency across pages and screen sizes.",
+      "principles": [
+        "Grids provide structure, not constraint",
+        "Column count adapts to screen width",
+        "Gutters maintain consistent spacing between columns",
+        "Margins define the relationship between content and screen edge",
+        "Content alignment to grid creates visual order"
+      ],
+      "when_to_use": [
+        "Establishing page-level layout structure",
+        "Multi-column content layouts (dashboards, feeds, catalogs)",
+        "Responsive layouts needing consistent column behavior",
+        "Design systems requiring standardized layout patterns"
+      ],
+      "avoid_when": [
+        "Single-column mobile interface",
+        "Freeform canvas or spatial interfaces",
+        "Full-bleed media-heavy layouts",
+        "Simple stacked content layouts"
+      ],
+      "signals": [
+        "Content alignment is inconsistent across pages",
+        "Layout breaks at certain screen sizes",
+        "Developers are creating custom grid solutions per page",
+        "Design specs show different column structures per page"
+      ],
+      "key_concepts": [
+        "Column grid: 4 (mobile), 8 (tablet), 12 (desktop) columns",
+        "Gutters: space between columns (16px, 24px, 32px typical)",
+        "Margins: space between grid and viewport edge",
+        "Baseline grid: horizontal lines for vertical rhythm (4px or 8px)",
+        "Modular grid: intersection of column grid and baseline grid",
+        "Subgrid: CSS subgrid for nested grid alignment"
+      ],
+      "related_systems": [
+        "responsive_design",
+        "spacing_systems",
+        "css_grid_patterns",
+        "flexbox_patterns"
+      ]
+    },
+    {
+      "id": "responsive_design",
+      "name": "Responsive Design Methodology",
+      "category": "layout",
+      "description": "Mobile-first approach to designing interfaces that adapt fluidly across screen sizes. Uses breakpoints, fluid units, and flexible layouts to provide optimal experiences from phone to ultrawide desktop without separate implementations.",
+      "principles": [
+        "Mobile-first: design for smallest screen, enhance for larger",
+        "Content determines breakpoints, not device dimensions",
+        "Fluid layouts between breakpoints, not just at breakpoints",
+        "Progressive enhancement over graceful degradation",
+        "Touch targets: minimum 44x44px for mobile interactions"
+      ],
+      "when_to_use": [
+        "Any web application or site accessed across devices",
+        "Products where mobile and desktop share the same codebase",
+        "Content-driven sites needing readability at all sizes",
+        "E-commerce where mobile conversion is critical"
+      ],
+      "avoid_when": [
+        "Native mobile app with platform-specific layouts",
+        "Desktop-only enterprise tool with no mobile requirement",
+        "Fixed-dimension embedded widgets or kiosk applications",
+        "Email templates where responsive support is limited"
+      ],
+      "signals": [
+        "Layout breaks or overflows at certain viewport widths",
+        "Touch targets are too small on mobile",
+        "Content is hidden on mobile instead of reorganized",
+        "Separate mobile site exists (m.example.com)"
+      ],
+      "key_concepts": [
+        "Breakpoints: 640px (sm), 768px (md), 1024px (lg), 1280px (xl), 1536px (2xl)",
+        "Fluid units: %, vw, vh, rem, em for proportional sizing",
+        "clamp(): min, preferred, max for fluid values",
+        "Media queries: min-width for mobile-first, max-width for desktop-first",
+        "Viewport meta: <meta name='viewport' content='width=device-width'>",
+        "Responsive images: srcset, sizes, picture element"
+      ],
+      "related_systems": [
+        "grid_systems",
+        "container_queries",
+        "fluid_typography",
+        "tailwind_utility"
+      ],
+      "origin": "Ethan Marcotte",
+      "best_for": [
+        "web_applications",
+        "multi_device",
+        "content_sites",
+        "progressive_web_apps"
+      ],
+      "key_principles": [
+        "fluid_grids",
+        "flexible_media",
+        "media_queries",
+        "mobile_first",
+        "content_out_breakpoints"
+      ]
+    },
+    {
+      "id": "container_queries",
+      "name": "Container Queries for Component-Level Responsiveness",
+      "category": "layout",
+      "description": "CSS container queries enable components to respond to their container's dimensions rather than the viewport. This allows truly reusable components that adapt their layout based on available space regardless of where they are placed in the page.",
+      "principles": [
+        "Components should respond to their container, not the viewport",
+        "Container queries enable context-independent component design",
+        "Containment context must be explicitly declared",
+        "Container query units (cqw, cqh) enable fluid internal sizing",
+        "Combine with media queries for page-level responsive decisions"
+      ],
+      "when_to_use": [
+        "Components used in varying layout contexts (sidebar vs main content)",
+        "Design system components needing context-independent responsiveness",
+        "Card layouts that adapt from horizontal to vertical based on space",
+        "Dashboard widgets placed in different grid configurations"
+      ],
+      "avoid_when": [
+        "Page-level layout decisions (use media queries)",
+        "Browser support requirements exclude container query support",
+        "Simple components that don't need responsive behavior",
+        "Components always rendered in the same context"
+      ],
+      "signals": [
+        "Components break when moved to a narrower container",
+        "Media queries on components assume a specific page layout",
+        "Responsive behavior is tied to viewport rather than available space",
+        "Same component needs different breakpoints in different locations"
+      ],
+      "key_concepts": [
+        "container-type: inline-size for width-based queries",
+        "@container (min-width: 400px) { } for container-scoped styles",
+        "container-name: for named containment contexts",
+        "Container query units: cqw, cqh, cqi, cqb",
+        "Style queries: @container style(--theme: dark) for custom property queries",
+        "Containment: size, layout, style containment types"
+      ],
+      "related_systems": [
+        "responsive_design",
+        "css_grid_patterns",
+        "grid_systems"
+      ]
+    },
+    {
+      "id": "flexbox_patterns",
+      "name": "Flexbox Layout Patterns",
+      "category": "layout",
+      "description": "Common layout patterns achievable with CSS Flexbox. Covers one-dimensional distribution of space, alignment, ordering, and wrapping. The go-to tool for component-level layout including navigation bars, card rows, form layouts, and centering.",
+      "principles": [
+        "Flexbox is for one-dimensional layout (row OR column)",
+        "Use flex-grow, flex-shrink, flex-basis for size distribution",
+        "Alignment: justify-content for main axis, align-items for cross axis",
+        "Order property enables visual reordering without DOM changes",
+        "gap property replaces margin hacks for consistent spacing"
+      ],
+      "when_to_use": [
+        "Horizontal navigation bars and toolbars",
+        "Centering content vertically and horizontally",
+        "Distributing space between items in a row or column",
+        "Card layouts with equal-height columns"
+      ],
+      "avoid_when": [
+        "Two-dimensional grid layout is needed (use CSS Grid)",
+        "Complex page-level layout with rows and columns",
+        "Layout requires explicit row/column track sizing",
+        "Subgrid alignment is needed across nested containers"
+      ],
+      "signals": [
+        "Floating or inline-block used for layout instead of flex",
+        "Vertical centering achieved with padding hacks",
+        "Margins used for spacing between flex children",
+        "Equal-height columns failing without explicit height"
+      ],
+      "key_concepts": [
+        "display: flex and flex-direction: row | column",
+        "justify-content: flex-start, center, space-between, space-around, space-evenly",
+        "align-items: stretch, center, flex-start, flex-end, baseline",
+        "flex: grow shrink basis shorthand",
+        "flex-wrap: wrap for multi-line flex containers",
+        "gap: row-gap and column-gap for consistent spacing"
+      ],
+      "related_systems": [
+        "css_grid_patterns",
+        "grid_systems",
+        "spacing_systems",
+        "holy_grail_layout"
+      ]
+    },
+    {
+      "id": "css_grid_patterns",
+      "name": "CSS Grid Layout Patterns",
+      "category": "layout",
+      "description": "Two-dimensional layout patterns using CSS Grid. Enables complex page layouts, dashboard grids, and responsive card grids with precise control over both rows and columns. Supports named areas, auto-placement, and subgrid for nested alignment.",
+      "principles": [
+        "CSS Grid is for two-dimensional layout (rows AND columns)",
+        "Define explicit tracks or use auto-fill/auto-fit for responsive grids",
+        "Named grid areas create readable, maintainable layout definitions",
+        "Subgrid enables nested grids to align with parent tracks",
+        "minmax() enables flexible yet constrained track sizing"
+      ],
+      "when_to_use": [
+        "Page-level layout with header, sidebar, main, footer",
+        "Responsive card grids that reflow based on available space",
+        "Dashboard layouts with varying widget sizes",
+        "Overlapping elements without absolute positioning"
+      ],
+      "avoid_when": [
+        "Simple one-dimensional alignment (use Flexbox)",
+        "Linear content flow that wraps naturally",
+        "Layout is purely sequential with no grid structure",
+        "Very old browser support is required"
+      ],
+      "signals": [
+        "Complex layout achieved with nested flexbox containers",
+        "Absolute positioning used for layout instead of stacking context",
+        "Float-based grid system still in use",
+        "Card grids not reflowing smoothly at different widths"
+      ],
+      "key_concepts": [
+        "grid-template-columns: repeat(auto-fill, minmax(250px, 1fr))",
+        "grid-template-areas: named regions for semantic layout",
+        "fr unit: fractional unit for proportional track sizing",
+        "minmax(): constrained flexible sizing",
+        "auto-fill vs auto-fit: fill vs collapse empty tracks",
+        "subgrid: inherit parent grid tracks in nested grid",
+        "grid-auto-flow: dense for gap-filling placement"
+      ],
+      "related_systems": [
+        "flexbox_patterns",
+        "grid_systems",
+        "responsive_design",
+        "holy_grail_layout"
+      ]
+    },
+    {
+      "id": "holy_grail_layout",
+      "name": "Holy Grail Application Shell Layout",
+      "category": "layout",
+      "description": "The classic application shell pattern with a fixed header, optional sidebar navigation, scrollable main content area, and footer. The foundational layout for dashboards, admin panels, and content management systems.",
+      "principles": [
+        "Header and footer are fixed or sticky, content scrolls",
+        "Sidebar collapses responsively on smaller screens",
+        "Main content area takes remaining available space",
+        "Layout should work with varying content lengths",
+        "Navigation structure visible at all times on desktop"
+      ],
+      "when_to_use": [
+        "Dashboard or admin panel interfaces",
+        "Content management systems with navigation",
+        "Email clients, project management tools, documentation sites",
+        "Any application needing persistent navigation with content area"
+      ],
+      "avoid_when": [
+        "Marketing or landing page layouts",
+        "Mobile-only applications using tab navigation",
+        "Full-screen immersive experiences (games, presentations)",
+        "Simple single-column content pages"
+      ],
+      "signals": [
+        "Application needs persistent top and side navigation",
+        "Content area should scroll independently from navigation",
+        "Sidebar needs to toggle between expanded and collapsed",
+        "Layout structure is consistent across all pages"
+      ],
+      "key_concepts": [
+        "CSS Grid: grid-template-areas for header, sidebar, main, footer",
+        "Sticky header: position: sticky; top: 0 with z-index",
+        "Collapsible sidebar: width transition with toggle button",
+        "Content scroll: overflow-y: auto on main content area",
+        "Full viewport: min-height: 100vh or 100dvh for mobile",
+        "Responsive: sidebar becomes bottom drawer or hamburger menu on mobile"
+      ],
+      "related_systems": [
+        "css_grid_patterns",
+        "flexbox_patterns",
+        "responsive_design",
+        "grid_systems"
+      ]
+    },
+    {
+      "id": "motion_principles",
+      "name": "Motion Design Principles for UI",
+      "category": "motion",
+      "description": "Disney's 12 principles of animation adapted for user interface design. Provides guidelines for creating motion that feels natural, communicates meaning, and enhances rather than distracts from the user experience.",
+      "principles": [
+        "Motion should have clear purpose: feedback, orientation, or delight",
+        "Duration should match the size and importance of the change",
+        "Objects should move along natural, curved paths",
+        "Motion should respect user preferences (prefers-reduced-motion)",
+        "Choreography: related elements should move in coordinated sequence"
+      ],
+      "when_to_use": [
+        "Adding transitions between UI states",
+        "Providing feedback for user interactions",
+        "Guiding attention to important changes",
+        "Creating spatial relationships between views"
+      ],
+      "avoid_when": [
+        "User has prefers-reduced-motion enabled",
+        "Motion would delay task completion",
+        "Animation is purely decorative with no functional purpose",
+        "Performance budget does not allow for animation"
+      ],
+      "signals": [
+        "UI state changes feel abrupt or jarring",
+        "Users lose context during navigation transitions",
+        "Animations feel robotic or mechanical",
+        "Motion is inconsistent in duration and style across the product"
+      ],
+      "key_concepts": [
+        "Squash and stretch: subtle scale on press/release",
+        "Anticipation: brief wind-up before action",
+        "Follow-through: elements settle after main motion",
+        "Staging: direct attention to the most important action",
+        "Ease-in: accelerating (exiting elements)",
+        "Ease-out: decelerating (entering elements)",
+        "Duration scale: 100ms micro, 200ms small, 300ms medium, 500ms large",
+        "Reduce motion: @media (prefers-reduced-motion: reduce)"
+      ],
+      "related_systems": [
+        "easing_curves",
+        "transition_patterns",
+        "micro_interactions",
+        "choreography"
+      ]
+    },
+    {
+      "id": "easing_curves",
+      "name": "Easing Curves and Timing Functions",
+      "category": "motion",
+      "description": "Mathematical curves that control the acceleration and deceleration of animations. The easing function determines whether motion feels mechanical (linear), natural (ease), snappy (ease-out), or energetic (spring). Critical for motion that feels right.",
+      "principles": [
+        "Linear motion feels mechanical and should be rare",
+        "Ease-out (decelerate) for elements entering the screen",
+        "Ease-in (accelerate) for elements exiting the screen",
+        "Ease-in-out for elements that stay on screen but change state",
+        "Spring curves feel most natural for interactive elements"
+      ],
+      "when_to_use": [
+        "Defining animation timing for a design system",
+        "Transitions between UI states (open/close, show/hide)",
+        "Interactive elements responding to user input",
+        "Scroll-linked animations and parallax effects"
+      ],
+      "avoid_when": [
+        "Animation duration is too short for easing to be perceived (<50ms)",
+        "Continuous looping animations where linear is appropriate",
+        "Progress indicators where linear represents actual progress"
+      ],
+      "signals": [
+        "Animations feel robotic or unnatural",
+        "Transitions have inconsistent timing across the product",
+        "Custom cubic-bezier values without design rationale",
+        "Spring animations feel bouncy or sluggish"
+      ],
+      "key_concepts": [
+        "Linear: cubic-bezier(0, 0, 1, 1) — constant speed",
+        "Ease: cubic-bezier(0.25, 0.1, 0.25, 1) — CSS default",
+        "Ease-in: cubic-bezier(0.42, 0, 1, 1) — slow start, fast end",
+        "Ease-out: cubic-bezier(0, 0, 0.58, 1) — fast start, slow end",
+        "Ease-in-out: cubic-bezier(0.42, 0, 0.58, 1) — slow start and end",
+        "Spring: defined by mass, stiffness, damping (not cubic-bezier)",
+        "CSS: transition-timing-function and animation-timing-function",
+        "Web Animations API: easing property on KeyframeEffect"
+      ],
+      "related_systems": [
+        "motion_principles",
+        "transition_patterns",
+        "micro_interactions"
+      ]
+    },
+    {
+      "id": "transition_patterns",
+      "name": "Enter/Exit/Shared Element Transitions",
+      "category": "motion",
+      "description": "Patterns for animating elements entering the DOM, leaving the DOM, and transitioning between views with shared elements. Includes the View Transitions API for cross-document transitions and techniques for maintaining spatial context during navigation.",
+      "principles": [
+        "Enter: fade + scale up or slide from direction of origin",
+        "Exit: fade + scale down or slide toward destination",
+        "Shared elements: morph between views to maintain context",
+        "Exit happens before or simultaneously with enter",
+        "Duration should scale with the size of the transition"
+      ],
+      "when_to_use": [
+        "Modal and dialog open/close animations",
+        "Page or view navigation transitions",
+        "List item additions and removals",
+        "Expandable cards or detail views"
+      ],
+      "avoid_when": [
+        "Instant feedback is more appropriate (toggle switches)",
+        "User has prefers-reduced-motion enabled",
+        "Transition would block user interaction",
+        "Content is below the fold and transition is not visible"
+      ],
+      "signals": [
+        "Modals appear and disappear abruptly",
+        "Navigation between views feels disconnected",
+        "List items pop in without animation on data load",
+        "Users lose spatial context during navigation"
+      ],
+      "key_concepts": [
+        "CSS: @starting-style for entry animations",
+        "CSS: transition-behavior: allow-discrete for display/visibility",
+        "View Transitions API: document.startViewTransition()",
+        "view-transition-name: for shared element identification",
+        "AnimatePresence: React pattern for exit animations (Framer Motion)",
+        "FLIP technique: First, Last, Invert, Play for layout animations",
+        "Crossfade: simultaneous fade-out old and fade-in new"
+      ],
+      "related_systems": [
+        "motion_principles",
+        "easing_curves",
+        "choreography",
+        "micro_interactions"
+      ]
+    },
+    {
+      "id": "micro_interactions",
+      "name": "Micro-Interactions and State Feedback",
+      "category": "motion",
+      "description": "Small, contained animations that provide feedback for user actions, communicate state changes, and add polish to interactive elements. Includes hover effects, toggle animations, loading indicators, scroll-linked effects, and success/error feedback.",
+      "principles": [
+        "Every interaction should have visible feedback",
+        "Micro-interactions should be fast (100-300ms)",
+        "Feedback should match the significance of the action",
+        "Subtle is better than dramatic for frequent interactions",
+        "Loading states should communicate progress when possible"
+      ],
+      "when_to_use": [
+        "Button press and hover feedback",
+        "Toggle switches and checkbox animations",
+        "Form validation success/error indicators",
+        "Loading spinners, skeletons, and progress bars",
+        "Scroll-triggered reveal animations"
+      ],
+      "avoid_when": [
+        "Animation would be distracting during focused work",
+        "Micro-interaction fires too frequently (every keystroke)",
+        "Performance impact on low-end devices",
+        "User has requested reduced motion"
+      ],
+      "signals": [
+        "Buttons have no hover or active state feedback",
+        "Form submission has no loading or success indicator",
+        "Toggle switches change state without animation",
+        "Content appears abruptly on scroll"
+      ],
+      "key_concepts": [
+        "Hover: subtle scale, shadow, or color shift (150ms ease-out)",
+        "Active/press: slight scale-down or darkening (100ms)",
+        "Toggle: smooth position and color transition (200ms ease-in-out)",
+        "Loading: skeleton screens, shimmer effect, spinner, progress bar",
+        "Success: checkmark animation, green flash, confetti (for celebrations)",
+        "Error: shake animation, red highlight, inline error message",
+        "Scroll-linked: IntersectionObserver for scroll-triggered animations"
+      ],
+      "related_systems": [
+        "motion_principles",
+        "easing_curves",
+        "transition_patterns"
+      ]
+    },
+    {
+      "id": "choreography",
+      "name": "Animation Choreography and Sequencing",
+      "category": "motion",
+      "description": "Coordinating multiple animations to create cohesive, purposeful sequences. Includes staggered list animations, cascading reveals, and orchestrated page transitions where multiple elements animate in a deliberate order to guide attention and create visual narrative.",
+      "principles": [
+        "Primary action animates first, secondary elements follow",
+        "Stagger delay should be short (30-50ms) to feel connected",
+        "Total sequence duration should not exceed 500-800ms",
+        "Direction of stagger should follow reading order or focal point",
+        "Reduce to single crossfade when prefers-reduced-motion is set"
+      ],
+      "when_to_use": [
+        "List or grid items loading in sequence",
+        "Page sections revealing on scroll",
+        "Dashboard widgets populating with data",
+        "Complex view transitions with multiple moving parts"
+      ],
+      "avoid_when": [
+        "Single element animation (no choreography needed)",
+        "User is performing rapid, repeated actions",
+        "Content needs to be immediately available",
+        "Total animation sequence would exceed 1 second"
+      ],
+      "signals": [
+        "Multiple elements animate simultaneously creating visual chaos",
+        "Page load animations feel random or uncoordinated",
+        "List items all appear at once instead of staggering",
+        "Dashboard feels static despite dynamic data loading"
+      ],
+      "key_concepts": [
+        "Stagger: animation-delay incrementing per item (30-50ms)",
+        "Cascade: parent animates, then children in sequence",
+        "Orchestration: timeline-based coordination of multiple animations",
+        "Group: related elements animate together as a unit",
+        "Sequential: one completes before next begins",
+        "Overlapping: next begins before previous completes (more fluid)",
+        "CSS: animation-delay with custom property calc(var(--i) * 50ms)"
+      ],
+      "related_systems": [
+        "motion_principles",
+        "transition_patterns",
+        "micro_interactions",
+        "easing_curves"
+      ]
+    },
+    {
+      "id": "color_60_30_10",
+      "name": "60-30-10 Color Distribution Rule",
+      "category": "color",
+      "description": "Interior design rule adapted for interfaces: 60% dominant color (background/surface), 30% secondary color (cards, sections, secondary surfaces), and 10% accent color (CTAs, highlights, interactive elements). Creates visual balance and clear hierarchy.",
+      "principles": [
+        "60% dominant: neutral background that does not compete for attention",
+        "30% secondary: supporting surfaces that create visual interest",
+        "10% accent: draws attention to key actions and information",
+        "Accent color should have highest contrast against its surroundings",
+        "Ratio is approximate — intent matters more than exact measurement"
+      ],
+      "when_to_use": [
+        "Establishing color balance for a new design",
+        "Auditing whether a page feels visually overwhelming",
+        "Choosing how to distribute brand colors across surfaces",
+        "Teaching color usage guidelines to a team"
+      ],
+      "avoid_when": [
+        "Data visualization requiring many distinct colors",
+        "Highly branded splash pages where accent dominates intentionally",
+        "Dark mode where the 60% is already dark and contrast differs",
+        "Artistic or editorial layouts with intentional color dominance"
+      ],
+      "signals": [
+        "Interface feels monotone or lacks visual hierarchy",
+        "Accent color is overused, making nothing stand out",
+        "Background color competes with content for attention",
+        "CTA buttons blend into the surrounding UI"
+      ],
+      "key_concepts": [
+        "Dominant (60%): white, light gray, or dark surface in dark mode",
+        "Secondary (30%): card backgrounds, navigation, sidebars",
+        "Accent (10%): primary buttons, links, active states, badges",
+        "Neutral palette: grays for the 60% and 30% in most interfaces",
+        "Brand color: typically used as the 10% accent",
+        "Validation: squint test — can you still see the hierarchy?"
+      ],
+      "related_systems": [
+        "color_theory",
+        "color_semantics",
+        "dark_mode",
+        "contrast_ratios"
+      ]
+    },
+    {
+      "id": "contrast_ratios",
+      "name": "WCAG Contrast Ratio Requirements",
+      "category": "color",
+      "description": "Web Content Accessibility Guidelines requirements for text and UI component contrast against backgrounds. WCAG 2.1 AA requires 4.5:1 for normal text and 3:1 for large text. AAA requires 7:1 for normal text. APCA is the emerging successor for WCAG 3.0.",
+      "principles": [
+        "All text must meet minimum contrast ratios against its background",
+        "Interactive UI components need 3:1 contrast against adjacent colors",
+        "Contrast requirements apply in all themes including dark mode",
+        "Do not rely on color alone to convey information",
+        "Test with real content, not just color swatches"
+      ],
+      "when_to_use": [
+        "Choosing text colors for any background",
+        "Validating design system color pairings",
+        "Auditing existing interfaces for accessibility compliance",
+        "Creating accessible data visualizations"
+      ],
+      "avoid_when": [
+        "Decorative elements with no informational content",
+        "Disabled state styling (reduced contrast is intentional and acceptable)",
+        "Logotypes and brand marks (exempt from WCAG)"
+      ],
+      "signals": [
+        "Users report difficulty reading text",
+        "Automated accessibility audit flags contrast failures",
+        "Light gray text on white backgrounds",
+        "Colored text on colored backgrounds without testing"
+      ],
+      "key_concepts": [
+        "AA normal text: 4.5:1 minimum contrast ratio",
+        "AA large text (18pt or 14pt bold): 3:1 minimum",
+        "AA UI components: 3:1 against adjacent colors",
+        "AAA normal text: 7:1 minimum contrast ratio",
+        "AAA large text: 4.5:1 minimum",
+        "APCA (WCAG 3.0 draft): Lc values, font-size dependent thresholds",
+        "Tools: axe, Lighthouse, Stark, WebAIM contrast checker",
+        "Non-text contrast: icons, borders, focus indicators"
+      ],
+      "related_systems": [
+        "color_theory",
+        "dark_mode",
+        "color_semantics",
+        "theme_tokens"
+      ]
+    },
+    {
+      "id": "dark_mode",
+      "name": "Dark Mode Design Patterns",
+      "category": "color",
+      "description": "Design considerations for dark theme interfaces. Dark mode is not simply inverting colors — it requires adjusted contrast, desaturated colors, elevation through surface tinting, and careful handling of shadows, images, and illustrations.",
+      "principles": [
+        "Dark gray (#121212) is better than pure black (#000000) for primary surface",
+        "Reduce saturation of colors to avoid vibration on dark backgrounds",
+        "Elevation is conveyed through lighter surface tints, not darker shadows",
+        "Text should be slightly off-white to reduce eye strain",
+        "Respect prefers-color-scheme system preference"
+      ],
+      "when_to_use": [
+        "Any application where users work in low-light environments",
+        "Products where dark mode is expected (code editors, media apps)",
+        "Design systems requiring theme support",
+        "Reducing eye strain for extended use sessions"
+      ],
+      "avoid_when": [
+        "Print-oriented document applications where WYSIWYG matters",
+        "Regulatory or legal content where light mode is standard",
+        "Applications with heavy use of photography or illustration that clashes"
+      ],
+      "signals": [
+        "Users requesting dark mode support",
+        "prefers-color-scheme: dark not being respected",
+        "Dark mode implementation has pure black backgrounds",
+        "Colors that look fine in light mode are garish in dark mode"
+      ],
+      "key_concepts": [
+        "Surface hierarchy: #121212 base, lighter tints for elevation",
+        "Material overlay: 5%, 7%, 8%, 9%, 11%, 12% white overlay per elevation level",
+        "Desaturation: reduce chroma by 20-30% for dark backgrounds",
+        "Text colors: #E0E0E0 primary, #A0A0A0 secondary, #6C6C6C disabled",
+        "prefers-color-scheme: dark media query for automatic switching",
+        "color-scheme: dark light CSS property for form controls",
+        "Image handling: reduce brightness/contrast or provide dark variants"
+      ],
+      "related_systems": [
+        "theme_tokens",
+        "elevation_system",
+        "contrast_ratios",
+        "color_60_30_10"
+      ]
+    },
+    {
+      "id": "color_semantics",
+      "name": "Semantic Color Meanings",
+      "category": "color",
+      "description": "Standardized color associations for communicating status, feedback, and meaning in interfaces. Success (green), warning (amber/yellow), error (red), and info (blue) are universal patterns. Extends to severity levels, priority indicators, and categorical distinction.",
+      "principles": [
+        "Never rely on color alone — always pair with text, icons, or patterns",
+        "Semantic colors must meet contrast requirements in all themes",
+        "Limit semantic palette to avoid color overload",
+        "Cultural color associations vary — validate for target audience",
+        "Semantic colors need light and dark variants for backgrounds vs text"
+      ],
+      "when_to_use": [
+        "Form validation feedback (success, error, warning)",
+        "Status indicators (active, inactive, pending)",
+        "Alert and notification banners",
+        "Data visualization with categorical meaning"
+      ],
+      "avoid_when": [
+        "Color meaning is ambiguous without cultural context",
+        "Using red/green for the only distinction (color blindness)",
+        "Decorative use where semantic meaning would be misleading"
+      ],
+      "signals": [
+        "Error messages use brand color instead of red",
+        "Success and error states are only distinguished by color",
+        "Warning banners are not visually distinct from info banners",
+        "Status indicators lack text labels"
+      ],
+      "key_concepts": [
+        "Success: green (#22C55E family) — completion, valid, approved",
+        "Warning: amber (#F59E0B family) — caution, attention needed",
+        "Error: red (#EF4444 family) — failure, invalid, destructive",
+        "Info: blue (#3B82F6 family) — neutral information, help",
+        "Neutral: gray (#6B7280 family) — disabled, inactive, placeholder",
+        "Background variants: light tinted backgrounds for banners (green-50, red-50)",
+        "Border variants: subtle borders matching semantic color",
+        "Pairing: icon + color + text for maximum clarity"
+      ],
+      "related_systems": [
+        "color_theory",
+        "contrast_ratios",
+        "design_tokens",
+        "color_60_30_10"
+      ]
+    },
+    {
+      "id": "type_scale_major_third",
+      "name": "Major Third Type Scale (1.250)",
+      "category": "typography",
+      "description": "Typographic scale using a 1.250 ratio (major third musical interval). Produces moderate size jumps suitable for most interfaces. Starting from 16px base: 16, 20, 25, 31.25, 39, 48.8. A balanced choice between readability and hierarchy.",
+      "principles": [
+        "Multiply each step by 1.250 for the next size",
+        "Round to nearest pixel or 0.25rem for clean values",
+        "Use fewer steps (6-8) for cleaner hierarchy",
+        "Pair with consistent line-height reduction at larger sizes",
+        "Consider using different scale for mobile vs desktop"
+      ],
+      "when_to_use": [
+        "General purpose web applications",
+        "Content-heavy sites needing moderate heading distinction",
+        "Design systems requiring a balanced type hierarchy",
+        "Projects where heading sizes should not be dramatically different"
+      ],
+      "avoid_when": [
+        "Dramatic visual hierarchy is needed (use larger ratio)",
+        "Dense data interfaces where size difference should be minimal",
+        "Display-heavy marketing pages needing bolder scale contrast"
+      ],
+      "signals": [
+        "Headings feel too similar in size to body text",
+        "Type hierarchy exists but lacks clear visual steps",
+        "Current font sizes are arbitrary without a systematic ratio"
+      ],
+      "key_concepts": [
+        "Ratio: 1.250 (major third)",
+        "Scale from 16px base: 10.24, 12.8, 16, 20, 25, 31.25, 39.06, 48.83",
+        "Rounded: 10, 13, 16, 20, 25, 31, 39, 49",
+        "Rem values: 0.625, 0.8125, 1, 1.25, 1.5625, 1.9375, 2.4375, 3.0625",
+        "Line height: 1.5 for body, 1.3 for subheadings, 1.1 for display",
+        "Letter spacing: tighten at larger sizes, default at body, loosen at small"
+      ],
+      "related_systems": [
+        "typography_scales",
+        "type_scale_perfect_fourth",
+        "fluid_typography",
+        "vertical_rhythm"
+      ]
+    },
+    {
+      "id": "type_scale_perfect_fourth",
+      "name": "Perfect Fourth Type Scale (1.333)",
+      "category": "typography",
+      "description": "Typographic scale using a 1.333 ratio (perfect fourth musical interval). Produces noticeable size jumps that create strong visual hierarchy. Starting from 16px base: 16, 21.3, 28.4, 37.9, 50.5. Well-suited for content-rich sites with clear heading levels.",
+      "principles": [
+        "Multiply each step by 1.333 for the next size",
+        "Larger jumps create more dramatic heading hierarchy",
+        "May need to skip steps for less dramatic sub-hierarchies",
+        "Works well with serif and sans-serif typefaces alike",
+        "Consider fluid typography to smooth between breakpoints"
+      ],
+      "when_to_use": [
+        "Content-heavy editorial or documentation sites",
+        "Interfaces with 3+ heading levels needing clear distinction",
+        "Marketing pages with strong typographic hierarchy",
+        "Design systems where type hierarchy is a primary tool"
+      ],
+      "avoid_when": [
+        "Compact data-dense interfaces where large headings waste space",
+        "Mobile-first designs where large headings overflow small screens",
+        "Minimal interfaces with flat hierarchy"
+      ],
+      "signals": [
+        "Heading levels are hard to distinguish visually",
+        "Content pages lack clear information hierarchy",
+        "Type sizes jump inconsistently between heading levels"
+      ],
+      "key_concepts": [
+        "Ratio: 1.333 (perfect fourth)",
+        "Scale from 16px base: 9, 12, 16, 21.33, 28.43, 37.9, 50.52, 67.34",
+        "Rounded: 9, 12, 16, 21, 28, 38, 51, 67",
+        "Rem values: 0.5625, 0.75, 1, 1.333, 1.777, 2.369, 3.157, 4.209",
+        "Pairing: strong hierarchy needs fewer weight variations",
+        "Line height: 1.6 body, 1.3 subheading, 1.05 display"
+      ],
+      "related_systems": [
+        "typography_scales",
+        "type_scale_major_third",
+        "type_scale_augmented_fourth",
+        "fluid_typography"
+      ]
+    },
+    {
+      "id": "type_scale_augmented_fourth",
+      "name": "Augmented Fourth Type Scale (1.414)",
+      "category": "typography",
+      "description": "Typographic scale using a 1.414 ratio (augmented fourth / tritone, equal to the square root of 2). Produces dramatic size jumps ideal for expressive, editorial, or display-heavy interfaces. Starting from 16px base: 16, 22.6, 32, 45.25, 64.",
+      "principles": [
+        "Multiply each step by 1.414 for the next size",
+        "Very dramatic jumps — use only 4-6 steps total",
+        "Best for interfaces with few heading levels but strong impact",
+        "May need intermediate steps for body-adjacent sizes",
+        "Particularly effective for display and hero typography"
+      ],
+      "when_to_use": [
+        "Editorial and magazine-style layouts",
+        "Marketing and landing pages with hero typography",
+        "Interfaces prioritizing visual drama over density",
+        "Display-heavy designs with large hero text"
+      ],
+      "avoid_when": [
+        "Data-dense enterprise applications",
+        "Small screens where large sizes overflow",
+        "Interfaces with many heading levels (h1-h6 all needed)",
+        "Compact UI with limited vertical space"
+      ],
+      "signals": [
+        "Design calls for dramatic, editorial feel",
+        "Hero sections need impactful display type",
+        "Current scale feels too subtle for the brand personality",
+        "Few heading levels but need clear visual weight"
+      ],
+      "key_concepts": [
+        "Ratio: 1.414 (augmented fourth / square root of 2)",
+        "Scale from 16px base: 8, 11.31, 16, 22.63, 32, 45.25, 64, 90.51",
+        "Rounded: 8, 11, 16, 23, 32, 45, 64, 91",
+        "Rem values: 0.5, 0.6875, 1, 1.4375, 2, 2.8125, 4, 5.6875",
+        "Double progression: each second step doubles (16, 32, 64)",
+        "Pairing: works well with light weights at large sizes"
+      ],
+      "related_systems": [
+        "typography_scales",
+        "type_scale_perfect_fourth",
+        "fluid_typography",
+        "vertical_rhythm"
+      ]
+    },
+    {
+      "id": "fluid_typography",
+      "name": "Fluid Typography with Viewport-Responsive Sizing",
+      "category": "typography",
+      "description": "Typography that scales smoothly between minimum and maximum sizes based on viewport width using CSS clamp(). Eliminates abrupt size jumps at breakpoints and ensures optimal readability across all screen sizes without media queries.",
+      "principles": [
+        "Define minimum size, preferred fluid size, and maximum size",
+        "clamp() provides built-in min and max bounds",
+        "Fluid scaling should be subtle — large swings feel unstable",
+        "Base size on viewport width (vw) with rem fallback",
+        "Test at extreme viewport widths to catch edge cases"
+      ],
+      "when_to_use": [
+        "Responsive websites needing smooth type scaling",
+        "Hero text that should be large on desktop, readable on mobile",
+        "Design systems targeting wide range of screen sizes",
+        "Replacing breakpoint-based font-size media queries"
+      ],
+      "avoid_when": [
+        "Fixed-dimension interfaces (embedded widgets, emails)",
+        "Applications where text size should remain constant",
+        "Contexts where viewport units behave unexpectedly (iframes)",
+        "Accessibility requirements mandate user-controlled text sizing only"
+      ],
+      "signals": [
+        "Font sizes jump abruptly at breakpoints",
+        "Hero text is too large on mobile or too small on desktop",
+        "Multiple media queries exist solely for font-size changes",
+        "Text readability varies significantly across screen sizes"
+      ],
+      "key_concepts": [
+        "clamp(min, preferred, max): font-size: clamp(1rem, 0.5rem + 2vw, 2.5rem)",
+        "Viewport units: vw for width-based, vi for inline-axis scaling",
+        "Preferred formula: calc(base-rem + vw-factor)",
+        "Generator: utopia.fyi for calculating fluid type scales",
+        "Container query units: cqi for component-level fluid type",
+        "Accessibility: clamp() with rem ensures user zoom still works",
+        "Lock points: viewport widths where min and max values kick in"
+      ],
+      "related_systems": [
+        "typography_scales",
+        "responsive_design",
+        "type_scale_major_third",
+        "container_queries"
+      ]
+    },
+    {
+      "id": "web_font_loading",
+      "name": "Web Font Loading Strategies",
+      "category": "typography",
+      "description": "Techniques for loading custom web fonts while minimizing layout shift, flash of invisible text (FOIT), and flash of unstyled text (FOUT). Covers font-display CSS property, preloading, font subsetting, and fallback font metric matching.",
+      "principles": [
+        "Text should be visible as quickly as possible",
+        "Minimize layout shift when web fonts load",
+        "Subset fonts to reduce file size",
+        "Preload critical fonts in the document head",
+        "Match fallback font metrics to minimize CLS"
+      ],
+      "when_to_use": [
+        "Any website using custom web fonts",
+        "Performance optimization for font-heavy pages",
+        "Reducing Cumulative Layout Shift (CLS) scores",
+        "Implementing brand typography on the web"
+      ],
+      "avoid_when": [
+        "Using only system fonts (no loading needed)",
+        "Offline-first applications with bundled fonts",
+        "Server-rendered applications where fonts are already cached"
+      ],
+      "signals": [
+        "Text is invisible for 1-3 seconds on first load (FOIT)",
+        "Layout shifts visibly when web font replaces fallback",
+        "Core Web Vitals CLS score is high due to fonts",
+        "Font files are large (>100KB per weight/style)"
+      ],
+      "key_concepts": [
+        "font-display: swap — show fallback immediately, swap when loaded",
+        "font-display: optional — use font only if already cached",
+        "font-display: fallback — brief invisible period, then fallback",
+        "Preload: <link rel='preload' href='font.woff2' as='font' crossorigin>",
+        "Subsetting: include only needed character ranges (latin, latin-ext)",
+        "Size-adjust: CSS property to match fallback font metrics",
+        "WOFF2: preferred format for best compression",
+        "Font loading API: document.fonts.ready for programmatic control"
+      ],
+      "related_systems": [
+        "variable_fonts",
+        "typography_scales",
+        "fluid_typography"
+      ]
+    },
+    {
+      "id": "variable_fonts",
+      "name": "Variable Fonts and Axes of Variation",
+      "category": "typography",
+      "description": "OpenType variable fonts contain multiple styles in a single file, with continuous variation along defined axes (weight, width, slant, optical size, and custom axes). Reduces HTTP requests and file size while enabling fine-grained typographic control.",
+      "principles": [
+        "One file replaces multiple weight/style files",
+        "Continuous variation enables precise tuning (not just 400, 700)",
+        "Optical size axis adjusts detail for different font sizes",
+        "Custom axes enable brand-specific typographic expression",
+        "Performance benefit: one file vs many weight files"
+      ],
+      "when_to_use": [
+        "Projects using multiple weights of the same typeface",
+        "Designs requiring intermediate weights (450, 550)",
+        "Animated typography with weight or width transitions",
+        "Performance optimization to reduce font file count"
+      ],
+      "avoid_when": [
+        "Only one weight of a typeface is needed",
+        "Variable font file is larger than needed static files combined",
+        "Browser support requirements exclude variable font support",
+        "Design uses only standard weights (400, 700)"
+      ],
+      "signals": [
+        "Multiple font files loaded for same family (light, regular, medium, bold)",
+        "Design requires intermediate weight values",
+        "Font weight animation or transition is desired",
+        "Large number of font HTTP requests in waterfall"
+      ],
+      "key_concepts": [
+        "Registered axes: wght (weight), wdth (width), slnt (slant), ital (italic), opsz (optical size)",
+        "Custom axes: GRAD (grade), XHGT (x-height), any 4-char uppercase tag",
+        "CSS: font-variation-settings: 'wght' 450, 'wdth' 85",
+        "CSS: font-weight: 450 (direct property for wght axis)",
+        "Optical size: font-optical-sizing: auto for automatic adjustment",
+        "Animation: transition font-variation-settings for smooth weight changes",
+        "File formats: .woff2 with variations table"
+      ],
+      "related_systems": [
+        "web_font_loading",
+        "typography_scales",
+        "fluid_typography"
+      ]
+    },
+    {
+      "id": "vertical_rhythm",
+      "name": "Vertical Rhythm and Baseline Grid Alignment",
+      "category": "typography",
+      "description": "System for aligning text and elements to a consistent vertical grid, typically based on the body text line-height. Creates harmonious spatial rhythm down the page where all text sits on evenly spaced horizontal lines, and spacing between elements follows the same rhythm.",
+      "principles": [
+        "All line-heights should be multiples of the baseline unit",
+        "Spacing (margins, padding) should be multiples of the baseline unit",
+        "Baseline unit is typically the body text line-height (e.g., 24px for 16px/1.5)",
+        "Headings may need adjusted line-height to land on the grid",
+        "Strict vertical rhythm trades off against practical flexibility"
+      ],
+      "when_to_use": [
+        "Content-heavy editorial and documentation layouts",
+        "Multi-column layouts where text should align across columns",
+        "Design systems prioritizing typographic precision",
+        "Print-inspired digital layouts"
+      ],
+      "avoid_when": [
+        "Component-heavy interfaces where content varies unpredictably",
+        "Dynamic content where rigid rhythm causes awkward spacing",
+        "Rapid prototyping where vertical rhythm is premature optimization",
+        "Interfaces with minimal text content"
+      ],
+      "signals": [
+        "Text in adjacent columns does not align horizontally",
+        "Spacing between sections feels inconsistent",
+        "Line-heights are arbitrary values without relationship to spacing",
+        "Typographic layout feels loose or ungrounded"
+      ],
+      "key_concepts": [
+        "Baseline unit: body line-height (typically 24px = 16px * 1.5)",
+        "Line-height multiples: headings at 1x, 1.5x, or 2x baseline unit",
+        "Margin/padding: multiples of baseline unit (24, 48, 72, 96)",
+        "Heading adjustment: use padding to push heading onto grid",
+        "CSS: line-height as unitless ratio (1.5) not fixed value",
+        "Debug overlay: repeating-linear-gradient for baseline visualization",
+        "Pragmatic rhythm: align key elements, allow flexibility elsewhere"
+      ],
+      "related_systems": [
+        "typography_scales",
+        "spacing_systems",
+        "grid_systems",
+        "type_scale_major_third"
+      ]
+    },
+    {
+      "id": "inclusive_design",
+      "name": "Inclusive Design",
+      "category": "methodology",
+      "description": "Design for human diversity. Recognize exclusion, learn from diversity, solve for one extend to many. Permanent, temporary, and situational disabilities.",
+      "origin": "Microsoft / Kat Holmes",
+      "best_for": [
+        "accessibility",
+        "diverse_user_base",
+        "global_products",
+        "public_services"
+      ],
+      "avoid_when": [
+        "never avoid this"
+      ],
+      "key_principles": [
+        "recognize_exclusion",
+        "learn_from_diversity",
+        "solve_for_one_extend_to_many",
+        "persona_spectrum"
+      ],
+      "when_to_use": [
+        "accessibility",
+        "diverse user base",
+        "global products",
+        "public services"
+      ],
+      "principles": [
+        "recognize exclusion",
+        "learn from diversity",
+        "solve for one extend to many",
+        "persona spectrum"
+      ],
+      "signals": [],
+      "key_concepts": [],
+      "related_systems": []
+    },
+    {
+      "id": "design_sprint",
+      "name": "Design Sprint",
+      "category": "methodology",
+      "description": "Compressed design process. Map the problem on Monday, sketch solutions Tuesday, decide Wednesday, prototype Thursday, test with users Friday.",
+      "origin": "Google Ventures / Jake Knapp",
+      "phases": [
+        "map",
+        "sketch",
+        "decide",
+        "prototype",
+        "test"
+      ],
+      "duration": "5 days",
+      "best_for": [
+        "new_product_validation",
+        "critical_feature_decisions",
+        "cross_team_alignment"
+      ],
+      "avoid_when": [
+        "ongoing iteration",
+        "small tweaks",
+        "well understood patterns"
+      ],
+      "key_principles": [
+        "time_boxed",
+        "cross_functional",
+        "real_prototype",
+        "real_users",
+        "decide_dont_debate"
+      ],
+      "when_to_use": [
+        "new product validation",
+        "critical feature decisions",
+        "cross team alignment"
+      ],
+      "principles": [
+        "time boxed",
+        "cross functional",
+        "real prototype",
+        "real users",
+        "decide dont debate"
+      ],
+      "signals": [],
+      "key_concepts": [],
+      "related_systems": []
+    }
+  ]
+}

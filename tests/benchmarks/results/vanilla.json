@@ -1,0 +1,138 @@
+{
+  "session": "vanilla",
+  "start_time": "2026-03-19T12:00:00Z",
+  "end_time": "2026-03-19T12:04:32Z",
+  "duration_seconds": 272,
+  "results": [
+    {
+      "id": "Q1",
+      "question": "Analyze the visual hierarchy of the threat summary counter cards (the 6 cards: Critical, High, Medium, Low, Total, Risk Score). Are all severity levels given equal visual weight? Is that correct for a SOC dashboard? What design principle applies?",
+      "answer": "All six threat counter cards are given effectively equal visual weight. Every card uses identical structural CSS: flex:1 (styles.css:151), padding:12px 16px (line 153), background:var(--bg-card) (line 154), border-radius:var(--radius) (line 156), and the count shares the same font-size:2rem, font-weight:800 (lines 164-165). The only differentiation is color: the count text color varies per severity (lines 178-187) and the border color has a faint severity-tinted rgba value (e.g., severity-critical gets border-color:rgba(255,0,64,0.3) at line 179, while severity-low gets rgba(0,170,255,0.15) at line 185). There is no difference in card size, padding, elevation, glow, or animation between severity levels at the summary bar level. This is INCORRECT for a SOC dashboard. Critical findings demand immediate attention — they represent active exploits, data breaches, or system compromises. The Critical card should visually dominate through larger size, a persistent glow/pulse animation (the pulse-critical animation exists on finding cards at line 305 but is NOT applied to the counter card), elevated z-index or shadow, and possibly a background fill rather than just a tinted border. The design principle violated is Visual Hierarchy (also called Preattentive Processing). In information visualization, the most important data should be encoded with the strongest visual channels: size > color intensity > position > shape. Currently, all six cards occupy the same visual channel strength, forcing the analyst to read and compare numbers rather than receiving an instant preattentive signal. Additionally, the Gestalt principle of Figure-Ground is underutilized — Critical should 'pop' as figure against the other cards as ground. Nielsen's Severity principle for alerting interfaces also applies: severity indicators should scale in visual urgency proportional to the threat level.",
+      "principles_cited": [
+        "Visual Hierarchy",
+        "Preattentive Processing",
+        "Gestalt Figure-Ground",
+        "Nielsen's Severity Indicators",
+        "Information Visualization Visual Channels (size > color > position > shape)"
+      ],
+      "wcag_criteria_cited": [],
+      "confidence": "high"
+    },
+    {
+      "id": "Q2",
+      "question": "Check the color contrast ratios. The muted text color is #555570 on backgrounds of #12121e and #0a0a0f. Does this meet WCAG AA requirements? Calculate or estimate the contrast ratio and cite the specific WCAG criterion.",
+      "answer": "Both color pairings FAIL WCAG AA. Calculating relative luminance using the sRGB linearization formula: For #555570 (R=85, G=85, B=112): linearized values R'=0.0905, G'=0.0905, B'=0.1601, yielding L1 = 0.2126(0.0905) + 0.7152(0.0905) + 0.0722(0.1601) = 0.0957. For #12121e (R=18, G=18, B=30): linearized R'=0.00378, G'=0.00378, B'=0.01141, yielding L2 = 0.00433. Contrast ratio = (0.0957+0.05)/(0.00433+0.05) = 0.1457/0.0543 = 2.68:1. For #0a0a0f (R=10, G=10, B=15): linearized R'=0.00120, G'=0.00120, B'=0.00277, yielding L3 = 0.00131. Contrast ratio = (0.0957+0.05)/(0.00131+0.05) = 0.1457/0.0513 = 2.84:1. WCAG 2.1 Success Criterion 1.4.3 (Contrast Minimum, Level AA) requires a minimum contrast ratio of 4.5:1 for normal text and 3:1 for large text (18pt or 14pt bold). The --text-muted color at 2.68:1 and 2.84:1 fails BOTH thresholds. This color is used extensively: header-subtitle (line 117), threat-counter labels (line 174), connection-status (line 129), finding-meta (line 362), finding-timestamp (line 415), bar-count (line 542), empty-state (line 553), and multiple inline styles in the Status panel (lines 170, 175). At WCAG AAA level (SC 1.4.6, 7:1 ratio), the failure is even more severe. The muted text would need to be at minimum #8888a0 (the --text-secondary value) or lighter to approach AA compliance on these dark backgrounds.",
+      "principles_cited": [
+        "Color Contrast for Readability",
+        "Dark UI Accessibility"
+      ],
+      "wcag_criteria_cited": [
+        "WCAG 2.1 SC 1.4.3 Contrast (Minimum) Level AA — 4.5:1 for normal text, 3:1 for large text",
+        "WCAG 2.1 SC 1.4.6 Contrast (Enhanced) Level AAA — 7:1 for normal text, 4.5:1 for large text"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "Q3",
+      "question": "The dashboard uses color extensively to indicate severity levels (red for critical, orange for high, yellow for medium, blue for low). The finding cards use only a colored left border + small badge to show severity. Is there an accessibility issue? Cite the specific WCAG criterion.",
+      "answer": "There is a partial accessibility issue under WCAG 2.1 SC 1.4.1 (Use of Color, Level A): 'Color should not be used as the only visual means of conveying information.' The finding cards use two color-dependent cues: (1) a 3px colored left border (styles.css:282, lines 291-298), and (2) a small severity badge with colored background (lines 318-333). The badge DOES contain text ('CRITICAL', 'HIGH', etc.) which provides a non-color channel — this partially mitigates the issue. However, several problems remain: First, the left border (3px wide, lines 282, 291-298) is purely color-coded with no secondary differentiator like pattern, thickness variation, or icon. For users with protanopia (red-blind) or deuteranopia (green-blind), the critical (#ff0040) and medium (#ffaa00) borders may appear similar. Second, the severity badge at font-size 0.65rem (line 322) = 8.45px at base 13px is extremely small — below the minimum readable size for many users with low vision. Third, the threat counter cards (lines 178-187) rely entirely on count text color to differentiate severity, with no icon, shape, or pattern variation. Fourth, the threat indicator bars (index.html lines 142-163) use inline background colors with abbreviated labels (CRIT, HIGH, MED, LOW, INFO) which helps, but the bar-fill elements themselves are color-only. Fifth, the canvas-drawn charts (donut, timeline, surface map) encode severity purely through color with no pattern fills or texture differentiation. Recommendation: Add severity icons (shield-exclamation for critical, warning triangle for high, info circle for low), vary the left border width by severity (e.g., 5px critical, 4px high, 3px medium, 2px low), and use pattern fills in canvas charts.",
+      "principles_cited": [
+        "Redundant Coding",
+        "Universal Design",
+        "Multi-channel Information Encoding"
+      ],
+      "wcag_criteria_cited": [
+        "WCAG 2.1 SC 1.4.1 Use of Color (Level A)",
+        "WCAG 2.1 SC 1.4.11 Non-text Contrast (Level AA) — severity border at 3px may also be insufficient for distinguishing adjacent UI components"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "Q4",
+      "question": "Evaluate the code viewer modal overlay for accessibility. Look at the HTML structure (the code-viewer-overlay div and code-viewer div) and the CSS. What ARIA attributes are missing? Is there a focus trap? How does a keyboard user dismiss it?",
+      "answer": "The code viewer modal has significant accessibility failures. HTML structure (index.html lines 189-191): The overlay is a plain <div class='code-viewer-overlay' id='code-overlay'> containing <div class='code-viewer' id='code-viewer'>. MISSING ARIA ATTRIBUTES: (1) role='dialog' — required on the code-viewer div to identify it as a dialog to assistive technology (WAI-ARIA 1.2). (2) aria-modal='true' — required to indicate the dialog is modal and content behind it is inert (WCAG SC 4.1.2). (3) aria-labelledby — should reference the <h3> title injected by openCodeViewer() (dashboard.js line 309), but since content is dynamically generated via innerHTML, the h3 has no id attribute to reference. (4) aria-describedby — could reference the finding description for screen readers. FOCUS MANAGEMENT: There is NO focus trap implementation. When the modal opens (dashboard.js line 346, classList.add('active')), focus is not moved to the modal. A keyboard user tabbing through the page will continue to interact with elements behind the overlay. The openCodeViewer() function (lines 304-347) never calls .focus() on any element. The close button is injected via innerHTML with an inline onclick handler (line 343) but is not focused on open. KEYBOARD DISMISSAL: Escape key works — dashboard.js line 98 binds document keydown to call closeCodeViewer() on Escape. Click-outside also works (lines 89-91). However, closeCodeViewer() (lines 349-352) does not return focus to the triggering element (the finding card that was clicked). The selectedFinding is nulled but no focus restoration occurs. ADDITIONAL ISSUES: (5) The overlay uses display:none/flex toggle (styles.css:427,432) which is correct for hiding, but the content behind the overlay is not marked inert. (6) The close button is created via innerHTML (line 343) using window.__hyperionCloseCode — this is fragile and not announced to screen readers. It should be a proper <button> with aria-label='Close dialog'. (7) The code-viewer has overflow:auto (styles.css:441) but no role='document' for scroll region accessibility. Relevant WCAG criteria: SC 4.1.2 Name, Role, Value (Level A), SC 2.4.3 Focus Order (Level A), SC 2.1.2 No Keyboard Trap (Level A), and WAI-ARIA Authoring Practices for Modal Dialog pattern.",
+      "principles_cited": [
+        "WAI-ARIA Modal Dialog Pattern",
+        "Focus Management",
+        "Progressive Enhancement",
+        "Keyboard Accessibility"
+      ],
+      "wcag_criteria_cited": [
+        "WCAG 2.1 SC 4.1.2 Name, Role, Value (Level A)",
+        "WCAG 2.1 SC 2.4.3 Focus Order (Level A)",
+        "WCAG 2.1 SC 2.1.2 No Keyboard Trap (Level A)",
+        "WCAG 2.1 SC 2.4.7 Focus Visible (Level AA)",
+        "WAI-ARIA 1.2 dialog role requirements"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "Q5",
+      "question": "Look at the ALERTS toggle button: style='color:#555570;border-color:#555570;font-size:0.65rem;padding:4px 10px'. Is there a touch target size issue? Cite the specific WCAG criterion and the minimum size requirement.",
+      "answer": "Yes, there is a critical touch target size failure. Calculating the rendered size: font-size is 0.65rem with base 13px (styles.css:41) = 8.45px. With default line-height (~1.2 for sans-serif), the text height is approximately 10.14px. Padding is 4px top + 4px bottom = 8px. Total button height: ~10.14 + 8 = ~18.14px. The button also inherits border: 1px (from scan-btn class, line 572), adding 2px, so total height is approximately 20px. For width: 'ALERTS: OFF' is roughly 11 characters at ~5.5px per character at 8.45px font = ~60px text + 20px horizontal padding + 2px border = ~82px width. The height of ~20px fails multiple WCAG criteria: (1) WCAG 2.2 SC 2.5.8 Target Size (Minimum) (Level AA) requires that targets are at least 24x24 CSS pixels, or have sufficient spacing from other targets. The button at ~20px height fails the 24px minimum. Adjacent to it is the SCAN button (index.html line 35) with only 16px gap (from the parent's gap:16px), which does NOT provide sufficient spacing offset to compensate. (2) WCAG 2.2 SC 2.5.5 Target Size (Enhanced) (Level AAA) requires 44x44 CSS pixels minimum. The button fails dramatically at ~20x82px (height is less than half the requirement). (3) Apple Human Interface Guidelines recommend 44pt minimum, and Material Design recommends 48dp minimum for touch targets. Additionally, the font-size of 8.45px is problematically small — below the generally accepted 12px minimum for interactive element labels. The button text color #555570 on the gradient background also has the same contrast issues identified in Q2. Recommendation: Increase padding to at least 8px 16px, increase font-size to at least 0.75rem (9.75px, though 0.85rem/11px would be better), and ensure minimum 44px touch target height for mobile contexts.",
+      "principles_cited": [
+        "Fitts's Law (larger targets are easier to acquire)",
+        "Mobile-First Touch Target Sizing",
+        "Inclusive Design for Motor Impairments"
+      ],
+      "wcag_criteria_cited": [
+        "WCAG 2.2 SC 2.5.8 Target Size (Minimum) (Level AA) — 24x24 CSS pixels minimum",
+        "WCAG 2.2 SC 2.5.5 Target Size (Enhanced) (Level AAA) — 44x44 CSS pixels minimum"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "Q6",
+      "question": "The base font-size is set to 13px in the html rule. Elements use sizes ranging from 0.6rem to 1.3rem (including 0.6, 0.65, 0.68, 0.7, 0.72, 0.75, 0.78, 0.8, 0.85, 1.0, 1.3rem). Evaluate the typography system. Is there a systematic type scale? What would you recommend?",
+      "answer": "There is NO systematic type scale. The 11 font sizes used are: 0.6rem (7.8px), 0.65rem (8.45px), 0.68rem (8.84px), 0.7rem (9.1px), 0.72rem (9.36px), 0.75rem (9.75px), 0.78rem (10.14px), 0.8rem (10.4px), 0.85rem (11.05px), 1.0rem (13px), 1.3rem (16.9px). The differences between adjacent steps are: 0.65px, 0.39px, 0.26px, 0.26px, 0.39px, 0.39px, 0.26px, 0.65px, 1.95px, 3.9px. The bottom 9 sizes span only 3.25px total (7.8px to 11.05px), creating a compressed cluster where adjacent sizes are visually indistinguishable. The difference between 0.68rem and 0.72rem is 0.52px — imperceptible to the human eye. This violates Weber's Law of Just Noticeable Difference: font size changes need at least a 10-15% ratio to be perceivable. Problems: (1) The base of 13px is non-standard — browsers default to 16px, and design systems typically use 16px as the base for rem calculations. Using 13px means 1rem content is already small. (2) The smallest sizes (0.6rem = 7.8px, 0.65rem = 8.45px) are below the 9px minimum recommended for legibility and well below the 12px commonly considered the floor for body text. (3) There's a massive gap between 1.0rem (13px) and 1.3rem (16.9px) — a 30% jump — while the lower range has 9 sizes crammed into a 33% range. (4) The 2rem size for counter numbers (styles.css:164, 26px) exists but is isolated, not part of the scale. RECOMMENDATION: Adopt a modular scale based on a 1.250 ratio (Major Third) with a 16px base, providing: 10px (--text-xs), 12px (--text-sm), 16px (--text-base), 20px (--text-lg), 25px (--text-xl), 31px (--text-2xl). This gives 6 clearly distinguishable steps instead of 11 indistinguishable ones. For the SOC context with information density needs, a 1.200 ratio (Minor Third) may work better: 11px, 13px, 16px, 19px, 23px, 28px. Define these as CSS custom properties (design tokens) and restrict usage to only these values.",
+      "principles_cited": [
+        "Modular Type Scale",
+        "Weber's Law of Just Noticeable Difference",
+        "Typographic Hierarchy",
+        "Information Density vs Legibility tradeoff",
+        "Design Token Architecture"
+      ],
+      "wcag_criteria_cited": [
+        "WCAG 2.1 SC 1.4.4 Resize Text (Level AA) — rem units are good but the base is too small",
+        "WCAG 2.1 SC 1.4.12 Text Spacing (Level AA) — dense type scale may interfere with user text spacing overrides"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "Q7",
+      "question": "The dashboard uses a 3-column CSS grid: grid-template-columns: 300px 1fr 320px. It switches to 2 columns at 1200px and 1 column at 768px. Evaluate the responsive design. Are the fixed column widths a problem? What about code blocks with white-space:pre on narrow screens?",
+      "answer": "The fixed column widths are problematic in several scenarios. FIXED WIDTH ANALYSIS: The main grid (styles.css:192) uses grid-template-columns: 300px 1fr 320px. At exactly 1201px viewport width (just above the breakpoint), with 12px padding on each side (line 72) and 12px gaps (line 193), the available width is 1201 - 24 - 24 = 1153px. The fixed columns consume 300 + 320 = 620px, leaving the center findings feed with 533px. This is adequate but tight. However, at the 2-column breakpoint (1200px, line 591), the grid becomes 1fr 1fr. The charts-column gets order:2 and right-column gets order:3 with grid-column:1/-1 spanning full width (lines 595-596). The center findings feed (no explicit order) gets order:0 by default. This means findings take the first column and charts take the second — reasonable. But the right-column spanning full width wastes horizontal space for the threat bars which are narrow components. CODE BLOCK OVERFLOW: The finding-code class (styles.css:380) uses white-space:pre, which prevents text wrapping. Combined with overflow-x:auto (line 379), this creates a horizontal scrollbar within each code block. On mobile (768px and below, single column), code blocks will almost certainly overflow. The code-viewer modal's <pre> elements (line 464-473) also use overflow-x:auto, and the modal itself is width:90% (line 438), so at 768px that's ~691px — still potentially too narrow for many code lines. ADDITIONAL ISSUES: (1) The threat-counter cards use min-width:120px (line 152), which at 768px with 6 cards means minimum 720px + 50px gaps = 770px — they'll wrap, which is handled by flex-wrap (line 147), but the wrapping behavior isn't explicitly designed for clean rows. At 768px, the min-width drops to 80px (line 607), which makes the counter text at 2rem (26px) cramped. (2) The header-ascii art is correctly hidden at 768px (line 609), good. (3) The canvas elements use parentElement.clientWidth for sizing (dashboard.js, e.g., line 372), which is responsive, but they don't redraw on orientation change — only on resize via debounce (line 60). (4) The filter-bar uses flex-wrap (line 245) which handles narrow widths, but the select elements at 0.75rem with 4px 8px padding create small touch targets on mobile. (5) No breakpoint exists between 768px and 1200px (e.g., for tablets in portrait at ~1024px). RECOMMENDATION: Replace fixed columns with minmax(): grid-template-columns: minmax(250px, 300px) 1fr minmax(260px, 320px). Add an intermediate breakpoint at ~1024px. Use white-space:pre-wrap or overflow-wrap:break-word on code blocks as a fallback for narrow screens. Consider a completely different layout for mobile — perhaps a tabbed interface switching between Charts, Findings, and Surface views.",
+      "principles_cited": [
+        "Responsive Design (fluid grids over fixed widths)",
+        "Content Choreography",
+        "Mobile-First Design",
+        "Progressive Enhancement"
+      ],
+      "wcag_criteria_cited": [
+        "WCAG 2.1 SC 1.4.10 Reflow (Level AA) — content must be presentable without horizontal scrolling at 320px width",
+        "WCAG 2.1 SC 1.4.4 Resize Text (Level AA) — layout must accommodate 200% text zoom without loss of content"
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "Q8",
+      "question": "What design system methodology would you recommend as the foundation for redesigning this dashboard? Consider it's a SOC (Security Operations Center) tool for analysts monitoring threats in real-time. Be specific about token architecture, spacing system, and type scale.",
+      "answer": "I recommend building a purpose-built design system called a Severity-First Token Architecture, borrowing methodology from IBM Carbon Design System (for data-dense operational UIs) and Atlassian's Operational design patterns, adapted for SOC-specific needs. METHODOLOGY: Use a layered Design Token architecture following the W3C Design Tokens specification (Community Group Draft). Three layers: (1) Global/Primitive tokens — raw values with no semantic meaning. (2) Semantic/Alias tokens — purpose-driven references. (3) Component tokens — specific overrides. TOKEN ARCHITECTURE: Global layer defines the raw palette: --color-red-500:#ff0040, --color-orange-500:#ff6600, etc. Semantic layer maps these to purpose: --severity-critical:var(--color-red-500), --severity-critical-bg:rgba(255,0,64,0.08), --severity-critical-border:rgba(255,0,64,0.3), --severity-critical-glow:0 0 12px rgba(255,0,64,0.6). Component layer: --counter-critical-bg:var(--severity-critical-bg), --finding-card-border-width-critical:5px. This three-layer approach means changing a severity color propagates everywhere consistently. SPACING SYSTEM: Adopt a 4px base unit grid (common in dense data UIs — Carbon uses 8px but SOC dashboards need tighter density). Define spacing tokens: --space-1:4px, --space-2:8px, --space-3:12px, --space-4:16px, --space-6:24px, --space-8:32px, --space-10:40px, --space-12:48px. All padding, margins, and gaps must use these tokens. The current dashboard uses arbitrary values (6px, 10px, 12px, 14px, 16px, 20px, 40px) which are close to a 2px grid but not systematic. A 4px grid brings discipline while supporting the density SOC analysts need. TYPE SCALE: Use a Minor Third ratio (1.200) with 14px base (not 13px — 14px is the smallest readable base for prolonged monitoring): --text-2xs:10px (sparingly, timestamps only), --text-xs:12px (labels, metadata), --text-sm:14px (body, default), --text-md:17px (subheadings, panel headers), --text-lg:20px (section headers), --text-xl:24px (counter numbers), --text-2xl:29px (hero numbers, critical alerts). That's 7 steps, each clearly distinguishable. Enforce these via CSS custom properties and lint rules. ADDITIONAL RECOMMENDATIONS: (1) Severity visual language: Define a multi-channel encoding matrix — each severity gets a unique color + icon + border-width + animation-speed + sound. Critical: red + shield-exclamation + 5px border + pulse animation + alert tone. High: orange + warning-triangle + 4px + subtle pulse + no sound. Medium: yellow + info-circle + 3px + none + none. Low: blue + checkmark + 2px + none + none. (2) Motion tokens: --duration-fast:150ms, --duration-normal:300ms, --duration-slow:500ms, --ease-default:cubic-bezier(0.4,0,0.2,1). (3) Elevation tokens for dark theme: --elevation-1 through --elevation-4 using box-shadow + background lightness shifts (not opacity). (4) Density modes: Allow analysts to toggle between Comfortable (8px base spacing, 16px base font) and Compact (4px base, 14px font) modes — SOC analysts work 12-hour shifts and eye fatigue varies. (5) High-contrast mode: Provide a toggle that shifts all severity colors to WCAG AAA-compliant alternatives and increases border widths. (6) Build on top of Open Props or Radix Themes as a primitive layer, then add the SOC-specific semantic tokens on top.",
+      "principles_cited": [
+        "Design Token Architecture (W3C Design Tokens Community Group)",
+        "Atomic Design Methodology",
+        "IBM Carbon Design System patterns for operational UIs",
+        "Severity-First Visual Encoding",
+        "Multi-channel Redundant Coding",
+        "Density-Adaptive Interface Design"
+      ],
+      "wcag_criteria_cited": [
+        "WCAG 2.1 SC 1.4.3 Contrast Minimum (Level AA)",
+        "WCAG 2.1 SC 1.4.1 Use of Color (Level A)",
+        "WCAG 2.1 SC 1.4.13 Content on Hover or Focus (Level AA)",
+        "WCAG 2.2 SC 2.5.8 Target Size Minimum (Level AA)"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

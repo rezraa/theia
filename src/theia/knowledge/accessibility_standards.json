@@ -1,0 +1,1984 @@
+{
+  "metadata": {
+    "catalog": "theia_accessibility_standards",
+    "version": "1.0.0",
+    "description": "Comprehensive accessibility standards catalog covering WCAG 2.1/2.2 Level A and AA, key AAA criteria, and ARIA patterns",
+    "standards_covered": ["WCAG_2_1", "WCAG_2_2", "ARIA", "section_508"],
+    "total_entries": 58,
+    "last_updated": "2026-03-19"
+  },
+  "standards": [
+    {
+      "id": "wcag_1_1_1",
+      "name": "Non-text Content",
+      "standard": "WCAG_2_1",
+      "principle": "perceivable",
+      "guideline": "Text Alternatives",
+      "level": "A",
+      "description": "All non-text content presented to the user has a text alternative that serves the equivalent purpose, except for controls/input, time-based media, tests, sensory experiences, CAPTCHA, and decoration.",
+      "intent": "Ensures that all users, including those using screen readers or braille displays, can access information conveyed by non-text content such as images, icons, charts, and multimedia.",
+      "techniques": [
+        "Provide alt text for informative images using the alt attribute",
+        "Use aria-label or aria-labelledby for icon buttons and controls",
+        "Provide long descriptions for complex images like charts and diagrams",
+        "Use empty alt attribute (alt=\"\") for decorative images",
+        "Provide text alternatives for image maps using area elements with alt",
+        "Use figcaption within figure elements for images with visible captions",
+        "Provide text alternatives for canvas-rendered content"
+      ],
+      "failures": [
+        "Missing alt attribute on img elements",
+        "Using generic alt text like 'image' or 'photo'",
+        "Alt text that does not convey the same information as the image",
+        "Using CSS background images for informative content without text alternative",
+        "Omitting alt text on image buttons",
+        "Failing to update alt text when image content changes dynamically"
+      ],
+      "testing_methods": [
+        "Automated scan for missing alt attributes",
+        "Manual review of alt text quality and accuracy",
+        "Screen reader testing to verify announced alternatives",
+        "Check decorative images have empty alt or role=presentation",
+        "Verify complex images have adequate long descriptions"
+      ],
+      "automated_checkable": true,
+      "affected_disabilities": ["visual", "cognitive"],
+      "related_components": ["image", "icon", "avatar", "chart", "logo", "thumbnail", "media_player"]
+    },
+    {
+      "id": "wcag_1_2_1",
+      "name": "Audio-only and Video-only (Prerecorded)",
+      "standard": "WCAG_2_1",
+      "principle": "perceivable",
+      "guideline": "Time-based Media",
+      "level": "A",
+      "description": "For prerecorded audio-only media, a text transcript is provided. For prerecorded video-only media, either a text alternative or an audio track is provided that presents equivalent information.",
+      "intent": "Allows people who are deaf or hard of hearing to access audio content through transcripts, and people who are blind or have low vision to access video-only content through audio descriptions or text.",
+      "techniques": [
+        "Provide a text transcript for audio-only content like podcasts",
+        "Provide a text description or audio track for video-only content",
+        "Link the transcript adjacent to the media player",
+        "Ensure transcript includes all spoken content and relevant sound effects",
+        "Use the track element with kind=descriptions for video-only content"
+      ],
+      "failures": [
+        "No transcript provided for audio-only content",
+        "No alternative provided for video-only content",
+        "Transcript is incomplete or inaccurate",
+        "Transcript is not programmatically associated with the media"
+      ],
+      "testing_methods": [
+        "Verify presence of transcript or text alternative",
+        "Compare transcript against actual media content for accuracy",
+        "Check transcript is easily discoverable near the media player",
+        "Verify transcript includes speaker identification"
+      ],
+      "automated_checkable": false,
+      "affected_disabilities": ["visual", "auditory", "cognitive"],
+      "related_components": ["media_player", "audio_player", "video_player"]
+    },
+    {
+      "id": "wcag_1_2_2",
+      "name": "Captions (Prerecorded)",
+      "standard": "WCAG_2_1",
+      "principle": "perceivable",
+      "guideline": "Time-based Media",
+      "level": "A",
+      "description": "Captions are provided for all prerecorded audio content in synchronized media, except when the media is a media alternative for text and is clearly labeled as such.",
+      "intent": "Enables people who are deaf or hard of hearing to access the auditory information in synchronized media presentations, including dialogue, sound effects, and musical cues.",
+      "techniques": [
+        "Provide closed captions using WebVTT or TTML format",
+        "Use the track element with kind=captions for HTML5 video",
+        "Include speaker identification in captions",
+        "Caption all dialogue and relevant non-speech audio",
+        "Synchronize captions with the audio content",
+        "Ensure captions do not obscure important visual content"
+      ],
+      "failures": [
+        "No captions provided for prerecorded video with audio",
+        "Captions are auto-generated without review and contain errors",
+        "Captions are not synchronized with the audio",
+        "Captions omit relevant non-speech sounds",
+        "Captions are embedded as open captions with no way to toggle"
+      ],
+      "testing_methods": [
+        "Verify captions exist for all prerecorded multimedia",
+        "Review caption accuracy against actual audio",
+        "Check synchronization between captions and audio",
+        "Verify non-speech audio is captioned where relevant",
+        "Test caption toggle functionality"
+      ],
+      "automated_checkable": false,
+      "affected_disabilities": ["auditory", "cognitive"],
+      "related_components": ["media_player", "video_player"]
+    },
+    {
+      "id": "wcag_1_2_3",
+      "name": "Audio Description or Media Alternative (Prerecorded)",
+      "standard": "WCAG_2_1",
+      "principle": "perceivable",
+      "guideline": "Time-based Media",
+      "level": "A",
+      "description": "An alternative for time-based media or audio description of the prerecorded video content is provided for synchronized media, except when the media is a media alternative for text and is clearly labeled as such.",
+      "intent": "Provides access to visual information in video for people who are blind or have low vision by describing important visual content not conveyed through existing audio.",
+      "techniques": [
+        "Provide audio descriptions during natural pauses in dialogue",
+        "Provide a full text alternative describing both visual and auditory content",
+        "Use a second audio track for audio descriptions",
+        "Provide extended audio description when pauses are insufficient"
+      ],
+      "failures": [
+        "No audio description or full text alternative provided",
+        "Audio description omits important visual information",
+        "Text alternative does not cover key visual content"
+      ],
+      "testing_methods": [
+        "Verify audio description or text alternative exists",
+        "Review that important visual information is described",
+        "Check audio description does not conflict with primary audio",
+        "Test with screen reader to verify accessibility of text alternative"
+      ],
+      "automated_checkable": false,
+      "affected_disabilities": ["visual"],
+      "related_components": ["media_player", "video_player"]
+    },
+    {
+      "id": "wcag_1_2_5",
+      "name": "Audio Description (Prerecorded)",
+      "standard": "WCAG_2_1",
+      "principle": "perceivable",
+      "guideline": "Time-based Media",
+      "level": "AA",
+      "description": "Audio description is provided for all prerecorded video content in synchronized media.",
+      "intent": "At Level AA, a full audio description track is required rather than just a text alternative. This ensures blind or low-vision users can follow the visual content of video in real time.",
+      "techniques": [
+        "Provide a separate audio description track for all prerecorded video",
+        "Ensure audio descriptions convey all important visual details",
+        "Use extended audio description when natural pauses are insufficient",
+        "Include a toggle control for enabling audio descriptions"
+      ],
+      "failures": [
+        "Only providing a text transcript without audio description",
+        "Audio description track is incomplete",
+        "No mechanism to enable or disable audio description"
+      ],
+      "testing_methods": [
+        "Verify dedicated audio description track exists",
+        "Review completeness of visual content description",
+        "Test toggle control for audio description",
+        "Confirm audio description does not overlap primary dialogue"
+      ],
+      "automated_checkable": false,
+      "affected_disabilities": ["visual"],
+      "related_components": ["media_player", "video_player"]
+    },
+    {
+      "id": "wcag_1_3_1",
+      "name": "Info and Relationships",
+      "standard": "WCAG_2_1",
+      "principle": "perceivable",
+      "guideline": "Adaptable",
+      "level": "A",
+      "description": "Information, structure, and relationships conveyed through presentation can be programmatically determined or are available in text.",
+      "intent": "Ensures that the structural and relational information implied by visual formatting is also available to assistive technologies so users can understand and navigate content regardless of how it is presented.",
+      "techniques": [
+        "Use semantic HTML elements (h1-h6, p, ul, ol, table, form, fieldset, legend)",
+        "Associate form labels with controls using for/id or wrapping",
+        "Use thead, tbody, th with scope for data tables",
+        "Use fieldset and legend to group related form controls",
+        "Use aria-describedby for supplementary descriptions",
+        "Mark required fields with aria-required",
+        "Use list markup for groups of related links or items",
+        "Use landmark roles to identify page regions"
+      ],
+      "failures": [
+        "Using visual styling alone to convey structure without semantic markup",
+        "Using tables for layout instead of CSS",
+        "Missing labels on form controls",
+        "Using br elements to create visual lists instead of ul/ol",
+        "Heading hierarchy is skipped or illogical",
+        "Data tables without proper header associations"
+      ],
+      "testing_methods": [
+        "Automated scan for semantic HTML usage",
+        "Check heading hierarchy with browser dev tools",
+        "Verify form controls have associated labels",
+        "Test table structure with screen reader",
+        "Linearize content and verify information is still conveyed",
+        "Inspect landmark roles with accessibility tree"
+      ],
+      "automated_checkable": true,
+      "affected_disabilities": ["visual", "cognitive"],
+      "related_components": ["form", "table", "data_grid", "heading", "navigation", "list", "fieldset", "card"]
+    },
+    {
+      "id": "wcag_1_3_2",
+      "name": "Meaningful Sequence",
+      "standard": "WCAG_2_1",
+      "principle": "perceivable",
+      "guideline": "Adaptable",
+      "level": "A",
+      "description": "When the sequence in which content is presented affects its meaning, a correct reading sequence can be programmatically determined.",
+      "intent": "Ensures that the order of content in the DOM matches the intended reading order so that assistive technologies present content in a meaningful sequence.",
+      "techniques": [
+        "Ensure DOM order matches visual presentation order",
+        "Use CSS for visual positioning without altering DOM order",
+        "Avoid using tabindex values greater than 0 that disrupt natural order",
+        "Use CSS flexbox order property carefully, ensuring DOM order remains logical",
+        "Test reading order with CSS disabled"
+      ],
+      "failures": [
+        "Using CSS to reposition content in a way that changes meaning but DOM order is wrong",
+        "Using tabindex to force a reading order that differs from DOM order",
+        "Using CSS float or position to visually reorder content without matching DOM",
+        "Content injected via JavaScript appears in wrong position"
+      ],
+      "testing_methods": [
+        "Disable CSS and verify content reads in meaningful order",
+        "Use screen reader to navigate content and verify sequence",
+        "Check DOM order against visual presentation",
+        "Test with browser reading mode"
+      ],
+      "automated_checkable": false,
+      "affected_disabilities": ["visual", "cognitive"],
+      "related_components": ["layout", "grid", "flex_container", "card_list", "dashboard"]
+    },
+    {
+      "id": "wcag_1_3_3",
+      "name": "Sensory Characteristics",
+      "standard": "WCAG_2_1",
+      "principle": "perceivable",
+      "guideline": "Adaptable",
+      "level": "A",
+      "description": "Instructions provided for understanding and operating content do not rely solely on sensory characteristics of components such as shape, color, size, visual location, orientation, or sound.",
+      "intent": "Ensures all users can follow instructions regardless of their ability to perceive shape, size, color, or location. Instructions must include non-sensory information like text labels.",
+      "techniques": [
+        "Include text labels alongside icons or shapes in instructions",
+        "Do not rely solely on color to indicate required fields or errors",
+        "Provide text-based instructions rather than only 'click the round button'",
+        "Use multiple cues (color plus text plus icon) for important states"
+      ],
+      "failures": [
+        "Instructions like 'press the green button' without additional identifying text",
+        "Referring to content only by its visual location ('see the sidebar')",
+        "Using only shape references ('click the triangle icon') without text labels",
+        "Relying on audio cues alone to signal events"
+      ],
+      "testing_methods": [
+        "Review all instructional text for sensory-only references",
+        "Check that references to interface elements include text labels",
+        "Verify error messages do not rely solely on color",
+        "Test with monochrome display settings"
+      ],
+      "automated_checkable": false,
+      "affected_disabilities": ["visual", "auditory", "cognitive"],
+      "related_components": ["alert", "form", "instruction_text", "tooltip", "help_text"]
+    },
+    {
+      "id": "wcag_1_3_4",
+      "name": "Orientation",
+      "standard": "WCAG_2_1",
+      "principle": "perceivable",
+      "guideline": "Adaptable",
+      "level": "AA",
+      "description": "Content does not restrict its view and operation to a single display orientation, such as portrait or landscape, unless a specific display orientation is essential.",
+      "intent": "Ensures users can view and interact with content in any orientation. Some users mount devices in fixed positions and cannot rotate them. Content must adapt to both portrait and landscape.",
+      "techniques": [
+        "Use responsive CSS that works in both portrait and landscape",
+        "Avoid using orientation-specific media queries that hide content",
+        "Test layouts in both orientations",
+        "Use flexible grid systems that adapt to available space"
+      ],
+      "failures": [
+        "Locking the application to portrait or landscape mode",
+        "Using orientation-specific CSS that hides or breaks content",
+        "JavaScript that forces a particular orientation",
+        "Content that only functions correctly in one orientation"
+      ],
+      "testing_methods": [
+        "Rotate device or emulator and verify all content is accessible",
+        "Check for orientation lock in manifest or meta tags",
+        "Test responsive layouts in both orientations",
+        "Verify no content is lost or obscured when orientation changes"
+      ],
+      "automated_checkable": true,
+      "affected_disabilities": ["motor", "visual"],
+      "related_components": ["layout", "responsive_container", "navigation", "modal"]
+    },
+    {
+      "id": "wcag_1_3_5",
+      "name": "Identify Input Purpose",
+      "standard": "WCAG_2_1",
+      "principle": "perceivable",
+      "guideline": "Adaptable",
+      "level": "AA",
+      "description": "The purpose of each input field collecting information about the user can be programmatically determined when the input field serves a purpose identified in the Input Purposes for User Interface Components section.",
+      "intent": "Enables browsers and assistive technologies to auto-fill form fields and present familiar icons or symbols, reducing cognitive load for users with disabilities and making forms easier to complete.",
+      "techniques": [
+        "Use the autocomplete attribute with appropriate values (name, email, tel, etc.)",
+        "Apply autocomplete to fields collecting user information per HTML spec",
+        "Map input purposes to WCAG-defined input purpose taxonomy",
+        "Use appropriate input types (type=email, type=tel, etc.)"
+      ],
+      "failures": [
+        "Missing autocomplete attribute on user information fields",
+        "Incorrect autocomplete values that do not match field purpose",
+        "Using generic autocomplete=on instead of specific tokens",
+        "Input fields for personal data without programmatic purpose identification"
+      ],
+      "testing_methods": [
+        "Automated scan for autocomplete attributes on form fields",
+        "Verify autocomplete values match the actual input purpose",
+        "Test browser autofill functionality",
+        "Check against WCAG input purpose taxonomy"
+      ],
+      "automated_checkable": true,
+      "affected_disabilities": ["cognitive", "motor"],
+      "related_components": ["form", "input", "text_field", "select", "address_form", "checkout_form", "login_form"]
+    },
+    {
+      "id": "wcag_1_4_1",
+      "name": "Use of Color",
+      "standard": "WCAG_2_1",
+      "principle": "perceivable",
+      "guideline": "Distinguishable",
+      "level": "A",
+      "description": "Color is not used as the only visual means of conveying information, indicating an action, prompting a response, or distinguishing a visual element.",
+      "intent": "Ensures that users who cannot distinguish between colors, including those with color blindness or who use monochrome displays, can still perceive all information conveyed visually.",
+      "techniques": [
+        "Add text labels or patterns in addition to color coding",
+        "Use icons alongside color indicators for status",
+        "Underline links in addition to color differentiation",
+        "Add patterns or textures to distinguish chart segments",
+        "Use shape differences alongside color in data visualization"
+      ],
+      "failures": [
+        "Using only red/green to indicate valid/invalid form fields",
+        "Links distinguishable from body text only by color",
+        "Charts or graphs that rely solely on color to differentiate data",
+        "Required fields indicated only with a colored border",
+        "Status indicators using only color (green=good, red=bad)"
+      ],
+      "testing_methods": [
+        "View content in grayscale to verify information is still conveyed",
+        "Use color blindness simulation tools",
+        "Check that all color-coded information has redundant visual cues",
+        "Verify links have non-color indicators (underline, icon)",
+        "Test data visualizations with color contrast analyzers"
+      ],
+      "automated_checkable": false,
+      "affected_disabilities": ["visual"],
+      "related_components": ["chart", "form", "link", "badge", "status_indicator", "alert", "tag"]
+    },
+    {
+      "id": "wcag_1_4_2",
+      "name": "Audio Control",
+      "standard": "WCAG_2_1",
+      "principle": "perceivable",
+      "guideline": "Distinguishable",
+      "level": "A",
+      "description": "If any audio on a Web page plays automatically for more than 3 seconds, either a mechanism is available to pause or stop the audio, or a mechanism is available to control audio volume independently from the overall system volume level.",
+      "intent": "Users who use screen readers need to be able to hear the screen reader output without interference from other audio. Auto-playing audio can make it impossible for screen reader users to navigate a page.",
+      "techniques": [
+        "Do not auto-play audio content",
+        "Provide a visible control to pause, stop, or mute audio within the first three seconds",
+        "Provide independent volume control for page audio",
+        "Use autoplay attribute with muted for video elements"
+      ],
+      "failures": [
+        "Audio plays automatically for more than 3 seconds without a control to stop it",
+        "Auto-playing audio without a mute button accessible within three seconds",
+        "Background music or ambient sound without volume control",
+        "Audio control is not keyboard accessible"
+      ],
+      "testing_methods": [
+        "Load page and verify no auto-playing audio above 3 seconds",
+        "If audio auto-plays, verify pause/stop/mute control exists",
+        "Check audio control is keyboard accessible",
+        "Verify volume control is independent from system volume"
+      ],
+      "automated_checkable": false,
+      "affected_disabilities": ["auditory", "visual", "cognitive"],
+      "related_components": ["media_player", "audio_player", "video_player", "notification"]
+    },
+    {
+      "id": "wcag_1_4_3",
+      "name": "Contrast (Minimum)",
+      "standard": "WCAG_2_1",
+      "principle": "perceivable",
+      "guideline": "Distinguishable",
+      "level": "AA",
+      "description": "The visual presentation of text and images of text has a contrast ratio of at least 4.5:1, except for large text (at least 3:1), incidental text, logotypes, and pure decoration.",
+      "intent": "Ensures text is readable for users with moderately low vision who do not use contrast-enhancing assistive technology. The 4.5:1 ratio compensates for the loss in contrast sensitivity typical of users with approximately 20/40 vision.",
+      "techniques": [
+        "Use contrast ratio of at least 4.5:1 for normal text (under 18pt or 14pt bold)",
+        "Use contrast ratio of at least 3:1 for large text (18pt+ or 14pt+ bold)",
+        "Verify contrast against all background colors including gradients",
+        "Provide high-contrast mode or theme option",
+        "Use CSS custom properties to enable contrast themes",
+        "Test contrast with overlapping elements and transparency"
+      ],
+      "failures": [
+        "Light gray text on white background below 4.5:1 ratio",
+        "Placeholder text with insufficient contrast",
+        "Text over images or gradients without ensuring minimum contrast",
+        "Disabled state text that is still meant to be read but has low contrast",
+        "Link text that fails contrast against surrounding text and background"
+      ],
+      "testing_methods": [
+        "Use automated contrast checking tools (axe, Lighthouse, WAVE)",
+        "Manual check with color contrast analyzers for complex backgrounds",
+        "Test text over images and gradients",
+        "Verify contrast in all component states (hover, focus, active, disabled)",
+        "Check contrast in both light and dark themes"
+      ],
+      "automated_checkable": true,
+      "affected_disabilities": ["visual"],
+      "related_components": ["typography", "button", "link", "input", "label", "badge", "tag", "card", "alert"]
+    },
+    {
+      "id": "wcag_1_4_4",
+      "name": "Resize Text",
+      "standard": "WCAG_2_1",
+      "principle": "perceivable",
+      "guideline": "Distinguishable",
+      "level": "AA",
+      "description": "Except for captions and images of text, text can be resized without assistive technology up to 200 percent without loss of content or functionality.",
+      "intent": "Ensures that visually rendered text can be scaled by users with low vision to a size they can read, without requiring specialized assistive technology and without content overflow or clipping.",
+      "techniques": [
+        "Use relative units (em, rem, %) for font sizes instead of px",
+        "Ensure layouts accommodate text enlargement without overflow",
+        "Avoid fixed-height containers that clip enlarged text",
+        "Test with browser zoom at 200%",
+        "Use responsive design that adapts to text size changes"
+      ],
+      "failures": [
+        "Text in fixed pixel sizes that cannot be resized",
+        "Content clipped or overlapping at 200% zoom",
+        "Horizontal scrollbar required at 200% text size in single-column layout",
+        "Functionality lost when text is resized",
+        "Using viewport units for text size without clamp or min"
+      ],
+      "testing_methods": [
+        "Zoom browser to 200% and verify no content loss",
+        "Check for text overlap or clipping at 200%",
+        "Verify all interactive elements remain functional at 200%",
+        "Test text resizing in browser settings (not just zoom)",
+        "Verify scrollable containers still function"
+      ],
+      "automated_checkable": false,
+      "affected_disabilities": ["visual"],
+      "related_components": ["typography", "layout", "navigation", "card", "table", "modal"]
+    },
+    {
+      "id": "wcag_1_4_5",
+      "name": "Images of Text",
+      "standard": "WCAG_2_1",
+      "principle": "perceivable",
+      "guideline": "Distinguishable",
+      "level": "AA",
+      "description": "If the technologies being used can achieve the visual presentation, text is used to convey information rather than images of text, except when the image of text is essential (e.g., logotypes) or can be visually customized to the user's requirements.",
+      "intent": "Enables users to adjust text presentation (size, color, font) according to their needs. Images of text cannot be resized without degradation and cannot be customized by user stylesheets.",
+      "techniques": [
+        "Use actual text with CSS styling instead of images of text",
+        "Use web fonts for custom typography",
+        "Use SVG text elements that can be styled and scaled",
+        "Reserve images of text only for logos and branding where essential"
+      ],
+      "failures": [
+        "Using images for headings or navigation text",
+        "Embedding text in banner images without real text overlay",
+        "Using image-based buttons instead of styled text buttons",
+        "Screenshots of text used instead of actual text content"
+      ],
+      "testing_methods": [
+        "Identify all images containing text",
+        "Verify images of text are limited to logos and essential cases",
+        "Check that text styling achieves the desired visual effect",
+        "Verify text in images can be replaced with actual text"
+      ],
+      "automated_checkable": false,
+      "affected_disabilities": ["visual", "cognitive"],
+      "related_components": ["image", "banner", "hero", "logo", "button", "heading"]
+    },
+    {
+      "id": "wcag_1_4_10",
+      "name": "Reflow",
+      "standard": "WCAG_2_1",
+      "principle": "perceivable",
+      "guideline": "Distinguishable",
+      "level": "AA",
+      "description": "Content can be presented without loss of information or functionality, and without requiring scrolling in two dimensions, for vertical scrolling content at a width equivalent to 320 CSS pixels, and for horizontal scrolling content at a height equivalent to 256 CSS pixels, except for parts of content which require two-dimensional layout for usage or meaning.",
+      "intent": "Ensures that users who zoom in to 400% or use narrow viewports can read content in a single column without horizontal scrolling. This is essential for low-vision users and users of mobile devices.",
+      "techniques": [
+        "Use responsive design with breakpoints down to 320px width",
+        "Avoid horizontal scrolling for text content at narrow widths",
+        "Use CSS media queries to adapt layout for small screens",
+        "Ensure tables reflow or provide a scrollable wrapper with clear indication",
+        "Use CSS grid and flexbox for flexible layouts",
+        "Test at 320px viewport width (equivalent to 400% zoom on 1280px)"
+      ],
+      "failures": [
+        "Content requires horizontal scrolling at 320px width",
+        "Fixed-width layouts that do not adapt to narrow viewports",
+        "Content hidden or truncated without access at 320px",
+        "Two-column layouts that do not collapse to single column",
+        "Overflow hidden on containers causing content loss"
+      ],
+      "testing_methods": [
+        "Set viewport to 320px width and verify content reflows",
+        "Zoom browser to 400% on 1280px display",
+        "Verify no horizontal scrollbar appears for text content",
+        "Check that all content and functionality is preserved",
+        "Test data tables for appropriate narrow-screen behavior"
+      ],
+      "automated_checkable": false,
+      "affected_disabilities": ["visual"],
+      "related_components": ["layout", "grid", "table", "data_grid", "navigation", "sidebar", "dashboard"]
+    },
+    {
+      "id": "wcag_1_4_11",
+      "name": "Non-text Contrast",
+      "standard": "WCAG_2_1",
+      "principle": "perceivable",
+      "guideline": "Distinguishable",
+      "level": "AA",
+      "description": "The visual presentation of UI components (their states and boundaries) and graphical objects required to understand content have a contrast ratio of at least 3:1 against adjacent colors.",
+      "intent": "Ensures that user interface components and meaningful graphics are visible to users with low vision. Applies to component boundaries, focus indicators, icons, and charts.",
+      "techniques": [
+        "Ensure form input borders have at least 3:1 contrast against background",
+        "Ensure focus indicators have at least 3:1 contrast",
+        "Ensure icons and graphical elements have at least 3:1 contrast",
+        "Ensure chart elements have at least 3:1 contrast against adjacent elements",
+        "Use visible borders on custom controls like checkboxes and radio buttons"
+      ],
+      "failures": [
+        "Form input borders with insufficient contrast against page background",
+        "Custom checkboxes or toggles with low contrast boundaries",
+        "Icons that are too light against their background",
+        "Chart segments with insufficient contrast between adjacent elements",
+        "Focus indicators that do not meet 3:1 contrast ratio"
+      ],
+      "testing_methods": [
+        "Use color contrast analyzer on UI component boundaries",
+        "Check contrast of all interactive component states",
+        "Verify icon contrast against their backgrounds",
+        "Test chart and graph element contrast",
+        "Verify custom control boundaries are visible"
+      ],
+      "automated_checkable": true,
+      "affected_disabilities": ["visual"],
+      "related_components": ["button", "input", "checkbox", "radio", "toggle", "slider", "icon", "chart", "progress_bar"]
+    },
+    {
+      "id": "wcag_1_4_12",
+      "name": "Text Spacing",
+      "standard": "WCAG_2_1",
+      "principle": "perceivable",
+      "guideline": "Distinguishable",
+      "level": "AA",
+      "description": "No loss of content or functionality occurs when users override text spacing to: line height to at least 1.5 times the font size, spacing following paragraphs to at least 2 times the font size, letter spacing to at least 0.12 times the font size, and word spacing to at least 0.16 times the font size.",
+      "intent": "Enables users with dyslexia or low vision to increase text spacing to improve readability without content being clipped, truncated, or overlapped.",
+      "techniques": [
+        "Use containers that expand with content when text spacing changes",
+        "Avoid fixed-height containers for text content",
+        "Use relative units that accommodate spacing overrides",
+        "Test with text spacing bookmarklet at WCAG-specified values",
+        "Allow CSS overrides for line-height, letter-spacing, word-spacing"
+      ],
+      "failures": [
+        "Text clipped when line height increased to 1.5x",
+        "Content overlapping when letter spacing increased to 0.12em",
+        "Container overflow hidden causing content loss with increased spacing",
+        "Buttons or labels breaking with increased word spacing",
+        "Fixed-height text containers that clip content"
+      ],
+      "testing_methods": [
+        "Apply WCAG text spacing bookmarklet and verify no content loss",
+        "Set line-height: 1.5, letter-spacing: 0.12em, word-spacing: 0.16em",
+        "Set paragraph spacing to 2em and verify layout integrity",
+        "Check all components for text clipping or overlap",
+        "Test in multiple browsers with spacing overrides"
+      ],
+      "automated_checkable": false,
+      "affected_disabilities": ["visual", "cognitive"],
+      "related_components": ["typography", "button", "label", "card", "navigation", "tab", "badge"]
+    },
+    {
+      "id": "wcag_1_4_13",
+      "name": "Content on Hover or Focus",
+      "standard": "WCAG_2_1",
+      "principle": "perceivable",
+      "guideline": "Distinguishable",
+      "level": "AA",
+      "description": "Where receiving and then removing pointer hover or keyboard focus triggers additional content to become visible and then hidden, the following are true: the additional content is dismissible, hoverable, and persistent.",
+      "intent": "Ensures that pop-up content such as tooltips and submenus can be perceived and interacted with by all users, including those using magnification who may need to move their pointer over the pop-up content.",
+      "techniques": [
+        "Make hover/focus-triggered content dismissible via Escape key",
+        "Allow pointer to move over the triggered content without it disappearing",
+        "Keep content visible until hover/focus is explicitly removed or dismissed",
+        "Use aria-describedby or aria-details instead of tooltips for complex info",
+        "Ensure triggered content does not obscure other content without dismissal option"
+      ],
+      "failures": [
+        "Tooltip disappears when user moves pointer toward it",
+        "No way to dismiss hover content without moving pointer",
+        "Content disappears on a timer before user can read it",
+        "Hover content obscures the trigger element or other content",
+        "Focus-triggered content not keyboard dismissible"
+      ],
+      "testing_methods": [
+        "Hover over elements and verify additional content is persistent",
+        "Move pointer from trigger to hover content and verify it remains",
+        "Press Escape and verify hover content is dismissed",
+        "Tab to trigger elements and verify focus-triggered content behavior",
+        "Test with screen magnifier to verify content is reachable"
+      ],
+      "automated_checkable": false,
+      "affected_disabilities": ["visual", "motor", "cognitive"],
+      "related_components": ["tooltip", "popover", "dropdown", "menu", "submenu", "hover_card"]
+    },
+    {
+      "id": "wcag_2_1_1",
+      "name": "Keyboard",
+      "standard": "WCAG_2_1",
+      "principle": "operable",
+      "guideline": "Keyboard Accessible",
+      "level": "A",
+      "description": "All functionality of the content is operable through a keyboard interface without requiring specific timings for individual keystrokes, except where the underlying function requires input that depends on the path of the user's movement and not just the endpoints.",
+      "intent": "Ensures that users who rely on keyboards, switch devices, voice input, or other non-pointer input methods can access all interactive functionality.",
+      "techniques": [
+        "Use native HTML interactive elements (button, a, input, select)",
+        "Add tabindex=0 and keyboard event handlers to custom interactive elements",
+        "Implement Enter and Space key activation for custom buttons",
+        "Implement arrow key navigation for custom widgets (tabs, menus, trees)",
+        "Ensure drag-and-drop has keyboard alternatives",
+        "Provide keyboard shortcuts for common actions"
+      ],
+      "failures": [
+        "Interactive elements only respond to mouse click events",
+        "Custom controls missing keyboard event handlers",
+        "Using div or span as interactive elements without keyboard support",
+        "Drag-and-drop functionality with no keyboard alternative",
+        "On-screen drawing tools with no keyboard alternative (may be exempt)"
+      ],
+      "testing_methods": [
+        "Navigate entire page using only Tab, Shift+Tab, Enter, Space, and arrow keys",
+        "Verify all interactive elements are reachable via keyboard",
+        "Test all functionality can be completed without a mouse",
+        "Check custom widgets implement expected keyboard patterns",
+        "Verify keyboard shortcuts do not conflict with assistive technology"
+      ],
+      "automated_checkable": false,
+      "affected_disabilities": ["motor", "visual"],
+      "related_components": ["button", "link", "menu", "tab", "accordion", "dialog", "form", "carousel", "tree_view", "drag_drop"]
+    },
+    {
+      "id": "wcag_2_1_2",
+      "name": "No Keyboard Trap",
+      "standard": "WCAG_2_1",
+      "principle": "operable",
+      "guideline": "Keyboard Accessible",
+      "level": "A",
+      "description": "If keyboard focus can be moved to a component of the page using a keyboard interface, then focus can be moved away from that component using only a keyboard interface, and if it requires more than unmodified arrow or tab keys, the user is advised of the method for moving focus.",
+      "intent": "Prevents users from becoming trapped in a component with no way to exit using the keyboard alone, which would render the rest of the page inaccessible to keyboard users.",
+      "techniques": [
+        "Ensure Tab and Shift+Tab move focus through all interactive elements",
+        "Implement Escape key to close modal dialogs and return focus",
+        "Provide clear instructions if non-standard keys are needed to exit a component",
+        "Test focus management in embedded content (iframes, plugins)",
+        "Ensure focus is not trapped in auto-complete dropdowns or date pickers"
+      ],
+      "failures": [
+        "Modal dialog that cannot be closed with Escape key",
+        "Embedded widget that traps keyboard focus",
+        "Tab key cycles within a component with no exit",
+        "Rich text editors that capture all keyboard input",
+        "Video player controls that trap focus"
+      ],
+      "testing_methods": [
+        "Tab through all interactive elements and verify focus can always move forward and backward",
+        "Enter all modal dialogs and verify Escape exits them",
+        "Check embedded content (iframes) for focus traps",
+        "Test custom widgets for keyboard exit capability",
+        "Verify focus returns to a logical element after closing overlays"
+      ],
+      "automated_checkable": false,
+      "affected_disabilities": ["motor", "visual"],
+      "related_components": ["modal", "dialog", "dropdown", "date_picker", "rich_text_editor", "iframe", "video_player"]
+    },
+    {
+      "id": "wcag_2_1_4",
+      "name": "Character Key Shortcuts",
+      "standard": "WCAG_2_1",
+      "principle": "operable",
+      "guideline": "Keyboard Accessible",
+      "level": "A",
+      "description": "If a keyboard shortcut is implemented using only letter, punctuation, number, or symbol characters, then at least one of the following is true: the shortcut can be turned off, remapped, or is only active when the relevant UI component has focus.",
+      "intent": "Prevents single-character keyboard shortcuts from interfering with speech input users who may inadvertently trigger shortcuts when dictating text, and power users who want to customize shortcuts.",
+      "techniques": [
+        "Require modifier keys (Ctrl, Alt, Cmd) for keyboard shortcuts",
+        "Provide a settings panel to disable or remap shortcuts",
+        "Scope single-character shortcuts to specific focused components only",
+        "Document all keyboard shortcuts and their customization options"
+      ],
+      "failures": [
+        "Single letter shortcuts active globally without modifier keys",
+        "No mechanism to turn off or remap single-character shortcuts",
+        "Speech input triggers unintended actions via character shortcuts",
+        "Shortcuts conflict with browser or assistive technology shortcuts"
+      ],
+      "testing_methods": [
+        "Identify all keyboard shortcuts in the application",
+        "Verify single-character shortcuts can be turned off or remapped",
+        "Test with speech recognition software",
+        "Verify shortcuts are only active when relevant component is focused",
+        "Check for conflicts with common assistive technology shortcuts"
+      ],
+      "automated_checkable": false,
+      "affected_disabilities": ["motor"],
+      "related_components": ["keyboard_shortcuts", "toolbar", "menu", "editor"]
+    },
+    {
+      "id": "wcag_2_2_1",
+      "name": "Timing Adjustable",
+      "standard": "WCAG_2_1",
+      "principle": "operable",
+      "guideline": "Enough Time",
+      "level": "A",
+      "description": "For each time limit that is set by the content, the user can turn off, adjust, or extend the time limit, except for real-time events, essential time limits, and time limits longer than 20 hours.",
+      "intent": "Provides users with disabilities, who may need more time to read or interact with content, the ability to complete tasks without arbitrary time constraints.",
+      "techniques": [
+        "Provide a warning before time expires with option to extend",
+        "Allow users to set their own time limits in preferences",
+        "Provide at least 10 times the default time limit option",
+        "Allow at least 20 seconds to extend time with a simple action",
+        "Remove time limits when they are not essential"
+      ],
+      "failures": [
+        "Session timeout without warning or extension option",
+        "Auto-advancing carousel with no pause or timing control",
+        "Form that times out and loses user data",
+        "Timed quiz with no accommodation for extended time",
+        "Auto-redirect after fixed time with no user control"
+      ],
+      "testing_methods": [
+        "Identify all time-limited interactions",
+        "Verify warning is provided before timeout",
+        "Test extension mechanism is accessible and functional",
+        "Verify data is preserved when time is extended",
+        "Check that timing can be adjusted in user preferences"
+      ],
+      "automated_checkable": false,
+      "affected_disabilities": ["visual", "motor", "cognitive"],
+      "related_components": ["session_timeout", "carousel", "notification", "timer", "form"]
+    },
+    {
+      "id": "wcag_2_2_2",
+      "name": "Pause, Stop, Hide",
+      "standard": "WCAG_2_1",
+      "principle": "operable",
+      "guideline": "Enough Time",
+      "level": "A",
+      "description": "For moving, blinking, scrolling, or auto-updating information: if it starts automatically, lasts more than 5 seconds, and is presented in parallel with other content, there is a mechanism to pause, stop, or hide it. For auto-updating information, there is a mechanism to pause, stop, hide, or control the frequency.",
+      "intent": "Ensures that users with attention deficits or cognitive disabilities are not distracted by moving content, and that users who need more time can pause or stop animations to read content.",
+      "techniques": [
+        "Provide pause/stop controls for carousels and slideshows",
+        "Honor prefers-reduced-motion media query",
+        "Provide stop controls for auto-scrolling or marquee content",
+        "Allow users to control update frequency of live data",
+        "Use CSS animation-play-state for pausable animations"
+      ],
+      "failures": [
+        "Auto-playing carousel with no pause button",
+        "Animated background that cannot be stopped",
+        "Auto-scrolling text with no stop mechanism",
+        "Blinking or flashing content lasting more than 5 seconds",
+        "Live updating content with no pause or frequency control"
+      ],
+      "testing_methods": [
+        "Identify all moving, blinking, scrolling, or auto-updating content",
+        "Verify pause/stop/hide controls exist and are accessible",
+        "Test with prefers-reduced-motion enabled",
+        "Verify pausing preserves content state",
+        "Check auto-updating content for frequency controls"
+      ],
+      "automated_checkable": false,
+      "affected_disabilities": ["visual", "cognitive", "motor"],
+      "related_components": ["carousel", "animation", "progress_bar", "live_feed", "notification", "banner"]
+    },
+    {
+      "id": "wcag_2_3_1",
+      "name": "Three Flashes or Below Threshold",
+      "standard": "WCAG_2_1",
+      "principle": "operable",
+      "guideline": "Seizures and Physical Reactions",
+      "level": "A",
+      "description": "Web pages do not contain anything that flashes more than three times in any one second period, or the flash is below the general flash and red flash thresholds.",
+      "intent": "Protects users with photosensitive epilepsy from seizures that can be triggered by flashing content. Even brief exposure to flashing content can cause life-threatening seizures.",
+      "techniques": [
+        "Avoid content that flashes more than 3 times per second",
+        "Ensure any flashing content is below the general flash threshold",
+        "Avoid large areas of flashing content",
+        "Use the Photosensitive Epilepsy Analysis Tool (PEAT) to test content",
+        "Provide a warning before displaying potentially hazardous content"
+      ],
+      "failures": [
+        "Animations flashing more than 3 times per second",
+        "Video content with rapid strobing effects",
+        "CSS animations creating rapid flicker effects",
+        "Large red flashing areas exceeding threshold"
+      ],
+      "testing_methods": [
+        "Use PEAT or Harding FPA to analyze video content",
+        "Manually count flash frequency in animations",
+        "Check CSS animations for rapid opacity or color changes",
+        "Verify flash area is small relative to viewport",
+        "Test with photosensitive seizure analysis tools"
+      ],
+      "automated_checkable": false,
+      "affected_disabilities": ["visual"],
+      "related_components": ["animation", "video_player", "banner", "notification"]
+    },
+    {
+      "id": "wcag_2_4_1",
+      "name": "Bypass Blocks",
+      "standard": "WCAG_2_1",
+      "principle": "operable",
+      "guideline": "Navigable",
+      "level": "A",
+      "description": "A mechanism is available to bypass blocks of content that are repeated on multiple Web pages.",
+      "intent": "Allows keyboard users and screen reader users to skip past repeated content like navigation menus and headers to reach the main content quickly.",
+      "techniques": [
+        "Provide a 'skip to main content' link as the first focusable element",
+        "Use ARIA landmark roles to define page regions",
+        "Use heading elements to structure content for easy navigation",
+        "Provide a table of contents for long pages",
+        "Use HTML5 structural elements (nav, main, aside, header, footer)"
+      ],
+      "failures": [
+        "No skip navigation link provided",
+        "Skip link is present but not functional",
+        "Skip link target does not receive focus",
+        "No landmark roles or structural elements to enable bypass",
+        "Skip link is permanently hidden and not accessible"
+      ],
+      "testing_methods": [
+        "Tab to first element on page and verify skip link appears",
+        "Activate skip link and verify focus moves to main content",
+        "Test with screen reader landmark navigation",
+        "Verify heading structure enables content bypass",
+        "Check skip link visibility on focus"
+      ],
+      "automated_checkable": true,
+      "affected_disabilities": ["visual", "motor"],
+      "related_components": ["skip_link", "navigation", "header", "main_content", "landmark"]
+    },
+    {
+      "id": "wcag_2_4_2",
+      "name": "Page Titled",
+      "standard": "WCAG_2_1",
+      "principle": "operable",
+      "guideline": "Navigable",
+      "level": "A",
+      "description": "Web pages have titles that describe topic or purpose.",
+      "intent": "Helps users orient themselves and identify the page content without having to read the full page. Page titles are displayed in browser tabs, bookmarks, and search results, and are the first element announced by screen readers.",
+      "techniques": [
+        "Provide a descriptive title element in the head of each page",
+        "Include the site name and page-specific information in the title",
+        "Update page title dynamically for single-page applications",
+        "Use a consistent title format across the site (e.g., 'Page Name - Site Name')",
+        "Ensure title is unique for each page"
+      ],
+      "failures": [
+        "Missing title element",
+        "Generic title like 'Untitled' or 'Page'",
+        "Same title used for all pages",
+        "Title does not describe the page content",
+        "SPA does not update title on route change"
+      ],
+      "testing_methods": [
+        "Check title element exists in page head",
+        "Verify title accurately describes page content",
+        "Check title uniqueness across pages",
+        "Verify SPA updates title on navigation",
+        "Test title announcement with screen reader"
+      ],
+      "automated_checkable": true,
+      "affected_disabilities": ["visual", "cognitive"],
+      "related_components": ["page", "spa_router", "head", "browser_tab"]
+    },
+    {
+      "id": "wcag_2_4_3",
+      "name": "Focus Order",
+      "standard": "WCAG_2_1",
+      "principle": "operable",
+      "guideline": "Navigable",
+      "level": "A",
+      "description": "If a Web page can be navigated sequentially and the navigation sequences affect meaning or operation, focusable components receive focus in an order that preserves meaning and operability.",
+      "intent": "Ensures keyboard users encounter interactive elements in a logical order that matches the visual layout and expected workflow, so they can understand and operate the interface effectively.",
+      "techniques": [
+        "Ensure DOM order matches visual layout order",
+        "Avoid positive tabindex values that override natural order",
+        "Manage focus programmatically when content is dynamically added",
+        "Return focus to trigger element when closing modals or dialogs",
+        "Use focus management for multi-step workflows"
+      ],
+      "failures": [
+        "Using tabindex values greater than 0",
+        "Focus order does not match visual layout",
+        "Focus lost when content is dynamically shown or hidden",
+        "Focus not returned to trigger after modal closes",
+        "Focus order skips important interactive elements"
+      ],
+      "testing_methods": [
+        "Tab through all interactive elements and verify logical order",
+        "Compare tab order with visual layout",
+        "Test dynamic content for proper focus management",
+        "Verify focus returns correctly after closing overlays",
+        "Check for tabindex values greater than 0"
+      ],
+      "automated_checkable": false,
+      "affected_disabilities": ["visual", "motor", "cognitive"],
+      "related_components": ["form", "modal", "dialog", "navigation", "tab", "accordion", "wizard"]
+    },
+    {
+      "id": "wcag_2_4_4",
+      "name": "Link Purpose (In Context)",
+      "standard": "WCAG_2_1",
+      "principle": "operable",
+      "guideline": "Navigable",
+      "level": "A",
+      "description": "The purpose of each link can be determined from the link text alone or from the link text together with its programmatically determined link context, except where the purpose of the link would be ambiguous to users in general.",
+      "intent": "Allows users, especially those using screen readers who may navigate by links, to understand the destination or purpose of each link without needing to read surrounding content.",
+      "techniques": [
+        "Use descriptive link text that indicates the destination",
+        "Add aria-label or aria-labelledby for links with generic text",
+        "Provide context through the enclosing sentence, paragraph, or list item",
+        "Use aria-describedby for supplementary link context",
+        "Ensure link text is unique when links go to different destinations"
+      ],
+      "failures": [
+        "Links with text like 'click here', 'read more', 'learn more' without context",
+        "Multiple 'Read more' links on a page without distinguishing context",
+        "Links with the same text going to different destinations",
+        "Empty links with no text or aria-label",
+        "Image links without alt text"
+      ],
+      "testing_methods": [
+        "List all links on the page and verify purpose is determinable",
+        "Screen reader testing of link text in isolation",
+        "Check for generic link text without programmatic context",
+        "Verify image links have appropriate alt text",
+        "Test links list in screen reader for distinguishability"
+      ],
+      "automated_checkable": true,
+      "affected_disabilities": ["visual", "cognitive"],
+      "related_components": ["link", "button", "navigation", "breadcrumb", "card", "list"]
+    },
+    {
+      "id": "wcag_2_4_5",
+      "name": "Multiple Ways",
+      "standard": "WCAG_2_1",
+      "principle": "operable",
+      "guideline": "Navigable",
+      "level": "AA",
+      "description": "More than one way is available to locate a Web page within a set of Web pages except where the Web Page is the result of, or a step in, a process.",
+      "intent": "Enables users to find content using the method that best suits their needs, whether through navigation menus, search, site maps, links, or other mechanisms.",
+      "techniques": [
+        "Provide a site search function",
+        "Provide a site map or table of contents",
+        "Provide a consistent navigation menu",
+        "Provide breadcrumb navigation",
+        "Provide related links between pages"
+      ],
+      "failures": [
+        "Only one method to navigate to pages (e.g., only main menu)",
+        "No search functionality on a large site",
+        "No site map and only sequential navigation",
+        "Search function that is not accessible"
+      ],
+      "testing_methods": [
+        "Verify at least two navigation methods exist",
+        "Test search functionality",
+        "Check for site map or index",
+        "Verify breadcrumb navigation where applicable",
+        "Test navigation methods are accessible"
+      ],
+      "automated_checkable": false,
+      "affected_disabilities": ["visual", "cognitive"],
+      "related_components": ["navigation", "search", "sitemap", "breadcrumb"]
+    },
+    {
+      "id": "wcag_2_4_6",
+      "name": "Headings and Labels",
+      "standard": "WCAG_2_1",
+      "principle": "operable",
+      "guideline": "Navigable",
+      "level": "AA",
+      "description": "Headings and labels describe topic or purpose.",
+      "intent": "Helps users understand the organization of content and the purpose of form controls. Descriptive headings and labels enable efficient navigation and reduce errors.",
+      "techniques": [
+        "Use descriptive heading text that summarizes the following content",
+        "Use unique headings for distinct sections",
+        "Provide descriptive labels for all form controls",
+        "Ensure labels clearly indicate what input is expected",
+        "Use legend elements for fieldsets to provide group labels"
+      ],
+      "failures": [
+        "Generic headings like 'Section 1' that do not describe content",
+        "Form labels that do not clearly describe expected input",
+        "Missing labels on form groups",
+        "Heading text that duplicates across unrelated sections",
+        "Labels that use jargon or abbreviations without explanation"
+      ],
+      "testing_methods": [
+        "Review all headings for descriptive accuracy",
+        "Verify form labels clearly describe expected input",
+        "Test heading navigation with screen reader",
+        "Check fieldset legend descriptions",
+        "Verify labels match the purpose of their controls"
+      ],
+      "automated_checkable": false,
+      "affected_disabilities": ["visual", "cognitive"],
+      "related_components": ["heading", "label", "form", "fieldset", "section", "accordion"]
+    },
+    {
+      "id": "wcag_2_4_7",
+      "name": "Focus Visible",
+      "standard": "WCAG_2_1",
+      "principle": "operable",
+      "guideline": "Navigable",
+      "level": "AA",
+      "description": "Any keyboard operable user interface has a mode of operation where the keyboard focus indicator is visible.",
+      "intent": "Ensures keyboard users can always see which element currently has focus, enabling them to track their position on the page and interact with the correct element.",
+      "techniques": [
+        "Maintain default browser focus outlines or provide custom visible focus styles",
+        "Use :focus-visible pseudo-class for keyboard-only focus styles",
+        "Ensure focus indicator has sufficient contrast (meets 1.4.11)",
+        "Use outline, box-shadow, or border for focus indication",
+        "Ensure focus indicator is visible on all backgrounds"
+      ],
+      "failures": [
+        "Removing focus outlines with outline: none without replacement",
+        "Focus indicator with insufficient contrast against background",
+        "Focus indicator hidden behind other elements",
+        "Custom focus styles that are not visible on all backgrounds",
+        "Focus indicator only visible on some interactive elements"
+      ],
+      "testing_methods": [
+        "Tab through all interactive elements and verify focus is visible",
+        "Check focus visibility on different background colors",
+        "Verify custom focus styles meet contrast requirements",
+        "Test focus visibility in high contrast mode",
+        "Check that :focus-visible is used appropriately"
+      ],
+      "automated_checkable": false,
+      "affected_disabilities": ["visual", "motor", "cognitive"],
+      "related_components": ["button", "link", "input", "select", "checkbox", "radio", "tab", "menu_item"]
+    },
+    {
+      "id": "wcag_2_4_11",
+      "name": "Focus Not Obscured (Minimum)",
+      "standard": "WCAG_2_2",
+      "principle": "operable",
+      "guideline": "Navigable",
+      "level": "AA",
+      "description": "When a user interface component receives keyboard focus, the component is not entirely hidden due to author-created content.",
+      "intent": "Ensures that when keyboard focus moves to an element, it is at least partially visible and not completely obscured by sticky headers, footers, overlays, or other positioned content.",
+      "techniques": [
+        "Use scroll-padding to account for sticky headers and footers",
+        "Ensure focused elements are scrolled into view when behind fixed elements",
+        "Manage z-index to prevent overlays from obscuring focused elements",
+        "Use scroll-margin on focusable elements near sticky regions",
+        "Test focus visibility with all persistent UI elements present"
+      ],
+      "failures": [
+        "Focused element hidden behind a sticky header or footer",
+        "Cookie banner obscuring focused elements",
+        "Chat widget overlaying focused form fields",
+        "Sticky navigation covering focused elements when scrolling",
+        "Modal backdrop remaining and covering focused elements"
+      ],
+      "testing_methods": [
+        "Tab through page with sticky headers/footers and verify focus is visible",
+        "Check focus visibility behind cookie banners and chat widgets",
+        "Test focus at the boundaries of scrollable regions",
+        "Verify focused elements near sticky elements are at least partially visible",
+        "Test with various viewport sizes"
+      ],
+      "automated_checkable": false,
+      "affected_disabilities": ["visual", "motor", "cognitive"],
+      "related_components": ["sticky_header", "sticky_footer", "cookie_banner", "chat_widget", "navigation", "toolbar"]
+    },
+    {
+      "id": "wcag_2_5_1",
+      "name": "Pointer Gestures",
+      "standard": "WCAG_2_1",
+      "principle": "operable",
+      "guideline": "Input Modalities",
+      "level": "A",
+      "description": "All functionality that uses multipoint or path-based gestures for operation can be operated with a single pointer without a path-based gesture, unless a multipoint or path-based gesture is essential.",
+      "intent": "Ensures that users who cannot perform complex gestures like pinch-zoom, multi-finger swipes, or path-based gestures can still operate all functionality using simple single-point activation.",
+      "techniques": [
+        "Provide button controls as alternatives to pinch-zoom gestures",
+        "Provide single-tap alternatives to swipe gestures",
+        "Provide button controls for path-based drawing actions",
+        "Ensure carousel navigation has next/previous buttons in addition to swipe",
+        "Provide zoom in/out buttons for map interfaces"
+      ],
+      "failures": [
+        "Map zooming only available through pinch gesture",
+        "Carousel only navigable by swiping",
+        "Drawing tools requiring path-based gestures with no alternative",
+        "Multi-finger gestures required with no single-pointer alternative"
+      ],
+      "testing_methods": [
+        "Identify all multipoint and path-based gesture interactions",
+        "Verify single-pointer alternatives exist for each gesture",
+        "Test all functionality using only single-point clicks/taps",
+        "Verify alternative controls are discoverable and accessible",
+        "Test with assistive technology that simulates single-point interaction"
+      ],
+      "automated_checkable": false,
+      "affected_disabilities": ["motor"],
+      "related_components": ["carousel", "map", "slider", "gallery", "image_viewer", "gesture_area"]
+    },
+    {
+      "id": "wcag_2_5_2",
+      "name": "Pointer Cancellation",
+      "standard": "WCAG_2_1",
+      "principle": "operable",
+      "guideline": "Input Modalities",
+      "level": "A",
+      "description": "For functionality that can be operated using a single pointer, at least one of the following is true: the down-event is not used, the action is executed on the up-event with an abort/undo mechanism, the up-event reverses the down-event, or completing the function on the down-event is essential.",
+      "intent": "Makes it easier for users to avoid accidental activation of controls by providing the ability to cancel or undo an action. Users with motor impairments are especially prone to accidental touches.",
+      "techniques": [
+        "Execute actions on the up-event (mouseup, pointerup, touchend) rather than down-event",
+        "Use native HTML elements that inherently use up-event activation",
+        "Provide an undo mechanism for actions triggered on down-event",
+        "Allow users to move pointer away from target before releasing to cancel",
+        "Use click event which fires on release by default"
+      ],
+      "failures": [
+        "Actions triggered on mousedown or touchstart with no cancel option",
+        "Custom buttons that fire on pointer down without release confirmation",
+        "Drag operations that commit on the initial touch",
+        "No ability to abort by moving pointer away before release"
+      ],
+      "testing_methods": [
+        "Click and hold on interactive elements, then move pointer away before releasing",
+        "Verify action is not triggered if pointer is released outside the target",
+        "Test touch interactions for accidental activation prevention",
+        "Check that native click behavior is preserved",
+        "Verify drag operations can be cancelled"
+      ],
+      "automated_checkable": false,
+      "affected_disabilities": ["motor", "visual"],
+      "related_components": ["button", "link", "menu_item", "drag_drop", "slider"]
+    },
+    {
+      "id": "wcag_2_5_3",
+      "name": "Label in Name",
+      "standard": "WCAG_2_1",
+      "principle": "operable",
+      "guideline": "Input Modalities",
+      "level": "A",
+      "description": "For user interface components with labels that include text or images of text, the name contains the text that is presented visually.",
+      "intent": "Ensures that users who rely on speech input can activate controls by speaking the visible label text. If the accessible name does not contain the visible label, speech input users cannot activate the control by speaking what they see.",
+      "techniques": [
+        "Ensure aria-label includes the visible text label",
+        "Match the start of aria-label with the visible label text",
+        "Use aria-labelledby to reference the visible label element",
+        "Avoid aria-label that contradicts or omits the visible text",
+        "Ensure icon buttons with visible text have matching accessible names"
+      ],
+      "failures": [
+        "Visible label says 'Search' but aria-label says 'Find products'",
+        "Button text says 'Submit' but accessible name is 'Send form data'",
+        "Image alt text does not match adjacent visible text",
+        "aria-label completely replaces visible label with different text"
+      ],
+      "testing_methods": [
+        "Compare visible labels with accessible names in accessibility tree",
+        "Verify aria-label contains visible text",
+        "Test with speech recognition software by speaking visible labels",
+        "Use accessibility inspector to compare visible and accessible names",
+        "Automated scan for mismatches between visible and accessible names"
+      ],
+      "automated_checkable": true,
+      "affected_disabilities": ["motor", "cognitive"],
+      "related_components": ["button", "link", "input", "label", "menu_item", "tab"]
+    },
+    {
+      "id": "wcag_2_5_4",
+      "name": "Motion Actuation",
+      "standard": "WCAG_2_1",
+      "principle": "operable",
+      "guideline": "Input Modalities",
+      "level": "A",
+      "description": "Functionality that can be operated by device motion or user motion can also be operated by user interface components and responding to the motion can be disabled to prevent accidental actuation, except when the motion is essential or disabling would invalidate the activity.",
+      "intent": "Ensures that users who cannot perform device motions (such as shaking or tilting) due to their device being mounted or due to motor impairments can still access all functionality through alternative controls.",
+      "techniques": [
+        "Provide button controls as alternatives to shake-to-undo",
+        "Provide UI controls for tilt-based interactions",
+        "Allow users to disable motion-based controls in settings",
+        "Provide on-screen alternatives for all motion-triggered actions"
+      ],
+      "failures": [
+        "Shake to undo with no button alternative",
+        "Tilt-to-scroll with no scrollbar or button alternative",
+        "Motion-based gaming controls with no alternative input",
+        "No option to disable motion actuation"
+      ],
+      "testing_methods": [
+        "Identify all motion-activated functionality",
+        "Verify UI alternatives exist for each motion action",
+        "Check settings for motion actuation disable option",
+        "Test all motion-based features with device stationary",
+        "Verify alternative controls are accessible"
+      ],
+      "automated_checkable": false,
+      "affected_disabilities": ["motor"],
+      "related_components": ["gesture_area", "game_controls", "undo_redo", "settings"]
+    },
+    {
+      "id": "wcag_2_5_7",
+      "name": "Dragging Movements",
+      "standard": "WCAG_2_2",
+      "principle": "operable",
+      "guideline": "Input Modalities",
+      "level": "AA",
+      "description": "All functionality that uses a dragging movement for operation can be achieved by a single pointer without dragging, unless dragging is essential or the functionality is determined by the user agent and not modified by the author.",
+      "intent": "Ensures that users who cannot perform drag operations due to motor impairments can still access all functionality through single-pointer actions like clicks or taps.",
+      "techniques": [
+        "Provide click-to-select and click-to-place as alternative to drag-and-drop",
+        "Provide up/down buttons for reordering list items",
+        "Provide input fields for setting slider values",
+        "Allow click-based selection for sortable interfaces",
+        "Provide context menu options as alternatives to drag actions"
+      ],
+      "failures": [
+        "Drag-and-drop reordering with no alternative mechanism",
+        "Slider only operable through dragging",
+        "File upload only through drag-and-drop",
+        "Kanban board items only movable by dragging"
+      ],
+      "testing_methods": [
+        "Identify all drag-based interactions",
+        "Verify single-pointer alternatives exist",
+        "Test alternatives are accessible and functional",
+        "Verify keyboard alternatives also exist",
+        "Test with assistive technology that does not support drag"
+      ],
+      "automated_checkable": false,
+      "affected_disabilities": ["motor"],
+      "related_components": ["drag_drop", "sortable_list", "slider", "kanban", "file_upload", "range_input"]
+    },
+    {
+      "id": "wcag_2_5_8",
+      "name": "Target Size (Minimum)",
+      "standard": "WCAG_2_2",
+      "principle": "operable",
+      "guideline": "Input Modalities",
+      "level": "AA",
+      "description": "The size of the target for pointer inputs is at least 24 by 24 CSS pixels, except when the target is in a sentence or block of text, the target has an equivalent control meeting the size, the target is determined by the user agent, or the target size is essential.",
+      "intent": "Ensures that interactive targets are large enough for users with motor impairments to activate accurately without accidentally hitting adjacent targets.",
+      "techniques": [
+        "Ensure all clickable/tappable elements are at least 24x24px",
+        "Use padding to increase touch target size for small visual elements",
+        "Provide adequate spacing between adjacent targets",
+        "Use min-width and min-height for interactive elements",
+        "Ensure inline links in text have adequate touch area through line-height"
+      ],
+      "failures": [
+        "Icon buttons smaller than 24x24px",
+        "Closely spaced links or buttons with targets under 24x24px",
+        "Small checkbox or radio button targets",
+        "Close buttons or dismiss controls under 24x24px",
+        "Pagination links too small and too closely spaced"
+      ],
+      "testing_methods": [
+        "Measure target sizes using browser dev tools",
+        "Verify 24x24px minimum for all interactive elements",
+        "Check spacing between adjacent targets",
+        "Test touch accuracy on mobile devices",
+        "Automated scan for undersized interactive elements"
+      ],
+      "automated_checkable": true,
+      "affected_disabilities": ["motor"],
+      "related_components": ["button", "icon_button", "link", "checkbox", "radio", "close_button", "pagination", "toolbar"]
+    },
+    {
+      "id": "wcag_3_1_1",
+      "name": "Language of Page",
+      "standard": "WCAG_2_1",
+      "principle": "understandable",
+      "guideline": "Readable",
+      "level": "A",
+      "description": "The default human language of each Web page can be programmatically determined.",
+      "intent": "Enables screen readers to use correct pronunciation rules, search engines to index properly, and browsers to display correct character sets by specifying the page language.",
+      "techniques": [
+        "Set the lang attribute on the html element",
+        "Use valid IANA language subtag (e.g., en, fr, de, zh-Hans)",
+        "Ensure lang attribute matches the primary language of the content",
+        "Update lang attribute for single-page applications when language changes"
+      ],
+      "failures": [
+        "Missing lang attribute on the html element",
+        "Invalid or incorrect lang attribute value",
+        "lang attribute does not match the actual content language",
+        "SPA does not update lang on language change"
+      ],
+      "testing_methods": [
+        "Automated scan for lang attribute on html element",
+        "Verify lang value matches content language",
+        "Validate lang attribute against IANA subtag registry",
+        "Test screen reader pronunciation with different lang values"
+      ],
+      "automated_checkable": true,
+      "affected_disabilities": ["visual", "cognitive"],
+      "related_components": ["page", "html_root"]
+    },
+    {
+      "id": "wcag_3_1_2",
+      "name": "Language of Parts",
+      "standard": "WCAG_2_1",
+      "principle": "understandable",
+      "guideline": "Readable",
+      "level": "AA",
+      "description": "The human language of each passage or phrase in the content can be programmatically determined except for proper names, technical terms, words of indeterminate language, and words or phrases that have become part of the vernacular of the immediately surrounding text.",
+      "intent": "Ensures screen readers switch pronunciation rules for content in different languages, so users hear correct pronunciation for foreign language passages.",
+      "techniques": [
+        "Use the lang attribute on elements containing text in a different language",
+        "Apply lang to blockquote, span, or other elements wrapping foreign text",
+        "Use valid IANA language subtags for language identification",
+        "Mark up language changes in multilingual content"
+      ],
+      "failures": [
+        "Foreign language passages not marked with lang attribute",
+        "Incorrect lang attribute on foreign language content",
+        "Large blocks of text in different language without lang marking",
+        "Automated translation without updating lang attributes"
+      ],
+      "testing_methods": [
+        "Identify foreign language content and verify lang attributes",
+        "Test screen reader pronunciation of foreign language passages",
+        "Automated scan for unmatched language content",
+        "Review multilingual content for proper language marking"
+      ],
+      "automated_checkable": false,
+      "affected_disabilities": ["visual", "cognitive"],
+      "related_components": ["text", "blockquote", "paragraph", "multilingual_content"]
+    },
+    {
+      "id": "wcag_3_2_1",
+      "name": "On Focus",
+      "standard": "WCAG_2_1",
+      "principle": "understandable",
+      "guideline": "Predictable",
+      "level": "A",
+      "description": "When any user interface component receives focus, it does not initiate a change of context.",
+      "intent": "Ensures that simply navigating to a component does not trigger unexpected changes like form submission, page navigation, or opening new windows, which would disorient users.",
+      "techniques": [
+        "Do not trigger form submission when a field receives focus",
+        "Do not navigate to a new page when an element receives focus",
+        "Do not open new windows or dialogs on focus",
+        "Use activation events (click, Enter) for context changes, not focus events"
+      ],
+      "failures": [
+        "New window opens when a link receives focus",
+        "Form submits when focus moves to submit button",
+        "Dropdown navigation that navigates on focus",
+        "Modal dialog opens when an element receives focus"
+      ],
+      "testing_methods": [
+        "Tab through all interactive elements and verify no context change",
+        "Check for onfocus event handlers that trigger navigation or submission",
+        "Verify no new windows open on focus",
+        "Test dynamic content changes that occur on focus"
+      ],
+      "automated_checkable": false,
+      "affected_disabilities": ["visual", "cognitive", "motor"],
+      "related_components": ["form", "link", "select", "navigation", "modal"]
+    },
+    {
+      "id": "wcag_3_2_2",
+      "name": "On Input",
+      "standard": "WCAG_2_1",
+      "principle": "understandable",
+      "guideline": "Predictable",
+      "level": "A",
+      "description": "Changing the setting of any user interface component does not automatically cause a change of context unless the user has been advised of the behavior before using the component.",
+      "intent": "Ensures that users are not surprised by automatic context changes when interacting with form controls, which is especially problematic for users of screen readers and those with cognitive disabilities.",
+      "techniques": [
+        "Use a submit button rather than auto-submitting on input change",
+        "Advise users before components that trigger context changes",
+        "Provide a 'Go' or 'Apply' button for filter controls",
+        "Use aria-live to announce changes instead of navigating",
+        "Describe auto-submit behavior in form instructions"
+      ],
+      "failures": [
+        "Select dropdown that navigates to a new page on change",
+        "Checkbox that opens a new window when checked",
+        "Radio button that submits a form automatically",
+        "Filter controls that reload the page without warning"
+      ],
+      "testing_methods": [
+        "Interact with all form controls and verify no unexpected context changes",
+        "Check for onchange handlers that trigger navigation",
+        "Verify advance notification for controls that cause context changes",
+        "Test with screen reader for unexpected announcements on input"
+      ],
+      "automated_checkable": false,
+      "affected_disabilities": ["visual", "cognitive", "motor"],
+      "related_components": ["select", "checkbox", "radio", "form", "filter", "search"]
+    },
+    {
+      "id": "wcag_3_2_3",
+      "name": "Consistent Navigation",
+      "standard": "WCAG_2_1",
+      "principle": "understandable",
+      "guideline": "Predictable",
+      "level": "AA",
+      "description": "Navigational mechanisms that are repeated on multiple Web pages within a set of Web pages occur in the same relative order each time they are repeated, unless a change is initiated by the user.",
+      "intent": "Helps users who rely on familiarity and spatial memory to locate navigation elements efficiently by keeping navigation in a consistent position and order across pages.",
+      "techniques": [
+        "Maintain consistent order of navigation items across all pages",
+        "Use consistent layout templates for navigation",
+        "Keep primary navigation in the same position on every page",
+        "Preserve relative order when adding or removing navigation items",
+        "Use consistent placement for search, login, and utility navigation"
+      ],
+      "failures": [
+        "Navigation items reordered on different pages",
+        "Primary navigation moved to different positions on different pages",
+        "Inconsistent placement of search or utility navigation",
+        "Sub-navigation that changes order based on page context without user action"
+      ],
+      "testing_methods": [
+        "Compare navigation order across multiple pages",
+        "Verify navigation position is consistent",
+        "Check utility navigation consistency",
+        "Test with screen reader across pages for consistent landmark structure"
+      ],
+      "automated_checkable": false,
+      "affected_disabilities": ["visual", "cognitive"],
+      "related_components": ["navigation", "header", "footer", "sidebar", "breadcrumb"]
+    },
+    {
+      "id": "wcag_3_2_4",
+      "name": "Consistent Identification",
+      "standard": "WCAG_2_1",
+      "principle": "understandable",
+      "guideline": "Predictable",
+      "level": "AA",
+      "description": "Components that have the same functionality within a set of Web pages are identified consistently.",
+      "intent": "Reduces cognitive load by ensuring that components with the same function use the same labels, icons, and naming conventions throughout the site, making the interface predictable for all users.",
+      "techniques": [
+        "Use consistent labels for components with the same function",
+        "Use consistent icons for the same actions across pages",
+        "Maintain consistent accessible names for repeated components",
+        "Use consistent alt text for icons that serve the same purpose",
+        "Apply design system patterns consistently"
+      ],
+      "failures": [
+        "Search labeled 'Search' on one page and 'Find' on another",
+        "Different icons for the same action on different pages",
+        "Inconsistent button labels for the same function",
+        "Print icon with different alt text on different pages"
+      ],
+      "testing_methods": [
+        "Compare labels and names of similar components across pages",
+        "Verify consistent icon usage for same functions",
+        "Check accessible names for consistency",
+        "Review design system component usage across pages"
+      ],
+      "automated_checkable": false,
+      "affected_disabilities": ["visual", "cognitive"],
+      "related_components": ["button", "icon", "navigation", "search", "form", "link"]
+    },
+    {
+      "id": "wcag_3_3_1",
+      "name": "Error Identification",
+      "standard": "WCAG_2_1",
+      "principle": "understandable",
+      "guideline": "Input Assistance",
+      "level": "A",
+      "description": "If an input error is automatically detected, the item that is in error is identified and the error is described to the user in text.",
+      "intent": "Ensures that users are clearly informed about errors so they can understand what went wrong and take corrective action, particularly important for users with visual or cognitive disabilities.",
+      "techniques": [
+        "Display error messages in text near the invalid field",
+        "Use aria-invalid to programmatically mark fields with errors",
+        "Use aria-describedby to associate error messages with fields",
+        "Provide an error summary at the top of the form",
+        "Use role=alert or aria-live for dynamically displayed errors",
+        "Move focus to the first error or error summary on submission"
+      ],
+      "failures": [
+        "Only using color to indicate errors without text",
+        "Error message that does not identify which field is in error",
+        "Errors indicated only by icons without text description",
+        "Error messages not associated with their respective fields",
+        "Generic error message like 'Please fix errors' without specifics"
+      ],
+      "testing_methods": [
+        "Submit form with errors and verify error identification",
+        "Check error messages describe the specific error",
+        "Verify aria-invalid is set on error fields",
+        "Test error message association with screen reader",
+        "Verify error summary identifies all errors"
+      ],
+      "automated_checkable": true,
+      "affected_disabilities": ["visual", "cognitive"],
+      "related_components": ["form", "input", "validation", "alert", "error_message"]
+    },
+    {
+      "id": "wcag_3_3_2",
+      "name": "Labels or Instructions",
+      "standard": "WCAG_2_1",
+      "principle": "understandable",
+      "guideline": "Input Assistance",
+      "level": "A",
+      "description": "Labels or instructions are provided when content requires user input.",
+      "intent": "Helps users understand what input is expected for form controls, reducing errors and frustration, especially for users with cognitive disabilities.",
+      "techniques": [
+        "Provide visible labels for all form controls",
+        "Use label elements associated with form controls",
+        "Provide instructions for complex input formats",
+        "Indicate required fields clearly with text (not just asterisk)",
+        "Provide placeholder text as supplementary hint (not replacement for label)",
+        "Group related fields with fieldset and legend"
+      ],
+      "failures": [
+        "Input fields with no visible label",
+        "Using placeholder text as the only label",
+        "No instructions for expected input format (date, phone)",
+        "Required fields indicated only by asterisk with no legend",
+        "Labels not programmatically associated with controls"
+      ],
+      "testing_methods": [
+        "Verify all form controls have visible labels",
+        "Check label association in accessibility tree",
+        "Verify format instructions for specialized inputs",
+        "Check required field indicators include text explanation",
+        "Test with screen reader for label announcements"
+      ],
+      "automated_checkable": true,
+      "affected_disabilities": ["visual", "cognitive", "motor"],
+      "related_components": ["form", "input", "label", "select", "textarea", "checkbox", "radio", "help_text"]
+    },
+    {
+      "id": "wcag_3_3_3",
+      "name": "Error Suggestion",
+      "standard": "WCAG_2_1",
+      "principle": "understandable",
+      "guideline": "Input Assistance",
+      "level": "AA",
+      "description": "If an input error is automatically detected and suggestions for correction are known, then the suggestions are provided to the user, unless it would jeopardize the security or purpose of the content.",
+      "intent": "Helps users correct errors by providing specific suggestions rather than just identifying that an error occurred, reducing frustration and enabling successful task completion.",
+      "techniques": [
+        "Suggest correct format when input does not match expected pattern",
+        "Suggest valid values when input is not in the allowed set",
+        "Provide examples of valid input in error messages",
+        "Offer 'Did you mean?' suggestions for likely typos",
+        "Show expected format alongside error message"
+      ],
+      "failures": [
+        "Error says 'Invalid date' without suggesting correct format",
+        "Error says 'Invalid email' without describing valid format",
+        "No suggestion when close match exists in valid options",
+        "Generic error messages without corrective guidance"
+      ],
+      "testing_methods": [
+        "Submit forms with various invalid inputs and check for suggestions",
+        "Verify error messages include corrective guidance",
+        "Test with common input mistakes to verify helpful suggestions",
+        "Check that suggestions do not expose sensitive information",
+        "Verify suggestions are accessible to screen readers"
+      ],
+      "automated_checkable": false,
+      "affected_disabilities": ["visual", "cognitive", "motor"],
+      "related_components": ["form", "input", "validation", "error_message", "autocomplete"]
+    },
+    {
+      "id": "wcag_3_3_4",
+      "name": "Error Prevention (Legal, Financial, Data)",
+      "standard": "WCAG_2_1",
+      "principle": "understandable",
+      "guideline": "Input Assistance",
+      "level": "AA",
+      "description": "For Web pages that cause legal commitments or financial transactions, that modify or delete user-controllable data, or that submit test responses: submissions are reversible, data is checked and the user is provided an opportunity to correct, or a mechanism is available to review, confirm, and correct before finalizing.",
+      "intent": "Protects users from serious consequences of input errors in important transactions by ensuring they can review, correct, or reverse their submissions.",
+      "techniques": [
+        "Provide a confirmation page before final submission",
+        "Allow users to review and edit data before submission",
+        "Provide an undo or reversal mechanism after submission",
+        "Validate all data and present errors before allowing submission",
+        "Use a multi-step checkout with review step"
+      ],
+      "failures": [
+        "Financial transaction processed without confirmation step",
+        "Data deleted without confirmation dialog",
+        "No way to undo or reverse a submitted action",
+        "Test responses submitted without review option",
+        "Account deletion without confirmation"
+      ],
+      "testing_methods": [
+        "Test financial transaction flow for confirmation step",
+        "Verify data deletion includes confirmation",
+        "Check for undo or reversal mechanisms",
+        "Verify review step in multi-step processes",
+        "Test that errors are caught before final submission"
+      ],
+      "automated_checkable": false,
+      "affected_disabilities": ["visual", "cognitive", "motor"],
+      "related_components": ["form", "checkout", "confirmation_dialog", "delete_action", "wizard"]
+    },
+    {
+      "id": "wcag_3_3_7",
+      "name": "Redundant Entry",
+      "standard": "WCAG_2_2",
+      "principle": "understandable",
+      "guideline": "Input Assistance",
+      "level": "A",
+      "description": "Information previously entered by or provided to the user that is required to be entered again in the same process is either auto-populated or available for the user to select, unless re-entering the information is essential, the information is required to ensure security, or previously entered information is no longer valid.",
+      "intent": "Reduces cognitive load and effort for users who may struggle to remember or re-enter information they have already provided, particularly benefiting users with cognitive disabilities and motor impairments.",
+      "techniques": [
+        "Auto-populate fields with previously entered information",
+        "Provide a select option to reuse previously entered data",
+        "Pre-fill shipping address from billing address with user confirmation",
+        "Carry forward user information between process steps",
+        "Use session storage to retain form data across steps"
+      ],
+      "failures": [
+        "Requiring users to re-enter their name on multiple form pages",
+        "Not carrying forward address information between billing and shipping",
+        "Multi-step form that clears previous entries on back navigation",
+        "Requiring re-entry of information already on file"
+      ],
+      "testing_methods": [
+        "Complete multi-step processes and check for redundant entry requests",
+        "Verify previously entered data is auto-populated or selectable",
+        "Test back navigation in multi-step forms for data persistence",
+        "Check shipping/billing address forms for auto-fill",
+        "Verify essential re-entry is limited to security-critical fields"
+      ],
+      "automated_checkable": false,
+      "affected_disabilities": ["cognitive", "motor"],
+      "related_components": ["form", "wizard", "checkout", "multi_step_form", "address_form"]
+    },
+    {
+      "id": "wcag_3_3_8",
+      "name": "Accessible Authentication (Minimum)",
+      "standard": "WCAG_2_2",
+      "principle": "understandable",
+      "guideline": "Input Assistance",
+      "level": "AA",
+      "description": "A cognitive function test (such as remembering a password or solving a puzzle) is not required for any step in an authentication process unless that step provides at least one of: an alternative method, a mechanism to assist the user, or object recognition/personal content tests.",
+      "intent": "Ensures that users with cognitive disabilities can authenticate without being blocked by tests that require memory, transcription, or puzzle-solving abilities.",
+      "techniques": [
+        "Support password managers and browser autofill for credentials",
+        "Provide passkey or WebAuthn authentication",
+        "Allow email or SMS magic link authentication",
+        "Support OAuth or social login as an alternative",
+        "Provide copy-paste support in authentication fields",
+        "Use object recognition CAPTCHA rather than text-based"
+      ],
+      "failures": [
+        "Blocking paste in password fields preventing password manager use",
+        "CAPTCHA requiring text transcription with no accessible alternative",
+        "Custom input widgets that prevent autofill",
+        "Authentication requiring memorization of arbitrary codes",
+        "Time-limited OTP entry with no way to paste"
+      ],
+      "testing_methods": [
+        "Test authentication flow with password manager",
+        "Verify paste is allowed in credential fields",
+        "Check for alternative authentication methods",
+        "Test CAPTCHA for accessible alternatives",
+        "Verify autofill works on login forms",
+        "Test with assistive technology through full authentication flow"
+      ],
+      "automated_checkable": false,
+      "affected_disabilities": ["cognitive", "motor"],
+      "related_components": ["login_form", "authentication", "captcha", "password_input", "otp_input"]
+    },
+    {
+      "id": "wcag_4_1_2",
+      "name": "Name, Role, Value",
+      "standard": "WCAG_2_1",
+      "principle": "robust",
+      "guideline": "Compatible",
+      "level": "A",
+      "description": "For all user interface components (including but not limited to: form elements, links, and components generated by scripts), the name and role can be programmatically determined; states, properties, and values that can be set by the user can be programmatically set; and notification of changes to these items is available to user agents, including assistive technologies.",
+      "intent": "Ensures that assistive technologies can correctly identify and interact with all interface components by providing complete programmatic information about each component's name, role, state, and value.",
+      "techniques": [
+        "Use native HTML elements that have built-in roles and names",
+        "Add appropriate ARIA roles to custom components",
+        "Provide accessible names via label, aria-label, or aria-labelledby",
+        "Use aria-expanded, aria-selected, aria-checked for state communication",
+        "Update ARIA states dynamically when component state changes",
+        "Use aria-valuenow, aria-valuemin, aria-valuemax for range inputs"
+      ],
+      "failures": [
+        "Custom button without role=button",
+        "Interactive div without accessible name or role",
+        "Checkbox state not communicated via aria-checked",
+        "Accordion without aria-expanded state",
+        "Custom select without proper role and state management",
+        "Dynamic state changes not reflected in ARIA attributes"
+      ],
+      "testing_methods": [
+        "Inspect accessibility tree for correct name, role, and value",
+        "Verify ARIA states update dynamically with user interaction",
+        "Test custom components with screen reader for correct announcements",
+        "Automated scan for missing roles and names",
+        "Verify native HTML elements are used where possible",
+        "Check custom widgets against ARIA authoring practices"
+      ],
+      "automated_checkable": true,
+      "affected_disabilities": ["visual", "motor"],
+      "related_components": ["button", "checkbox", "radio", "select", "slider", "tab", "accordion", "dialog", "menu", "tree_view", "toggle"]
+    },
+    {
+      "id": "wcag_4_1_3",
+      "name": "Status Messages",
+      "standard": "WCAG_2_1",
+      "principle": "robust",
+      "guideline": "Compatible",
+      "level": "AA",
+      "description": "In content implemented using markup languages, status messages can be programmatically determined through role or properties such that they can be presented to the user by assistive technologies without receiving focus.",
+      "intent": "Ensures that important status updates like success messages, error counts, search results, and progress indicators are announced to screen reader users without disrupting their current focus position.",
+      "techniques": [
+        "Use role=status for advisory information like success messages",
+        "Use role=alert for important time-sensitive messages",
+        "Use role=log for chat messages or sequential updates",
+        "Use role=progressbar with aria-valuenow for progress updates",
+        "Use aria-live=polite for non-urgent status updates",
+        "Use aria-live=assertive sparingly for critical updates"
+      ],
+      "failures": [
+        "Success message displayed visually but not announced to screen readers",
+        "Search results count updated without aria-live",
+        "Loading indicator not communicated to assistive technologies",
+        "Error count in form not announced on update",
+        "Toast notification not using appropriate live region role"
+      ],
+      "testing_methods": [
+        "Test status messages with screen reader for announcements",
+        "Verify role=status on success and informational messages",
+        "Check aria-live regions for appropriate politeness settings",
+        "Test loading and progress indicators for screen reader output",
+        "Verify search results count is announced",
+        "Check toast notifications use appropriate roles"
+      ],
+      "automated_checkable": true,
+      "affected_disabilities": ["visual"],
+      "related_components": ["toast", "alert", "notification", "progress_bar", "loading_spinner", "search_results", "snackbar", "status_badge"]
+    },
+    {
+      "id": "aria_landmarks",
+      "name": "ARIA Landmark Roles",
+      "standard": "ARIA",
+      "principle": "perceivable",
+      "guideline": "Document Structure",
+      "level": "A",
+      "description": "ARIA landmark roles identify regions of a page to support navigation by assistive technologies. Key landmarks include banner, navigation, main, contentinfo, complementary, search, form, and region.",
+      "intent": "Enables screen reader users to quickly navigate to major sections of a page by jumping between landmarks, significantly improving navigation efficiency on complex pages.",
+      "techniques": [
+        "Use HTML5 elements that implicitly provide landmarks (header=banner, nav=navigation, main=main, footer=contentinfo, aside=complementary)",
+        "Add role=search to search form containers",
+        "Use aria-label or aria-labelledby to distinguish multiple landmarks of the same type",
+        "Ensure every page has exactly one main landmark",
+        "Use role=region with aria-label for other significant sections",
+        "Nest landmarks logically (e.g., navigation within banner)"
+      ],
+      "failures": [
+        "Page with no landmark roles defined",
+        "Multiple nav elements without distinguishing labels",
+        "Missing main landmark",
+        "Content outside any landmark region",
+        "Multiple banner or contentinfo landmarks at top level",
+        "Using role=banner or role=contentinfo inside sectioning elements"
+      ],
+      "testing_methods": [
+        "Use screen reader landmark navigation to verify coverage",
+        "Check accessibility tree for landmark structure",
+        "Verify unique labels on repeated landmark types",
+        "Ensure all page content is within a landmark",
+        "Automated scan for landmark role usage",
+        "Verify HTML5 element to landmark mapping"
+      ],
+      "automated_checkable": true,
+      "affected_disabilities": ["visual"],
+      "related_components": ["header", "navigation", "main_content", "footer", "sidebar", "search", "page_layout"]
+    },
+    {
+      "id": "aria_live_regions",
+      "name": "ARIA Live Regions",
+      "standard": "ARIA",
+      "principle": "perceivable",
+      "guideline": "Live Content",
+      "level": "A",
+      "description": "ARIA live regions announce dynamic content changes to assistive technologies without requiring focus to move. The aria-live attribute accepts values: off (default), polite (wait for idle), and assertive (announce immediately). Related attributes include aria-atomic, aria-relevant, and aria-busy.",
+      "intent": "Ensures that dynamically updated content is announced to screen reader users who might otherwise miss visual changes, including status updates, chat messages, error notifications, and real-time data.",
+      "techniques": [
+        "Use aria-live=polite for non-urgent updates like search result counts",
+        "Use aria-live=assertive only for time-critical information like errors",
+        "Use aria-atomic=true when the entire region should be re-announced",
+        "Use aria-relevant to control which changes are announced (additions, removals, text)",
+        "Set aria-busy=true while loading, false when complete",
+        "Place aria-live on the container before content is added dynamically",
+        "Use role=status as shorthand for aria-live=polite + aria-atomic=true",
+        "Use role=alert as shorthand for aria-live=assertive"
+      ],
+      "failures": [
+        "Dynamic content updates without aria-live",
+        "Overusing aria-live=assertive causing excessive interruptions",
+        "Adding aria-live to element after content is already present",
+        "Live region that re-announces unchanged content",
+        "aria-atomic not set when partial updates are confusing",
+        "Too many simultaneous live region updates"
+      ],
+      "testing_methods": [
+        "Test with screen reader to verify announcements on dynamic updates",
+        "Verify politeness level is appropriate for content urgency",
+        "Check aria-atomic settings for correct announcement scope",
+        "Test aria-busy during loading states",
+        "Verify live region exists in DOM before dynamic content is added",
+        "Test with multiple simultaneous updates"
+      ],
+      "automated_checkable": false,
+      "affected_disabilities": ["visual"],
+      "related_components": ["toast", "notification", "alert", "chat", "live_feed", "search_results", "progress_bar", "loading_spinner"]
+    },
+    {
+      "id": "aria_widget_roles",
+      "name": "ARIA Widget Roles",
+      "standard": "ARIA",
+      "principle": "robust",
+      "guideline": "Widget Patterns",
+      "level": "A",
+      "description": "ARIA widget roles define the type of interactive component for assistive technologies. Common widget roles include button, checkbox, dialog, menubar, menu, menuitem, option, progressbar, radio, radiogroup, slider, switch, tab, tabpanel, tablist, textbox, tree, treeitem, combobox, grid, gridcell, listbox, scrollbar, searchbox, separator, spinbutton, toolbar, and tooltip.",
+      "intent": "Communicates the expected behavior of custom interactive components to assistive technologies so users understand how to interact with them, what states they can have, and what keyboard patterns to expect.",
+      "techniques": [
+        "Apply the most specific widget role that matches the component behavior",
+        "Combine roles with required ARIA states and properties",
+        "Use role=button with tabindex=0 and keyboard handlers for custom buttons",
+        "Use role=dialog with aria-modal=true and aria-labelledby for modals",
+        "Use role=tablist, role=tab, and role=tabpanel for tab interfaces",
+        "Use role=combobox with aria-expanded and aria-autocomplete",
+        "Use role=switch for toggle switches with aria-checked",
+        "Use role=grid with role=row and role=gridcell for data grids"
+      ],
+      "failures": [
+        "Custom interactive components with no role",
+        "Incorrect role assignment (e.g., role=button on a link that navigates)",
+        "Widget role without required ARIA states",
+        "Role used without implementing expected keyboard behavior",
+        "Mixing incompatible roles and properties",
+        "Using abstract roles (widget, composite) directly"
+      ],
+      "testing_methods": [
+        "Verify each custom component has the correct widget role",
+        "Check required ARIA states and properties are present",
+        "Test keyboard interaction matches expected patterns for the role",
+        "Verify screen reader announcements match the widget role",
+        "Validate against ARIA authoring practices guide",
+        "Automated scan for missing or incorrect roles"
+      ],
+      "automated_checkable": true,
+      "affected_disabilities": ["visual", "motor"],
+      "related_components": ["button", "checkbox", "dialog", "menu", "tab", "slider", "switch", "combobox", "tree_view", "data_grid", "toolbar", "tooltip"]
+    },
+    {
+      "id": "aria_states_properties",
+      "name": "ARIA States and Properties",
+      "standard": "ARIA",
+      "principle": "robust",
+      "guideline": "Widget States",
+      "level": "A",
+      "description": "ARIA states and properties communicate the current condition and characteristics of interactive components to assistive technologies. Key states include aria-expanded, aria-selected, aria-checked, aria-pressed, aria-disabled, aria-hidden, aria-invalid, aria-required, aria-current, and aria-busy. Key properties include aria-label, aria-labelledby, aria-describedby, aria-controls, aria-owns, aria-haspopup, aria-level, aria-orientation, aria-placeholder, aria-roledescription, and aria-keyshortcuts.",
+      "intent": "Provides assistive technologies with real-time information about the state and characteristics of interactive elements, enabling users to understand the current status and available interactions.",
+      "techniques": [
+        "Update aria-expanded when collapsible sections are opened or closed",
+        "Set aria-selected on the active tab, option, or grid cell",
+        "Toggle aria-checked on custom checkboxes and switches",
+        "Use aria-pressed for toggle buttons",
+        "Set aria-disabled=true instead of the disabled attribute on custom controls",
+        "Use aria-hidden=true to hide decorative or redundant content from assistive tech",
+        "Set aria-invalid=true when form validation fails",
+        "Use aria-current=page for the current page in navigation",
+        "Set aria-haspopup to indicate elements that trigger popups",
+        "Use aria-controls to relate a control to the content it manages"
+      ],
+      "failures": [
+        "aria-expanded not updated when accordion section opens",
+        "aria-selected not set on active tab",
+        "Missing aria-checked on custom checkbox",
+        "aria-hidden=true on visible interactive content",
+        "Using aria-disabled without actual prevention of interaction",
+        "aria-invalid not set when validation fails",
+        "Stale ARIA states not updated after user interaction",
+        "aria-haspopup with incorrect value for popup type"
+      ],
+      "testing_methods": [
+        "Interact with components and verify ARIA states update in accessibility tree",
+        "Test screen reader announcements for state changes",
+        "Verify aria-expanded toggles correctly on disclosure widgets",
+        "Check aria-selected reflects current selection state",
+        "Validate aria-hidden does not hide interactive content",
+        "Verify aria-invalid matches validation state",
+        "Automated scan for required ARIA states per role"
+      ],
+      "automated_checkable": true,
+      "affected_disabilities": ["visual", "motor"],
+      "related_components": ["accordion", "tab", "checkbox", "toggle", "switch", "dropdown", "menu", "dialog", "disclosure", "combobox", "navigation"]
+    },
+    {
+      "id": "aria_keyboard_patterns",
+      "name": "ARIA Keyboard Interaction Patterns",
+      "standard": "ARIA",
+      "principle": "operable",
+      "guideline": "Widget Keyboard Patterns",
+      "level": "A",
+      "description": "ARIA authoring practices define expected keyboard interaction patterns for each widget role. Users of assistive technologies expect consistent keyboard behavior based on the announced role. Key patterns include: tabs (arrow keys between tabs, Tab into panel), menus (arrow keys between items, Enter to activate, Escape to close), dialogs (Tab cycles within, Escape closes), trees (arrow keys navigate, Enter activates), comboboxes (arrow keys in listbox, Enter selects, Escape closes), and grids (arrow keys between cells).",
+      "intent": "Ensures that custom interactive components respond to keyboard input in the way users expect based on the component's role, creating a consistent and predictable experience for keyboard and assistive technology users.",
+      "techniques": [
+        "Tabs: Left/Right arrows move between tabs, Tab moves into active panel, Home/End for first/last tab",
+        "Menus: Down arrow opens menu, Up/Down navigate items, Enter/Space activates, Escape closes, Right arrow opens submenu",
+        "Dialogs: Tab cycles focus within dialog, Escape closes, initial focus on first focusable or dialog itself",
+        "Trees: Up/Down arrows navigate siblings, Right expands/enters children, Left collapses/exits to parent",
+        "Combobox: Down arrow opens listbox, Up/Down navigate options, Enter selects, Escape closes listbox",
+        "Grid: Arrow keys navigate cells, Enter enters edit mode, Escape exits edit mode",
+        "Toolbar: Left/Right arrows move between tools, Tab moves focus in and out",
+        "Use roving tabindex (tabindex=0 on active, tabindex=-1 on inactive) for composite widgets",
+        "Implement aria-activedescendant as alternative to roving tabindex"
+      ],
+      "failures": [
+        "Tab component navigable only by Tab key instead of arrow keys",
+        "Menu that does not close on Escape",
+        "Dialog that does not trap focus within",
+        "Tree view without arrow key navigation",
+        "Combobox that does not filter or navigate with arrow keys",
+        "Custom listbox without Home/End key support",
+        "Missing roving tabindex on composite widget children",
+        "Grid cells not navigable by arrow keys"
+      ],
+      "testing_methods": [
+        "Test each custom widget against ARIA Authoring Practices keyboard patterns",
+        "Verify arrow key navigation in composite widgets",
+        "Test Escape key behavior in menus, dialogs, and popovers",
+        "Verify Enter/Space activation on interactive elements",
+        "Check roving tabindex or aria-activedescendant implementation",
+        "Test Home/End key support where applicable",
+        "Verify Tab key behavior for entering and leaving composite widgets",
+        "Test with screen reader to verify keyboard shortcuts are announced"
+      ],
+      "automated_checkable": false,
+      "affected_disabilities": ["visual", "motor"],
+      "related_components": ["tab", "menu", "dialog", "tree_view", "combobox", "data_grid", "toolbar", "listbox", "accordion", "carousel"]
+    }
+  ]
+}

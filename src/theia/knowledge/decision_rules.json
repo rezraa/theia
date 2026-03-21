@@ -1,0 +1,1217 @@
+{
+  "rules": [
+    {
+      "id": "rule_dashboard_layout",
+      "name": "Dashboard Layout",
+      "category": "layout",
+      "structural_signals": [
+        "dashboard with metric cards and data tables",
+        "admin panel with overview statistics",
+        "analytics page with charts and KPIs",
+        "monitoring interface with real-time data"
+      ],
+      "recommended_patterns": ["grid", "stat_card", "data_table"],
+      "alternatives": ["responsive_columns", "card", "data_chart"],
+      "rationale": "Dashboards require scannable metrics at a glance followed by detailed tabular data; a grid of stat cards above a data table is the most efficient layout for rapid comprehension",
+      "constraints": {
+        "applies_when": "page serves as an overview or summary of system state",
+        "avoid_when": "fewer than 3 metrics exist or data is primarily narrative"
+      },
+      "priority": "high"
+    },
+    {
+      "id": "rule_app_shell",
+      "name": "Application Shell",
+      "category": "layout",
+      "structural_signals": [
+        "application with sidebar navigation",
+        "SaaS product with persistent nav and content area",
+        "admin interface with section-based navigation",
+        "tool with workspace and navigation panel"
+      ],
+      "recommended_patterns": ["sidebar_layout", "sidebar", "navbar"],
+      "alternatives": ["drawer", "top_navigation", "responsive_columns"],
+      "rationale": "Applications with deep feature sets need persistent navigation that does not compete with content; a sidebar provides always-visible wayfinding without consuming vertical space",
+      "constraints": {
+        "applies_when": "application has 4+ top-level sections with sub-pages",
+        "avoid_when": "application is single-purpose or content is the primary focus"
+      },
+      "priority": "high"
+    },
+    {
+      "id": "rule_content_heavy",
+      "name": "Content-Heavy Page",
+      "category": "layout",
+      "structural_signals": [
+        "content-heavy page with long text",
+        "article or documentation page",
+        "blog post or editorial content",
+        "legal or policy document display"
+      ],
+      "recommended_patterns": ["container", "type_scale_perfect_fourth", "vertical_rhythm"],
+      "alternatives": ["fluid_typography", "table_of_contents", "reading_progress"],
+      "rationale": "Long-form text demands optimal line length (50-75 characters), consistent vertical rhythm, and a type scale that establishes clear hierarchy to reduce cognitive load",
+      "constraints": {
+        "applies_when": "primary content is 500+ words of prose",
+        "avoid_when": "content is primarily interactive or data-driven"
+      },
+      "priority": "high"
+    },
+    {
+      "id": "rule_split_view",
+      "name": "Split View",
+      "category": "layout",
+      "structural_signals": [
+        "comparison or master-detail view",
+        "email client with list and detail pane",
+        "file browser with preview panel",
+        "settings page with category list and detail"
+      ],
+      "recommended_patterns": ["responsive_columns", "sidebar_layout"],
+      "alternatives": ["drawer", "tabs", "accordion"],
+      "rationale": "Master-detail interfaces require simultaneous visibility of a collection and a selected item; a split view preserves context while showing detail without full navigation",
+      "constraints": {
+        "applies_when": "users need to browse and inspect items without losing list context",
+        "avoid_when": "detail view requires full screen or items are independent pages"
+      },
+      "priority": "medium"
+    },
+    {
+      "id": "rule_wizard_flow",
+      "name": "Wizard Flow",
+      "category": "layout",
+      "structural_signals": [
+        "multi-step process or onboarding",
+        "checkout flow with multiple stages",
+        "registration with progressive disclosure",
+        "configuration wizard with dependencies between steps"
+      ],
+      "recommended_patterns": ["stepper", "form_validation", "progress_bar"],
+      "alternatives": ["tabs", "accordion", "dialog"],
+      "rationale": "Multi-step processes reduce cognitive load by chunking complex tasks; a stepper provides orientation and progress feedback while form validation prevents errors from compounding across steps",
+      "constraints": {
+        "applies_when": "process has 3+ distinct steps with logical grouping",
+        "avoid_when": "all fields fit comfortably on a single screen or steps have no logical order"
+      },
+      "priority": "high"
+    },
+    {
+      "id": "rule_deep_hierarchy",
+      "name": "Deep Hierarchy Navigation",
+      "category": "navigation",
+      "structural_signals": [
+        "navigation with 3+ levels of depth",
+        "documentation site with nested sections",
+        "enterprise app with modules, sections, and pages",
+        "file system or category browser"
+      ],
+      "recommended_patterns": ["sidebar", "tree_view", "breadcrumb"],
+      "alternatives": ["mega_menu", "accordion", "command_palette"],
+      "rationale": "Deep hierarchies require expandable tree structures for exploration and breadcrumbs for orientation; hiding depth behind flat navigation creates disorientation",
+      "constraints": {
+        "applies_when": "information architecture exceeds 3 levels of nesting",
+        "avoid_when": "hierarchy can be flattened to 2 levels or fewer"
+      },
+      "priority": "high"
+    },
+    {
+      "id": "rule_flat_navigation",
+      "name": "Flat Navigation",
+      "category": "navigation",
+      "structural_signals": [
+        "5 or fewer top-level items",
+        "simple app with few main sections",
+        "consumer app with clear primary flows",
+        "single-purpose tool with mode switching"
+      ],
+      "recommended_patterns": ["tabs", "bottom_navigation"],
+      "alternatives": ["navbar", "segmented_control"],
+      "rationale": "Flat navigation with few items benefits from tabs or bottom navigation which provide immediate visibility of all options without hiding anything behind menus",
+      "constraints": {
+        "applies_when": "top-level items number 2-5 and are equally important",
+        "avoid_when": "items exceed 5 or have sub-navigation needs"
+      },
+      "priority": "medium"
+    },
+    {
+      "id": "rule_many_actions",
+      "name": "Many Actions Navigation",
+      "category": "navigation",
+      "structural_signals": [
+        "8+ navigation items at top level",
+        "enterprise application with many modules",
+        "platform with extensive feature set",
+        "tool with many distinct workspaces"
+      ],
+      "recommended_patterns": ["mega_menu", "command_palette"],
+      "alternatives": ["sidebar", "drawer", "search_input"],
+      "rationale": "Large navigation sets overwhelm linear menus; mega menus provide structured overview while command palettes offer keyboard-driven quick access for power users",
+      "constraints": {
+        "applies_when": "top-level navigation items exceed 7 and cannot be consolidated",
+        "avoid_when": "items can be logically grouped into fewer than 6 categories"
+      },
+      "priority": "medium"
+    },
+    {
+      "id": "rule_mobile_nav",
+      "name": "Mobile Navigation",
+      "category": "navigation",
+      "structural_signals": [
+        "mobile-first navigation",
+        "responsive app targeting phone users",
+        "progressive web app navigation",
+        "touch-primary interface navigation"
+      ],
+      "recommended_patterns": ["bottom_navigation", "drawer"],
+      "alternatives": ["tabs", "hamburger_menu", "action_sheet"],
+      "rationale": "Mobile navigation must be thumb-reachable; bottom navigation provides persistent access to primary destinations while a drawer handles secondary navigation without consuming screen space",
+      "constraints": {
+        "applies_when": "primary audience uses mobile devices or viewport is under 768px",
+        "avoid_when": "application is desktop-only or has fewer than 3 navigation items"
+      },
+      "priority": "high"
+    },
+    {
+      "id": "rule_search_centric",
+      "name": "Search-Centric Navigation",
+      "category": "navigation",
+      "structural_signals": [
+        "search is primary interaction",
+        "content discovery interface",
+        "knowledge base or wiki",
+        "marketplace or catalog with many items"
+      ],
+      "recommended_patterns": ["command_palette", "search_input", "autocomplete"],
+      "alternatives": ["filter_form", "faceted_search", "tabs"],
+      "rationale": "When search is the primary entry point, a prominent search input with autocomplete reduces time-to-content; command palettes add keyboard shortcuts for power users",
+      "constraints": {
+        "applies_when": "users typically know what they want and need to find it quickly",
+        "avoid_when": "content is small enough to browse or users prefer exploratory navigation"
+      },
+      "priority": "high"
+    },
+    {
+      "id": "rule_long_form",
+      "name": "Long Form",
+      "category": "forms",
+      "structural_signals": [
+        "form with 10+ fields",
+        "registration or application form",
+        "complex data entry interface",
+        "insurance or financial application form"
+      ],
+      "recommended_patterns": ["stepper", "form_validation", "progress_bar"],
+      "alternatives": ["accordion", "tabs", "section_dividers"],
+      "rationale": "Forms with many fields cause abandonment when presented all at once; breaking them into steps with progress indication reduces perceived complexity and validates incrementally",
+      "constraints": {
+        "applies_when": "form has 10+ fields or logically distinct sections",
+        "avoid_when": "all fields are required for a single atomic operation and fit on screen"
+      },
+      "priority": "high"
+    },
+    {
+      "id": "rule_inline_edit",
+      "name": "Inline Edit",
+      "category": "forms",
+      "structural_signals": [
+        "editable content in context",
+        "spreadsheet-like editing",
+        "click-to-edit fields in a detail view",
+        "in-place content modification"
+      ],
+      "recommended_patterns": ["text_input_inline", "tooltip", "icon_button"],
+      "alternatives": ["modal", "drawer", "popover"],
+      "rationale": "Inline editing eliminates context switches between view and edit modes; users stay oriented in their current task and see changes immediately in context",
+      "constraints": {
+        "applies_when": "individual fields are edited independently and changes are low-risk",
+        "avoid_when": "fields have complex validation dependencies or edits are destructive"
+      },
+      "priority": "medium"
+    },
+    {
+      "id": "rule_filter_form",
+      "name": "Filter Form",
+      "category": "forms",
+      "structural_signals": [
+        "data filtering controls",
+        "faceted search interface",
+        "product listing with refinement options",
+        "report builder with parameter selection"
+      ],
+      "recommended_patterns": ["select", "checkbox", "slider", "autocomplete"],
+      "alternatives": ["chip", "toggle", "radio_group", "date_picker"],
+      "rationale": "Filtering requires controls that show current selections at a glance; combining selects, checkboxes, and sliders covers categorical, boolean, and range-based filtering patterns",
+      "constraints": {
+        "applies_when": "dataset is filterable by 3+ dimensions",
+        "avoid_when": "filtering is better served by a single search input"
+      },
+      "priority": "medium"
+    },
+    {
+      "id": "rule_date_range",
+      "name": "Date Range Selection",
+      "category": "forms",
+      "structural_signals": [
+        "date range selection",
+        "booking or reservation dates",
+        "report date filtering",
+        "schedule or availability picker"
+      ],
+      "recommended_patterns": ["date_picker_range", "preset_ranges"],
+      "alternatives": ["text_input_date", "calendar_view", "select"],
+      "rationale": "Date range selection needs visual calendar feedback to prevent invalid ranges; preset ranges (last 7 days, this month) accelerate common selections",
+      "constraints": {
+        "applies_when": "users need to select a start and end date",
+        "avoid_when": "only a single date is needed or dates are predefined"
+      },
+      "priority": "medium"
+    },
+    {
+      "id": "rule_file_collection",
+      "name": "File Collection",
+      "category": "forms",
+      "structural_signals": [
+        "multiple file uploads",
+        "document submission interface",
+        "image gallery upload",
+        "bulk import with file attachments"
+      ],
+      "recommended_patterns": ["file_upload_multi", "progress_bar", "thumbnail_preview"],
+      "alternatives": ["drag_drop_zone", "file_upload_single", "toast"],
+      "rationale": "Multiple file uploads require batch progress tracking and preview to prevent duplicate uploads; drag-and-drop zones reduce friction for bulk operations",
+      "constraints": {
+        "applies_when": "users need to upload 2+ files in a single interaction",
+        "avoid_when": "only a single file is expected or files are provided via URL"
+      },
+      "priority": "medium"
+    },
+    {
+      "id": "rule_large_dataset",
+      "name": "Large Dataset",
+      "category": "data_display",
+      "structural_signals": [
+        "100+ rows of structured data",
+        "database query results display",
+        "log viewer or audit trail",
+        "large spreadsheet-like data view"
+      ],
+      "recommended_patterns": ["data_table", "virtual_scrolling", "pagination"],
+      "alternatives": ["infinite_scroll", "server_side_pagination", "column_virtualization"],
+      "rationale": "Rendering 100+ rows without virtualization causes performance degradation; virtual scrolling maintains smooth interaction while pagination provides predictable data access patterns",
+      "constraints": {
+        "applies_when": "dataset exceeds 100 rows or total payload exceeds 1MB",
+        "avoid_when": "dataset is small enough to render without performance impact"
+      },
+      "priority": "high"
+    },
+    {
+      "id": "rule_card_grid",
+      "name": "Card Grid",
+      "category": "data_display",
+      "structural_signals": [
+        "browsable content items with images",
+        "product catalog or gallery",
+        "portfolio or project listing",
+        "media library with thumbnails"
+      ],
+      "recommended_patterns": ["card", "grid", "pagination"],
+      "alternatives": ["masonry_grid", "list_view", "infinite_scroll"],
+      "rationale": "Visual content benefits from card-based layouts that provide consistent containers for heterogeneous content; grids maximize screen utilization and scanning efficiency",
+      "constraints": {
+        "applies_when": "items have visual elements (images, icons) and metadata",
+        "avoid_when": "items are text-only or require detailed comparison"
+      },
+      "priority": "high"
+    },
+    {
+      "id": "rule_timeline_events",
+      "name": "Timeline Events",
+      "category": "data_display",
+      "structural_signals": [
+        "chronological events or activity",
+        "activity feed or changelog",
+        "project milestone tracking",
+        "audit log with timestamps"
+      ],
+      "recommended_patterns": ["timeline", "avatar", "badge"],
+      "alternatives": ["list", "data_table", "card"],
+      "rationale": "Chronological data benefits from visual timeline representation that conveys sequence and relative timing; avatars and badges add context about actors and event types",
+      "constraints": {
+        "applies_when": "temporal ordering is meaningful and events span a time range",
+        "avoid_when": "events lack meaningful timestamps or sequence does not matter"
+      },
+      "priority": "medium"
+    },
+    {
+      "id": "rule_hierarchical_data",
+      "name": "Hierarchical Data",
+      "category": "data_display",
+      "structural_signals": [
+        "tree or nested data",
+        "organizational chart or file browser",
+        "category taxonomy display",
+        "nested JSON or configuration viewer"
+      ],
+      "recommended_patterns": ["tree_view", "accordion"],
+      "alternatives": ["nested_list", "indented_table", "breadcrumb"],
+      "rationale": "Hierarchical data requires expandable/collapsible nodes to manage complexity; tree views preserve parent-child relationships visually while allowing progressive disclosure",
+      "constraints": {
+        "applies_when": "data has natural parent-child relationships with 2+ levels",
+        "avoid_when": "hierarchy is flat or better represented as a flat filtered list"
+      },
+      "priority": "medium"
+    },
+    {
+      "id": "rule_key_value",
+      "name": "Key-Value Display",
+      "category": "data_display",
+      "structural_signals": [
+        "configuration or settings display",
+        "profile or detail page with labeled fields",
+        "API response inspection",
+        "system information or diagnostics"
+      ],
+      "recommended_patterns": ["description_list", "grid"],
+      "alternatives": ["data_table", "card", "key_value_pairs"],
+      "rationale": "Key-value pairs are best displayed as description lists which provide semantic HTML and consistent alignment between labels and values for rapid scanning",
+      "constraints": {
+        "applies_when": "data consists of labeled values without complex structure",
+        "avoid_when": "values are complex objects or require interactive editing"
+      },
+      "priority": "low"
+    },
+    {
+      "id": "rule_metrics",
+      "name": "Metrics Display",
+      "category": "data_display",
+      "structural_signals": [
+        "KPI or metric display",
+        "business intelligence summary",
+        "performance indicators with trends",
+        "real-time counters or gauges"
+      ],
+      "recommended_patterns": ["stat_card", "data_chart", "sparkline"],
+      "alternatives": ["badge", "progress_bar", "grid"],
+      "rationale": "KPIs need immediate visual prominence with trend indicators; stat cards provide consistent containers while sparklines add temporal context without full chart complexity",
+      "constraints": {
+        "applies_when": "3+ numeric metrics need to be displayed with trend context",
+        "avoid_when": "a single metric is sufficient or data is non-numeric"
+      },
+      "priority": "high"
+    },
+    {
+      "id": "rule_async_action",
+      "name": "Async Action Feedback",
+      "category": "feedback",
+      "structural_signals": [
+        "background processing or long operation",
+        "file upload or export in progress",
+        "API call with noticeable latency",
+        "batch operation processing"
+      ],
+      "recommended_patterns": ["progress_bar", "toast"],
+      "alternatives": ["spinner", "skeleton", "banner", "polling_indicator"],
+      "rationale": "Long-running operations need determinate progress when possible and non-blocking notifications on completion; toasts confirm completion without disrupting workflow",
+      "constraints": {
+        "applies_when": "operation takes more than 2 seconds to complete",
+        "avoid_when": "operation completes in under 1 second or is not user-initiated"
+      },
+      "priority": "high"
+    },
+    {
+      "id": "rule_destructive_action",
+      "name": "Destructive Action Confirmation",
+      "category": "feedback",
+      "structural_signals": [
+        "delete, remove, or irreversible action",
+        "account deletion or data purge",
+        "overwrite or replace existing data",
+        "subscription cancellation or downgrade"
+      ],
+      "recommended_patterns": ["dialog_confirmation", "button_danger"],
+      "alternatives": ["modal", "undo_toast", "inline_confirmation"],
+      "rationale": "Irreversible actions require explicit confirmation to prevent accidental data loss; a confirmation dialog with a clearly labeled danger button creates a deliberate friction point",
+      "constraints": {
+        "applies_when": "action cannot be undone or has significant consequences",
+        "avoid_when": "action is easily reversible via undo or soft-delete"
+      },
+      "priority": "high"
+    },
+    {
+      "id": "rule_form_errors",
+      "name": "Form Error Feedback",
+      "category": "feedback",
+      "structural_signals": [
+        "form submission with validation",
+        "input fields with constraints",
+        "real-time field validation",
+        "server-side validation errors"
+      ],
+      "recommended_patterns": ["alert_inline", "form_validation", "error_message"],
+      "alternatives": ["toast", "banner", "tooltip"],
+      "rationale": "Form errors must appear adjacent to the offending field so users can correct them without scrolling or remembering which field failed; inline alerts provide this proximity",
+      "constraints": {
+        "applies_when": "form has validation rules that can fail",
+        "avoid_when": "form has no constraints or validation is purely server-side with page reload"
+      },
+      "priority": "high"
+    },
+    {
+      "id": "rule_empty_collection",
+      "name": "Empty Collection State",
+      "category": "feedback",
+      "structural_signals": [
+        "list or table with no items",
+        "search with zero results",
+        "new account with no data",
+        "filtered view with no matches"
+      ],
+      "recommended_patterns": ["empty_state", "illustration", "call_to_action"],
+      "alternatives": ["placeholder_text", "skeleton", "onboarding_prompt"],
+      "rationale": "Empty states are opportunities to guide users toward their first action; a clear illustration with a call-to-action reduces confusion and drives engagement",
+      "constraints": {
+        "applies_when": "a collection, list, or table can be empty",
+        "avoid_when": "the empty state is transient and data will appear within seconds"
+      },
+      "priority": "medium"
+    },
+    {
+      "id": "rule_loading_skeleton",
+      "name": "Loading Skeleton",
+      "category": "feedback",
+      "structural_signals": [
+        "initial page or section load",
+        "content loading from API",
+        "lazy-loaded component appearing",
+        "tab content fetching on switch"
+      ],
+      "recommended_patterns": ["skeleton", "shimmer_animation"],
+      "alternatives": ["spinner", "progress_bar", "placeholder_text"],
+      "rationale": "Skeleton screens reduce perceived load time by previewing the content structure; they outperform spinners by setting expectations about layout and reducing layout shift",
+      "constraints": {
+        "applies_when": "content structure is predictable and load time exceeds 300ms",
+        "avoid_when": "content structure is unknown or load time is under 200ms"
+      },
+      "priority": "high"
+    },
+    {
+      "id": "rule_system_notification",
+      "name": "System Notification",
+      "category": "feedback",
+      "structural_signals": [
+        "system-wide notification",
+        "maintenance announcement or downtime warning",
+        "new feature announcement",
+        "security alert or compliance notice"
+      ],
+      "recommended_patterns": ["banner", "toast"],
+      "alternatives": ["alert", "dialog", "notification_center"],
+      "rationale": "System-wide messages need persistent visibility without blocking interaction; banners provide a non-dismissible strip for critical info while toasts handle transient notifications",
+      "constraints": {
+        "applies_when": "notification applies to the entire application or all users",
+        "avoid_when": "notification is specific to a single action or user flow"
+      },
+      "priority": "medium"
+    },
+    {
+      "id": "rule_blocking_action",
+      "name": "Blocking Action",
+      "category": "feedback",
+      "structural_signals": [
+        "action requiring user decision",
+        "unsaved changes warning on navigation",
+        "permission request or consent collection",
+        "critical error requiring acknowledgment"
+      ],
+      "recommended_patterns": ["modal", "dialog"],
+      "alternatives": ["alert", "banner", "inline_confirmation"],
+      "rationale": "When user decision is required before proceeding, a modal or dialog creates a focus trap that prevents accidental bypass of the decision point",
+      "constraints": {
+        "applies_when": "workflow cannot continue without explicit user input",
+        "avoid_when": "a reasonable default action exists or decision can be deferred"
+      },
+      "priority": "high"
+    },
+    {
+      "id": "rule_mobile_first",
+      "name": "Mobile-First Design",
+      "category": "responsive",
+      "structural_signals": [
+        "mobile users are primary audience",
+        "progressive web app design",
+        "consumer-facing mobile application",
+        "field worker or on-the-go interface"
+      ],
+      "recommended_patterns": ["responsive_design", "container_queries", "mobile_breakpoints"],
+      "alternatives": ["fluid_grid", "adaptive_layout", "responsive_images"],
+      "rationale": "Mobile-first design ensures the core experience works on the smallest screens first; container queries enable component-level responsiveness independent of viewport size",
+      "constraints": {
+        "applies_when": "50%+ of traffic comes from mobile or mobile is the target platform",
+        "avoid_when": "application is exclusively desktop (e.g., developer tools, CAD software)"
+      },
+      "priority": "high"
+    },
+    {
+      "id": "rule_table_mobile",
+      "name": "Table on Mobile",
+      "category": "responsive",
+      "structural_signals": [
+        "data table on small screens",
+        "tabular data viewed on phones",
+        "responsive table requirements",
+        "structured data in narrow viewports"
+      ],
+      "recommended_patterns": ["card_list_mobile", "responsive_table", "horizontal_scroll"],
+      "alternatives": ["accordion_rows", "priority_columns", "stacked_layout"],
+      "rationale": "Tables wider than viewport cause usability issues on mobile; converting rows to cards preserves all data while fitting narrow screens naturally",
+      "constraints": {
+        "applies_when": "table has 4+ columns and must work on screens under 480px",
+        "avoid_when": "table has 2-3 columns that fit naturally on mobile"
+      },
+      "priority": "high"
+    },
+    {
+      "id": "rule_sidebar_collapse",
+      "name": "Sidebar Collapse",
+      "category": "responsive",
+      "structural_signals": [
+        "sidebar on narrow viewport",
+        "responsive application shell",
+        "navigation panel on tablet or phone",
+        "collapsible side navigation"
+      ],
+      "recommended_patterns": ["drawer_mobile", "hamburger_trigger", "overlay_nav"],
+      "alternatives": ["bottom_navigation", "collapsible_sidebar", "off_canvas"],
+      "rationale": "Persistent sidebars consume too much horizontal space on narrow viewports; converting to a drawer preserves navigation access without sacrificing content area",
+      "constraints": {
+        "applies_when": "viewport width drops below 1024px and sidebar is present",
+        "avoid_when": "sidebar content is critical and must remain visible at all times"
+      },
+      "priority": "high"
+    },
+    {
+      "id": "rule_image_gallery",
+      "name": "Responsive Image Gallery",
+      "category": "responsive",
+      "structural_signals": [
+        "image collection with zoom",
+        "photo gallery or portfolio",
+        "product image carousel",
+        "media browser with thumbnails"
+      ],
+      "recommended_patterns": ["grid_responsive", "lightbox", "responsive_images"],
+      "alternatives": ["carousel", "masonry_grid", "virtual_scroll_images"],
+      "rationale": "Image galleries need responsive grids that adapt column count to viewport width; lightbox provides full-screen viewing with pinch-to-zoom on touch devices",
+      "constraints": {
+        "applies_when": "displaying 4+ images that users may want to view at full size",
+        "avoid_when": "images are decorative or supplementary to text content"
+      },
+      "priority": "medium"
+    },
+    {
+      "id": "rule_color_only",
+      "name": "Color-Only Status Indicator",
+      "category": "accessibility",
+      "structural_signals": [
+        "status indicated by color alone",
+        "traffic light status indicators",
+        "colored badges without text labels",
+        "heat map or color-coded data"
+      ],
+      "recommended_patterns": ["badge_with_label", "icon_status", "text_label"],
+      "alternatives": ["pattern_fill", "shape_coding", "tooltip"],
+      "rationale": "WCAG 1.4.1 requires that color is not the sole means of conveying information; adding icons and text labels ensures colorblind users (8% of males) can perceive status",
+      "constraints": {
+        "applies_when": "any status, state, or category is communicated using color",
+        "avoid_when": "color is purely decorative and carries no semantic meaning"
+      },
+      "priority": "high"
+    },
+    {
+      "id": "rule_keyboard_nav",
+      "name": "Keyboard Navigation",
+      "category": "accessibility",
+      "structural_signals": [
+        "complex interactive widget",
+        "custom dropdown or menu component",
+        "drag-and-drop interface",
+        "canvas-based or non-standard interaction"
+      ],
+      "recommended_patterns": ["aria_keyboard_patterns", "focus_management", "roving_tabindex"],
+      "alternatives": ["focus_visible", "skip_links", "keyboard_shortcuts"],
+      "rationale": "WCAG 2.1.1 requires all functionality be operable via keyboard; custom widgets must implement WAI-ARIA keyboard interaction patterns to be accessible to screen reader and keyboard-only users",
+      "constraints": {
+        "applies_when": "building custom interactive components beyond native HTML elements",
+        "avoid_when": "using native HTML elements that already have keyboard support"
+      },
+      "priority": "high"
+    },
+    {
+      "id": "rule_dynamic_content",
+      "name": "Dynamic Content Updates",
+      "category": "accessibility",
+      "structural_signals": [
+        "content that updates without page reload",
+        "live chat or real-time feed",
+        "auto-saving or auto-refreshing data",
+        "notifications appearing dynamically"
+      ],
+      "recommended_patterns": ["aria_live_regions", "aria_polite", "aria_assertive"],
+      "alternatives": ["aria_alert", "focus_management", "visual_indicator"],
+      "rationale": "Screen readers do not announce DOM changes by default; ARIA live regions ensure assistive technology users are informed of dynamic updates without losing their current focus position",
+      "constraints": {
+        "applies_when": "content updates in response to user action or real-time events",
+        "avoid_when": "updates are purely visual animations without informational content"
+      },
+      "priority": "high"
+    },
+    {
+      "id": "rule_form_labels",
+      "name": "Form Label Accessibility",
+      "category": "accessibility",
+      "structural_signals": [
+        "form without visible labels",
+        "placeholder-only form fields",
+        "icon-only input fields",
+        "compact form with space constraints"
+      ],
+      "recommended_patterns": ["wcag_3_3_2", "wcag_1_3_1", "visible_label", "aria_label"],
+      "alternatives": ["floating_label", "tooltip_label", "fieldset_legend"],
+      "rationale": "WCAG 3.3.2 requires labels or instructions for user input; placeholders disappear on focus and are not reliable labels; visible persistent labels prevent user confusion and support assistive technology",
+      "constraints": {
+        "applies_when": "any form input exists in the interface",
+        "avoid_when": "search inputs where a magnifying glass icon provides sufficient context via aria-label"
+      },
+      "priority": "high"
+    },
+    {
+      "id": "rule_touch_targets",
+      "name": "Touch Target Size",
+      "category": "accessibility",
+      "structural_signals": [
+        "interactive elements on touch device",
+        "mobile buttons or links in close proximity",
+        "icon-only action buttons",
+        "dense toolbar or action bar"
+      ],
+      "recommended_patterns": ["wcag_2_5_8", "min_target_44px", "touch_spacing"],
+      "alternatives": ["hit_area_expansion", "gesture_alternatives", "contextual_menu"],
+      "rationale": "WCAG 2.5.8 requires minimum 24x24px targets with sufficient spacing; Apple HIG recommends 44x44pt; undersized targets cause frustration and exclusion for users with motor impairments",
+      "constraints": {
+        "applies_when": "interface is used on touch devices or by users with motor impairments",
+        "avoid_when": "interface is exclusively mouse-driven with precision pointing"
+      },
+      "priority": "high"
+    },
+    {
+      "id": "rule_motion_heavy",
+      "name": "Motion and Animation Sensitivity",
+      "category": "accessibility",
+      "structural_signals": [
+        "significant animation or motion",
+        "parallax scrolling effects",
+        "auto-playing video or animation",
+        "page transitions with large movement"
+      ],
+      "recommended_patterns": ["prefers_reduced_motion", "wcag_2_3_1", "motion_toggle"],
+      "alternatives": ["opacity_transitions_only", "instant_transitions", "user_preference"],
+      "rationale": "WCAG 2.3.1 prohibits content that flashes more than 3 times per second; prefers-reduced-motion respects users with vestibular disorders who experience nausea or disorientation from animation",
+      "constraints": {
+        "applies_when": "any animation, transition, or motion effect is present",
+        "avoid_when": "motion is essential to the content (e.g., demonstrating an animation tool)"
+      },
+      "priority": "high"
+    },
+    {
+      "id": "rule_state_transition",
+      "name": "State Transition Animation",
+      "category": "animation",
+      "structural_signals": [
+        "element changing state",
+        "button hover, active, or disabled state change",
+        "toggle or switch interaction",
+        "expanding or collapsing content"
+      ],
+      "recommended_patterns": ["micro_interactions", "easing_curves", "duration_100_200ms"],
+      "alternatives": ["spring_physics", "css_transitions", "opacity_fade"],
+      "rationale": "State transitions need subtle animation (100-200ms) with appropriate easing to provide feedback without delaying interaction; ease-out curves feel responsive while ease-in-out suits expansion",
+      "constraints": {
+        "applies_when": "interactive elements change visual state in response to user action",
+        "avoid_when": "user has prefers-reduced-motion enabled or state change is instantaneous"
+      },
+      "priority": "medium"
+    },
+    {
+      "id": "rule_page_transition",
+      "name": "Page Transition Animation",
+      "category": "animation",
+      "structural_signals": [
+        "navigating between views",
+        "single-page application route change",
+        "tab panel switching",
+        "wizard step progression"
+      ],
+      "recommended_patterns": ["transition_patterns", "cross_fade", "shared_element_transition"],
+      "alternatives": ["slide_transition", "instant_swap", "morph_transition"],
+      "rationale": "Page transitions maintain spatial orientation and reduce perceived latency; cross-fades work universally while shared-element transitions create continuity between related views",
+      "constraints": {
+        "applies_when": "navigating between distinct views within a single-page application",
+        "avoid_when": "full page reloads occur or transitions would delay content visibility"
+      },
+      "priority": "low"
+    },
+    {
+      "id": "rule_list_reorder",
+      "name": "List Reorder Animation",
+      "category": "animation",
+      "structural_signals": [
+        "items added, removed, or reordered",
+        "sortable list or drag-and-drop reordering",
+        "filtered list with items appearing and disappearing",
+        "real-time list updates"
+      ],
+      "recommended_patterns": ["choreography", "staggered_animation", "flip_animation"],
+      "alternatives": ["fade_in_out", "slide_animation", "layout_animation"],
+      "rationale": "Animating list changes helps users track which items moved where; staggered animations create visual flow while FLIP technique ensures performant layout transitions",
+      "constraints": {
+        "applies_when": "list items change position, appear, or disappear dynamically",
+        "avoid_when": "list has 50+ items changing simultaneously or user prefers reduced motion"
+      },
+      "priority": "low"
+    },
+    {
+      "id": "rule_loading_animation",
+      "name": "Loading Animation",
+      "category": "animation",
+      "structural_signals": [
+        "waiting for content",
+        "API response pending",
+        "lazy-loading component",
+        "progressive content rendering"
+      ],
+      "recommended_patterns": ["skeleton_shimmer", "spinner", "micro_interactions"],
+      "alternatives": ["progress_bar", "pulse_animation", "content_placeholder"],
+      "rationale": "Loading animations reduce perceived wait time and assure users that the system is working; skeleton shimmer is preferred over spinners as it previews content structure",
+      "constraints": {
+        "applies_when": "content load takes 300ms or longer",
+        "avoid_when": "content loads instantly or a progress bar with percentage is more appropriate"
+      },
+      "priority": "medium"
+    },
+    {
+      "id": "rule_brand_colors",
+      "name": "Brand Color Application",
+      "category": "color",
+      "structural_signals": [
+        "establishing brand identity",
+        "marketing or landing page design",
+        "brand-consistent interface",
+        "white-label or themed application"
+      ],
+      "recommended_patterns": ["color_60_30_10", "color_semantics", "brand_token_system"],
+      "alternatives": ["monochromatic_scheme", "complementary_scheme", "analogous_scheme"],
+      "rationale": "The 60-30-10 rule (60% dominant, 30% secondary, 10% accent) creates visual balance; semantic color tokens (primary, secondary, accent) decouple brand from function for maintainability",
+      "constraints": {
+        "applies_when": "brand identity needs to be expressed through the interface",
+        "avoid_when": "interface is a white-label product where brand colors are injected at runtime"
+      },
+      "priority": "medium"
+    },
+    {
+      "id": "rule_dark_theme",
+      "name": "Dark Theme Support",
+      "category": "color",
+      "structural_signals": [
+        "dark mode support needed",
+        "application used in low-light environments",
+        "developer tools or IDE-like interface",
+        "media consumption application"
+      ],
+      "recommended_patterns": ["dark_mode", "semantic_tokens", "contrast_ratios"],
+      "alternatives": ["prefers_color_scheme", "theme_toggle", "automatic_theme"],
+      "rationale": "Dark themes reduce eye strain in low-light environments and save battery on OLED screens; semantic tokens ensure colors adapt correctly without hard-coded values breaking in dark mode",
+      "constraints": {
+        "applies_when": "users request dark mode or application is used in variable lighting",
+        "avoid_when": "brand guidelines strictly require light-only presentation"
+      },
+      "priority": "medium"
+    },
+    {
+      "id": "rule_content_typography",
+      "name": "Content Typography",
+      "category": "typography",
+      "structural_signals": [
+        "reading-heavy content",
+        "blog, article, or documentation",
+        "long-form editorial content",
+        "educational or instructional material"
+      ],
+      "recommended_patterns": ["type_scale_perfect_fourth", "vertical_rhythm", "fluid_typography"],
+      "alternatives": ["type_scale_major_third", "modular_scale", "responsive_font_sizes"],
+      "rationale": "Perfect fourth (1.333) type scale creates clear hierarchy for content-heavy pages; vertical rhythm with consistent line-height multiples creates visual harmony that reduces reading fatigue",
+      "constraints": {
+        "applies_when": "primary content is long-form text meant to be read",
+        "avoid_when": "content is primarily data, controls, or interactive elements"
+      },
+      "priority": "high"
+    },
+    {
+      "id": "rule_ui_typography",
+      "name": "UI Typography",
+      "category": "typography",
+      "structural_signals": [
+        "interface labels and controls",
+        "form labels, buttons, and navigation text",
+        "dashboard and application chrome",
+        "compact data-dense interface"
+      ],
+      "recommended_patterns": ["type_scale_major_third", "spacing_systems", "font_weight_hierarchy"],
+      "alternatives": ["type_scale_minor_third", "fixed_scale", "density_modes"],
+      "rationale": "Major third (1.25) type scale provides sufficient hierarchy without excessive size jumps in UI contexts; tighter scales keep interfaces compact while maintaining readability",
+      "constraints": {
+        "applies_when": "typography serves UI elements rather than content consumption",
+        "avoid_when": "interface includes substantial reading content mixed with controls"
+      },
+      "priority": "medium"
+    },
+    {
+      "id": "rule_contextual_menu",
+      "name": "Contextual Menu",
+      "category": "navigation",
+      "structural_signals": [
+        "right-click or long-press actions",
+        "item-specific actions in a list or grid",
+        "overflow actions that do not fit in visible UI",
+        "secondary actions for selected content"
+      ],
+      "recommended_patterns": ["dropdown_menu", "popover", "action_sheet_mobile"],
+      "alternatives": ["toolbar", "icon_button_group", "swipe_actions"],
+      "rationale": "Contextual menus surface actions relevant to a specific item or selection without cluttering the persistent UI; they follow platform conventions users already understand",
+      "constraints": {
+        "applies_when": "items have 3+ secondary actions that are not used frequently enough for dedicated buttons",
+        "avoid_when": "primary actions should be immediately visible without interaction"
+      },
+      "priority": "medium"
+    },
+    {
+      "id": "rule_notification_center",
+      "name": "Notification Center",
+      "category": "feedback",
+      "structural_signals": [
+        "multiple notification types over time",
+        "activity stream from various sources",
+        "unread message or alert management",
+        "event-driven updates from background processes"
+      ],
+      "recommended_patterns": ["notification_panel", "badge_counter", "dropdown_menu"],
+      "alternatives": ["toast_stack", "notification_drawer", "email_digest"],
+      "rationale": "When notifications accumulate, a centralized notification center prevents toast fatigue and gives users control over when they review updates; badge counters provide awareness without interruption",
+      "constraints": {
+        "applies_when": "application generates 5+ notifications per session from different sources",
+        "avoid_when": "notifications are rare or all require immediate attention"
+      },
+      "priority": "medium"
+    },
+    {
+      "id": "rule_error_boundary",
+      "name": "Error Boundary Display",
+      "category": "feedback",
+      "structural_signals": [
+        "component crash or unhandled exception",
+        "API failure with no fallback data",
+        "network disconnection during operation",
+        "partial page failure in microfrontend"
+      ],
+      "recommended_patterns": ["error_boundary", "fallback_ui", "retry_button"],
+      "alternatives": ["alert", "empty_state", "toast"],
+      "rationale": "Graceful error boundaries prevent cascading failures from crashing the entire application; a fallback UI with retry option gives users agency to recover without full page reload",
+      "constraints": {
+        "applies_when": "application uses component-based architecture with potential isolated failures",
+        "avoid_when": "error affects the entire application and requires a full error page"
+      },
+      "priority": "high"
+    },
+    {
+      "id": "rule_data_visualization",
+      "name": "Data Visualization Selection",
+      "category": "data_display",
+      "structural_signals": [
+        "numeric data requiring visual interpretation",
+        "trends over time or comparisons between categories",
+        "distribution or composition analysis",
+        "correlation or relationship between variables"
+      ],
+      "recommended_patterns": ["data_chart", "chart_type_selection", "responsive_chart"],
+      "alternatives": ["sparkline", "stat_card", "data_table"],
+      "rationale": "Choosing the right chart type is critical: line charts for trends, bar charts for comparison, pie/donut for composition, scatter for correlation; mismatched chart types mislead users",
+      "constraints": {
+        "applies_when": "numeric data benefits from visual pattern recognition over tabular reading",
+        "avoid_when": "exact values matter more than patterns or dataset is too small to visualize meaningfully"
+      },
+      "priority": "high"
+    },
+    {
+      "id": "rule_drag_and_drop",
+      "name": "Drag and Drop Interaction",
+      "category": "forms",
+      "structural_signals": [
+        "reorderable list or grid",
+        "kanban board or task management",
+        "file organization or sorting",
+        "layout builder or visual editor"
+      ],
+      "recommended_patterns": ["drag_handle", "drop_zone_indicator", "keyboard_reorder_alternative"],
+      "alternatives": ["arrow_buttons", "sort_select", "move_dialog"],
+      "rationale": "Drag and drop provides intuitive spatial manipulation but must include keyboard alternatives for accessibility; visible drag handles indicate draggable elements and drop zones confirm valid targets",
+      "constraints": {
+        "applies_when": "spatial arrangement or ordering is a primary user task",
+        "avoid_when": "items have a natural sort order or reordering is an infrequent action"
+      },
+      "priority": "medium"
+    },
+    {
+      "id": "rule_infinite_scroll",
+      "name": "Infinite Scroll vs Pagination",
+      "category": "data_display",
+      "structural_signals": [
+        "social feed or content stream",
+        "browsing without specific destination",
+        "media gallery or discovery interface",
+        "continuous content consumption"
+      ],
+      "recommended_patterns": ["infinite_scroll", "scroll_position_restore", "load_more_button"],
+      "alternatives": ["pagination", "virtual_scroll", "cursor_pagination"],
+      "rationale": "Infinite scroll suits content consumption where users browse without a specific target; a load-more button hybrid gives users control while scroll position restoration prevents frustration on back-navigation",
+      "constraints": {
+        "applies_when": "content is consumed sequentially and items are relatively uniform",
+        "avoid_when": "users need to reach the footer, compare specific pages, or share positions via URL"
+      },
+      "priority": "medium"
+    },
+    {
+      "id": "rule_focus_visible",
+      "name": "Focus Visibility",
+      "category": "accessibility",
+      "structural_signals": [
+        "keyboard navigation through interactive elements",
+        "focus indicator styling needed",
+        "custom styled buttons and links",
+        "design system focus state definition"
+      ],
+      "recommended_patterns": ["focus_visible_selector", "high_contrast_focus_ring", "wcag_2_4_7"],
+      "alternatives": ["outline_offset", "box_shadow_focus", "background_change"],
+      "rationale": "WCAG 2.4.7 requires visible focus indicators for keyboard navigation; :focus-visible distinguishes keyboard from mouse focus, preventing visual noise for mouse users while ensuring keyboard accessibility",
+      "constraints": {
+        "applies_when": "any interactive element exists in the interface",
+        "avoid_when": "never — focus visibility should always be implemented"
+      },
+      "priority": "high"
+    },
+    {
+      "id": "rule_responsive_typography",
+      "name": "Responsive Typography",
+      "category": "typography",
+      "structural_signals": [
+        "text that must scale across breakpoints",
+        "headings that are too large on mobile",
+        "body text that is too small on desktop",
+        "consistent reading experience across devices"
+      ],
+      "recommended_patterns": ["fluid_typography", "clamp_function", "viewport_scaling"],
+      "alternatives": ["breakpoint_font_sizes", "rem_scaling", "container_query_typography"],
+      "rationale": "Fluid typography using CSS clamp() scales smoothly between minimum and maximum sizes without breakpoint jumps; this eliminates text reflow at breakpoints and maintains readability across all viewports",
+      "constraints": {
+        "applies_when": "text must be readable from 320px to 1920px+ viewport widths",
+        "avoid_when": "fixed typography sizes are required by brand guidelines"
+      },
+      "priority": "medium"
+    },
+    {
+      "id": "rule_color_contrast",
+      "name": "Color Contrast Compliance",
+      "category": "color",
+      "structural_signals": [
+        "text on colored backgrounds",
+        "light gray text on white background",
+        "brand colors used for text",
+        "overlapping transparency or gradients with text"
+      ],
+      "recommended_patterns": ["wcag_contrast_aa", "contrast_ratio_4_5_1", "contrast_checker"],
+      "alternatives": ["wcag_contrast_aaa", "enhanced_contrast_mode", "text_shadow_fallback"],
+      "rationale": "WCAG 1.4.3 requires 4.5:1 contrast ratio for normal text and 3:1 for large text; insufficient contrast affects users with low vision, representing 15% of the global population",
+      "constraints": {
+        "applies_when": "any text is displayed against a background color",
+        "avoid_when": "text is purely decorative and not intended to be read"
+      },
+      "priority": "high"
+    },
+    {
+      "id": "rule_spacing_system",
+      "name": "Spacing System",
+      "category": "layout",
+      "structural_signals": [
+        "inconsistent spacing between elements",
+        "need for systematic whitespace management",
+        "design tokens for spacing",
+        "component spacing standardization"
+      ],
+      "recommended_patterns": ["spacing_scale_4px", "spacing_tokens", "consistent_padding"],
+      "alternatives": ["spacing_scale_8px", "fibonacci_spacing", "percentage_spacing"],
+      "rationale": "A 4px base spacing scale (4, 8, 12, 16, 24, 32, 48, 64) provides granular control while maintaining visual consistency; spacing tokens make refactoring effortless and enforce design system constraints",
+      "constraints": {
+        "applies_when": "building or maintaining a design system with multiple components",
+        "avoid_when": "one-off prototypes where spacing consistency is not a priority"
+      },
+      "priority": "medium"
+    },
+    {
+      "id": "rule_toast_vs_alert",
+      "name": "Toast vs Alert Selection",
+      "category": "feedback",
+      "structural_signals": [
+        "success confirmation after action",
+        "non-blocking informational message",
+        "temporary status update",
+        "action completed notification"
+      ],
+      "recommended_patterns": ["toast_auto_dismiss", "toast_with_undo"],
+      "alternatives": ["alert_inline", "banner", "snackbar"],
+      "rationale": "Toasts are appropriate for transient confirmations that do not require user action; they auto-dismiss after 5-8 seconds and do not block workflow, unlike alerts which persist until dismissed",
+      "constraints": {
+        "applies_when": "feedback is confirmatory and does not require user action",
+        "avoid_when": "message contains critical information, errors, or required actions"
+      },
+      "priority": "medium"
+    },
+    {
+      "id": "rule_responsive_grid",
+      "name": "Responsive Grid System",
+      "category": "responsive",
+      "structural_signals": [
+        "multi-column layout adapting to viewport",
+        "card or content grid needing responsive columns",
+        "dashboard with flexible widget sizing",
+        "product listing grid"
+      ],
+      "recommended_patterns": ["css_grid_auto_fill", "minmax_columns", "container_queries"],
+      "alternatives": ["flexbox_wrap", "media_query_columns", "masonry_layout"],
+      "rationale": "CSS Grid with auto-fill and minmax creates intrinsically responsive layouts without media queries; container queries further enable components to adapt based on their own space rather than viewport",
+      "constraints": {
+        "applies_when": "layout requires multi-column arrangement that adapts to available space",
+        "avoid_when": "layout is single-column or has fixed requirements at all sizes"
+      },
+      "priority": "high"
+    },
+    {
+      "id": "rule_modal_alternatives",
+      "name": "Modal Alternatives Assessment",
+      "category": "feedback",
+      "structural_signals": [
+        "overuse of modal dialogs in flow",
+        "modal within modal or nested modals",
+        "simple content displayed in modal",
+        "frequent modal interruptions"
+      ],
+      "recommended_patterns": ["inline_expansion", "drawer", "page_navigation"],
+      "alternatives": ["popover", "accordion", "toast"],
+      "rationale": "Modal overuse causes dialog fatigue and blocks underlying content; alternatives like inline expansion, drawers, or dedicated pages maintain context and reduce cognitive interruption",
+      "constraints": {
+        "applies_when": "content in modal could be shown inline or on its own page",
+        "avoid_when": "user decision is truly required before proceeding"
+      },
+      "priority": "medium"
+    },
+    {
+      "id": "rule_semantic_color",
+      "name": "Semantic Color Tokens",
+      "category": "color",
+      "structural_signals": [
+        "color values hardcoded in components",
+        "inconsistent use of colors for similar purposes",
+        "theme customization requirements",
+        "design system color architecture"
+      ],
+      "recommended_patterns": ["semantic_tokens", "color_intent_mapping", "token_hierarchy"],
+      "alternatives": ["css_custom_properties", "theme_provider", "color_palette_scale"],
+      "rationale": "Semantic tokens (color-success, color-danger, color-text-primary) decouple intent from specific color values, enabling theming, dark mode, and accessibility high-contrast mode without component changes",
+      "constraints": {
+        "applies_when": "building a design system or application supporting multiple themes",
+        "avoid_when": "single-use prototype with no theming requirements"
+      },
+      "priority": "high"
+    },
+    {
+      "id": "rule_animation_performance",
+      "name": "Animation Performance",
+      "category": "animation",
+      "structural_signals": [
+        "janky or stuttering animations",
+        "animating layout properties like width or height",
+        "animations on low-powered devices",
+        "multiple simultaneous animations"
+      ],
+      "recommended_patterns": ["transform_opacity_only", "will_change", "gpu_compositing"],
+      "alternatives": ["request_animation_frame", "web_animations_api", "css_containment"],
+      "rationale": "Only transform and opacity trigger GPU compositing without layout recalculation; animating width, height, margin, or padding forces expensive relayout on every frame, causing jank on 60fps displays",
+      "constraints": {
+        "applies_when": "any CSS or JavaScript animation is implemented",
+        "avoid_when": "animation is a single-frame transition with no visible interpolation"
+      },
+      "priority": "high"
+    },
+    {
+      "id": "rule_skip_navigation",
+      "name": "Skip Navigation Link",
+      "category": "accessibility",
+      "structural_signals": [
+        "page with repeated header and navigation",
+        "multi-page site with consistent layout",
+        "application with toolbar before main content",
+        "repeated content blocks before primary content"
+      ],
+      "recommended_patterns": ["skip_link", "landmark_regions", "aria_main"],
+      "alternatives": ["heading_hierarchy", "focus_on_main", "bypass_blocks"],
+      "rationale": "WCAG 2.4.1 requires a mechanism to bypass repeated blocks; skip navigation links let keyboard and screen reader users jump directly to main content without tabbing through the entire header on every page",
+      "constraints": {
+        "applies_when": "page has repeated navigation or header content before main content",
+        "avoid_when": "single-page application with no repeated blocks"
+      },
+      "priority": "high"
+    }
+  ],
+  "metadata": {
+    "version": "1.0.0",
+    "titan": "theia",
+    "domain": "design_patterns",
+    "total_rules": 56,
+    "categories": {
+      "layout": 7,
+      "navigation": 6,
+      "forms": 6,
+      "data_display": 8,
+      "feedback": 9,
+      "responsive": 5,
+      "accessibility": 8,
+      "animation": 5,
+      "color": 4,
+      "typography": 3
+    },
+    "priority_distribution": {
+      "high": 31,
+      "medium": 21,
+      "low": 4
+    },
+    "wcag_references": [
+      "WCAG 1.3.1 - Info and Relationships",
+      "WCAG 1.4.1 - Use of Color",
+      "WCAG 1.4.3 - Contrast (Minimum)",
+      "WCAG 2.1.1 - Keyboard",
+      "WCAG 2.3.1 - Three Flashes or Below Threshold",
+      "WCAG 2.4.1 - Bypass Blocks",
+      "WCAG 2.4.7 - Focus Visible",
+      "WCAG 2.5.8 - Target Size (Minimum)",
+      "WCAG 3.3.2 - Labels or Instructions"
+    ],
+    "description": "Structural signal to design pattern matching rules for Theia, the Design Titan. Maps UI structural signals to recommended component patterns, design system primitives, and accessibility standards."
+  }
+}
