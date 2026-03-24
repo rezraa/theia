@@ -74,29 +74,29 @@ class GraphKnowledgeLoader(KnowledgeLoader):
 
         data_str = json.dumps(data_with_ts)
 
-        try:
-            self._conn.execute(
-                "CREATE (m:Memory {"
-                "id: $id, "
-                "memory_type: $memory_type, "
-                "data: $data, "
-                "created_at: $created_at})",
-                parameters={
-                    "id": memory_id,
-                    "memory_type": memory_type,
-                    "data": data_str,
-                    "created_at": ts,
-                },
-            )
-        except Exception:
-            # If parameterised query fails, try string interpolation as fallback
-            escaped_data = data_str.replace("'", "\\'")
-            self._conn.execute(
-                f"CREATE (m:Memory {{"
-                f"id: '{memory_id}', "
-                f"memory_type: '{memory_type}', "
-                f"data: '{escaped_data}', "
-                f"created_at: '{ts}'}})"
-            )
+        self._conn.execute(
+            "CREATE (m:memories {"
+            "  id: $id,"
+            "  memory_type: $memory_type,"
+            "  content: $content,"
+            "  agent: $agent,"
+            "  timestamp: $ts,"
+            "  status: $status,"
+            "  outcome: $outcome,"
+            "  project: $project,"
+            "  confidence: $confidence"
+            "})",
+            parameters={
+                "id": memory_id,
+                "memory_type": memory_type,
+                "content": data_str,
+                "agent": "theia",
+                "ts": ts,
+                "status": "open",
+                "outcome": "unknown",
+                "project": "",
+                "confidence": 0.8,
+            },
+        )
 
         return memory_id
