@@ -12,7 +12,11 @@ from __future__ import annotations
 from datetime import datetime, timezone
 from typing import Any
 
+import logging
+
 from theia.tools._shared import append_decision, coerce, emit_event, get_knowledge
+
+logger = logging.getLogger(__name__)
 
 # ---------------------------------------------------------------------------
 # Valid decision types — for categorisation and filtering
@@ -70,10 +74,13 @@ def log_decision(
     """
     alternatives_considered = coerce(alternatives_considered, list) or []
 
-    # Normalise decision type
+    # Normalise decision type — warn on unknown but preserve original
     dt_lower = decision_type.lower().strip()
     if dt_lower not in _DECISION_TYPES:
-        dt_lower = "other"
+        logger.warning(
+            "Unknown decision_type '%s', accepting anyway (valid: %s)",
+            decision_type, _DECISION_TYPES,
+        )
 
     ts = datetime.now(timezone.utc).isoformat()
 
