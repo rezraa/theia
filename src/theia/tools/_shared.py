@@ -150,25 +150,59 @@ def emit_event(event_name: str, payload: dict[str, Any]) -> None:
 # Coercion utility — MCP clients sometimes send JSON as strings
 # ---------------------------------------------------------------------------
 
-def coerce(val: Any, expected_type: type) -> Any:
-    """Coerce JSON-encoded strings to native types (MCP client compat).
+def coerce(val: Any, expected_type: type | None = None, default: Any = None) -> Any:
+    """Coerce MCP-supplied values to a native type, else return *default*.
 
-    Returns a sensible default when *val* is neither a string nor the
-    expected type (e.g. an int passed where a list was expected).
+    MCP clients sometimes send JSON containers as strings. This decodes a
+    str into the expected list/dict when possible. On any irreconcilable
+    type mismatch the *default* is returned, so callers never receive a
+    truthy wrong-type value that survives ``coerce(...) or {}`` and crashes
+    a later ``.get()``.
     """
     if val is None:
-        return None
+        return default
+    if isinstance(val, str) and expected_type in (list, dict):
+        try:
+            parsed = json.loads(val)
+        except (ValueError, TypeError):
+            return default
+        return parsed if isinstance(parsed, expected_type) else default
+    if expected_type is not None and not isinstance(val, expected_type):
+        return default
+    return val
+
+
+def coerce_or_raise(
+    val: Any, expected_type: type, empty_default: Any
+) -> Any:
+    """Like :func:`coerce`, but for values that get PERSISTED.
+
+    ``coerce`` returns its default on any irreconcilable mismatch, which is
+    correct for transient/optional fields but dangerous for a field that is
+    then written to storage: a non-empty wrong-type value (e.g. a list where
+    a dict is expected) would be silently replaced by an empty default and
+    persisted, dropping caller data without a sound.
+
+    This stricter variant:
+      - ``None`` -> ``empty_default`` (the caller supplied nothing).
+      - a value already of ``expected_type`` -> used as-is.
+      - a ``str`` that JSON-decodes to ``expected_type`` -> the decoded value.
+      - anything else (a non-None wrong-type that cannot be coerced) ->
+        ``TypeError``. We refuse to silently persist an empty default in
+        place of meaningful but mistyped data.
+    """
+    if val is None:
+        return empty_default
     if isinstance(val, expected_type):
         return val
     if isinstance(val, str) and expected_type in (list, dict):
         try:
             parsed = json.loads(val)
-            if isinstance(parsed, expected_type):
-                return parsed
         except (ValueError, TypeError):
-            pass
-    # Wrong type and not a JSON string — return a safe default
-    _DEFAULTS: dict[type, Any] = {list: [], dict: {}}
-    if expected_type in _DEFAULTS:
-        return _DEFAULTS[expected_type]
-    return val
+            parsed = None
+        if isinstance(parsed, expected_type):
+            return parsed
+    raise TypeError(
+        f"expected {expected_type.__name__} "
+        f"(or JSON {expected_type.__name__} string); got {type(val).__name__}"
+    )

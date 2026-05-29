@@ -14,7 +14,7 @@ from typing import Any
 
 import logging
 
-from theia.tools._shared import append_decision, coerce, emit_event, get_knowledge
+from theia.tools._shared import append_decision, coerce_or_raise, emit_event, get_knowledge
 
 logger = logging.getLogger(__name__)
 
@@ -72,7 +72,7 @@ def log_decision(
     Returns:
         Dict with keys: decision_id, decision_type, recorded, timestamp.
     """
-    alternatives_considered = coerce(alternatives_considered, list) or []
+    alternatives_considered = coerce_or_raise(alternatives_considered, list, [])
 
     # Normalise decision type — warn on unknown but preserve original
     dt_lower = decision_type.lower().strip()

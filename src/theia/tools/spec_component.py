@@ -188,7 +188,7 @@ def spec_component(
         Dict with keys: component, anatomy, states, variants,
         accessibility, responsive_behavior, design_tokens, common_mistakes.
     """
-    variants_needed = coerce(variants_needed, list)
+    variants_needed = coerce(variants_needed, list) or []
     platform = platform or "web"
 
     kb = get_knowledge(conn)
