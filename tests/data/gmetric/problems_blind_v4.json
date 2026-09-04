@@ -1,0 +1,720 @@
+{
+  "n_problems": 31,
+  "problems": [
+    {
+      "golds": [
+        {
+          "canonical": "rule_dashboard_layout",
+          "concept": "dashboard layout rule",
+          "role": "source_rule",
+          "verdict": "E"
+        },
+        {
+          "canonical": "grid",
+          "concept": "responsive grid container",
+          "role": "primary_fit",
+          "verdict": "E"
+        },
+        {
+          "canonical": "stat_card",
+          "concept": "summary metric card",
+          "role": "primary_fit",
+          "verdict": "E"
+        },
+        {
+          "canonical": "data_table",
+          "concept": "tabular data display",
+          "role": "primary_fit",
+          "verdict": "E"
+        }
+      ],
+      "id": "P01",
+      "problem": "A product analytics dashboard that shows summary metric cards across the top and detailed data tables below.",
+      "qclass": "PA",
+      "query": [
+        "dashboard with metric cards and data tables"
+      ],
+      "register": "prose"
+    },
+    {
+      "golds": [
+        {
+          "canonical": "rule_wizard_flow",
+          "concept": "wizard flow rule",
+          "role": "source_rule",
+          "verdict": "E"
+        },
+        {
+          "canonical": "stepper",
+          "concept": "step indicator",
+          "role": "primary_fit",
+          "verdict": "E"
+        },
+        {
+          "canonical": "form_validation",
+          "concept": "inline form validation",
+          "role": "constraint_alternative",
+          "verdict": "E"
+        },
+        {
+          "canonical": "progress_bar",
+          "concept": "progress indicator",
+          "role": "alternative",
+          "verdict": "E"
+        }
+      ],
+      "id": "P02",
+      "problem": "A guided multi-step onboarding flow that walks a new user through setup one screen at a time.",
+      "qclass": "PA",
+      "query": [
+        "multi-step process or onboarding"
+      ],
+      "register": "prose"
+    },
+    {
+      "golds": [
+        {
+          "canonical": "rule_large_dataset",
+          "concept": "large dataset rule",
+          "role": "source_rule",
+          "verdict": "E"
+        },
+        {
+          "canonical": "data_table",
+          "concept": "tabular data display",
+          "role": "primary_fit",
+          "verdict": "E"
+        },
+        {
+          "canonical": "pagination",
+          "concept": "pagination control",
+          "role": "constraint_alternative",
+          "verdict": "E"
+        }
+      ],
+      "id": "P03",
+      "problem": "A screen that must render more than a hundred rows of structured records at once.",
+      "qclass": "PA",
+      "query": [
+        "100+ rows of structured data"
+      ],
+      "register": "prose"
+    },
+    {
+      "golds": [
+        {
+          "canonical": "rule_blocking_action",
+          "concept": "blocking action rule",
+          "role": "source_rule",
+          "verdict": "E"
+        },
+        {
+          "canonical": "modal",
+          "concept": "modal overlay",
+          "role": "primary_fit",
+          "verdict": "E"
+        },
+        {
+          "canonical": "dialog",
+          "concept": "confirmation dialog",
+          "role": "primary_fit",
+          "verdict": "E"
+        }
+      ],
+      "id": "P04",
+      "problem": "An action that requires the user to stop and make a decision before continuing.",
+      "qclass": "PA",
+      "query": [
+        "action requiring user decision"
+      ],
+      "register": "prose"
+    },
+    {
+      "golds": [
+        {
+          "canonical": "rule_loading_skeleton",
+          "concept": "loading skeleton rule",
+          "role": "source_rule",
+          "verdict": "E"
+        },
+        {
+          "canonical": "skeleton",
+          "concept": "skeleton placeholder",
+          "role": "primary_fit",
+          "verdict": "E"
+        }
+      ],
+      "id": "P05",
+      "problem": "A page or section that shows placeholder shapes while its content is still loading.",
+      "qclass": "PA",
+      "query": [
+        "initial page or section load"
+      ],
+      "register": "prose"
+    },
+    {
+      "golds": [
+        {
+          "canonical": "rule_metrics",
+          "concept": "metrics rule",
+          "role": "source_rule",
+          "verdict": "E"
+        },
+        {
+          "canonical": "stat_card",
+          "concept": "metric card",
+          "role": "primary_fit",
+          "verdict": "E"
+        },
+        {
+          "canonical": "data_chart",
+          "concept": "chart",
+          "role": "primary_fit",
+          "verdict": "E"
+        }
+      ],
+      "id": "P06",
+      "problem": "A view whose whole purpose is to surface key performance indicators and metrics.",
+      "qclass": "PA",
+      "query": [
+        "KPI or metric display"
+      ],
+      "register": "prose"
+    },
+    {
+      "golds": [
+        {
+          "canonical": "rule_deep_hierarchy",
+          "concept": "deep hierarchy rule",
+          "role": "source_rule",
+          "verdict": "E"
+        },
+        {
+          "canonical": "sidebar",
+          "concept": "sidebar navigation",
+          "role": "primary_fit",
+          "verdict": "E"
+        },
+        {
+          "canonical": "tree_view",
+          "concept": "tree navigation",
+          "role": "primary_fit",
+          "verdict": "E"
+        },
+        {
+          "canonical": "breadcrumb",
+          "concept": "breadcrumb trail",
+          "role": "alternative",
+          "verdict": "E"
+        }
+      ],
+      "id": "P07",
+      "problem": "A navigation structure that is three or more levels deep.",
+      "qclass": "PA",
+      "query": [
+        "navigation with 3+ levels of depth"
+      ],
+      "register": "prose"
+    },
+    {
+      "golds": [
+        {
+          "canonical": "rule_color_only",
+          "concept": "color-only anti-pattern rule",
+          "role": "source_rule",
+          "verdict": "E"
+        },
+        {
+          "canonical": "tooltip",
+          "concept": "tooltip label to disambiguate",
+          "role": "constraint_alternative",
+          "verdict": "E"
+        }
+      ],
+      "id": "P08",
+      "problem": "A state that today is signalled by colour alone (a red/green pill).",
+      "qclass": "PA",
+      "query": [
+        "status indicated by color alone"
+      ],
+      "register": "prose"
+    },
+    {
+      "golds": [
+        {
+          "canonical": "stat_card",
+          "concept": "metric card",
+          "role": "primary_fit",
+          "verdict": "E"
+        },
+        {
+          "canonical": "data_table",
+          "concept": "tabular data display",
+          "role": "primary_fit",
+          "verdict": "E"
+        },
+        {
+          "canonical": "grid",
+          "concept": "responsive grid container",
+          "role": "alternative",
+          "verdict": "E"
+        }
+      ],
+      "id": "P09",
+      "problem": "A network operations centre wall screen: a handful of live health numbers at a glance above a long scrolling table of the most recent alerts.",
+      "qclass": "PB",
+      "query": [
+        "We run a network operations centre; the main screen must show a handful of live health numbers at a glance above a long, scrolling table of the most recent alerts."
+      ],
+      "register": "prose"
+    },
+    {
+      "golds": [
+        {
+          "canonical": "badge",
+          "concept": "labelled badge",
+          "role": "primary_fit",
+          "verdict": "E"
+        },
+        {
+          "canonical": "tag",
+          "concept": "text tag",
+          "role": "alternative",
+          "verdict": "E"
+        },
+        {
+          "canonical": "tooltip",
+          "concept": "tooltip label",
+          "role": "constraint_alternative",
+          "verdict": "E"
+        }
+      ],
+      "id": "P10",
+      "problem": "Status pills that rely on red and green alone; colour-blind operators cannot tell them apart and need another cue.",
+      "qclass": "PB",
+      "query": [
+        "Our status pills currently rely on red and green alone; colour-blind operators can't tell them apart and we need another way to signal state."
+      ],
+      "register": "prose"
+    },
+    {
+      "golds": [
+        {
+          "canonical": "modal",
+          "concept": "focus-trapping modal",
+          "role": "primary_fit",
+          "verdict": "E"
+        },
+        {
+          "canonical": "dialog",
+          "concept": "confirmation dialog",
+          "role": "primary_fit",
+          "verdict": "E"
+        }
+      ],
+      "id": "P11",
+      "problem": "When the confirmation pop-up is open, keyboard users can still tab into the page behind it; focus must stay inside until dismissed.",
+      "qclass": "PB",
+      "query": [
+        "When our confirmation pop-up is open, keyboard users can still tab into the page behind it; focus needs to stay inside the pop-up until they dismiss it."
+      ],
+      "register": "prose"
+    },
+    {
+      "golds": [
+        {
+          "canonical": "grid",
+          "concept": "grid of tiles",
+          "role": "primary_fit",
+          "verdict": "E"
+        },
+        {
+          "canonical": "card",
+          "concept": "tile card",
+          "role": "primary_fit",
+          "verdict": "E"
+        },
+        {
+          "canonical": "responsive_columns",
+          "concept": "responsive columns",
+          "role": "alternative",
+          "verdict": "E"
+        }
+      ],
+      "id": "P12",
+      "problem": "A parking app where each screen shows a big arrangement of parking bays and tapping a bay opens its details.",
+      "qclass": "PB",
+      "query": [
+        "We're building a parking app; each screen shows a big arrangement of parking bays and tapping one bay opens its details."
+      ],
+      "register": "prose"
+    },
+    {
+      "golds": [
+        {
+          "canonical": "toggle_switch",
+          "concept": "toggle switch control",
+          "role": "primary_fit",
+          "verdict": "E"
+        },
+        {
+          "canonical": "accordion",
+          "concept": "collapsible grouping",
+          "role": "constraint_alternative",
+          "verdict": "E"
+        }
+      ],
+      "id": "P13",
+      "problem": "A settings page grown to about 47 on/off switches; users are lost scrolling through them.",
+      "qclass": "PB",
+      "query": [
+        "Our settings page has grown to about 47 on/off switches and users get lost scrolling through the whole list."
+      ],
+      "register": "prose"
+    },
+    {
+      "golds": [
+        {
+          "canonical": "progress_bar",
+          "concept": "progress indicator",
+          "role": "primary_fit",
+          "verdict": "E"
+        },
+        {
+          "canonical": "toast",
+          "concept": "completion toast",
+          "role": "primary_fit",
+          "verdict": "E"
+        },
+        {
+          "canonical": "spinner",
+          "concept": "spinner",
+          "role": "alternative",
+          "verdict": "E"
+        }
+      ],
+      "id": "P14",
+      "problem": "After the user clicks Export a report can take a minute to generate; show that it is working and announce when it is done.",
+      "qclass": "PB",
+      "query": [
+        "After the user clicks Export, a big report can take up to a minute to generate; we need to show it's working and tell them when it's finished."
+      ],
+      "register": "prose"
+    },
+    {
+      "golds": [
+        {
+          "canonical": "empty_state",
+          "concept": "empty state",
+          "role": "primary_fit",
+          "verdict": "E"
+        }
+      ],
+      "id": "P15",
+      "problem": "New accounts land on a blank projects screen and think the app is broken; guide them instead.",
+      "qclass": "PB",
+      "query": [
+        "New accounts see a blank projects screen and assume the app is broken; we want to guide them toward creating their first project instead."
+      ],
+      "register": "prose"
+    },
+    {
+      "golds": [
+        {
+          "canonical": "command_palette",
+          "concept": "command palette",
+          "role": "primary_fit",
+          "verdict": "E"
+        },
+        {
+          "canonical": "search_input",
+          "concept": "search input",
+          "role": "alternative",
+          "verdict": "E"
+        },
+        {
+          "canonical": "autocomplete",
+          "concept": "autocomplete",
+          "role": "alternative",
+          "verdict": "E"
+        }
+      ],
+      "id": "P16",
+      "problem": "Power users want to jump anywhere in the app by typing a few letters instead of clicking through menus.",
+      "qclass": "PB",
+      "query": [
+        "Power users want to jump anywhere in the app by typing a few letters instead of clicking through menus."
+      ],
+      "register": "prose"
+    },
+    {
+      "golds": [
+        {
+          "canonical": "data_table",
+          "concept": "tabular data display",
+          "role": "primary_fit",
+          "verdict": "E"
+        }
+      ],
+      "id": "P17",
+      "problem": "A sortable, paginated table of structured records.",
+      "qclass": "TK",
+      "query": [
+        "data-table"
+      ],
+      "register": "token"
+    },
+    {
+      "golds": [
+        {
+          "canonical": "tree_view",
+          "concept": "tree navigation",
+          "role": "primary_fit",
+          "verdict": "E"
+        }
+      ],
+      "id": "P18",
+      "problem": "An expandable/collapsible view of nested, hierarchical data.",
+      "qclass": "TK",
+      "query": [
+        "tree_view"
+      ],
+      "register": "token"
+    },
+    {
+      "golds": [
+        {
+          "canonical": "command_palette",
+          "concept": "command palette",
+          "role": "primary_fit",
+          "verdict": "E"
+        }
+      ],
+      "id": "P19",
+      "problem": "A keyboard-driven overlay to run commands by name.",
+      "qclass": "TK",
+      "query": [
+        "command-palette"
+      ],
+      "register": "token"
+    },
+    {
+      "golds": [
+        {
+          "canonical": "toggle_switch",
+          "concept": "toggle switch control",
+          "role": "primary_fit",
+          "verdict": "E"
+        }
+      ],
+      "id": "P20",
+      "problem": "A binary on/off control.",
+      "qclass": "TK",
+      "query": [
+        "toggle-switch"
+      ],
+      "register": "token"
+    },
+    {
+      "golds": [
+        {
+          "canonical": "date_picker",
+          "concept": "date picker",
+          "role": "primary_fit",
+          "verdict": "E"
+        }
+      ],
+      "id": "P21",
+      "problem": "A calendar control for choosing a date.",
+      "qclass": "TK",
+      "query": [
+        "date_picker"
+      ],
+      "register": "token"
+    },
+    {
+      "golds": [
+        {
+          "canonical": "empty_state",
+          "concept": "empty state",
+          "role": "primary_fit",
+          "verdict": "E"
+        }
+      ],
+      "id": "P22",
+      "problem": "The zero-data placeholder for a list or table.",
+      "qclass": "TK",
+      "query": [
+        "empty-state"
+      ],
+      "register": "token"
+    },
+    {
+      "golds": [
+        {
+          "canonical": "stepper",
+          "concept": "step indicator (rich KB spec)",
+          "role": "primary_fit",
+          "verdict": "E"
+        }
+      ],
+      "id": "P23",
+      "problem": "Spec the stepper component (present in the KB as a rich pattern).",
+      "qclass": "SEED",
+      "query": [
+        "stepper"
+      ],
+      "register": "token"
+    },
+    {
+      "golds": [
+        {
+          "canonical": "dropdown_menu",
+          "concept": "dropdown menu (rich KB spec)",
+          "role": "primary_fit",
+          "verdict": "E"
+        }
+      ],
+      "id": "P24",
+      "problem": "Spec the dropdown_menu component (present in the KB as a rich pattern).",
+      "qclass": "SEED",
+      "query": [
+        "dropdown_menu"
+      ],
+      "register": "token"
+    },
+    {
+      "golds": [
+        {
+          "canonical": "text_input",
+          "concept": "text input field",
+          "role": "primary_fit",
+          "verdict": "E"
+        }
+      ],
+      "id": "P25",
+      "problem": "Spec a text input. The user names the archetype 'input'; the rich first-class pattern is text_input.",
+      "qclass": "SEED",
+      "query": [
+        "input"
+      ],
+      "register": "token"
+    },
+    {
+      "golds": [
+        {
+          "canonical": "navbar",
+          "concept": "navigation bar",
+          "role": "primary_fit",
+          "verdict": "E"
+        }
+      ],
+      "id": "P26",
+      "problem": "Spec the primary navigation. The user names the archetype 'navigation'; the rich first-class pattern is navbar.",
+      "qclass": "SEED",
+      "query": [
+        "navigation"
+      ],
+      "register": "token"
+    },
+    {
+      "golds": [
+        {
+          "canonical": "modal",
+          "concept": "modal overlay (rich KB spec)",
+          "role": "primary_fit",
+          "verdict": "E"
+        }
+      ],
+      "id": "P27",
+      "problem": "Spec the modal component (present in the KB and also an archetype -- rich spec must win).",
+      "qclass": "SEED",
+      "query": [
+        "modal"
+      ],
+      "register": "token"
+    },
+    {
+      "golds": [
+        {
+          "canonical": "badge",
+          "concept": "count badge",
+          "role": "primary_fit",
+          "verdict": "E"
+        }
+      ],
+      "id": "P28",
+      "problem": "A small numeric indicator showing an unread count on top of an icon.",
+      "qclass": "CE",
+      "query": [
+        "A small numeric indicator showing an unread count on top of an icon."
+      ],
+      "register": "prose"
+    },
+    {
+      "golds": [
+        {
+          "canonical": "color_picker",
+          "concept": "colour picker",
+          "role": "primary_fit",
+          "verdict": "E"
+        }
+      ],
+      "id": "P29",
+      "problem": "A colour picker with a hue wheel and a hex input.",
+      "qclass": "CE",
+      "query": [
+        "A colour picker with a hue wheel and a hex input field."
+      ],
+      "register": "prose"
+    },
+    {
+      "golds": [
+        {
+          "canonical": "product-tour-coachmark",
+          "concept": "product tour / coach-mark overlay",
+          "role": "primary_fit",
+          "verdict": "A"
+        }
+      ],
+      "id": "P30",
+      "problem": "An interactive product tour with coach-mark bubbles that point at UI elements one at a time.",
+      "qclass": "CE",
+      "query": [
+        "An interactive product tour with coach-mark bubbles that point at interface elements one at a time."
+      ],
+      "register": "prose"
+    },
+    {
+      "golds": [
+        {
+          "canonical": "resizable-splitter",
+          "concept": "resizable split-pane handle",
+          "role": "primary_fit",
+          "verdict": "A"
+        }
+      ],
+      "id": "P31",
+      "problem": "A draggable splitter between two panes that the user drags to resize them.",
+      "qclass": "CE",
+      "query": [
+        "A draggable splitter between two panes that the user drags to resize each side."
+      ],
+      "register": "prose"
+    }
+  ],
+  "qclasses": [
+    "CE",
+    "PA",
+    "PB",
+    "SEED",
+    "TK"
+  ],
+  "registers": [
+    "prose",
+    "token"
+  ],
+  "spec_id": "theia-Gmetric-v1",
+  "story": "story-af407698",
+  "what": "Blind, corpus-blind DESIGN-SELECTION problems. Each carries its FROZEN verbatim query signal(s) fed to the composite baseline and its gold component/rule ids. Recorded verbatim and byte-frozen (d-6146f069): the grader reads THIS file and feeds 'query' to the method unchanged. Prose strata (PA/PB/CE) are authored before grading and never tuned toward gold vocabulary; token strata (TK/SEED) feed the component token AS the query."
+}

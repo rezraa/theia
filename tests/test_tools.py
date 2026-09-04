@@ -6,87 +6,32 @@ from __future__ import annotations
 
 import pytest
 
-from theia.tools.audit_design import audit_design
 from theia.tools.plan_design_system import plan_design_system
-from theia.tools.spec_component import spec_component
 from theia.tools.evaluate_accessibility import evaluate_accessibility
 from theia.tools.log_decision import log_decision
 
 
 # ===================================================================
-# TestAuditDesign
+# TestAuditDesign — RETIRED (S3, story-5b040677; Directive 10/12)
 # ===================================================================
-
-class TestAuditDesign:
-    """Test the design audit tool."""
-
-    def test_matches_dashboard_signals(self):
-        result = audit_design(
-            description="Admin dashboard with metrics",
-            structural_signals=["dashboard with metric cards and data tables"],
-        )
-        assert len(result["matched_rules"]) >= 1
-        rule_ids = [r["rule_id"] for r in result["matched_rules"]]
-        assert "rule_dashboard_layout" in rule_ids
-
-    def test_matches_form_signals(self):
-        result = audit_design(
-            description="User registration form",
-            structural_signals=["form with 10+ fields"],
-        )
-        assert len(result["matched_rules"]) >= 1
-        rule_ids = [r["rule_id"] for r in result["matched_rules"]]
-        assert "rule_long_form" in rule_ids
-
-    def test_returns_design_issues(self):
-        result = audit_design(
-            description="Status indicator using colour",
-            structural_signals=["color-only", "no-labels"],
-        )
-        assert len(result["design_issues"]) >= 2
-        issues = [d["issue"] for d in result["design_issues"]]
-        assert "Color used as sole indicator" in issues
-        assert "Form inputs missing visible labels" in issues
-
-    def test_empty_signals(self):
-        result = audit_design(
-            description="Some interface",
-            structural_signals=[],
-        )
-        assert result["matched_rules"] == []
-        assert result["design_issues"] == []
-        assert result["accessibility_flags"] == []
-
-    def test_constraint_filtering(self):
-        # Dashboard rule has avoid_when containing "fewer than 3 metrics"
-        result = audit_design(
-            description="Admin panel",
-            structural_signals=["dashboard with metric cards and data tables"],
-            constraints={"context": "fewer than 3 metrics"},
-        )
-        # The constraint should filter out the dashboard rule
-        rule_ids = [r["rule_id"] for r in result["matched_rules"]]
-        assert "rule_dashboard_layout" not in rule_ids
-
-    def test_accessibility_flags(self):
-        result = audit_design(
-            description="Form with colour indicators",
-            structural_signals=["color-only", "no-focus-indicator"],
-        )
-        assert len(result["accessibility_flags"]) >= 2
-        wcag_ids = [f.get("wcag_criterion") for f in result["accessibility_flags"]]
-        assert "1.4.1" in wcag_ids
-        assert "2.4.7" in wcag_ids
-
-    def test_result_structure(self):
-        result = audit_design(
-            description="Test interface",
-            structural_signals=["low-contrast"],
-        )
-        assert "matched_rules" in result
-        assert "design_issues" in result
-        assert "recommendations" in result
-        assert "accessibility_flags" in result
+# The legacy prose-substring TestAuditDesign class was KILLED-WITH-REASON and
+# superseded (strictly stronger) by tests/test_audit_design.py, which exercises the
+# Shape-C retrofit: signal-id interface, the four-state fail-closed envelope, issues
+# reasoned over each retrieved component's OWN fields, the populated accessibility
+# field (the accessibility_requirements read fix), and the before/after BAR-2 delta.
+# The five superseded tests, each named with what replaced it:
+#   * test_matches_dashboard_signals / test_matches_form_signals -> the dead
+#     ``matched_rules`` rule path is dropped (test_matched_rules_dropped).
+#   * test_returns_design_issues / test_accessibility_flags -> the hardcoded
+#     _ANTI_PATTERNS island exact-slug detector is off the runtime path; issues +
+#     a11y flags come from retrieved components' own fields
+#     (test_island_slug_tokens_no_longer_answered, TestRedFirstProbe).
+#   * test_constraint_filtering -> filter_by_constraints is not on the tool path;
+#     the dormant facet gate tiers, never filters (TestGateDormant).
+#   * test_empty_signals / test_result_structure -> the new envelope contract
+#     (TestEnvelopeFailClosed, TestContract).
+# Not a silent drop: the substring interface is retired (no alias shim), so these
+# would not even call. The signal-id interface lives in tests/test_audit_design.py.
 
 
 # ===================================================================
@@ -172,65 +117,29 @@ class TestPlanDesignSystem:
 # TestSpecComponent
 # ===================================================================
 
-class TestSpecComponent:
-    """Test the component specification tool."""
-
-    def test_button_spec(self):
-        result = spec_component(component_type="button")
-        assert result["component"] == "button"
-        assert len(result["anatomy"]) >= 2
-        assert len(result["variants"]) >= 3
-        assert result["accessibility"]["role"] == "button"
-        assert len(result["common_mistakes"]) >= 1
-
-    def test_input_spec(self):
-        result = spec_component(component_type="input")
-        assert result["component"] == "input"
-        assert result["accessibility"]["role"] == "textbox"
-        assert "error" in result["states"]
-        assert len(result["variants"]) >= 3
-
-    def test_unknown_component(self):
-        result = spec_component(component_type="sparkle_widget_xyz")
-        # Should return a basic structure, not an error
-        assert result["component"] == "sparkle_widget_xyz"
-        assert "anatomy" in result
-        assert "states" in result
-        assert "variants" in result
-        assert len(result["states"]) >= 1
-        assert len(result["anatomy"]) >= 1
-
-    def test_includes_accessibility(self):
-        result = spec_component(component_type="button")
-        a11y = result["accessibility"]
-        assert "role" in a11y
-        assert "keyboard_interaction" in a11y
-        assert len(a11y["keyboard_interaction"]) >= 1
-
-    def test_includes_states(self):
-        result = spec_component(component_type="button")
-        states = result["states"]
-        assert "hover" in states or "active" in states
-        assert "focus" in states or "focus-visible" in states
-        assert "disabled" in states
-
-    def test_includes_responsive(self):
-        result = spec_component(component_type="button", platform="web")
-        responsive = result["responsive_behavior"]
-        assert len(responsive) >= 1
-        assert responsive[0]["platform"] == "web"
-        assert "breakpoints" in responsive[0]
-
-    def test_modal_spec(self):
-        result = spec_component(component_type="modal")
-        assert result["accessibility"]["role"] == "dialog"
-        assert "Escape to close" in result["accessibility"]["keyboard_interaction"]
-
-    def test_design_tokens_generated(self):
-        result = spec_component(component_type="button")
-        tokens = result["design_tokens"]
-        assert any("button-background" in t for t in tokens)
-        assert any("button-foreground" in t for t in tokens)
+# ===================================================================
+# TestSpecComponent — RETIRED (S4, story-57031f25; Directive 10/12)
+# ===================================================================
+# The legacy archetype/husk TestSpecComponent class was KILLED-WITH-REASON and
+# superseded (strictly stronger) by tests/test_spec_component.py, which exercises the
+# SEED-FROM-NODE retrofit: resolve id -> the component's OWN signals -> one hydrate ->
+# the component's OWN rich fields through the four-state fail-closed envelope, the
+# accessibility_requirements read fix, the nearest path, and the BAR-2 husk delta.
+# The eight superseded tests, each named with what replaced it:
+#   * test_button_spec / test_input_spec / test_includes_accessibility / test_modal_spec
+#     -> the hardcoded _COMPONENT_ARCHETYPES a11y-role dict is deleted; the a11y surface
+#     is the component's OWN accessibility_requirements list
+#     (test_archetype_role_interface_retired, TestRedFirstNorthStar).
+#   * test_unknown_component -> an unknown type fails closed, no ['container','content']
+#     husk (test_unknown_no_longer_returns_a_structure, TestEnvelopeFailClosed).
+#   * test_includes_states -> states are the component's OWN corpus field
+#     (TestSeedFromNode.test_every_component_self_resolves_at_hit).
+#   * test_includes_responsive -> responsive_behavior is the corpus field; the platform
+#     knob is retired (test_platform_knob_retired, test_own_responsive_and_tokens_not_computed).
+#   * test_design_tokens_generated -> design_tokens_needed is the corpus field, not a
+#     name-generated list (test_own_responsive_and_tokens_not_computed).
+# Not a silent drop: the platform param is retired (no shim), so test_includes_responsive
+# would not even call. The signal-id/SEED interface lives in tests/test_spec_component.py.
 
 
 # ===================================================================

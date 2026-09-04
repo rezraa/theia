@@ -16,6 +16,8 @@ from theia.tools.plan_design_system import plan_design_system as _plan_design_sy
 from theia.tools.spec_component import spec_component as _spec_component
 from theia.tools.evaluate_accessibility import evaluate_accessibility as _evaluate_accessibility
 from theia.tools.log_decision import log_decision as _log_decision
+from theia.tools.get_signal_index import get_signal_index as _get_signal_index
+from theia.tools.get_signal_index import get_system_signal_index as _get_system_signal_index
 from theia.tools._shared import coerce
 
 
@@ -40,31 +42,37 @@ mcp = FastMCP("theia", instructions=(
 @mcp.tool()
 def audit_design(
     description: str,
-    structural_signals: Union[list[str], str],
+    matched_signal_ids: Union[list[str], str],
     constraints: Union[str, dict, None] = None,
+    k: int = 10,
     conn: Any = None,
 ) -> dict:
-    """Audit an interface or system design for issues, pattern mismatches,
-    and accessibility concerns.
+    """Audit an interface design: name each retrieved component's issues from its
+    own fields (common_mistakes, anatomy, states) and surface its accessibility
+    requirements.
 
-    Given a description and structural signals about the design, returns
-    matched rules, identified issues, and accessibility flags.
+    Retrieval is driven by the signal ids the caller recognised against
+    ``get_signal_index`` (the proven Shape-C path), NOT by prose keyword matching.
 
     Args:
-        description: Description of the interface or system design to audit.
-        structural_signals: Agent-identified signals about the design, e.g.
-            ["color-only", "no-labels", "modal-dialog", "data-table"].
-        constraints: Optional dict of constraints for filtering, e.g.
-            {"platform": "mobile", "audience": "enterprise"}.
+        description: Free-text description of the interface — context/telemetry
+            only (retrieval is driven by ``matched_signal_ids``).
+        matched_signal_ids: Signal ids recognised against ``get_signal_index``,
+            e.g. ["sig-19487c3e3fa0", ...]. The prose ``structural_signals`` param
+            is retired.
+        constraints: Optional dict, e.g. {"platform": "mobile"} (dormant facet
+            gate).
+        k: Number of retrieved components to reason over (engine-clamped 1..50).
         conn: Kuzu/LadybugDB connection for graph mode (injected by Othrys).
 
-    Returns: {matched_rules: [...], design_issues: [...],
-              recommendations: [...], accessibility_flags: [...]}
+    Returns: {constraints_analyzed, design_issues: [...], recommendations: [...],
+              accessibility_flags: [...], retrieval_state, unmatched, dangling}
     """
     return _audit_design(
         description=description,
-        structural_signals=coerce(structural_signals, list),
+        matched_signal_ids=coerce(matched_signal_ids, list),
         constraints=coerce(constraints, dict),
+        k=k,
         conn=conn,
     )
 
@@ -75,34 +83,45 @@ def plan_design_system(
     platforms: Union[list[str], str, None] = None,
     brand_attributes: Union[list[str], str, None] = None,
     existing_system: Union[str, None] = None,
+    matched_signal_ids: Union[list[str], str, None] = None,
     conn: Any = None,
 ) -> dict:
     """Plan a design system architecture with tokens, component hierarchy,
     and responsive strategy.
 
-    Given a product description and platform targets, recommends foundation
-    patterns, token architecture, and component hierarchy.
+    The base-system foundation is retrieved through the shared Shape-C engine over
+    the design_systems signal index: the caller recognises the product's structural
+    signals against ``get_system_signal_index`` and passes the matched ids; the
+    nearest existing system is hydrated and fanned out over its ``related_systems``,
+    or the tool abstains to an honest custom foundation with a reason (never a silent
+    always-'custom'). The token / hierarchy / responsive / theming scaffolding is
+    generative and unchanged.
 
     Args:
         product_description: Description of the product or product line
-            the design system will serve.
+            the design system will serve (context/telemetry only — the base-system
+            match is driven by ``matched_signal_ids``).
         platforms: Target platforms, e.g. ["web", "mobile", "desktop"].
             Defaults to ["web"].
         brand_attributes: Optional brand personality keywords, e.g.
             ["professional", "warm", "accessible"].
         existing_system: Optional ID of an existing design system in the
-            knowledge base to use as a starting point.
+            knowledge base to use as a starting point (explicit-id path).
+        matched_signal_ids: Signal ids recognised against ``get_system_signal_index``,
+            e.g. ["sig-...", ...]; drives the base-system match when
+            ``existing_system`` is not supplied.
         conn: Kuzu/LadybugDB connection for graph mode (injected by Othrys).
 
-    Returns: {recommended_foundation: {...}, token_architecture: {...},
-              component_hierarchy: [...], responsive_strategy: {...},
-              theming_approach: {...}}
+    Returns: {recommended_foundation: {..., retrieval_state, unmatched, dangling,
+              related_systems}, token_architecture: {...}, component_hierarchy: [...],
+              responsive_strategy: {...}, theming_approach: {...}}
     """
     return _plan_design_system(
         product_description=product_description,
         platforms=coerce(platforms, list),
         brand_attributes=coerce(brand_attributes, list),
         existing_system=existing_system,
+        matched_signal_ids=coerce(matched_signal_ids, list),
         conn=conn,
     )
 
@@ -112,35 +131,38 @@ def spec_component(
     component_type: str,
     context: str = "",
     variants_needed: Union[list[str], str, None] = None,
-    platform: str = "web",
+    matched_signal_ids: Union[list[str], str, None] = None,
     conn: Any = None,
 ) -> dict:
-    """Generate a detailed component specification with states, variants,
-    accessibility requirements, and responsive behavior.
+    """Generate a component specification from the component's OWN corpus fields.
 
-    Given a component type and usage context, returns a full specification
-    enriched with accessibility requirements and design tokens.
+    Resolves ``component_type`` to a corpus id and SEEDS retrieval from that
+    component's own signals (one hydrate, one-hop fan-out over related_patterns),
+    returning its own anatomy/states/variants/accessibility_requirements/
+    common_mistakes/responsive_behavior/design_tokens_needed. A non-resolving type
+    retrieves the nearest component from the caller's recognised
+    ``matched_signal_ids`` (flagged ``nearest``); a true miss fails closed through the
+    retrieval envelope, never the ['container','content'] husk.
 
     Args:
-        component_type: The type of component, e.g. "button", "modal",
-            "data-table", "card".
-        context: Optional context for how the component will be used.
-        variants_needed: Optional list of specific variants to include.
-            If None, all default variants are returned.
-        platform: Target platform ("web", "mobile", "desktop").
-            Defaults to "web".
+        component_type: The component to spec, e.g. "navbar", "modal", "data-table".
+        context: Optional usage context — context/telemetry only, never surfaced.
+        variants_needed: Optional variant names; filters the component's own variants.
+            If None, all own variants are returned.
+        matched_signal_ids: Signal ids recognised against ``get_signal_index``, used
+            ONLY when ``component_type`` does not resolve (nearest path).
         conn: Kuzu/LadybugDB connection for graph mode (injected by Othrys).
 
-    Returns: {component: "...", anatomy: [...], states: [...],
-              variants: [...], accessibility: {...},
-              responsive_behavior: {...}, design_tokens: {...},
-              common_mistakes: [...]}
+    Returns: {component, component_id, component_name, description, anatomy, states,
+              variants, accessibility_requirements, common_mistakes,
+              responsive_behavior, design_tokens_needed, related_components,
+              from_knowledge_base, nearest, retrieval_state, unmatched, dangling}
     """
     return _spec_component(
         component_type=component_type,
         context=context,
         variants_needed=coerce(variants_needed, list),
-        platform=platform,
+        matched_signal_ids=coerce(matched_signal_ids, list),
         conn=conn,
     )
 
@@ -215,6 +237,45 @@ def log_decision(
         rationale=rationale,
         conn=conn,
     )
+
+
+@mcp.tool()
+def get_signal_index(conn: Any = None) -> dict:
+    """Return the deterministic Shape-C component signal-index view.
+
+    A read-only accessor over every structural signal in the component corpus.
+    The agent recognises a problem's signals against this view in working memory
+    and passes the matched signal ids to the retrieval engine (wired to the
+    concern tools in S3-S5). This tool performs no matching itself.
+
+    Args:
+        conn: Kuzu/LadybugDB connection for graph mode (injected by Othrys).
+
+    Returns: {signals: [{signal_id, signal_text, component_ids}, ...], count: N}
+        — sorted by signal_id with sorted component_ids so it serialises
+        identically on every call.
+    """
+    return _get_signal_index(conn=conn)
+
+
+@mcp.tool()
+def get_system_signal_index(conn: Any = None) -> dict:
+    """Return the deterministic Shape-C design_systems signal-index view.
+
+    The design-system analogue of ``get_signal_index`` (same engine, second corpus).
+    A read-only accessor over every structural signal in the design_systems corpus.
+    The agent recognises a product's signals against this view in working memory and
+    passes the matched signal ids to ``plan_design_system`` (which hydrates the
+    nearest existing system and fans out over its related_systems). No matching here.
+
+    Args:
+        conn: Kuzu/LadybugDB connection for graph mode (injected by Othrys).
+
+    Returns: {signals: [{signal_id, signal_text, system_ids}, ...], count: N}
+        — sorted by signal_id with sorted system_ids so it serialises identically
+        on every call.
+    """
+    return _get_system_signal_index(conn=conn)
 
 
 # ---------------------------------------------------------------------------

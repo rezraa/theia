@@ -1,0 +1,15 @@
+{
+  "answer_key_sha256": "ee32b73cc1867ea1570f2fb77fa0bf90fa19d9127fb1ac5bd4c40b57d7088f72",
+  "hash_algo": "sha256",
+  "pins": {
+    "accessibility_standards.json": "11716bc4a2d810ebb2087f53e9c05e5c91fbc672349fc4f00db36ecdef0c670c",
+    "component_patterns.json": "fe2ed49663e95e1974c9ffb1f4927b785de2e97aa85877a84f1e14161fc13aef",
+    "decision_rules.json": "d5e6971dbcaf4baa5c6dd7dbfd43da1bc2b26c9fe35e2e4adb3cf016c281e5b6",
+    "design_systems.json": "017e569c0558493898424ff8896e981fbeca58eae085a0154de221e9dc7e0a40",
+    "gmetric_v3.json": "ea52fa1bc53fa89fc429db2f3186a6ab237aa216201cc05d95b8781f55d78003",
+    "problems_blind_v3.json": "2c0883a706bda4416bdc8ea89ebf6a9671f3ff62c35c6032acdf1180547104f1"
+  },
+  "spec_id": "theia-Gmetric-v1-freeze-manifest",
+  "story": "story-af407698",
+  "what": "External trust root for the frozen metric. Pins the sha256 of both frozen artifacts (the blind problems AND the scored concept/alias map + recall denominator in gmetric_v1.json) plus the four loaded corpus snapshots, plus a content-hash over the E-gold answer key. grade._verify_substrate reads pins ONLY from HERE, never from gmetric_v1.json (which it grades against -- that would be circular trust, CWE-345). Regenerating this manifest is the only way to move a pin, a visible reviewable change."
+}

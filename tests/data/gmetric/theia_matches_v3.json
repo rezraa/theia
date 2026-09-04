@@ -1,0 +1,513 @@
+{
+  "authored_by": "Theia",
+  "corpus_snapshot_sha256": {
+    "component_patterns.json": "fe2ed49663e95e1974c9ffb1f4927b785de2e97aa85877a84f1e14161fc13aef"
+  },
+  "matches": {
+    "P01": [
+      "sig-1e8bca08e538",
+      "sig-33d0f49df88e",
+      "sig-7234bc4ae9d4",
+      "sig-922475ff68cc"
+    ],
+    "P02": [
+      "sig-3b11d05b70b7"
+    ],
+    "P03": [
+      "sig-1fd82572642a",
+      "sig-33d0f49df88e",
+      "sig-ed6c9d1d1ac4"
+    ],
+    "P04": [
+      "sig-18f5bd80a228",
+      "sig-a62ff14ce92c"
+    ],
+    "P05": [
+      "sig-0500fcf7a637",
+      "sig-16dd911645b5",
+      "sig-193815733094",
+      "sig-70f9e80ca777",
+      "sig-7b2a3bf89658",
+      "sig-80f3dc1b982f",
+      "sig-9d7101196fe8",
+      "sig-da79df4f09d5"
+    ],
+    "P06": [
+      "sig-19487c3e3fa0",
+      "sig-1e8bca08e538",
+      "sig-33d0f49df88e",
+      "sig-cd4ac2f40114"
+    ],
+    "P07": [
+      "sig-0445bb64b76c",
+      "sig-0885a906f544",
+      "sig-08b863224a76",
+      "sig-75004eb93d1d"
+    ],
+    "P08": [
+      "sig-0d4267f5c952",
+      "sig-0d6e47049bca",
+      "sig-78fa9da0c870",
+      "sig-898c7b77be8c",
+      "sig-af755b49cdff",
+      "sig-b0bc39e230b0",
+      "sig-f94e98c172cb"
+    ],
+    "P09": [
+      "sig-1e8bca08e538",
+      "sig-1fd82572642a",
+      "sig-33d0f49df88e",
+      "sig-5a42d76bd328",
+      "sig-c97bb6e0a438",
+      "sig-e12939420b50",
+      "sig-ed6c9d1d1ac4"
+    ],
+    "P10": [
+      "sig-0d4267f5c952",
+      "sig-0d6e47049bca",
+      "sig-78fa9da0c870",
+      "sig-898c7b77be8c",
+      "sig-af755b49cdff",
+      "sig-b0bc39e230b0",
+      "sig-f94e98c172cb"
+    ],
+    "P11": [
+      "sig-18f5bd80a228",
+      "sig-8c1ab40f11e5"
+    ],
+    "P12": [
+      "sig-7234bc4ae9d4",
+      "sig-767f20b8c8eb"
+    ],
+    "P13": [
+      "sig-01577853e74b",
+      "sig-0500fcf7a637",
+      "sig-080e11528ecd",
+      "sig-193815733094",
+      "sig-f61123c55d35"
+    ],
+    "P14": [
+      "sig-26db4943966c",
+      "sig-499e7de7cd36"
+    ],
+    "P15": [
+      "sig-767f20b8c8eb",
+      "sig-a62ff14ce92c",
+      "sig-e1654345f0b5"
+    ],
+    "P16": [
+      "sig-121a290e8ae6",
+      "sig-767f20b8c8eb"
+    ],
+    "P17": [
+      "sig-1fd82572642a",
+      "sig-31a6c5c638c9",
+      "sig-33d0f49df88e",
+      "sig-383afa5feee3",
+      "sig-3fca42d6c6e3",
+      "sig-4061bc075663",
+      "sig-87f4dfe30370",
+      "sig-90182fc37b8e",
+      "sig-c287a82f8bf7",
+      "sig-c54de289d2ab",
+      "sig-e71334e71dd1",
+      "sig-ed6c9d1d1ac4"
+    ],
+    "P18": [
+      "sig-0445bb64b76c",
+      "sig-0500fcf7a637",
+      "sig-0885a906f544",
+      "sig-2bd70841ae91",
+      "sig-533ab2898d5f",
+      "sig-5c9419f5d25d",
+      "sig-6d010722c2ce",
+      "sig-7bda11c5f76c",
+      "sig-c54de289d2ab",
+      "sig-c6885608af10",
+      "sig-ce5eba9bff12",
+      "sig-d4cf6bcd5781",
+      "sig-d8b8fc2b49b6"
+    ],
+    "P19": [
+      "sig-1433ae139e5f",
+      "sig-1de5028aef94",
+      "sig-2d3c8abb0628",
+      "sig-31011c64714b",
+      "sig-4788f05ae30d",
+      "sig-47d8218d0144",
+      "sig-51f5a313f993",
+      "sig-6a7989a2ffa7",
+      "sig-75004eb93d1d",
+      "sig-94a3ea7092b0",
+      "sig-c475ce677d09",
+      "sig-d748caf2b075",
+      "sig-ff4b2d893d23"
+    ],
+    "P20": [
+      "sig-01577853e74b",
+      "sig-296bdc86ddde",
+      "sig-653807248a8e",
+      "sig-a914284e3f75"
+    ],
+    "P21": [
+      "sig-0571da0604da",
+      "sig-6d470111afb4",
+      "sig-8c1ab40f11e5",
+      "sig-dde8a1e926a5"
+    ],
+    "P22": [
+      "sig-074a198693b7",
+      "sig-2392700afb2e",
+      "sig-33d0f49df88e",
+      "sig-6b7a70d30d52",
+      "sig-6ce23b4e3b2c",
+      "sig-80bc14299ca3",
+      "sig-9431b914c9b3",
+      "sig-cff481521400",
+      "sig-e1654345f0b5",
+      "sig-f04de87a275c",
+      "sig-f294d947e6f8"
+    ],
+    "P23": [
+      "sig-0311c12c5595",
+      "sig-07200bafd9e2",
+      "sig-1375cf00eb76",
+      "sig-14970aaadd88",
+      "sig-186cbbaaf760",
+      "sig-3b11d05b70b7",
+      "sig-587d683137be",
+      "sig-93b676f1d3da",
+      "sig-cc8e11e33a83",
+      "sig-dba364eb3218",
+      "sig-dda5388e6d8e",
+      "sig-f5868abf3a64"
+    ],
+    "P24": [
+      "sig-033501f768e5",
+      "sig-0f7d533b2431",
+      "sig-170ae902cad7",
+      "sig-2ee014972d50",
+      "sig-3aec25771a0b",
+      "sig-3b681f5ea9ba",
+      "sig-4625a9ac33d1",
+      "sig-499e7de7cd36",
+      "sig-65983463a4c5",
+      "sig-78ac2a45d7b3",
+      "sig-cbeef9fc2f1e",
+      "sig-e8ca18cd4e61",
+      "sig-eb67c4b872c6"
+    ],
+    "P25": [
+      "sig-0571da0604da",
+      "sig-0c91bc3891c2",
+      "sig-146a70cda9e8",
+      "sig-2ac12426de3a",
+      "sig-8c1ab40f11e5",
+      "sig-8cba442dbbe8",
+      "sig-9c868eb0d879",
+      "sig-a3cafa237312",
+      "sig-af755b49cdff",
+      "sig-b0bc39e230b0",
+      "sig-cc8e11e33a83",
+      "sig-f213e4e8a39b",
+      "sig-f5d79965f9ae"
+    ],
+    "P26": [
+      "sig-350bac3d91b2",
+      "sig-38712a639148",
+      "sig-5cad9a053370",
+      "sig-6731fdd91274",
+      "sig-69e673901658",
+      "sig-75004eb93d1d"
+    ],
+    "P27": [
+      "sig-02ec4b46a08d",
+      "sig-18f5bd80a228",
+      "sig-291870886460",
+      "sig-5a70d39262f0",
+      "sig-a1fd3bbd25f6",
+      "sig-a62ff14ce92c",
+      "sig-b5bd245b3d3e",
+      "sig-d4895ba358b1",
+      "sig-db5bc06f66c6",
+      "sig-eb4e61932edd"
+    ],
+    "P28": [
+      "sig-16d4453d187c",
+      "sig-96ec1c843ce3"
+    ],
+    "P29": [
+      "sig-0571da0604da",
+      "sig-2ac12426de3a",
+      "sig-8c1ab40f11e5",
+      "sig-9c868eb0d879",
+      "sig-a3cafa237312",
+      "sig-f5d79965f9ae"
+    ],
+    "P30": [
+      "sig-3a51dd11a4b4",
+      "sig-4061bc075663"
+    ],
+    "P31": [
+      "sig-4fa1c35a0da0",
+      "sig-69e673901658",
+      "sig-f038d3085121"
+    ]
+  },
+  "matches_by_signal_text": {
+    "P01": [
+      "Dashboard grid of metric blocks",
+      "dashboard with metric cards and data tables",
+      "display: grid or column-based layout",
+      "Error summary at form top"
+    ],
+    "P02": [
+      "multi-step process or onboarding"
+    ],
+    "P03": [
+      "Rows and columns of data",
+      "dashboard with metric cards and data tables",
+      "100+ rows of structured data"
+    ],
+    "P04": [
+      "overuse of modal dialogs in flow",
+      "action requiring user decision"
+    ],
+    "P05": [
+      "enterprise app with modules, sections, and pages",
+      "Content changes below without page load",
+      "initial page or section load",
+      "content-heavy page with long text",
+      "content loading from API",
+      "Gray animated shapes matching content layout",
+      "Line between content sections",
+      "Replaced by real content on load"
+    ],
+    "P06": [
+      "performance indicators with trends",
+      "Dashboard grid of metric blocks",
+      "dashboard with metric cards and data tables",
+      "KPI or metric display"
+    ],
+    "P07": [
+      "tree or nested data",
+      "navigation with 3+ levels of depth",
+      "application with sidebar navigation",
+      "8+ navigation items at top level"
+    ],
+    "P08": [
+      "Icon + label items",
+      "Announcement or status text",
+      "Small rounded pill with text",
+      "3-5 icon+label items",
+      "No visible text label",
+      "Label text beside square",
+      "Status icons along axis"
+    ],
+    "P09": [
+      "Dashboard grid of metric blocks",
+      "Rows and columns of data",
+      "dashboard with metric cards and data tables",
+      "network disconnection during operation",
+      "background processing or long operation",
+      "Small label below or above number",
+      "100+ rows of structured data"
+    ],
+    "P10": [
+      "Icon + label items",
+      "Announcement or status text",
+      "Small rounded pill with text",
+      "3-5 icon+label items",
+      "No visible text label",
+      "Label text beside square",
+      "Status icons along axis"
+    ],
+    "P11": [
+      "overuse of modal dialogs in flow",
+      "Input field that opens calendar popup"
+    ],
+    "P12": [
+      "display: grid or column-based layout",
+      "responsive app targeting phone users"
+    ],
+    "P13": [
+      "Often in settings pages",
+      "enterprise app with modules, sections, and pages",
+      "Collapsible sections",
+      "initial page or section load",
+      "settings page with category list and detail"
+    ],
+    "P14": [
+      "file upload or export in progress",
+      "right-click or long-press actions"
+    ],
+    "P15": [
+      "responsive app targeting phone users",
+      "action requiring user decision",
+      "new account with no data"
+    ],
+    "P16": [
+      "simple app with few main sections",
+      "responsive app targeting phone users"
+    ],
+    "P17": [
+      "Rows and columns of data",
+      "database query results display",
+      "dashboard with metric cards and data tables",
+      "log viewer or audit trail",
+      "Column headers with sort arrows",
+      "monitoring interface with real-time data",
+      "admin panel with overview statistics",
+      "Alternating row colors",
+      "analytics page with charts and KPIs",
+      "large spreadsheet-like data view",
+      "table element with thead/tbody",
+      "100+ rows of structured data"
+    ],
+    "P18": [
+      "tree or nested data",
+      "enterprise app with modules, sections, and pages",
+      "navigation with 3+ levels of depth",
+      "category taxonomy display",
+      "documentation site with nested sections",
+      "organizational chart or file browser",
+      "Hierarchical structure",
+      "Folder/file icons",
+      "large spreadsheet-like data view",
+      "file system or category browser",
+      "Expand/collapse chevrons",
+      "nested JSON or configuration viewer",
+      "Indented nested items"
+    ],
+    "P19": [
+      "Centered floating search box",
+      "platform with extensive feature set",
+      "content discovery interface",
+      "marketplace or catalog with many items",
+      "search is primary interaction",
+      "Keyboard shortcut hints on items",
+      "Cmd+K or Ctrl+K trigger",
+      "Overlay with backdrop",
+      "8+ navigation items at top level",
+      "tool with many distinct workspaces",
+      "knowledge base or wiki",
+      "enterprise application with many modules",
+      "Categorized results list"
+    ],
+    "P20": [
+      "Often in settings pages",
+      "Binary on/off control",
+      "Pill-shaped track with sliding circle",
+      "Takes effect immediately"
+    ],
+    "P21": [
+      "Date format in input field",
+      "Calendar grid with days",
+      "Input field that opens calendar popup",
+      "Month/year navigation arrows"
+    ],
+    "P22": [
+      "Create or add action button",
+      "Centered illustration with text",
+      "dashboard with metric cards and data tables",
+      "Message like 'No items yet'",
+      "Full-area placeholder",
+      "Located at bottom of lists or tables",
+      "filtered view with no matches",
+      "search with zero results",
+      "new account with no data",
+      "Placeholder text visible when empty",
+      "list or table with no items"
+    ],
+    "P23": [
+      "Current step highlighted",
+      "registration with progressive disclosure",
+      "complex data entry interface",
+      "registration or application form",
+      "configuration wizard with dependencies between steps",
+      "multi-step process or onboarding",
+      "insurance or financial application form",
+      "Sequential step labels",
+      "form with 10+ fields",
+      "Numbered circles connected by lines",
+      "checkout flow with multiple stages",
+      "Back/Next navigation buttons"
+    ],
+    "P24": [
+      "Appears below/beside trigger button",
+      "multiple notification types over time",
+      "Options list appears below on interaction",
+      "item-specific actions in a list or grid",
+      "Items with optional icons and shortcuts",
+      "unread message or alert management",
+      "activity stream from various sources",
+      "right-click or long-press actions",
+      "overflow actions that do not fit in visible UI",
+      "Role='menu' in DOM",
+      "Floating list of actions",
+      "event-driven updates from background processes",
+      "secondary actions for selected content"
+    ],
+    "P25": [
+      "Date format in input field",
+      "Multi-line input element",
+      "Error text below fields",
+      "HEX input field",
+      "Input field that opens calendar popup",
+      "Single-line input element",
+      "Red border on input fields",
+      "Input field with dropdown suggestions",
+      "No visible text label",
+      "Label text beside square",
+      "form with 10+ fields",
+      "Taller than single-line input",
+      "input fields with constraints"
+    ],
+    "P26": [
+      "touch-primary interface navigation",
+      "Fixed top bar",
+      "Full-width bar at top of page",
+      "Opens from top navigation item",
+      "Drag handle bar at top",
+      "8+ navigation items at top level"
+    ],
+    "P27": [
+      "Small centered overlay with question",
+      "overuse of modal dialogs in flow",
+      "unsaved changes warning on navigation",
+      "Close X in top corner",
+      "Backdrop click to close",
+      "action requiring user decision",
+      "Header/body/footer structure",
+      "Centered box over dimmed backdrop",
+      "permission request or consent collection",
+      "critical error requiring acknowledgment"
+    ],
+    "P28": [
+      "Small button with only an icon",
+      "Dot indicator on icon"
+    ],
+    "P29": [
+      "Date format in input field",
+      "HEX input field",
+      "Input field that opens calendar popup",
+      "Red border on input fields",
+      "Input field with dropdown suggestions",
+      "input fields with constraints"
+    ],
+    "P30": [
+      "Arrow pointing to trigger element",
+      "monitoring interface with real-time data"
+    ],
+    "P31": [
+      "Resize handle in corner",
+      "Drag handle bar at top",
+      "Optional dividers between items"
+    ]
+  },
+  "n_problems": 31,
+  "recognition_rule": "signal matched iff (query + authored SHAPE working-memory) overlaps its text by >= 2 stemmed content tokens, OR query == signal_text (EXACT leg), OR a query token IS a component id (SEED-FROM-NODE leg). SHAPE is a designer's gold-blind restatement of each problem's UI shape in standard component vocabulary (space-separated words, never an underscore id); the mechanical matcher picks ids, so SHAPE cannot encode a pattern id. Audit matches_by_signal_text against problems_blind.",
+  "spec_id": "theia-Gmetric-recognizer",
+  "story": "story-cb7e532b",
+  "what": "FROZEN gold-blind recognition {problem_id -> matched signal_ids} that bridges each frozen benchmark query to the Shape-C hydrate path. The LLM-stand-in for the benchmark (production uses a live LLM). Produced by theia_engine_bench.recognize over problems_blind + the signal index; independent of gmetric's acceptable_ids (never read here)."
+}

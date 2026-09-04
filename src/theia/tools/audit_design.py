@@ -1,99 +1,50 @@
 # Copyright (c) 2026 Reza Malik. Licensed under the Apache License, Version 2.0.
-"""MCP tool: audit_design
+"""MCP tool: audit_design — wired onto the Shape-C retrieval engine.
 
-Audit an interface or system design for issues, pattern mismatches,
-and accessibility concerns.
+The FIRST Theia concern tool retrofitted onto the shared engine, following the
+analyze_architecture template (council 3e6eeeab; f1b39fbd-decision-3). Given the
+signal ids the caller (the LLM) recognised against ``get_signal_index`` plus an
+optional constraints dict, it:
 
-The agent (LLM) reads the design/interface and identifies structural
-signals.  This tool matches those signals against decision_rules.json,
-checks for common anti-patterns, and flags accessibility violations.
+1. RETRIEVES candidate components through one ``kb.hydrate`` call — the proven
+   four-state, fail-closed envelope; ``no_match``/``dangling`` abstain to empty
+   issues with a populated envelope, never a husk. The legacy measured-empty
+   output on real problem-language is dead: it is replaced by an honest
+   abstention state, not a silent ``[]``.
+2. GATES (dormant on this corpus) each retrieved component by the shared
+   ``is_gated`` facet predicate. Theia components carry NO ``avoid_when`` facet
+   dict (0/66), so the gate never fires here — it is the S4/S5-ready seam kept
+   faithful to the sibling template, identity-ordered today (a comment must not
+   claim a control the code does not have: this tier is dormant BY DATA, and the
+   tests assert every ``gated`` flag is False).
+3. REASONS one entry per retrieved component over that component's OWN
+   100%-populated fields — ``common_mistakes`` (the design issues), ``anatomy`` +
+   ``states`` (the structural context), and ``accessibility_requirements`` (the
+   accessibility flags) — NOT a hardcoded table. This FIXES the legacy
+   ``pattern.get('accessibility')`` field-name bug: the corpus field is
+   ``accessibility_requirements`` (``component.get('accessibility')`` is ``None``
+   on 66/66 components, so the legacy read emitted empty flags even on a match).
+4. SURFACES the retrieval envelope (``retrieval_state`` / ``unmatched`` /
+   ``dangling``) on the RESULT.
+
+Firewall: imports theia.* only.
 """
 
 from __future__ import annotations
 
 from typing import Any
 
-from theia.tools._shared import coerce, emit_event, get_knowledge
-
-# ---------------------------------------------------------------------------
-# Anti-pattern detectors — structural signal keywords → design issues
-# ---------------------------------------------------------------------------
-
-_ANTI_PATTERNS: dict[str, dict[str, Any]] = {
-    "color-only": {
-        "issue": "Color used as sole indicator",
-        "severity": "high",
-        "wcag": "1.4.1",
-        "recommendation": "Add non-color indicators (icons, patterns, text labels) alongside color",
-    },
-    "no-labels": {
-        "issue": "Form inputs missing visible labels",
-        "severity": "high",
-        "wcag": "1.3.1",
-        "recommendation": "Add visible, associated labels to all form controls",
-    },
-    "small-touch-targets": {
-        "issue": "Touch targets below minimum size",
-        "severity": "medium",
-        "wcag": "2.5.8",
-        "recommendation": "Ensure touch targets are at least 44x44 CSS pixels (48x48 recommended)",
-    },
-    "no-focus-indicator": {
-        "issue": "Missing visible focus indicator",
-        "severity": "high",
-        "wcag": "2.4.7",
-        "recommendation": "Add visible focus styles for all interactive elements",
-    },
-    "auto-play": {
-        "issue": "Auto-playing media content",
-        "severity": "medium",
-        "wcag": "1.4.2",
-        "recommendation": "Provide pause/stop/mute controls; avoid auto-play for audio",
-    },
-    "no-alt-text": {
-        "issue": "Images missing alternative text",
-        "severity": "high",
-        "wcag": "1.1.1",
-        "recommendation": "Add descriptive alt text or mark decorative images with empty alt",
-    },
-    "low-contrast": {
-        "issue": "Insufficient color contrast",
-        "severity": "high",
-        "wcag": "1.4.3",
-        "recommendation": "Ensure 4.5:1 contrast ratio for normal text, 3:1 for large text",
-    },
-    "no-keyboard-access": {
-        "issue": "Interactive elements not keyboard accessible",
-        "severity": "high",
-        "wcag": "2.1.1",
-        "recommendation": "Ensure all interactive elements are reachable and operable via keyboard",
-    },
-    "missing-error-messaging": {
-        "issue": "Form errors not clearly communicated",
-        "severity": "medium",
-        "wcag": "3.3.1",
-        "recommendation": "Identify errors in text, describe them, and suggest corrections",
-    },
-    "inconsistent-navigation": {
-        "issue": "Navigation patterns vary across pages",
-        "severity": "medium",
-        "wcag": "3.2.3",
-        "recommendation": "Keep navigation mechanisms consistent across all pages",
-    },
-    "no-skip-link": {
-        "issue": "No skip navigation mechanism",
-        "severity": "medium",
-        "wcag": "2.4.1",
-        "recommendation": "Add a skip-to-main-content link as the first focusable element",
-    },
-    "motion-heavy": {
-        "issue": "Excessive motion without reduced-motion support",
-        "severity": "medium",
-        "wcag": "2.3.3",
-        "recommendation": "Honour prefers-reduced-motion and provide pause controls",
-    },
-}
-
+from theia.knowledge.loader import DANGLING, NO_MATCH, is_gated
+from theia.tools._shared import (
+    _MAX_DESCRIPTION_LEN,
+    _MAX_MATCHED_SIGNALS,
+    _MAX_RELATED_OUTPUT,
+    _bounded_constraints,
+    _resolved_related,
+    coerce,
+    emit_event,
+    get_knowledge,
+)
 
 # ---------------------------------------------------------------------------
 # Main tool
@@ -101,113 +52,139 @@ _ANTI_PATTERNS: dict[str, dict[str, Any]] = {
 
 def audit_design(
     description: str,
-    structural_signals: list[str],
+    matched_signal_ids: list[str],
     constraints: dict | None = None,
+    k: int = 10,
     conn: object = None,
 ) -> dict:
-    """Audit a design for issues, pattern mismatches, and accessibility concerns.
+    """Audit a design: name each retrieved component's issues from its own fields.
 
     Args:
-        description: Description of the interface or system design to audit.
-        structural_signals: Agent-identified signals, e.g.
-            ["color-only", "no-labels", "modal-dialog", "data-table"].
-        constraints: Optional dict with constraint signals for filtering
-            (e.g. ``{"platform": "mobile", "audience": "enterprise"}``).
+        description: Free-text description of the interface — context/telemetry
+            only (retrieval is driven by ``matched_signal_ids``, not this text).
+            Bounded at the caller boundary.
+        matched_signal_ids: Signal ids the caller recognised against
+            ``get_signal_index`` (problem-language -> sig-id, the proven path).
+            The prose ``structural_signals`` param is RETIRED (no alias shim).
+        constraints: Optional dict (e.g. ``{"platform": "mobile"}``). Drives the
+            dormant facet gate; sanitised at the caller boundary.
+        k: Number of retrieved components to reason over (engine-clamped to 1..50).
         conn: Kuzu/LadybugDB connection for graph mode, or None for JSON.
 
     Returns:
-        Dict with keys: matched_rules, design_issues, recommendations,
-        accessibility_flags.
+        Dict with ``constraints_analyzed`` / ``design_issues`` (one entry per
+        retrieved component, reasoning over its own common_mistakes + anatomy +
+        states) / ``recommendations`` (deduped related-component remediation) /
+        ``accessibility_flags`` (each component's own accessibility_requirements —
+        the populated accessibility field) plus the retrieval envelope
+        (``retrieval_state`` / ``unmatched`` / ``dangling``). Fail-closed: an
+        abstaining envelope returns empty issues, never a husk.
     """
-    structural_signals = coerce(structural_signals, list) or []
-    constraints = coerce(constraints, dict) or {}
+    description = description[:_MAX_DESCRIPTION_LEN] if isinstance(description, str) else ""
+    matched_signal_ids = coerce(matched_signal_ids, list) or []
+    constraints = _bounded_constraints(coerce(constraints, dict) or {})
+    try:
+        k = int(k)
+    except (TypeError, ValueError):
+        k = 10
 
     kb = get_knowledge(conn)
 
-    # 1. Match structural signals against decision rules
-    matched_rules: list[dict[str, Any]] = []
-    recommendations: list[dict[str, Any]] = []
-    accessibility_flags: list[dict[str, Any]] = []
+    # 1. RETRIEVE — one hydrate call; the caller-boundary cap is non-amplifying
+    #    (the engine's own _SEED_CAP bounds fan-out downstream of it).
+    res = kb.hydrate(matched_signal_ids[:_MAX_MATCHED_SIGNALS], k=k)
 
-    if structural_signals:
-        rule_matches = kb.match_structural_signals(structural_signals)
+    envelope = {
+        "retrieval_state": res.state,
+        "unmatched": list(res.unmatched_signals),
+        "dangling": list(res.dangling),
+    }
 
-        # Apply constraint filtering if constraints provided
-        if constraints:
-            filtered_rules = kb.filter_by_constraints(
-                [rm["rule"] for rm in rule_matches], constraints
-            )
-            filtered_ids = {r["id"] for r in filtered_rules}
-            rule_matches = [
-                rm for rm in rule_matches if rm["rule"]["id"] in filtered_ids
-            ]
+    # 2. Fail closed: recognised-but-empty (no_match) or unresolvable (dangling)
+    #    abstains structurally — no issues, never the nearest husk.
+    if res.state in (NO_MATCH, DANGLING):
+        result = {
+            "constraints_analyzed": constraints,
+            "design_issues": [],
+            "recommendations": [],
+            "accessibility_flags": [],
+            **envelope,
+        }
+        emit_event("audit_design", {
+            "description": description[:120],
+            "n_signals": len(matched_signal_ids),
+            "state": res.state,
+            "design_issues_count": 0,
+            "accessibility_flags_count": 0,
+        })
+        return result
 
-        for rm in rule_matches:
-            rule = rm["rule"]
+    # 3. GATE (dormant) — the shared facet gate would demote a component the
+    #    constraints say to AVOID (its own avoid_when facet). No Theia component
+    #    carries an avoid_when facet dict, so nothing gates here; the tier is the
+    #    S4/S5-ready seam, identity-ordered today. Total-order key (gated, rank)
+    #    so a future gated component sinks deterministically without relying on
+    #    sort stability.
+    gated_flags = [is_gated(c, constraints) for c in res.patterns]
+    order = sorted(range(len(res.patterns)), key=lambda i: (gated_flags[i], i))
+    ordered = [res.patterns[i] for i in order]
+    ordered_gated = [gated_flags[i] for i in order]
 
-            rule_entry: dict[str, Any] = {
-                "signal": rm["signal"],
-                "rule_id": rule["id"],
-                "description": rule.get("description", ""),
-                "priority": rule.get("priority", "medium"),
-                "recommended_patterns": [
-                    p.get("id", "") for p in rm.get("recommended_patterns", [])
-                ],
-            }
-            matched_rules.append(rule_entry)
-
-            # Build recommendations from matched patterns
-            for pattern in rm.get("recommended_patterns", []):
-                rec: dict[str, Any] = {
-                    "pattern_id": pattern.get("id", ""),
-                    "pattern_name": pattern.get("name", pattern.get("id", "")),
-                    "description": pattern.get("description", ""),
-                    "source_rule": rule["id"],
-                }
-                recommendations.append(rec)
-
-                # Check for accessibility requirements in the pattern
-                a11y_reqs = pattern.get("accessibility", {})
-                if a11y_reqs:
-                    accessibility_flags.append({
-                        "pattern_id": pattern.get("id", ""),
-                        "requirements": a11y_reqs,
-                        "source": "pattern",
-                    })
-
-    # 2. Detect anti-patterns from structural signals
+    # 4. REASON — one entry per retrieved component over its OWN fields:
+    #    common_mistakes/anatomy/states = the design issue; accessibility_requirements
+    #    = the accessibility flag (the field-name bug fix).
     design_issues: list[dict[str, Any]] = []
-
-    for signal in structural_signals:
-        sig_lower = signal.lower().strip()
-        anti = _ANTI_PATTERNS.get(sig_lower)
-        if anti:
-            design_issues.append({
-                "signal": signal,
-                "issue": anti["issue"],
-                "severity": anti["severity"],
-                "wcag_criterion": anti.get("wcag", ""),
-                "recommendation": anti["recommendation"],
-            })
+    accessibility_flags: list[dict[str, Any]] = []
+    issue_component_ids: set[str] = set()
+    for c, gated in zip(ordered, ordered_gated):
+        cid = c["id"]
+        issue_component_ids.add(cid)
+        design_issues.append({
+            "component_id": cid,
+            "component_name": c.get("name", cid),
+            "gated": gated,
+            "common_mistakes": list(c.get("common_mistakes", [])),
+            "anatomy": list(c.get("anatomy", [])),
+            "states": list(c.get("states", [])),
+            "retrieval": dict(c["retrieval"]),   # plain dict for the output surface
+        })
+        reqs = list(c.get("accessibility_requirements", []))
+        if reqs:
             accessibility_flags.append({
-                "signal": signal,
-                "wcag_criterion": anti.get("wcag", ""),
-                "issue": anti["issue"],
-                "source": "anti_pattern",
+                "component_id": cid,
+                "component_name": c.get("name", cid),
+                "requirements": reqs,
             })
 
-    # 3. Build result
-    result: dict[str, Any] = {
-        "matched_rules": matched_rules,
+    # 5. RECOMMENDATIONS — the deduped remediation set across the issue-components'
+    #    OWN related_patterns, excluding what is already an issue component. One
+    #    source of truth (_resolved_related).
+    recommendations: list[dict[str, Any]] = []
+    seen_recs: set[str] = set()
+    for c in ordered:
+        for rec in _resolved_related(kb, c):
+            rid = rec["pattern_id"]
+            if rid in issue_component_ids or rid in seen_recs:
+                continue
+            seen_recs.add(rid)
+            recommendations.append(rec)
+            if len(recommendations) >= _MAX_RELATED_OUTPUT:
+                break
+        if len(recommendations) >= _MAX_RELATED_OUTPUT:
+            break
+
+    result = {
+        "constraints_analyzed": constraints,
         "design_issues": design_issues,
         "recommendations": recommendations,
         "accessibility_flags": accessibility_flags,
+        **envelope,
     }
 
     emit_event("audit_design", {
         "description": description[:120],
-        "signals": structural_signals,
-        "matched_rules_count": len(matched_rules),
+        "n_signals": len(matched_signal_ids),
+        "state": res.state,
         "design_issues_count": len(design_issues),
         "accessibility_flags_count": len(accessibility_flags),
     })

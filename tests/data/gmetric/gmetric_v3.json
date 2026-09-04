@@ -1,0 +1,1125 @@
+{
+  "1_grader": {
+    "baseline_method": "grade.rank_baseline = the deterministic UNION of the four current Theia surfaces (e920f1f4-decision-1): match_structural_signals (rule id + recommended_patterns + alternatives, priority order) THEN spec_component exact-id/_COMPONENT_ARCHETYPES THEN audit_design _ANTI_PATTERNS THEN plan_design_system keywords leg; dedup first-seen. Returns corpus ids in their own id-space; the two auxiliary legs (anti-pattern WCAG space, keyword design-system space) run so they are not strawmanned OUT but surface no component/rule id -- a measured reachability fact.",
+    "decision": "Frozen deterministic concept/alias lookup, NOT a live LLM judge.",
+    "rule": "A gold is COVERED@k iff the method's rank-ordered top-k corpus ids for that problem intersect ANY of that gold's acceptable_ids. Only E golds are scored; B and A are neutral (excluded from numerator AND denominator).",
+    "type": "curated_concept_map",
+    "verbatim_query_contract": "The grader feeds problems_blind_v1.json 'query' to the composite unchanged. No paraphrase layer (d-6146f069).",
+    "why": "A frozen map is a pure function -> 'compute twice, same score' holds byte-exactly. The map pre-encodes naming/mechanism variants so a correct alternate id still counts."
+  },
+  "2_denominators": {
+    "content_method_independent": {
+      "content_coverage_E_over_total": 0.9667,
+      "content_coverage_by_qclass": {
+        "CE": {
+          "A": 2,
+          "B": 0,
+          "E": 2,
+          "coverage_E_over_total": 0.5,
+          "total": 4
+        },
+        "PA": {
+          "A": 0,
+          "B": 0,
+          "E": 25,
+          "coverage_E_over_total": 1.0,
+          "total": 25
+        },
+        "PB": {
+          "A": 0,
+          "B": 0,
+          "E": 20,
+          "coverage_E_over_total": 1.0,
+          "total": 20
+        },
+        "SEED": {
+          "A": 0,
+          "B": 0,
+          "E": 5,
+          "coverage_E_over_total": 1.0,
+          "total": 5
+        },
+        "TK": {
+          "A": 0,
+          "B": 0,
+          "E": 6,
+          "coverage_E_over_total": 1.0,
+          "total": 6
+        }
+      },
+      "definition": "Does the gold concept EXIST in the 240-node corpus, by DIRECT corpus check? E=standalone component/rule (or naming variant); B=embedded/borderline only; A=absent. Independent of any retrieval method (m-0364c120: a miss is not a content gap).",
+      "pooled_number_warning": "The pooled coverage mixes mainstream selection (PA/PB/TK/SEED) with deliberately-probed canon-edge cases (CE). Read the by_qclass split, not the pool (m-e8ccb163).",
+      "tally": {
+        "A_absent": 2,
+        "B_borderline": 0,
+        "E_exists": 58
+      },
+      "total_golds": 60
+    },
+    "matcher_reachable_ceiling_method_dependent": {
+      "composite": {
+        "benchmark_E_golds_composite_reachable": 58,
+        "benchmark_E_golds_total": 58,
+        "composite_reachable_ceiling": 1.0,
+        "reading": "The composite wiring ceiling is high (content + wiring both present), yet recall@10 on the BLIND problem-language queries is low -- the gap is a REACHABILITY gap (register mismatch: prose queries do not trigger the exact-substring rule leg nor the exact-token spec_component leg), NOT a content gap. Answered by measurement, not assumed (m-0364c120)."
+      },
+      "definition": "Ceiling on what the CURRENT four-surface matcher could ever retrieve, by corpus WIRING (query-independent). Split per leg because each leg caps a different register.",
+      "leg1_match_structural_signals": {
+        "benchmark_E_golds_leg1_reachable": 53,
+        "corpus_component_count": 66,
+        "corpus_components_rule_wired": 47,
+        "corpus_rule_refs_dangling_note": "216 of 263 distinct rec/alt refs dangle (193 present nowhere in the 240-node corpus) -- the m-0364c120 reachability defect in a content-gap costume.",
+        "corpus_rule_refs_total": 362,
+        "definition": "A component is rule-reachable iff some rule names it as a REAL recommended_pattern or alternative. Dangling refs resolve to husk stubs (loader.py:197), NOT the real component, and do not count. This caps the PA/PB (rule-prose) register."
+      },
+      "leg3_spec_component": {
+        "benchmark_E_golds_leg3_reachable": 50,
+        "definition": "Every real component id is resolvable by spec_component via its own exact-id token (hyphen/underscore normalised), so the corpus ceiling over component golds is total -- but ONLY a token query triggers it (the TK/SEED register). Archetype-only aliases whose id is not a real component (input, navigation) resolve to a HUSK, not the real id."
+      }
+    },
+    "note": "THREE denominators, kept strictly distinct (m-0364c120). Never conflated.",
+    "reachable_set_for_recall": {
+      "FROZEN_reachable_denominator": 58,
+      "definition": "recall denominator = E-golds only (B and A excluded, scored neutral)."
+    }
+  },
+  "3_score": {
+    "answer_key_definition": "sha256 over sorted (problem_id, canonical, sorted(acceptable_ids)) tuples of every E-gold. Pinned in the freeze manifest; grade re-compares it so an acceptable_ids widening trips drift even when the graded result is unchanged (closes the mnemos B4 seam at S0).",
+    "answer_key_sha256": "ee32b73cc1867ea1570f2fb77fa0bf90fa19d9127fb1ac5bd4c40b57d7088f72",
+    "formula": "recall@k = (# E-golds whose acceptable_ids intersect the method's top-k) / E-golds",
+    "method_output_contract": "Per problem the method emits a rank-ordered list of DISTINCT corpus ids. BASELINE = grade.rank_baseline (the four-surface UNION). AFTER = the ported retrieval engine over the SAME frozen queries + corpus.",
+    "metric": "concept_recall_at_k",
+    "primary_cutoff_k": 10,
+    "secondary_cutoff_k": 5
+  },
+  "4_stratification": {
+    "dimensions": {
+      "qclass": {
+        "CE": "canon-edge content-coverage probe",
+        "PA": "prose, rule-prose-aligned (matcher answerable)",
+        "PB": "prose, problem-language / blind (matcher misses)",
+        "SEED": "token, known component_type -> rich KB spec vs archetype/skeleton husk",
+        "TK": "token, component-id vocabulary (spec_component seed path)"
+      },
+      "register": [
+        "prose",
+        "token"
+      ],
+      "structure": "component category of each E-gold's acceptable ids (or decision_rule)"
+    },
+    "rule": "m-e8ccb163: never a single pooled mean. The finest split (qclass) is primary."
+  },
+  "5_reproducibility": {
+    "corpus_a11y_count": 58,
+    "corpus_component_count": 66,
+    "corpus_node_count": 240,
+    "corpus_rule_count": 62,
+    "corpus_snapshot_sha256": {
+      "accessibility_standards.json": "11716bc4a2d810ebb2087f53e9c05e5c91fbc672349fc4f00db36ecdef0c670c",
+      "component_patterns.json": "fe2ed49663e95e1974c9ffb1f4927b785de2e97aa85877a84f1e14161fc13aef",
+      "decision_rules.json": "d5e6971dbcaf4baa5c6dd7dbfd43da1bc2b26c9fe35e2e4adb3cf016c281e5b6",
+      "design_systems.json": "017e569c0558493898424ff8896e981fbeca58eae085a0154de221e9dc7e0a40"
+    },
+    "corpus_system_count": 54,
+    "cutoffs": {
+      "primary_k": 10,
+      "secondary_k": 5
+    },
+    "n_problems": 31,
+    "problems_blind": {
+      "file": "problems_blind_v3.json",
+      "sha256": "2c0883a706bda4416bdc8ea89ebf6a9671f3ff62c35c6032acdf1180547104f1"
+    },
+    "recompute_contract": "Given the pinned problems_blind hash, the corpus hashes, k, and this map, recall@k is a pure function of a method's ranked output -> identical on every recompute. Any hash change INVALIDATES the metric and forces a re-freeze (v1->v2)."
+  },
+  "6_locked_legs": {
+    "note": "The three legs are calibrated from and frozen in locked_legs_v1.json AFTER the baseline is read (never before).",
+    "status": "SET_AFTER_BASELINE -> locked_legs_v1.json"
+  },
+  "Q_answer_measured": {
+    "borderline_embedded_only": [],
+    "canon_edge_CE": {
+      "A": 2,
+      "B": 0,
+      "E": 2,
+      "coverage_E_over_total": 0.5,
+      "total": 4
+    },
+    "genuine_content_gaps_ABSENT": [
+      "product-tour-coachmark",
+      "resizable-splitter"
+    ],
+    "mainstream_PA_PB_TK_SEED": {
+      "E": 56,
+      "coverage": 1.0,
+      "reading": "mainstream gold concepts exist in the corpus.",
+      "total": 56
+    },
+    "question": "Is the ~240-node Theia corpus a CONTENT gap or a REACHABILITY gap for design selection?",
+    "scope_note": "Per AC these gaps are RECORDED, not filled. Authoring new components/rules is out of scope for S0 (content gap deferred -- measured, not filled).",
+    "verdict": "REACHABILITY gap. Mainstream design-selection content is present; the matcher misses it because problem-language queries do not trigger the exact-substring rule leg nor the exact-token spec_component leg. Measured, assumed neither way (m-0364c120)."
+  },
+  "authored_by": "Themis",
+  "design_authority": [
+    "council 3e6eeeab (Theia)",
+    "pre-story council e920f1f4 (decisions 1-7)",
+    "mirrors mnemos-Gmetric-v1 shape (f1b39fbd-decision-4)"
+  ],
+  "one_line": "Concept-level recall@10 over a method-independent set of E-golds; the later retrieval engine must beat the CURRENT four-surface exact-substring matcher on the same set. Every number stratified by query-class, register, and structure.",
+  "reachable_set_map": [
+    {
+      "acceptable_ids": [
+        "rule_dashboard_layout"
+      ],
+      "canonical": "rule_dashboard_layout",
+      "composite_reachable": true,
+      "concept": "dashboard layout rule",
+      "leg1_rule_reachable": true,
+      "leg3_spec_component_reachable": false,
+      "problem": "P01",
+      "qclass": "PA",
+      "register": "prose",
+      "role": "source_rule",
+      "structure": "decision_rule",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "grid"
+      ],
+      "canonical": "grid",
+      "composite_reachable": true,
+      "concept": "responsive grid container",
+      "leg1_rule_reachable": true,
+      "leg3_spec_component_reachable": true,
+      "problem": "P01",
+      "qclass": "PA",
+      "register": "prose",
+      "role": "primary_fit",
+      "structure": "layout",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "stat_card"
+      ],
+      "canonical": "stat_card",
+      "composite_reachable": true,
+      "concept": "summary metric card",
+      "leg1_rule_reachable": true,
+      "leg3_spec_component_reachable": true,
+      "problem": "P01",
+      "qclass": "PA",
+      "register": "prose",
+      "role": "primary_fit",
+      "structure": "data_display",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "data_table"
+      ],
+      "canonical": "data_table",
+      "composite_reachable": true,
+      "concept": "tabular data display",
+      "leg1_rule_reachable": true,
+      "leg3_spec_component_reachable": true,
+      "problem": "P01",
+      "qclass": "PA",
+      "register": "prose",
+      "role": "primary_fit",
+      "structure": "data_display",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "rule_wizard_flow"
+      ],
+      "canonical": "rule_wizard_flow",
+      "composite_reachable": true,
+      "concept": "wizard flow rule",
+      "leg1_rule_reachable": true,
+      "leg3_spec_component_reachable": false,
+      "problem": "P02",
+      "qclass": "PA",
+      "register": "prose",
+      "role": "source_rule",
+      "structure": "decision_rule",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "stepper"
+      ],
+      "canonical": "stepper",
+      "composite_reachable": true,
+      "concept": "step indicator",
+      "leg1_rule_reachable": true,
+      "leg3_spec_component_reachable": true,
+      "problem": "P02",
+      "qclass": "PA",
+      "register": "prose",
+      "role": "primary_fit",
+      "structure": "navigation",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "form_validation"
+      ],
+      "canonical": "form_validation",
+      "composite_reachable": true,
+      "concept": "inline form validation",
+      "leg1_rule_reachable": true,
+      "leg3_spec_component_reachable": true,
+      "problem": "P02",
+      "qclass": "PA",
+      "register": "prose",
+      "role": "constraint_alternative",
+      "structure": "forms",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "progress_bar"
+      ],
+      "canonical": "progress_bar",
+      "composite_reachable": true,
+      "concept": "progress indicator",
+      "leg1_rule_reachable": true,
+      "leg3_spec_component_reachable": true,
+      "problem": "P02",
+      "qclass": "PA",
+      "register": "prose",
+      "role": "alternative",
+      "structure": "feedback",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "rule_large_dataset"
+      ],
+      "canonical": "rule_large_dataset",
+      "composite_reachable": true,
+      "concept": "large dataset rule",
+      "leg1_rule_reachable": true,
+      "leg3_spec_component_reachable": false,
+      "problem": "P03",
+      "qclass": "PA",
+      "register": "prose",
+      "role": "source_rule",
+      "structure": "decision_rule",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "data_table"
+      ],
+      "canonical": "data_table",
+      "composite_reachable": true,
+      "concept": "tabular data display",
+      "leg1_rule_reachable": true,
+      "leg3_spec_component_reachable": true,
+      "problem": "P03",
+      "qclass": "PA",
+      "register": "prose",
+      "role": "primary_fit",
+      "structure": "data_display",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "pagination"
+      ],
+      "canonical": "pagination",
+      "composite_reachable": true,
+      "concept": "pagination control",
+      "leg1_rule_reachable": true,
+      "leg3_spec_component_reachable": true,
+      "problem": "P03",
+      "qclass": "PA",
+      "register": "prose",
+      "role": "constraint_alternative",
+      "structure": "navigation",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "rule_blocking_action"
+      ],
+      "canonical": "rule_blocking_action",
+      "composite_reachable": true,
+      "concept": "blocking action rule",
+      "leg1_rule_reachable": true,
+      "leg3_spec_component_reachable": false,
+      "problem": "P04",
+      "qclass": "PA",
+      "register": "prose",
+      "role": "source_rule",
+      "structure": "decision_rule",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "modal"
+      ],
+      "canonical": "modal",
+      "composite_reachable": true,
+      "concept": "modal overlay",
+      "leg1_rule_reachable": true,
+      "leg3_spec_component_reachable": true,
+      "problem": "P04",
+      "qclass": "PA",
+      "register": "prose",
+      "role": "primary_fit",
+      "structure": "feedback",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "dialog"
+      ],
+      "canonical": "dialog",
+      "composite_reachable": true,
+      "concept": "confirmation dialog",
+      "leg1_rule_reachable": true,
+      "leg3_spec_component_reachable": true,
+      "problem": "P04",
+      "qclass": "PA",
+      "register": "prose",
+      "role": "primary_fit",
+      "structure": "feedback",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "rule_loading_skeleton"
+      ],
+      "canonical": "rule_loading_skeleton",
+      "composite_reachable": true,
+      "concept": "loading skeleton rule",
+      "leg1_rule_reachable": true,
+      "leg3_spec_component_reachable": false,
+      "problem": "P05",
+      "qclass": "PA",
+      "register": "prose",
+      "role": "source_rule",
+      "structure": "decision_rule",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "skeleton"
+      ],
+      "canonical": "skeleton",
+      "composite_reachable": true,
+      "concept": "skeleton placeholder",
+      "leg1_rule_reachable": true,
+      "leg3_spec_component_reachable": true,
+      "problem": "P05",
+      "qclass": "PA",
+      "register": "prose",
+      "role": "primary_fit",
+      "structure": "feedback",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "rule_metrics"
+      ],
+      "canonical": "rule_metrics",
+      "composite_reachable": true,
+      "concept": "metrics rule",
+      "leg1_rule_reachable": true,
+      "leg3_spec_component_reachable": false,
+      "problem": "P06",
+      "qclass": "PA",
+      "register": "prose",
+      "role": "source_rule",
+      "structure": "decision_rule",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "stat_card"
+      ],
+      "canonical": "stat_card",
+      "composite_reachable": true,
+      "concept": "metric card",
+      "leg1_rule_reachable": true,
+      "leg3_spec_component_reachable": true,
+      "problem": "P06",
+      "qclass": "PA",
+      "register": "prose",
+      "role": "primary_fit",
+      "structure": "data_display",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "data_chart"
+      ],
+      "canonical": "data_chart",
+      "composite_reachable": true,
+      "concept": "chart",
+      "leg1_rule_reachable": true,
+      "leg3_spec_component_reachable": true,
+      "problem": "P06",
+      "qclass": "PA",
+      "register": "prose",
+      "role": "primary_fit",
+      "structure": "data_display",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "rule_deep_hierarchy"
+      ],
+      "canonical": "rule_deep_hierarchy",
+      "composite_reachable": true,
+      "concept": "deep hierarchy rule",
+      "leg1_rule_reachable": true,
+      "leg3_spec_component_reachable": false,
+      "problem": "P07",
+      "qclass": "PA",
+      "register": "prose",
+      "role": "source_rule",
+      "structure": "decision_rule",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "sidebar"
+      ],
+      "canonical": "sidebar",
+      "composite_reachable": true,
+      "concept": "sidebar navigation",
+      "leg1_rule_reachable": true,
+      "leg3_spec_component_reachable": true,
+      "problem": "P07",
+      "qclass": "PA",
+      "register": "prose",
+      "role": "primary_fit",
+      "structure": "navigation",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "tree_view"
+      ],
+      "canonical": "tree_view",
+      "composite_reachable": true,
+      "concept": "tree navigation",
+      "leg1_rule_reachable": true,
+      "leg3_spec_component_reachable": true,
+      "problem": "P07",
+      "qclass": "PA",
+      "register": "prose",
+      "role": "primary_fit",
+      "structure": "data_display",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "breadcrumb"
+      ],
+      "canonical": "breadcrumb",
+      "composite_reachable": true,
+      "concept": "breadcrumb trail",
+      "leg1_rule_reachable": true,
+      "leg3_spec_component_reachable": true,
+      "problem": "P07",
+      "qclass": "PA",
+      "register": "prose",
+      "role": "alternative",
+      "structure": "navigation",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "rule_color_only"
+      ],
+      "canonical": "rule_color_only",
+      "composite_reachable": true,
+      "concept": "color-only anti-pattern rule",
+      "leg1_rule_reachable": true,
+      "leg3_spec_component_reachable": false,
+      "problem": "P08",
+      "qclass": "PA",
+      "register": "prose",
+      "role": "source_rule",
+      "structure": "decision_rule",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "tooltip"
+      ],
+      "canonical": "tooltip",
+      "composite_reachable": true,
+      "concept": "tooltip label to disambiguate",
+      "leg1_rule_reachable": true,
+      "leg3_spec_component_reachable": true,
+      "problem": "P08",
+      "qclass": "PA",
+      "register": "prose",
+      "role": "constraint_alternative",
+      "structure": "data_display",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "stat_card"
+      ],
+      "canonical": "stat_card",
+      "composite_reachable": true,
+      "concept": "metric card",
+      "leg1_rule_reachable": true,
+      "leg3_spec_component_reachable": true,
+      "problem": "P09",
+      "qclass": "PB",
+      "register": "prose",
+      "role": "primary_fit",
+      "structure": "data_display",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "data_table"
+      ],
+      "canonical": "data_table",
+      "composite_reachable": true,
+      "concept": "tabular data display",
+      "leg1_rule_reachable": true,
+      "leg3_spec_component_reachable": true,
+      "problem": "P09",
+      "qclass": "PB",
+      "register": "prose",
+      "role": "primary_fit",
+      "structure": "data_display",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "grid"
+      ],
+      "canonical": "grid",
+      "composite_reachable": true,
+      "concept": "responsive grid container",
+      "leg1_rule_reachable": true,
+      "leg3_spec_component_reachable": true,
+      "problem": "P09",
+      "qclass": "PB",
+      "register": "prose",
+      "role": "alternative",
+      "structure": "layout",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "badge"
+      ],
+      "canonical": "badge",
+      "composite_reachable": true,
+      "concept": "labelled badge",
+      "leg1_rule_reachable": true,
+      "leg3_spec_component_reachable": true,
+      "problem": "P10",
+      "qclass": "PB",
+      "register": "prose",
+      "role": "primary_fit",
+      "structure": "data_display",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "tag"
+      ],
+      "canonical": "tag",
+      "composite_reachable": true,
+      "concept": "text tag",
+      "leg1_rule_reachable": false,
+      "leg3_spec_component_reachable": true,
+      "problem": "P10",
+      "qclass": "PB",
+      "register": "prose",
+      "role": "alternative",
+      "structure": "data_display",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "tooltip"
+      ],
+      "canonical": "tooltip",
+      "composite_reachable": true,
+      "concept": "tooltip label",
+      "leg1_rule_reachable": true,
+      "leg3_spec_component_reachable": true,
+      "problem": "P10",
+      "qclass": "PB",
+      "register": "prose",
+      "role": "constraint_alternative",
+      "structure": "data_display",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "modal"
+      ],
+      "canonical": "modal",
+      "composite_reachable": true,
+      "concept": "focus-trapping modal",
+      "leg1_rule_reachable": true,
+      "leg3_spec_component_reachable": true,
+      "problem": "P11",
+      "qclass": "PB",
+      "register": "prose",
+      "role": "primary_fit",
+      "structure": "feedback",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "dialog"
+      ],
+      "canonical": "dialog",
+      "composite_reachable": true,
+      "concept": "confirmation dialog",
+      "leg1_rule_reachable": true,
+      "leg3_spec_component_reachable": true,
+      "problem": "P11",
+      "qclass": "PB",
+      "register": "prose",
+      "role": "primary_fit",
+      "structure": "feedback",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "grid"
+      ],
+      "canonical": "grid",
+      "composite_reachable": true,
+      "concept": "grid of tiles",
+      "leg1_rule_reachable": true,
+      "leg3_spec_component_reachable": true,
+      "problem": "P12",
+      "qclass": "PB",
+      "register": "prose",
+      "role": "primary_fit",
+      "structure": "layout",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "card"
+      ],
+      "canonical": "card",
+      "composite_reachable": true,
+      "concept": "tile card",
+      "leg1_rule_reachable": true,
+      "leg3_spec_component_reachable": true,
+      "problem": "P12",
+      "qclass": "PB",
+      "register": "prose",
+      "role": "primary_fit",
+      "structure": "data_display",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "responsive_columns"
+      ],
+      "canonical": "responsive_columns",
+      "composite_reachable": true,
+      "concept": "responsive columns",
+      "leg1_rule_reachable": true,
+      "leg3_spec_component_reachable": true,
+      "problem": "P12",
+      "qclass": "PB",
+      "register": "prose",
+      "role": "alternative",
+      "structure": "layout",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "toggle_switch"
+      ],
+      "canonical": "toggle_switch",
+      "composite_reachable": true,
+      "concept": "toggle switch control",
+      "leg1_rule_reachable": false,
+      "leg3_spec_component_reachable": true,
+      "problem": "P13",
+      "qclass": "PB",
+      "register": "prose",
+      "role": "primary_fit",
+      "structure": "forms",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "accordion"
+      ],
+      "canonical": "accordion",
+      "composite_reachable": true,
+      "concept": "collapsible grouping",
+      "leg1_rule_reachable": true,
+      "leg3_spec_component_reachable": true,
+      "problem": "P13",
+      "qclass": "PB",
+      "register": "prose",
+      "role": "constraint_alternative",
+      "structure": "data_display",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "progress_bar"
+      ],
+      "canonical": "progress_bar",
+      "composite_reachable": true,
+      "concept": "progress indicator",
+      "leg1_rule_reachable": true,
+      "leg3_spec_component_reachable": true,
+      "problem": "P14",
+      "qclass": "PB",
+      "register": "prose",
+      "role": "primary_fit",
+      "structure": "feedback",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "toast"
+      ],
+      "canonical": "toast",
+      "composite_reachable": true,
+      "concept": "completion toast",
+      "leg1_rule_reachable": true,
+      "leg3_spec_component_reachable": true,
+      "problem": "P14",
+      "qclass": "PB",
+      "register": "prose",
+      "role": "primary_fit",
+      "structure": "feedback",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "spinner"
+      ],
+      "canonical": "spinner",
+      "composite_reachable": true,
+      "concept": "spinner",
+      "leg1_rule_reachable": true,
+      "leg3_spec_component_reachable": true,
+      "problem": "P14",
+      "qclass": "PB",
+      "register": "prose",
+      "role": "alternative",
+      "structure": "feedback",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "empty_state"
+      ],
+      "canonical": "empty_state",
+      "composite_reachable": true,
+      "concept": "empty state",
+      "leg1_rule_reachable": true,
+      "leg3_spec_component_reachable": true,
+      "problem": "P15",
+      "qclass": "PB",
+      "register": "prose",
+      "role": "primary_fit",
+      "structure": "feedback",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "command_palette"
+      ],
+      "canonical": "command_palette",
+      "composite_reachable": true,
+      "concept": "command palette",
+      "leg1_rule_reachable": true,
+      "leg3_spec_component_reachable": true,
+      "problem": "P16",
+      "qclass": "PB",
+      "register": "prose",
+      "role": "primary_fit",
+      "structure": "navigation",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "search_input"
+      ],
+      "canonical": "search_input",
+      "composite_reachable": true,
+      "concept": "search input",
+      "leg1_rule_reachable": true,
+      "leg3_spec_component_reachable": true,
+      "problem": "P16",
+      "qclass": "PB",
+      "register": "prose",
+      "role": "alternative",
+      "structure": "forms",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "autocomplete"
+      ],
+      "canonical": "autocomplete",
+      "composite_reachable": true,
+      "concept": "autocomplete",
+      "leg1_rule_reachable": true,
+      "leg3_spec_component_reachable": true,
+      "problem": "P16",
+      "qclass": "PB",
+      "register": "prose",
+      "role": "alternative",
+      "structure": "forms",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "data_table"
+      ],
+      "canonical": "data_table",
+      "composite_reachable": true,
+      "concept": "tabular data display",
+      "leg1_rule_reachable": true,
+      "leg3_spec_component_reachable": true,
+      "problem": "P17",
+      "qclass": "TK",
+      "register": "token",
+      "role": "primary_fit",
+      "structure": "data_display",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "tree_view"
+      ],
+      "canonical": "tree_view",
+      "composite_reachable": true,
+      "concept": "tree navigation",
+      "leg1_rule_reachable": true,
+      "leg3_spec_component_reachable": true,
+      "problem": "P18",
+      "qclass": "TK",
+      "register": "token",
+      "role": "primary_fit",
+      "structure": "data_display",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "command_palette"
+      ],
+      "canonical": "command_palette",
+      "composite_reachable": true,
+      "concept": "command palette",
+      "leg1_rule_reachable": true,
+      "leg3_spec_component_reachable": true,
+      "problem": "P19",
+      "qclass": "TK",
+      "register": "token",
+      "role": "primary_fit",
+      "structure": "navigation",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "toggle_switch"
+      ],
+      "canonical": "toggle_switch",
+      "composite_reachable": true,
+      "concept": "toggle switch control",
+      "leg1_rule_reachable": false,
+      "leg3_spec_component_reachable": true,
+      "problem": "P20",
+      "qclass": "TK",
+      "register": "token",
+      "role": "primary_fit",
+      "structure": "forms",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "date_picker"
+      ],
+      "canonical": "date_picker",
+      "composite_reachable": true,
+      "concept": "date picker",
+      "leg1_rule_reachable": true,
+      "leg3_spec_component_reachable": true,
+      "problem": "P21",
+      "qclass": "TK",
+      "register": "token",
+      "role": "primary_fit",
+      "structure": "forms",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "empty_state"
+      ],
+      "canonical": "empty_state",
+      "composite_reachable": true,
+      "concept": "empty state",
+      "leg1_rule_reachable": true,
+      "leg3_spec_component_reachable": true,
+      "problem": "P22",
+      "qclass": "TK",
+      "register": "token",
+      "role": "primary_fit",
+      "structure": "feedback",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "stepper"
+      ],
+      "canonical": "stepper",
+      "composite_reachable": true,
+      "concept": "step indicator (rich KB spec)",
+      "leg1_rule_reachable": true,
+      "leg3_spec_component_reachable": true,
+      "problem": "P23",
+      "qclass": "SEED",
+      "register": "token",
+      "role": "primary_fit",
+      "structure": "navigation",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "dropdown_menu"
+      ],
+      "canonical": "dropdown_menu",
+      "composite_reachable": true,
+      "concept": "dropdown menu (rich KB spec)",
+      "leg1_rule_reachable": true,
+      "leg3_spec_component_reachable": true,
+      "problem": "P24",
+      "qclass": "SEED",
+      "register": "token",
+      "role": "primary_fit",
+      "structure": "overlay",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "text_input"
+      ],
+      "canonical": "text_input",
+      "composite_reachable": true,
+      "concept": "text input field",
+      "leg1_rule_reachable": false,
+      "leg3_spec_component_reachable": true,
+      "problem": "P25",
+      "qclass": "SEED",
+      "register": "token",
+      "role": "primary_fit",
+      "structure": "forms",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "navbar"
+      ],
+      "canonical": "navbar",
+      "composite_reachable": true,
+      "concept": "navigation bar",
+      "leg1_rule_reachable": true,
+      "leg3_spec_component_reachable": true,
+      "problem": "P26",
+      "qclass": "SEED",
+      "register": "token",
+      "role": "primary_fit",
+      "structure": "navigation",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "modal"
+      ],
+      "canonical": "modal",
+      "composite_reachable": true,
+      "concept": "modal overlay (rich KB spec)",
+      "leg1_rule_reachable": true,
+      "leg3_spec_component_reachable": true,
+      "problem": "P27",
+      "qclass": "SEED",
+      "register": "token",
+      "role": "primary_fit",
+      "structure": "feedback",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "badge"
+      ],
+      "canonical": "badge",
+      "composite_reachable": true,
+      "concept": "count badge",
+      "leg1_rule_reachable": true,
+      "leg3_spec_component_reachable": true,
+      "problem": "P28",
+      "qclass": "CE",
+      "register": "prose",
+      "role": "primary_fit",
+      "structure": "data_display",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "color_picker"
+      ],
+      "canonical": "color_picker",
+      "composite_reachable": true,
+      "concept": "colour picker",
+      "leg1_rule_reachable": false,
+      "leg3_spec_component_reachable": true,
+      "problem": "P29",
+      "qclass": "CE",
+      "register": "prose",
+      "role": "primary_fit",
+      "structure": "forms",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [],
+      "canonical": "product-tour-coachmark",
+      "concept": "product tour / coach-mark overlay",
+      "problem": "P30",
+      "qclass": "CE",
+      "register": "prose",
+      "role": "primary_fit",
+      "structure": "__absent__",
+      "verdict": "A"
+    },
+    {
+      "acceptable_ids": [],
+      "canonical": "resizable-splitter",
+      "concept": "resizable split-pane handle",
+      "problem": "P31",
+      "qclass": "CE",
+      "register": "prose",
+      "role": "primary_fit",
+      "structure": "__absent__",
+      "verdict": "A"
+    }
+  ],
+  "spec_id": "theia-Gmetric-v1",
+  "status": "FROZEN",
+  "story": "story-af407698",
+  "title": "Frozen blind design-selection retrieval scorecard for the Theia retrofit"
+}

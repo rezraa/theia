@@ -74,18 +74,21 @@ class TestToolCallSitesNoNoneLeak:
     """Wrong-typed/absent container args must not leak None into the tools."""
 
     def test_audit_design_wrong_type_signals(self):
-        # structural_signals as a bare string -> coerce(...) or [] -> [].
-        result = audit_design(description="x", structural_signals="oops")
-        assert result["matched_rules"] == []
+        # matched_signal_ids as a bare string -> coerce(...) or [] -> [] -> abstain.
+        result = audit_design(description="x", matched_signal_ids="oops")
+        assert result["retrieval_state"] == "no_match"
         assert result["design_issues"] == []
+        assert result["accessibility_flags"] == []
 
     def test_audit_design_wrong_type_constraints(self):
+        # constraints as a bare string -> coerce(...) or {} -> {}; junk ids abstain.
         result = audit_design(
             description="x",
-            structural_signals=["color-only"],
+            matched_signal_ids=["color-only"],
             constraints="prod",
         )
         assert isinstance(result, dict)
+        assert result["constraints_analyzed"] == {}
 
     def test_plan_design_system_none_platforms_defaults_web(self):
         result = plan_design_system(product_description="a CRM", platforms=None)

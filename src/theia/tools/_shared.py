@@ -39,6 +39,90 @@ def get_knowledge(conn: Any = None) -> KnowledgeLoader:
 
 
 # ---------------------------------------------------------------------------
+# Caller-boundary ceilings — one source of truth, shared by every Shape-C tool
+# ---------------------------------------------------------------------------
+# The retrieval engine bounds its own fan-out (_SEED_CAP/_TOPK_CAP in
+# theia.knowledge.loader); these bound the UNTRUSTED caller input BEFORE that
+# engine is reached, applied where the cost is incurred. Declared once here so a
+# second Shape-C tool cannot drift a second copy. Mirror of the shipped
+# coeus.tools._shared ceilings (kept faithful by the firewall drift test).
+#
+# ENFORCEMENT is forward-staged to S3-S5, where the concern tools pass
+# caller-supplied signal ids / constraints into ``hydrate``. The only Shape-C tool
+# wired at S1 — ``get_signal_index`` — is ZERO-ARG and reaches no caller input, so
+# nothing consumes these yet; they are the named ceiling the S3-S5 wiring binds to
+# (council 3e6eeeab, explicit S1 scope: land the constants, stage the enforcement).
+_MAX_MATCHED_SIGNALS = 256       # cap on caller-supplied signal ids, bound BEFORE hydrate
+_MAX_CONSTRAINTS = 64            # cap on constraint-dict cardinality
+_MAX_CONSTRAINT_VALUE_LEN = 256  # cap on each constraint value used in comparison
+_MAX_DESCRIPTION_LEN = 4096      # cap on free-text description (context/telemetry only)
+
+
+def _bounded_constraints(constraints: dict) -> dict:
+    """Bound an untrusted constraints dict at the caller boundary.
+
+    Keeps at most ``_MAX_CONSTRAINTS`` entries and clips each string value to
+    ``_MAX_CONSTRAINT_VALUE_LEN`` characters so an unbounded dict cannot amplify
+    the per-facet comparison cost. Pure sanitisation — never interpretation.
+    Mirror of the shipped coeus.tools._shared helper (firewall: theia.* only).
+    """
+    bounded: dict[str, Any] = {}
+    for key, val in list(constraints.items())[:_MAX_CONSTRAINTS]:
+        bounded[key] = val[:_MAX_CONSTRAINT_VALUE_LEN] if isinstance(val, str) else val
+    return bounded
+
+
+# ---------------------------------------------------------------------------
+# Shared output primitive — the derived related-pattern surface. Every concern
+# tool re-sources each retrieved component's OWN ``related_patterns`` (the
+# remediation / alternatives surface); one resolver and one cap live here so a
+# second concern tool (S4/S5) cannot drift a second copy. Mirror of the shipped
+# coeus.tools._shared helper, adapted to Theia's public loader accessor
+# (``get_component_pattern`` — Theia's flat id->component index).
+# ---------------------------------------------------------------------------
+_MAX_RELATED_OUTPUT = 50   # cap on the deduped related-pattern cross-product a tool
+                           # derives across its k retrieved components (output size, not
+                           # a relevance score — corpus fan-out over k components)
+
+
+def _resolved_edge(
+    getter: Callable[[str], dict | None], node: dict, edge_field: str
+) -> list[dict[str, Any]]:
+    """Resolve a node's edge-list field to ``[{"id", "name"}, ...]``, in corpus order.
+
+    The single edge-resolution core, shared across corpora: each id in
+    ``node[edge_field]`` is resolved via *getter* — the corpus accessor
+    (``get_component_pattern`` for the component index's ``related_patterns``,
+    ``get_design_system`` for the design_systems index's ``related_systems``). A
+    truly-absent id is skipped (it is already surfaced in the retrieval envelope's
+    ``dangling`` field), never a husk. Every per-corpus related surface is a thin
+    adapter over this ONE function, so a second corpus's fan-out is not a drifted
+    second copy — one source of truth per concept (DRY doctrine, binding).
+    """
+    out: list[dict[str, Any]] = []
+    for rid in node.get(edge_field, []):
+        resolved = getter(rid)
+        if resolved is None:
+            continue
+        out.append({"id": resolved["id"], "name": resolved.get("name", rid)})
+    return out
+
+
+def _resolved_related(kb: Any, component: dict) -> list[dict[str, Any]]:
+    """Resolve a component's OWN ``related_patterns`` into ``{pattern_id, pattern_name}``.
+
+    Thin adapter over :func:`_resolved_edge` (the shared edge-resolution core), naming
+    the component-surface keys. The single shared resolver for the related-component
+    surface every concern tool derives from a retrieved component's own field — one
+    source of truth, not one copy per tool.
+    """
+    return [
+        {"pattern_id": e["id"], "pattern_name": e["name"]}
+        for e in _resolved_edge(kb.get_component_pattern, component, "related_patterns")
+    ]
+
+
+# ---------------------------------------------------------------------------
 # Unmatched signal logging — seeds future knowledge base entries
 # ---------------------------------------------------------------------------
 

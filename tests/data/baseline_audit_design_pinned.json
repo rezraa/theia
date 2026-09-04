@@ -1,0 +1,37 @@
+{
+  "_meta": {
+    "spec_id": "theia-audit_design-baseline-capture",
+    "story": "story-5b040677",
+    "what": "Pre-edit audit_design output pinned for BAR-2 before/after (S3). Captured from the legacy source (structural_signals substring matcher + hardcoded _ANTI_PATTERNS island + the pattern.get('accessibility') field-name bug) BEFORE the retrofit, on the AC probe (real problem-language) and on the island vocabulary the legacy tool answered.",
+    "source_sha256_pre_edit": "8e557a34f6c1d58467122cb5db6896300c049c1b164dab1226779c2feb30522e",
+    "legacy_output_keys": ["accessibility_flags", "design_issues", "matched_rules", "recommendations"],
+    "n_anti_patterns_island": 12,
+    "field_name_bug": "legacy read pattern.get('accessibility') but the corpus field is 'accessibility_requirements'; component.get('accessibility') is None on 66/66 components, so accessibility_flags was empty even on a rule match."
+  },
+  "cases": {
+    "real_problem_language": {
+      "signals": [
+        "cards showing KPIs above a table",
+        "status shown only by hue",
+        "popup that traps keyboard focus"
+      ],
+      "matched_rules_count": 0,
+      "design_issues_count": 0,
+      "recommendations_count": 0,
+      "accessibility_flags_count": 0,
+      "full_output": {
+        "matched_rules": [],
+        "design_issues": [],
+        "recommendations": [],
+        "accessibility_flags": []
+      }
+    },
+    "island_tokens": {
+      "signals": ["color-only", "no-labels", "no-focus-indicator"],
+      "matched_rules_count": 0,
+      "design_issues_count": 3,
+      "accessibility_flags_count": 3,
+      "note": "The ONLY vocabulary the legacy tool answered: exact _ANTI_PATTERNS slug keys, not real design language."
+    }
+  }
+}

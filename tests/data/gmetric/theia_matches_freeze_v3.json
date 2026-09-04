@@ -1,0 +1,11 @@
+{
+  "hash_algo": "sha256",
+  "pins": {
+    "component_patterns.json": "fe2ed49663e95e1974c9ffb1f4927b785de2e97aa85877a84f1e14161fc13aef",
+    "problems_blind_v3.json": "2c0883a706bda4416bdc8ea89ebf6a9671f3ff62c35c6032acdf1180547104f1",
+    "theia_matches_v3.json": "a13c8e3881bcaf6cbcd84601614512b25b488e9bae862ce2c7b8615a10216054"
+  },
+  "spec_id": "theia-Gmetric-recognizer-freeze",
+  "story": "story-cb7e532b",
+  "what": "Recognizer trust root: pins the frozen recognition snapshot + the corpus file its signal index derives from (component_patterns.json). Separate from the S0 freeze_manifest.json (which grade._verify_substrate holds to an exact pin set). Regenerating this manifest is the only way to move a pin -- a visible, reviewable act."
+}

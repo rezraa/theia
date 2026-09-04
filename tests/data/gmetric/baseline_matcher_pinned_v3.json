@@ -1,0 +1,1088 @@
+{
+  "RESULT_baseline": {
+    "by_qclass": {
+      "CE": {
+        "10": {
+          "covered": 0,
+          "of": 2,
+          "recall": 0.0
+        },
+        "5": {
+          "covered": 0,
+          "of": 2,
+          "recall": 0.0
+        }
+      },
+      "PA": {
+        "10": {
+          "covered": 25,
+          "of": 25,
+          "recall": 1.0
+        },
+        "5": {
+          "covered": 24,
+          "of": 25,
+          "recall": 0.96
+        }
+      },
+      "PB": {
+        "10": {
+          "covered": 0,
+          "of": 20,
+          "recall": 0.0
+        },
+        "5": {
+          "covered": 0,
+          "of": 20,
+          "recall": 0.0
+        }
+      },
+      "SEED": {
+        "10": {
+          "covered": 4,
+          "of": 5,
+          "recall": 0.8
+        },
+        "5": {
+          "covered": 3,
+          "of": 5,
+          "recall": 0.6
+        }
+      },
+      "TK": {
+        "10": {
+          "covered": 6,
+          "of": 6,
+          "recall": 1.0
+        },
+        "5": {
+          "covered": 6,
+          "of": 6,
+          "recall": 1.0
+        }
+      }
+    },
+    "by_register": {
+      "prose": {
+        "10": {
+          "covered": 25,
+          "of": 47,
+          "recall": 0.5319
+        },
+        "5": {
+          "covered": 24,
+          "of": 47,
+          "recall": 0.5106
+        }
+      },
+      "token": {
+        "10": {
+          "covered": 10,
+          "of": 11,
+          "recall": 0.9091
+        },
+        "5": {
+          "covered": 9,
+          "of": 11,
+          "recall": 0.8182
+        }
+      }
+    },
+    "by_structure": {
+      "data_display": {
+        "10": {
+          "covered": 9,
+          "of": 17,
+          "recall": 0.5294
+        },
+        "5": {
+          "covered": 8,
+          "of": 17,
+          "recall": 0.4706
+        }
+      },
+      "decision_rule": {
+        "10": {
+          "covered": 8,
+          "of": 8,
+          "recall": 1.0
+        },
+        "5": {
+          "covered": 8,
+          "of": 8,
+          "recall": 1.0
+        }
+      },
+      "feedback": {
+        "10": {
+          "covered": 6,
+          "of": 12,
+          "recall": 0.5
+        },
+        "5": {
+          "covered": 5,
+          "of": 12,
+          "recall": 0.4167
+        }
+      },
+      "forms": {
+        "10": {
+          "covered": 3,
+          "of": 8,
+          "recall": 0.375
+        },
+        "5": {
+          "covered": 3,
+          "of": 8,
+          "recall": 0.375
+        }
+      },
+      "layout": {
+        "10": {
+          "covered": 1,
+          "of": 4,
+          "recall": 0.25
+        },
+        "5": {
+          "covered": 1,
+          "of": 4,
+          "recall": 0.25
+        }
+      },
+      "navigation": {
+        "10": {
+          "covered": 7,
+          "of": 8,
+          "recall": 0.875
+        },
+        "5": {
+          "covered": 7,
+          "of": 8,
+          "recall": 0.875
+        }
+      },
+      "overlay": {
+        "10": {
+          "covered": 1,
+          "of": 1,
+          "recall": 1.0
+        },
+        "5": {
+          "covered": 1,
+          "of": 1,
+          "recall": 1.0
+        }
+      }
+    },
+    "covered": {
+      "10": 35,
+      "5": 33
+    },
+    "denominator_E_golds": 58,
+    "method": "baseline_four_surface_matcher",
+    "per_problem": {
+      "P01": {
+        "grades": {
+          "10": {
+            "covered": 4,
+            "covered_golds": [
+              "data_table",
+              "grid",
+              "rule_dashboard_layout",
+              "stat_card"
+            ],
+            "of": 4
+          },
+          "5": {
+            "covered": 4,
+            "covered_golds": [
+              "data_table",
+              "grid",
+              "rule_dashboard_layout",
+              "stat_card"
+            ],
+            "of": 4
+          }
+        },
+        "n_gold_E": 4,
+        "qclass": "PA",
+        "ranked_top10": [
+          "rule_dashboard_layout",
+          "grid",
+          "stat_card",
+          "data_table",
+          "responsive_columns",
+          "card",
+          "data_chart"
+        ],
+        "register": "prose"
+      },
+      "P02": {
+        "grades": {
+          "10": {
+            "covered": 4,
+            "covered_golds": [
+              "form_validation",
+              "progress_bar",
+              "rule_wizard_flow",
+              "stepper"
+            ],
+            "of": 4
+          },
+          "5": {
+            "covered": 4,
+            "covered_golds": [
+              "form_validation",
+              "progress_bar",
+              "rule_wizard_flow",
+              "stepper"
+            ],
+            "of": 4
+          }
+        },
+        "n_gold_E": 4,
+        "qclass": "PA",
+        "ranked_top10": [
+          "rule_wizard_flow",
+          "stepper",
+          "form_validation",
+          "progress_bar",
+          "tabs",
+          "accordion",
+          "dialog"
+        ],
+        "register": "prose"
+      },
+      "P03": {
+        "grades": {
+          "10": {
+            "covered": 3,
+            "covered_golds": [
+              "data_table",
+              "pagination",
+              "rule_large_dataset"
+            ],
+            "of": 3
+          },
+          "5": {
+            "covered": 3,
+            "covered_golds": [
+              "data_table",
+              "pagination",
+              "rule_large_dataset"
+            ],
+            "of": 3
+          }
+        },
+        "n_gold_E": 3,
+        "qclass": "PA",
+        "ranked_top10": [
+          "rule_large_dataset",
+          "data_table",
+          "virtual_scrolling",
+          "pagination",
+          "infinite_scroll",
+          "server_side_pagination",
+          "column_virtualization"
+        ],
+        "register": "prose"
+      },
+      "P04": {
+        "grades": {
+          "10": {
+            "covered": 3,
+            "covered_golds": [
+              "dialog",
+              "modal",
+              "rule_blocking_action"
+            ],
+            "of": 3
+          },
+          "5": {
+            "covered": 3,
+            "covered_golds": [
+              "dialog",
+              "modal",
+              "rule_blocking_action"
+            ],
+            "of": 3
+          }
+        },
+        "n_gold_E": 3,
+        "qclass": "PA",
+        "ranked_top10": [
+          "rule_blocking_action",
+          "modal",
+          "dialog",
+          "alert",
+          "banner",
+          "inline_confirmation"
+        ],
+        "register": "prose"
+      },
+      "P05": {
+        "grades": {
+          "10": {
+            "covered": 2,
+            "covered_golds": [
+              "rule_loading_skeleton",
+              "skeleton"
+            ],
+            "of": 2
+          },
+          "5": {
+            "covered": 2,
+            "covered_golds": [
+              "rule_loading_skeleton",
+              "skeleton"
+            ],
+            "of": 2
+          }
+        },
+        "n_gold_E": 2,
+        "qclass": "PA",
+        "ranked_top10": [
+          "rule_loading_skeleton",
+          "skeleton",
+          "shimmer_animation",
+          "spinner",
+          "progress_bar",
+          "placeholder_text"
+        ],
+        "register": "prose"
+      },
+      "P06": {
+        "grades": {
+          "10": {
+            "covered": 3,
+            "covered_golds": [
+              "data_chart",
+              "rule_metrics",
+              "stat_card"
+            ],
+            "of": 3
+          },
+          "5": {
+            "covered": 3,
+            "covered_golds": [
+              "data_chart",
+              "rule_metrics",
+              "stat_card"
+            ],
+            "of": 3
+          }
+        },
+        "n_gold_E": 3,
+        "qclass": "PA",
+        "ranked_top10": [
+          "rule_metrics",
+          "stat_card",
+          "data_chart",
+          "sparkline",
+          "badge",
+          "progress_bar",
+          "grid"
+        ],
+        "register": "prose"
+      },
+      "P07": {
+        "grades": {
+          "10": {
+            "covered": 4,
+            "covered_golds": [
+              "breadcrumb",
+              "rule_deep_hierarchy",
+              "sidebar",
+              "tree_view"
+            ],
+            "of": 4
+          },
+          "5": {
+            "covered": 4,
+            "covered_golds": [
+              "breadcrumb",
+              "rule_deep_hierarchy",
+              "sidebar",
+              "tree_view"
+            ],
+            "of": 4
+          }
+        },
+        "n_gold_E": 4,
+        "qclass": "PA",
+        "ranked_top10": [
+          "rule_deep_hierarchy",
+          "sidebar",
+          "tree_view",
+          "breadcrumb",
+          "mega_menu",
+          "accordion",
+          "command_palette"
+        ],
+        "register": "prose"
+      },
+      "P08": {
+        "grades": {
+          "10": {
+            "covered": 2,
+            "covered_golds": [
+              "rule_color_only",
+              "tooltip"
+            ],
+            "of": 2
+          },
+          "5": {
+            "covered": 1,
+            "covered_golds": [
+              "rule_color_only"
+            ],
+            "of": 2
+          }
+        },
+        "n_gold_E": 2,
+        "qclass": "PA",
+        "ranked_top10": [
+          "rule_color_only",
+          "badge_with_label",
+          "icon_status",
+          "text_label",
+          "pattern_fill",
+          "shape_coding",
+          "tooltip",
+          "color_60_30_10"
+        ],
+        "register": "prose"
+      },
+      "P09": {
+        "grades": {
+          "10": {
+            "covered": 0,
+            "covered_golds": [],
+            "of": 3
+          },
+          "5": {
+            "covered": 0,
+            "covered_golds": [],
+            "of": 3
+          }
+        },
+        "n_gold_E": 3,
+        "qclass": "PB",
+        "ranked_top10": [],
+        "register": "prose"
+      },
+      "P10": {
+        "grades": {
+          "10": {
+            "covered": 0,
+            "covered_golds": [],
+            "of": 3
+          },
+          "5": {
+            "covered": 0,
+            "covered_golds": [],
+            "of": 3
+          }
+        },
+        "n_gold_E": 3,
+        "qclass": "PB",
+        "ranked_top10": [],
+        "register": "prose"
+      },
+      "P11": {
+        "grades": {
+          "10": {
+            "covered": 0,
+            "covered_golds": [],
+            "of": 2
+          },
+          "5": {
+            "covered": 0,
+            "covered_golds": [],
+            "of": 2
+          }
+        },
+        "n_gold_E": 2,
+        "qclass": "PB",
+        "ranked_top10": [],
+        "register": "prose"
+      },
+      "P12": {
+        "grades": {
+          "10": {
+            "covered": 0,
+            "covered_golds": [],
+            "of": 3
+          },
+          "5": {
+            "covered": 0,
+            "covered_golds": [],
+            "of": 3
+          }
+        },
+        "n_gold_E": 3,
+        "qclass": "PB",
+        "ranked_top10": [],
+        "register": "prose"
+      },
+      "P13": {
+        "grades": {
+          "10": {
+            "covered": 0,
+            "covered_golds": [],
+            "of": 2
+          },
+          "5": {
+            "covered": 0,
+            "covered_golds": [],
+            "of": 2
+          }
+        },
+        "n_gold_E": 2,
+        "qclass": "PB",
+        "ranked_top10": [],
+        "register": "prose"
+      },
+      "P14": {
+        "grades": {
+          "10": {
+            "covered": 0,
+            "covered_golds": [],
+            "of": 3
+          },
+          "5": {
+            "covered": 0,
+            "covered_golds": [],
+            "of": 3
+          }
+        },
+        "n_gold_E": 3,
+        "qclass": "PB",
+        "ranked_top10": [],
+        "register": "prose"
+      },
+      "P15": {
+        "grades": {
+          "10": {
+            "covered": 0,
+            "covered_golds": [],
+            "of": 1
+          },
+          "5": {
+            "covered": 0,
+            "covered_golds": [],
+            "of": 1
+          }
+        },
+        "n_gold_E": 1,
+        "qclass": "PB",
+        "ranked_top10": [],
+        "register": "prose"
+      },
+      "P16": {
+        "grades": {
+          "10": {
+            "covered": 0,
+            "covered_golds": [],
+            "of": 3
+          },
+          "5": {
+            "covered": 0,
+            "covered_golds": [],
+            "of": 3
+          }
+        },
+        "n_gold_E": 3,
+        "qclass": "PB",
+        "ranked_top10": [],
+        "register": "prose"
+      },
+      "P17": {
+        "grades": {
+          "10": {
+            "covered": 1,
+            "covered_golds": [
+              "data_table"
+            ],
+            "of": 1
+          },
+          "5": {
+            "covered": 1,
+            "covered_golds": [
+              "data_table"
+            ],
+            "of": 1
+          }
+        },
+        "n_gold_E": 1,
+        "qclass": "TK",
+        "ranked_top10": [
+          "data_table"
+        ],
+        "register": "token"
+      },
+      "P18": {
+        "grades": {
+          "10": {
+            "covered": 1,
+            "covered_golds": [
+              "tree_view"
+            ],
+            "of": 1
+          },
+          "5": {
+            "covered": 1,
+            "covered_golds": [
+              "tree_view"
+            ],
+            "of": 1
+          }
+        },
+        "n_gold_E": 1,
+        "qclass": "TK",
+        "ranked_top10": [
+          "tree_view"
+        ],
+        "register": "token"
+      },
+      "P19": {
+        "grades": {
+          "10": {
+            "covered": 1,
+            "covered_golds": [
+              "command_palette"
+            ],
+            "of": 1
+          },
+          "5": {
+            "covered": 1,
+            "covered_golds": [
+              "command_palette"
+            ],
+            "of": 1
+          }
+        },
+        "n_gold_E": 1,
+        "qclass": "TK",
+        "ranked_top10": [
+          "command_palette"
+        ],
+        "register": "token"
+      },
+      "P20": {
+        "grades": {
+          "10": {
+            "covered": 1,
+            "covered_golds": [
+              "toggle_switch"
+            ],
+            "of": 1
+          },
+          "5": {
+            "covered": 1,
+            "covered_golds": [
+              "toggle_switch"
+            ],
+            "of": 1
+          }
+        },
+        "n_gold_E": 1,
+        "qclass": "TK",
+        "ranked_top10": [
+          "toggle_switch"
+        ],
+        "register": "token"
+      },
+      "P21": {
+        "grades": {
+          "10": {
+            "covered": 1,
+            "covered_golds": [
+              "date_picker"
+            ],
+            "of": 1
+          },
+          "5": {
+            "covered": 1,
+            "covered_golds": [
+              "date_picker"
+            ],
+            "of": 1
+          }
+        },
+        "n_gold_E": 1,
+        "qclass": "TK",
+        "ranked_top10": [
+          "date_picker"
+        ],
+        "register": "token"
+      },
+      "P22": {
+        "grades": {
+          "10": {
+            "covered": 1,
+            "covered_golds": [
+              "empty_state"
+            ],
+            "of": 1
+          },
+          "5": {
+            "covered": 1,
+            "covered_golds": [
+              "empty_state"
+            ],
+            "of": 1
+          }
+        },
+        "n_gold_E": 1,
+        "qclass": "TK",
+        "ranked_top10": [
+          "empty_state"
+        ],
+        "register": "token"
+      },
+      "P23": {
+        "grades": {
+          "10": {
+            "covered": 1,
+            "covered_golds": [
+              "stepper"
+            ],
+            "of": 1
+          },
+          "5": {
+            "covered": 1,
+            "covered_golds": [
+              "stepper"
+            ],
+            "of": 1
+          }
+        },
+        "n_gold_E": 1,
+        "qclass": "SEED",
+        "ranked_top10": [
+          "stepper"
+        ],
+        "register": "token"
+      },
+      "P24": {
+        "grades": {
+          "10": {
+            "covered": 1,
+            "covered_golds": [
+              "dropdown_menu"
+            ],
+            "of": 1
+          },
+          "5": {
+            "covered": 1,
+            "covered_golds": [
+              "dropdown_menu"
+            ],
+            "of": 1
+          }
+        },
+        "n_gold_E": 1,
+        "qclass": "SEED",
+        "ranked_top10": [
+          "dropdown_menu"
+        ],
+        "register": "token"
+      },
+      "P25": {
+        "grades": {
+          "10": {
+            "covered": 0,
+            "covered_golds": [],
+            "of": 1
+          },
+          "5": {
+            "covered": 0,
+            "covered_golds": [],
+            "of": 1
+          }
+        },
+        "n_gold_E": 1,
+        "qclass": "SEED",
+        "ranked_top10": [
+          "rule_form_errors",
+          "alert_inline",
+          "form_validation",
+          "error_message",
+          "toast",
+          "banner",
+          "tooltip",
+          "rule_form_labels",
+          "wcag_3_3_2",
+          "wcag_1_3_1"
+        ],
+        "register": "token"
+      },
+      "P26": {
+        "grades": {
+          "10": {
+            "covered": 1,
+            "covered_golds": [
+              "navbar"
+            ],
+            "of": 1
+          },
+          "5": {
+            "covered": 1,
+            "covered_golds": [
+              "navbar"
+            ],
+            "of": 1
+          }
+        },
+        "n_gold_E": 1,
+        "qclass": "SEED",
+        "ranked_top10": [
+          "rule_app_shell",
+          "sidebar_layout",
+          "sidebar",
+          "navbar",
+          "drawer",
+          "top_navigation",
+          "responsive_columns",
+          "rule_deep_hierarchy",
+          "tree_view",
+          "breadcrumb"
+        ],
+        "register": "token"
+      },
+      "P27": {
+        "grades": {
+          "10": {
+            "covered": 1,
+            "covered_golds": [
+              "modal"
+            ],
+            "of": 1
+          },
+          "5": {
+            "covered": 0,
+            "covered_golds": [],
+            "of": 1
+          }
+        },
+        "n_gold_E": 1,
+        "qclass": "SEED",
+        "ranked_top10": [
+          "rule_modal_alternatives",
+          "inline_expansion",
+          "drawer",
+          "page_navigation",
+          "popover",
+          "accordion",
+          "toast",
+          "modal"
+        ],
+        "register": "token"
+      },
+      "P28": {
+        "grades": {
+          "10": {
+            "covered": 0,
+            "covered_golds": [],
+            "of": 1
+          },
+          "5": {
+            "covered": 0,
+            "covered_golds": [],
+            "of": 1
+          }
+        },
+        "n_gold_E": 1,
+        "qclass": "CE",
+        "ranked_top10": [],
+        "register": "prose"
+      },
+      "P29": {
+        "grades": {
+          "10": {
+            "covered": 0,
+            "covered_golds": [],
+            "of": 1
+          },
+          "5": {
+            "covered": 0,
+            "covered_golds": [],
+            "of": 1
+          }
+        },
+        "n_gold_E": 1,
+        "qclass": "CE",
+        "ranked_top10": [],
+        "register": "prose"
+      },
+      "P30": {
+        "grades": {
+          "10": {
+            "covered": 0,
+            "covered_golds": [],
+            "of": 0
+          },
+          "5": {
+            "covered": 0,
+            "covered_golds": [],
+            "of": 0
+          }
+        },
+        "n_gold_E": 0,
+        "qclass": "CE",
+        "ranked_top10": [],
+        "register": "prose"
+      },
+      "P31": {
+        "grades": {
+          "10": {
+            "covered": 0,
+            "covered_golds": [],
+            "of": 0
+          },
+          "5": {
+            "covered": 0,
+            "covered_golds": [],
+            "of": 0
+          }
+        },
+        "n_gold_E": 0,
+        "qclass": "CE",
+        "ranked_top10": [],
+        "register": "prose"
+      }
+    },
+    "recall": {
+      "10": 0.6034,
+      "5": 0.569
+    }
+  },
+  "captured_utc": "2026-09-03T16:57:40Z",
+  "determinism": {
+    "answer_key_sha256": "ee32b73cc1867ea1570f2fb77fa0bf90fa19d9127fb1ac5bd4c40b57d7088f72",
+    "fresh_loader_runs": 3,
+    "note": "byte-identical across 3 fresh KnowledgeLoader instances. The reproducibility invariant is THIS result_core_sha256 (stable across PYTHONHASHSEED flips and fresh loaders), NOT the sha256 of this file, which carries captured_utc and changes on every re-pin.",
+    "result_core_sha256": "2a8dd30ce9359dabe50c006b5b483016bde3e8220d29464f84a00ac902f3adfd"
+  },
+  "method_note": "BASELINE ranked output = the deterministic UNION of the four current Theia surfaces (e920f1f4-decision-1): match_structural_signals (rule id + recommended_patterns + alternatives, priority order) -> spec_component exact-id/_COMPONENT_ARCHETYPES -> audit_design _ANTI_PATTERNS -> plan_design_system keywords leg; dedup first-seen. The two auxiliary legs emit WCAG-space / design-system-space ids and surface no component/rule id -- run (not strawmanned OUT), measured empty.",
+  "spec_id": "theia-Gmetric-v1-baseline-capture",
+  "story": "story-af407698",
+  "substrate_self_certification": {
+    "checks": {
+      "accessibility_standards.json": {
+        "cur": "11716bc4a2d810ebb2087f53e9c05e5c91fbc672349fc4f00db36ecdef0c670c",
+        "match": true,
+        "pin": "11716bc4a2d810ebb2087f53e9c05e5c91fbc672349fc4f00db36ecdef0c670c"
+      },
+      "answer_key_sha256": {
+        "cur": "ee32b73cc1867ea1570f2fb77fa0bf90fa19d9127fb1ac5bd4c40b57d7088f72",
+        "match": true,
+        "pin": "ee32b73cc1867ea1570f2fb77fa0bf90fa19d9127fb1ac5bd4c40b57d7088f72"
+      },
+      "component_patterns.json": {
+        "cur": "fe2ed49663e95e1974c9ffb1f4927b785de2e97aa85877a84f1e14161fc13aef",
+        "match": true,
+        "pin": "fe2ed49663e95e1974c9ffb1f4927b785de2e97aa85877a84f1e14161fc13aef"
+      },
+      "decision_rules.json": {
+        "cur": "d5e6971dbcaf4baa5c6dd7dbfd43da1bc2b26c9fe35e2e4adb3cf016c281e5b6",
+        "match": true,
+        "pin": "d5e6971dbcaf4baa5c6dd7dbfd43da1bc2b26c9fe35e2e4adb3cf016c281e5b6"
+      },
+      "design_systems.json": {
+        "cur": "017e569c0558493898424ff8896e981fbeca58eae085a0154de221e9dc7e0a40",
+        "match": true,
+        "pin": "017e569c0558493898424ff8896e981fbeca58eae085a0154de221e9dc7e0a40"
+      },
+      "gmetric_v3.json": {
+        "cur": "ea52fa1bc53fa89fc429db2f3186a6ab237aa216201cc05d95b8781f55d78003",
+        "match": true,
+        "pin": "ea52fa1bc53fa89fc429db2f3186a6ab237aa216201cc05d95b8781f55d78003"
+      },
+      "problems_blind_v3.json": {
+        "cur": "2c0883a706bda4416bdc8ea89ebf6a9671f3ff62c35c6032acdf1180547104f1",
+        "match": true,
+        "pin": "2c0883a706bda4416bdc8ea89ebf6a9671f3ff62c35c6032acdf1180547104f1"
+      }
+    },
+    "trust_root": "freeze_manifest_v3.json"
+  },
+  "three_meters_never_conflated": {
+    "meter_1_recall": {
+      "10": 0.6034,
+      "5": 0.569
+    },
+    "meter_2_content_coverage": {
+      "content_coverage_E_over_total": 0.9667,
+      "content_coverage_by_qclass": {
+        "CE": {
+          "A": 2,
+          "B": 0,
+          "E": 2,
+          "coverage_E_over_total": 0.5,
+          "total": 4
+        },
+        "PA": {
+          "A": 0,
+          "B": 0,
+          "E": 25,
+          "coverage_E_over_total": 1.0,
+          "total": 25
+        },
+        "PB": {
+          "A": 0,
+          "B": 0,
+          "E": 20,
+          "coverage_E_over_total": 1.0,
+          "total": 20
+        },
+        "SEED": {
+          "A": 0,
+          "B": 0,
+          "E": 5,
+          "coverage_E_over_total": 1.0,
+          "total": 5
+        },
+        "TK": {
+          "A": 0,
+          "B": 0,
+          "E": 6,
+          "coverage_E_over_total": 1.0,
+          "total": 6
+        }
+      },
+      "definition": "Does the gold concept EXIST in the 240-node corpus, by DIRECT corpus check? E=standalone component/rule (or naming variant); B=embedded/borderline only; A=absent. Independent of any retrieval method (m-0364c120: a miss is not a content gap).",
+      "pooled_number_warning": "The pooled coverage mixes mainstream selection (PA/PB/TK/SEED) with deliberately-probed canon-edge cases (CE). Read the by_qclass split, not the pool (m-e8ccb163).",
+      "tally": {
+        "A_absent": 2,
+        "B_borderline": 0,
+        "E_exists": 58
+      },
+      "total_golds": 60
+    },
+    "meter_3_matcher_reachable_ceiling": {
+      "composite": {
+        "benchmark_E_golds_composite_reachable": 58,
+        "benchmark_E_golds_total": 58,
+        "composite_reachable_ceiling": 1.0,
+        "reading": "The composite wiring ceiling is high (content + wiring both present), yet recall@10 on the BLIND problem-language queries is low -- the gap is a REACHABILITY gap (register mismatch: prose queries do not trigger the exact-substring rule leg nor the exact-token spec_component leg), NOT a content gap. Answered by measurement, not assumed (m-0364c120)."
+      },
+      "definition": "Ceiling on what the CURRENT four-surface matcher could ever retrieve, by corpus WIRING (query-independent). Split per leg because each leg caps a different register.",
+      "leg1_match_structural_signals": {
+        "benchmark_E_golds_leg1_reachable": 53,
+        "corpus_component_count": 66,
+        "corpus_components_rule_wired": 47,
+        "corpus_rule_refs_dangling_note": "216 of 263 distinct rec/alt refs dangle (193 present nowhere in the 240-node corpus) -- the m-0364c120 reachability defect in a content-gap costume.",
+        "corpus_rule_refs_total": 362,
+        "definition": "A component is rule-reachable iff some rule names it as a REAL recommended_pattern or alternative. Dangling refs resolve to husk stubs (loader.py:197), NOT the real component, and do not count. This caps the PA/PB (rule-prose) register."
+      },
+      "leg3_spec_component": {
+        "benchmark_E_golds_leg3_reachable": 50,
+        "definition": "Every real component id is resolvable by spec_component via its own exact-id token (hyphen/underscore normalised), so the corpus ceiling over component golds is total -- but ONLY a token query triggers it (the TK/SEED register). Archetype-only aliases whose id is not a real component (input, navigation) resolve to a HUSK, not the real id."
+      }
+    },
+    "note": "THREE denominators, never conflated (m-0364c120). Content EXISTS vs matcher WIRING vs RECALL."
+  },
+  "what_this_is": "Pinned CURRENT four-surface matcher (grade.rank_baseline) baseline over the frozen theia-Gmetric-v1 set. This is the number the later retrieval engine must beat on the SAME queries + corpus. NOT a strawman: the PA class feeds verbatim rule-prose signals the matcher was built to answer."
+}

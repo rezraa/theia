@@ -14,7 +14,14 @@ from __future__ import annotations
 import copy
 from typing import Any
 
-from theia.tools._shared import coerce, emit_event, get_knowledge
+from theia.knowledge.loader import DANGLING, NO_MATCH
+from theia.tools._shared import (
+    _MAX_MATCHED_SIGNALS,
+    _resolved_edge,
+    coerce,
+    emit_event,
+    get_knowledge,
+)
 
 # ---------------------------------------------------------------------------
 # Token architecture templates — keyed by platform constraints
@@ -176,27 +183,46 @@ def plan_design_system(
     platforms: list[str] | None = None,
     brand_attributes: list[str] | None = None,
     existing_system: str | None = None,
+    matched_signal_ids: list[str] | None = None,
     conn: object = None,
 ) -> dict:
     """Plan a design system architecture.
 
+    The base-system foundation is retrieved through the shared Shape-C engine over
+    the design_systems signal index: the caller (the LLM) recognises the product's
+    structural signals against ``get_system_signal_index`` and passes the matched
+    ids; the nearest existing system is hydrated and fanned out over its
+    ``related_systems``, or the tool ABSTAINS to an honest custom foundation with a
+    reason. The generative token / hierarchy / responsive / theming scaffolding below
+    is unchanged.
+
     Args:
         product_description: Description of the product or product line
-            the design system will serve.
+            the design system will serve. Context/telemetry only — the base-system
+            match is driven by ``matched_signal_ids``, not this free text.
         platforms: Target platforms, e.g. ["web", "mobile", "desktop"].
             Defaults to ["web"].
         brand_attributes: Optional brand personality keywords, e.g.
             ["professional", "warm", "accessible"].
         existing_system: Optional ID of an existing design system in the
-            knowledge base to use as a starting point.
+            knowledge base to use as a starting point (explicit-id path).
+        matched_signal_ids: Signal ids the caller recognised against
+            ``get_system_signal_index`` (problem-language -> sig-id). Drives the
+            base-system match when ``existing_system`` is not supplied; bounded at
+            the caller boundary before hydrate.
         conn: Kuzu/LadybugDB connection for graph mode, or None for JSON.
 
     Returns:
         Dict with keys: recommended_foundation, token_architecture,
         component_hierarchy, responsive_strategy, theming_approach.
+        ``recommended_foundation`` carries the retrieval envelope
+        (``retrieval_state`` / ``unmatched`` / ``dangling``) and, on a match, the
+        nearest system's ``related_systems`` fan-out; a true miss abstains to the
+        honest ``custom`` / ``create`` foundation with a reason (never a silent husk).
     """
     platforms = coerce(platforms, list) or ["web"]
     brand_attributes = coerce(brand_attributes, list) or []
+    matched_signal_ids = coerce(matched_signal_ids, list) or []
 
     kb = get_knowledge(conn)
 
@@ -215,53 +241,58 @@ def plan_design_system(
             }
 
     if not recommended_foundation:
-        # Match product description keywords against design system signals
-        desc_lower = product_description.lower()
-        categories = kb.list_design_system_categories()
-        best_match: dict | None = None
-        best_score = 0
-
-        for cat in categories:
-            systems = kb.get_design_systems_by_category(cat)
-            for system in systems:
-                score = 0
-                sys_name = system.get("name", "").lower()
-                sys_desc = system.get("description", "").lower()
-                sys_keywords = [
-                    kw.lower()
-                    for kw in system.get("keywords", [])
-                ]
-
-                # Check keyword overlap with product description
-                for kw in sys_keywords:
-                    if kw in desc_lower:
-                        score += 2
-                if sys_name in desc_lower:
-                    score += 1
-                # Category match
-                if cat.lower() in desc_lower:
-                    score += 1
-
-                if score > best_score:
-                    best_score = score
-                    best_match = system
-
-        if best_match:
-            recommended_foundation = {
-                "base_system": best_match.get("id", ""),
-                "name": best_match.get("name", ""),
-                "description": best_match.get("description", ""),
-                "rationale": "Matched based on product description keywords",
-                "extend_or_fork": "fork",
-                "match_confidence": min(best_score / 6.0, 1.0),
-            }
-        else:
+        # Base-system match via the shared Shape-C engine over the design_systems
+        # signal index (signal field ``signals``, live fan-out edge ``related_systems``)
+        # — the SAME parameterized primitives the component index uses, zero new engine
+        # code. This REPLACES the degenerate keyword scorer that read a ``keywords``
+        # field no system carries, so best_score stayed 0 and every product defaulted
+        # to 'custom'. The caller recognised the product's signals against
+        # ``get_system_signal_index``; we hydrate the nearest existing system and fan
+        # out over its related_systems, or ABSTAIN with a reason (four-state envelope).
+        res = kb.hydrate_systems(matched_signal_ids[:_MAX_MATCHED_SIGNALS])
+        envelope = {
+            "retrieval_state": res.state,
+            "unmatched": list(res.unmatched_signals),
+            "dangling": list(res.dangling),
+        }
+        if res.state in (NO_MATCH, DANGLING) or not res.patterns:
+            # Correct ABSTENTION, not a husk: the honest custom/create foundation with
+            # a reason naming why no existing system was hydrated. Distinguishable from
+            # a real match by the retrieval envelope the silent legacy 'custom' lacked.
             recommended_foundation = {
                 "base_system": "custom",
                 "name": "Custom Design System",
                 "description": "No existing system matched; building from scratch",
-                "rationale": "Product description did not match any existing system",
+                "rationale": (
+                    "No recognised product signal mapped to an existing design system "
+                    f"(retrieval_state={res.state}); building a custom foundation."
+                ),
                 "extend_or_fork": "create",
+                "related_systems": [],
+                **envelope,
+            }
+        else:
+            # HIT / LOW_CONFIDENCE: hydrate the nearest existing system (the top-ranked
+            # direct-vote seed) and surface its own related_systems fan-out. The
+            # envelope's state flags a low-confidence (single-vote) match honestly.
+            nearest = res.patterns[0]
+            related_systems = [
+                {"system_id": e["id"], "system_name": e["name"]}
+                for e in _resolved_edge(kb.get_design_system, nearest, "related_systems")
+            ]
+            recommended_foundation = {
+                "base_system": nearest["id"],
+                "name": nearest.get("name", nearest["id"]),
+                "description": nearest.get("description", ""),
+                "rationale": (
+                    "Matched on recognised product signals; nearest existing system "
+                    "hydrated through the design_systems index and fanned out over its "
+                    "related_systems."
+                ),
+                "extend_or_fork": "fork",
+                "related_systems": related_systems,
+                "retrieval": dict(nearest["retrieval"]),
+                **envelope,
             }
 
     # 2. Build token architecture based on platforms

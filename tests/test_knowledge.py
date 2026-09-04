@@ -124,39 +124,14 @@ class TestAccessibilityRetrieval:
             assert c.get("principle", "").lower() == "operable"
 
 
-class TestStructuralSignalMatching:
-    """Test decision rule matching against structural signals."""
-
-    def test_match_structural_signals(self, kb):
-        results = kb.match_structural_signals(
-            ["dashboard with metric cards and data tables"]
-        )
-        assert len(results) >= 1
-        rule_ids = [r["rule"]["id"] for r in results]
-        assert "rule_dashboard_layout" in rule_ids
-
-    def test_match_no_signals(self, kb):
-        results = kb.match_structural_signals([])
-        assert results == []
-
-    def test_match_returns_recommended_patterns(self, kb):
-        results = kb.match_structural_signals(
-            ["dashboard with metric cards and data tables"]
-        )
-        assert len(results) >= 1
-        # Each result should have recommended_patterns list
-        for r in results:
-            assert "recommended_patterns" in r
-            assert isinstance(r["recommended_patterns"], list)
-
-    def test_match_multiple_signals(self, kb):
-        results = kb.match_structural_signals([
-            "dashboard with metric cards and data tables",
-            "form with 10+ fields",
-        ])
-        rule_ids = [r["rule"]["id"] for r in results]
-        assert "rule_dashboard_layout" in rule_ids
-        assert "rule_long_form" in rule_ids
+# RETIRED at S6 (story-041efcf4): class TestStructuralSignalMatching — its four unit
+# tests (test_match_structural_signals / _no_signals / _returns_recommended_patterns /
+# _multiple_signals) exercised loader.match_structural_signals, the exact-substring matcher
+# DELETED from both loaders at S6 (zero shipping/tool callers survived S3-S5). Coverage
+# delta: the matcher's frozen input->output is preserved byte-identically by the grader's
+# LEG-1 source-recompute (tests/data/gmetric/grade._match_structural_signals_leg) and
+# pinned by the S0/BAR-1/s2 suites (result_core sha 2a8dd30c, covered@10 35). No live
+# retrieval loses coverage — the production path is the two-index engine.
 
 
 class TestConstraintFiltering:

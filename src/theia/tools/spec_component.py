@@ -1,374 +1,225 @@
 # Copyright (c) 2026 Reza Malik. Licensed under the Apache License, Version 2.0.
-"""MCP tool: spec_component
+"""MCP tool: spec_component — wired onto the Shape-C retrieval engine (SEED-FROM-NODE).
 
-Generate detailed component specification with states, variants,
-accessibility, and responsive behavior.
+The SECOND Theia concern tool retrofitted onto the shared engine (audit_design is the
+S3 sibling; council 3e6eeeab). Where audit_design drives recognize-then-retrieve from
+caller-supplied signal ids, spec_component SEEDS retrieval from a resolved component's
+OWN signals (the suggest_refactor precedent, m-10b6fbf1 / 7cd08a1f-decision-0):
 
-The agent (LLM) identifies a component type and context.  This tool
-looks up the component in the knowledge base and returns a full
-specification enriched with accessibility requirements.
+1. RESOLVE ``component_type`` -> a known corpus id (exact, then hyphen<->underscore
+   normalisation). On a hit, SEED retrieval from that component's OWN signals —
+   ``kb.signal_ids_for(id)`` -> ONE ``kb.hydrate`` whose one-hop fan-out expands over
+   the component's ``related_patterns`` edge (S2). The seed always outranks its
+   propagated-only neighbours (the engine's direct-vote tier), so the resolved
+   component is the spec's primary.
+2. On a NON-resolving type (e.g. 'parking-space-tile') accept an OPTIONAL
+   ``matched_signal_ids`` so the agent drives recognize-then-retrieve against
+   ``get_signal_index`` -> nearest component(s), flagged ``nearest`` on the result.
+   Caller-supplied ids are bounded at the shared ``_MAX_MATCHED_SIGNALS`` ceiling
+   BEFORE hydrate; seed ids on the resolved path are derived internally (no caller
+   attack surface).
+3. On no_match/dangling (neither a known id nor recognised signals) FAIL LOUD: an
+   empty spec + the retrieval envelope, NEVER the ['container','content'] husk.
+4. RETURN the primary component's OWN corpus fields — anatomy, states, variants
+   (``variants_needed`` filters the component's OWN variants, not a husk append),
+   accessibility_requirements, common_mistakes, responsive_behavior,
+   design_tokens_needed — plus the deduped related-component surface and the retrieval
+   envelope (``retrieval_state``/``from_knowledge_base``/``unmatched``/``dangling``) on
+   the RESULT (370e7443-decision-6).
+
+Every field is READ from the resolved component's corpus record — the accessibility
+surface is that component's own ``accessibility_requirements`` list, and states /
+responsive_behavior / design_tokens_needed are its own corpus fields — so a spec is
+exactly the component's recorded design, never a computed or hardcoded stand-in.
+
+Firewall: imports theia.* only.
 """
 
 from __future__ import annotations
 
 from typing import Any
 
-from theia.tools._shared import coerce, emit_event, get_knowledge
+from theia.knowledge.loader import DANGLING, NO_MATCH
+from theia.tools._shared import (
+    _MAX_DESCRIPTION_LEN,
+    _MAX_MATCHED_SIGNALS,
+    _MAX_RELATED_OUTPUT,
+    _resolved_related,
+    coerce,
+    emit_event,
+    get_knowledge,
+)
 
-# ---------------------------------------------------------------------------
-# Default states and responsive breakpoints for components
-# ---------------------------------------------------------------------------
-
-_DEFAULT_STATES: list[str] = [
-    "default",
-    "hover",
-    "active",
-    "focus",
-    "disabled",
-    "loading",
-]
-
-_INTERACTIVE_STATES: list[str] = [
-    "default",
-    "hover",
-    "active",
-    "focus",
-    "focus-visible",
-    "disabled",
-    "loading",
-    "error",
-    "success",
-]
-
-_RESPONSIVE_BREAKPOINTS: dict[str, dict[str, Any]] = {
-    "web": {
-        "breakpoints": ["sm (640px)", "md (768px)", "lg (1024px)", "xl (1280px)"],
-        "strategy": "Fluid with breakpoint adjustments",
-    },
-    "mobile": {
-        "breakpoints": ["compact (320px)", "medium (375px)", "expanded (428px)"],
-        "strategy": "Full-width with padding adjustments",
-    },
-    "desktop": {
-        "breakpoints": ["compact (1024px)", "medium (1280px)", "expanded (1440px+)"],
-        "strategy": "Fixed or fluid within application chrome",
-    },
-}
-
-# ---------------------------------------------------------------------------
-# Common component archetypes — fallback when not in KB
-# ---------------------------------------------------------------------------
-
-_COMPONENT_ARCHETYPES: dict[str, dict[str, Any]] = {
-    "button": {
-        "anatomy": ["container", "label", "icon (optional)", "loading-indicator (optional)"],
-        "states": _INTERACTIVE_STATES,
-        "default_variants": ["primary", "secondary", "tertiary", "destructive", "ghost"],
-        "a11y_role": "button",
-        "common_mistakes": [
-            "Using <div> instead of <button> element",
-            "Missing disabled state announcement",
-            "Icon-only button without accessible label",
-            "Touch target smaller than 44x44px",
-        ],
-    },
-    "input": {
-        "anatomy": ["container", "label", "input-field", "helper-text", "error-text", "prefix (optional)", "suffix (optional)"],
-        "states": ["default", "hover", "focus", "filled", "disabled", "read-only", "error", "success"],
-        "default_variants": ["text", "password", "email", "number", "search", "textarea"],
-        "a11y_role": "textbox",
-        "common_mistakes": [
-            "Placeholder text used as label",
-            "Error state communicated only by color",
-            "Missing aria-describedby for helper/error text",
-            "No visible focus indicator",
-        ],
-    },
-    "modal": {
-        "anatomy": ["overlay", "container", "header", "close-button", "body", "footer (optional)"],
-        "states": ["closed", "opening", "open", "closing"],
-        "default_variants": ["default", "full-screen", "drawer", "alert"],
-        "a11y_role": "dialog",
-        "common_mistakes": [
-            "Focus not trapped inside modal",
-            "No return focus to trigger element on close",
-            "Missing aria-modal attribute",
-            "Escape key does not close modal",
-            "Background content still scrollable",
-        ],
-    },
-    "card": {
-        "anatomy": ["container", "media (optional)", "header", "body", "footer (optional)", "actions (optional)"],
-        "states": ["default", "hover", "focus", "selected", "disabled"],
-        "default_variants": ["default", "outlined", "elevated", "interactive"],
-        "a11y_role": "article",
-        "common_mistakes": [
-            "Entire card as link but with nested interactive elements",
-            "Missing heading hierarchy within card",
-            "Images without alt text",
-            "Inconsistent action placement",
-        ],
-    },
-    "data-table": {
-        "anatomy": ["container", "header-row", "header-cell", "body-row", "body-cell", "sort-indicator", "pagination", "toolbar (optional)"],
-        "states": ["default", "loading", "empty", "error", "row-selected", "row-hover"],
-        "default_variants": ["default", "compact", "striped", "bordered"],
-        "a11y_role": "table",
-        "common_mistakes": [
-            "Missing <th> scope attributes",
-            "Sort state not announced to screen readers",
-            "Pagination not keyboard accessible",
-            "No caption or accessible name for the table",
-            "Responsive table loses row context on small screens",
-        ],
-    },
-    "navigation": {
-        "anatomy": ["container", "nav-item", "active-indicator", "group-label (optional)", "collapse-toggle (optional)"],
-        "states": ["default", "hover", "active", "focus", "expanded", "collapsed"],
-        "default_variants": ["horizontal", "vertical", "sidebar", "bottom-bar", "breadcrumb"],
-        "a11y_role": "navigation",
-        "common_mistakes": [
-            "Missing nav landmark with aria-label",
-            "Current page not indicated with aria-current",
-            "Dropdown menus not keyboard accessible",
-            "Mobile navigation not reachable without JavaScript",
-        ],
-    },
-    "select": {
-        "anatomy": ["trigger", "label", "selected-value", "dropdown", "option", "option-group (optional)", "search (optional)"],
-        "states": ["default", "hover", "focus", "open", "disabled", "error"],
-        "default_variants": ["single", "multi", "searchable", "grouped"],
-        "a11y_role": "listbox",
-        "common_mistakes": [
-            "Custom select not keyboard navigable",
-            "Options not announced by screen readers",
-            "Missing association between label and control",
-            "Type-ahead search not implemented",
-        ],
-    },
-    "toast": {
-        "anatomy": ["container", "icon (optional)", "message", "action (optional)", "dismiss-button"],
-        "states": ["entering", "visible", "exiting", "dismissed"],
-        "default_variants": ["info", "success", "warning", "error"],
-        "a11y_role": "status",
-        "common_mistakes": [
-            "Not using aria-live region",
-            "Auto-dismiss too fast for screen reader users",
-            "Stacking toasts that obscure content",
-            "Action button in toast not keyboard accessible",
-        ],
-    },
-}
+# The output keys carried by both the populated spec and the fail-closed abstention,
+# so a caller sees one stable shape whatever the retrieval state (one source of truth
+# for the empty spec, never a husk).
+_SPEC_FIELDS: tuple[str, ...] = (
+    "anatomy",
+    "states",
+    "variants",
+    "accessibility_requirements",
+    "common_mistakes",
+    "responsive_behavior",
+    "design_tokens_needed",
+)
 
 
-# ---------------------------------------------------------------------------
-# Main tool
-# ---------------------------------------------------------------------------
+def _resolve_component_id(kb: Any, component_type: str) -> str | None:
+    """Resolve a caller ``component_type`` to a known corpus id, else ``None``.
+
+    Exact id first, then the hyphen<->underscore normalisation the legacy tool used
+    (``data-table`` <-> ``data_table``). Returns the component's own ``id`` (never the
+    caller string), so the seed is always a real corpus node.
+    """
+    cl = component_type.lower().strip()
+    for cand in (cl, cl.replace("-", "_"), cl.replace("_", "-")):
+        node = kb.get_component_pattern(cand)
+        if node is not None:
+            return node["id"]
+    return None
+
+
+def _empty_spec(component_type: str, envelope: dict, *, nearest: bool) -> dict:
+    """The fail-closed spec: the component echo + the envelope, every field empty.
+
+    The single abstention shape (no_match/dangling) — a populated envelope stating
+    WHY, never the ['container','content'] husk that narrated a miss as an answer.
+    """
+    result: dict[str, Any] = {
+        "component": component_type,
+        "component_id": None,
+        "component_name": "",
+        "description": "",
+        "related_components": [],
+        "from_knowledge_base": False,
+        "nearest": nearest,
+        **{field: [] for field in _SPEC_FIELDS},
+        **envelope,
+    }
+    return result
+
 
 def spec_component(
     component_type: str,
     context: str = "",
     variants_needed: list[str] | None = None,
-    platform: str = "web",
+    matched_signal_ids: list[str] | None = None,
     conn: object = None,
 ) -> dict:
-    """Generate a detailed component specification.
+    """Generate a component specification from the component's OWN corpus fields.
 
     Args:
-        component_type: The type of component, e.g. "button", "modal",
-            "data-table", "card".
-        context: Optional context for how the component will be used.
-        variants_needed: Optional list of specific variants to include.
-            If None, all default variants are returned.
-        platform: Target platform ("web", "mobile", "desktop").
-            Defaults to "web".
+        component_type: The component to spec, e.g. "navbar", "modal", "data-table".
+            Resolved to a corpus id (exact + hyphen/underscore normalisation).
+        context: Optional usage context — context/telemetry only (bounded at the
+            caller boundary, never surfaced), mirroring audit_design's description.
+        variants_needed: Optional variant names to keep; filters the component's OWN
+            variants (a filter, never a husk append). None -> all own variants.
+        matched_signal_ids: OPTIONAL signal ids the caller recognised against
+            ``get_signal_index`` — used ONLY when ``component_type`` does not resolve,
+            to retrieve the nearest component(s) (flagged ``nearest``). Bounded at the
+            caller boundary. Ignored on a resolving type (the seed is derived
+            internally from the resolved component's own signals).
         conn: Kuzu/LadybugDB connection for graph mode, or None for JSON.
 
     Returns:
-        Dict with keys: component, anatomy, states, variants,
-        accessibility, responsive_behavior, design_tokens, common_mistakes.
+        Dict with the component echo (``component``/``component_id``/``component_name``/
+        ``description``), the primary component's OWN fields (``anatomy``/``states``/
+        ``variants``/``accessibility_requirements``/``common_mistakes``/
+        ``responsive_behavior``/``design_tokens_needed``), the deduped
+        ``related_components`` fan-out, and the retrieval envelope
+        (``from_knowledge_base``/``nearest``/``retrieval_state``/``unmatched``/
+        ``dangling``). Fail-closed: a true miss returns the empty spec + envelope,
+        never a husk.
     """
+    context = context[:_MAX_DESCRIPTION_LEN] if isinstance(context, str) else ""
     variants_needed = coerce(variants_needed, list) or []
-    platform = platform or "web"
+    matched_signal_ids = coerce(matched_signal_ids, list) or []
 
     kb = get_knowledge(conn)
 
-    # 1. Look up component in KB
-    component_lower = component_type.lower().strip()
-    kb_pattern = kb.get_component_pattern(component_lower)
+    # 1. Resolve the component_type to a known corpus id (exact + normalisation).
+    resolved_id = _resolve_component_id(kb, component_type)
 
-    # Also try with hyphens replaced by underscores and vice versa
-    if not kb_pattern:
-        alt_id = component_lower.replace("-", "_")
-        kb_pattern = kb.get_component_pattern(alt_id)
-    if not kb_pattern:
-        alt_id = component_lower.replace("_", "-")
-        kb_pattern = kb.get_component_pattern(alt_id)
-
-    # 2. Build base spec from KB or archetype fallback
-    archetype = _COMPONENT_ARCHETYPES.get(component_lower)
-
-    if kb_pattern:
-        anatomy = kb_pattern.get("anatomy", archetype["anatomy"] if archetype else [])
-        states = kb_pattern.get("states", archetype["states"] if archetype else _DEFAULT_STATES)
-        all_variants = kb_pattern.get("variants", archetype["default_variants"] if archetype else [])
-        a11y_role = kb_pattern.get("a11y_role", archetype["a11y_role"] if archetype else "")
-        common_mistakes = kb_pattern.get("common_mistakes", archetype["common_mistakes"] if archetype else [])
-        description = kb_pattern.get("description", "")
-    elif archetype:
-        anatomy = archetype["anatomy"]
-        states = archetype["states"]
-        all_variants = archetype["default_variants"]
-        a11y_role = archetype["a11y_role"]
-        common_mistakes = archetype["common_mistakes"]
-        description = f"Standard {component_type} component"
+    # 2. Seed selection. Resolved -> seed from the component's OWN signals (derived
+    #    internally, no caller attack surface). Non-resolving -> the caller's
+    #    recognised signal ids, bounded at the shared ceiling BEFORE hydrate; that
+    #    path is the NEAREST match, flagged as such on the result.
+    if resolved_id is not None:
+        seed_ids = kb.signal_ids_for(resolved_id)
+        nearest = False
     else:
-        # Completely unknown component — return structural skeleton
-        anatomy = ["container", "content"]
-        states = list(_DEFAULT_STATES)
-        all_variants = ["default"]
-        a11y_role = ""
-        common_mistakes = []
-        description = f"Custom {component_type} component"
+        seed_ids = matched_signal_ids[:_MAX_MATCHED_SIGNALS]
+        nearest = bool(seed_ids)
 
-    # Filter variants if specific ones requested
+    # 3. Retrieve through ONE hydrate call (the proven four-state fail-closed envelope).
+    res = kb.hydrate(seed_ids)
+    envelope = {
+        "retrieval_state": res.state,
+        "unmatched": list(res.unmatched_signals),
+        "dangling": list(res.dangling),
+    }
+
+    # 4. Fail LOUD on a true miss — empty spec + retrieval_state, NEVER the husk.
+    #    (no seed at all -> NO_MATCH from an empty hydrate; recognised-but-empty ->
+    #    NO_MATCH; ids resolving only to absent nodes -> DANGLING.)
+    if res.state in (NO_MATCH, DANGLING) or not res.patterns:
+        result = _empty_spec(component_type, envelope, nearest=nearest)
+        emit_event("spec_component", {
+            "component_type": component_type,
+            "from_knowledge_base": False,
+            "retrieval_state": res.state,
+            "nearest": nearest,
+            "variants_count": 0,
+            "context": context[:120],
+        })
+        return result
+
+    # 5. Primary = the resolved seed (located by id; it outranks its propagated-only
+    #    neighbours by the engine's direct-vote tier) or, on the nearest path, the
+    #    top-ranked hydrated component.
+    if resolved_id is not None:
+        primary = next((p for p in res.patterns if p["id"] == resolved_id), res.patterns[0])
+    else:
+        primary = res.patterns[0]
+
+    # 6. Filter the primary's OWN variants by variants_needed — a filter over its own
+    #    {name, when_to_use} variants, never a husk append of unknown names.
+    own_variants = [dict(v) for v in primary.get("variants", [])]
     if variants_needed:
-        variants = [v for v in all_variants if v in variants_needed]
-        # Include any requested variants not in the default set
-        for v in variants_needed:
-            if v not in variants:
-                variants.append(v)
+        wanted = {str(v).strip().lower() for v in variants_needed}
+        variants = [v for v in own_variants if str(v.get("name", "")).strip().lower() in wanted]
     else:
-        variants = list(all_variants)
+        variants = own_variants
 
-    # 3. Enrich with accessibility requirements from KB
-    accessibility: dict[str, Any] = {
-        "role": a11y_role,
-        "keyboard_interaction": [],
-        "aria_attributes": [],
-        "focus_management": "",
-        "screen_reader_announcements": [],
-    }
-
-    # Look up relevant WCAG criteria
-    relevant_criteria: list[dict[str, Any]] = []
-
-    # Always check Level A
-    a_criteria = kb.get_criteria_by_level("A")
-    relevant_criteria.extend(a_criteria)
-
-    # Add AA for standard compliance
-    aa_criteria = kb.get_criteria_by_level("AA")
-    relevant_criteria.extend(aa_criteria)
-
-    # Extract relevant accessibility guidance based on component role
-    a11y_requirements: list[str] = []
-    for criterion in relevant_criteria:
-        criterion_desc = criterion.get("description", "").lower()
-        criterion_name = criterion.get("name", "").lower()
-
-        # Check if the criterion is relevant to this component type
-        if a11y_role == "button" and any(
-            kw in criterion_desc for kw in ["keyboard", "focus", "name", "role"]
-        ):
-            a11y_requirements.append(
-                f"{criterion.get('id', '')}: {criterion.get('name', '')}"
-            )
-        elif a11y_role == "textbox" and any(
-            kw in criterion_desc for kw in ["label", "input", "error", "instruction"]
-        ):
-            a11y_requirements.append(
-                f"{criterion.get('id', '')}: {criterion.get('name', '')}"
-            )
-        elif a11y_role == "dialog" and any(
-            kw in criterion_desc for kw in ["focus", "keyboard", "trap", "modal"]
-        ):
-            a11y_requirements.append(
-                f"{criterion.get('id', '')}: {criterion.get('name', '')}"
-            )
-        elif a11y_role == "navigation" and any(
-            kw in criterion_desc for kw in ["navigation", "landmark", "heading", "link"]
-        ):
-            a11y_requirements.append(
-                f"{criterion.get('id', '')}: {criterion.get('name', '')}"
-            )
-        elif a11y_role == "table" and any(
-            kw in criterion_desc for kw in ["table", "header", "data", "relationship"]
-        ):
-            a11y_requirements.append(
-                f"{criterion.get('id', '')}: {criterion.get('name', '')}"
-            )
-        elif a11y_role and any(
-            kw in criterion_desc for kw in ["keyboard", "focus", "name", "role", "state"]
-        ):
-            a11y_requirements.append(
-                f"{criterion.get('id', '')}: {criterion.get('name', '')}"
-            )
-
-    accessibility["wcag_requirements"] = a11y_requirements
-
-    # Standard keyboard interactions based on role
-    keyboard_map: dict[str, list[str]] = {
-        "button": ["Enter/Space to activate", "Tab to move focus"],
-        "textbox": ["Tab to focus", "Type to input", "Escape to clear/cancel"],
-        "dialog": ["Escape to close", "Tab cycles through focusable elements", "Focus trapped within dialog"],
-        "listbox": ["Arrow keys to navigate options", "Enter to select", "Type-ahead to filter", "Escape to close"],
-        "navigation": ["Tab/Arrow keys to navigate items", "Enter to activate", "Escape to close submenus"],
-        "table": ["Arrow keys to navigate cells", "Tab to move between interactive elements"],
-        "status": ["Announced automatically by screen readers via aria-live"],
-        "article": ["Tab to move between interactive elements within card"],
-    }
-
-    accessibility["keyboard_interaction"] = keyboard_map.get(a11y_role, ["Tab to focus", "Enter to activate"])
-
-    # 4. Responsive behavior
-    resp = _RESPONSIVE_BREAKPOINTS.get(platform.lower(), _RESPONSIVE_BREAKPOINTS["web"])
-    responsive_behavior: list[dict[str, Any]] = [
-        {
-            "platform": platform,
-            "breakpoints": resp["breakpoints"],
-            "strategy": resp["strategy"],
-            "adaptations": [],
-        }
-    ]
-
-    # 5. Design tokens relevant to this component
-    design_tokens: list[str] = [
-        f"{component_lower}-background",
-        f"{component_lower}-foreground",
-        f"{component_lower}-border",
-        f"{component_lower}-border-radius",
-        f"{component_lower}-padding",
-        f"{component_lower}-font-size",
-        f"{component_lower}-font-weight",
-        f"{component_lower}-min-height",
-    ]
-
-    # Add state-specific tokens
-    for state in states:
-        if state not in ("default", "loading"):
-            design_tokens.append(f"{component_lower}-{state}-background")
-            design_tokens.append(f"{component_lower}-{state}-foreground")
-
-    # 6. Build result
-    result: dict[str, Any] = {
+    # 7. Build the spec from the primary's OWN corpus fields + the deduped related-
+    #    component fan-out (the shared _resolved_related primitive), surfacing the
+    #    envelope + from_knowledge_base on the RESULT.
+    result = {
         "component": component_type,
-        "description": description,
-        "anatomy": anatomy,
-        "states": states,
+        "component_id": primary["id"],
+        "component_name": primary.get("name", primary["id"]),
+        "description": primary.get("description", ""),
+        "anatomy": list(primary.get("anatomy", [])),
+        "states": list(primary.get("states", [])),
         "variants": variants,
-        "accessibility": accessibility,
-        "responsive_behavior": responsive_behavior,
-        "design_tokens": design_tokens,
-        "common_mistakes": common_mistakes,
+        "accessibility_requirements": list(primary.get("accessibility_requirements", [])),
+        "common_mistakes": list(primary.get("common_mistakes", [])),
+        "responsive_behavior": list(primary.get("responsive_behavior", [])),
+        "design_tokens_needed": list(primary.get("design_tokens_needed", [])),
+        "related_components": _resolved_related(kb, primary)[:_MAX_RELATED_OUTPUT],
+        "from_knowledge_base": True,
+        "nearest": nearest,
+        **envelope,
     }
 
     emit_event("spec_component", {
         "component_type": component_type,
-        "platform": platform,
+        "from_knowledge_base": True,
+        "retrieval_state": res.state,
+        "nearest": nearest,
         "variants_count": len(variants),
-        "from_knowledge_base": kb_pattern is not None,
-        "context": context[:120] if context else "",
+        "context": context[:120],
     })
 
     return result

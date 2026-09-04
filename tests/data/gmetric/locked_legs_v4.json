@@ -1,0 +1,70 @@
+{
+  "LEG_1_primary_delta": {
+    "delta_bar": 0.2,
+    "engine_min_covered_at_10": 37,
+    "engine_min_recall_at_10": 0.74,
+    "equivalently": "engine covers >= 37 of 50 E-golds (baseline 27 + 10)",
+    "rule": "recall@10(engine) - recall@10(baseline=0.54) >= 0.2",
+    "why": "The problem-language gap the baseline scores 0 on is 22/50 of the set; recovering ~half of it is a clearly-not-noise win. Because PA/TK are already maxed, the delta can ONLY be earned in PB/CE/SEED -- the win is forced into the target classes."
+  },
+  "LEG_2_design_works_floor": {
+    "engine_min_covered_at_10": 40,
+    "equivalently": "engine covers >= 40 of 50 E-golds",
+    "floor": 0.8,
+    "rule": "recall@10(engine) >= 0.8",
+    "why": "Establishes the new path surfaces a strong majority of what is reachable, not merely that it beats a matcher already at 0.60 on its own idiom. The floor must exceed the baseline meaningfully to mean anything."
+  },
+  "LEG_3_distribution_wins": {
+    "min_problems_ge_baseline": 27,
+    "n_problems": 31,
+    "rule": "engine covered@10 >= baseline covered@10 on >= 27 of 31 problems",
+    "why": "Guards against a win concentrated in a few problems AND against regressing the 18 PA/TK/SEED problems the matcher already covers. Because those are maxed, the LEG_1 delta can only be earned in PB/CE -- the win is forced to land in the target classes."
+  },
+  "baseline_snapshot": {
+    "by_qclass_at_10": {
+      "CE": {
+        "covered": 0,
+        "of": 2,
+        "recall": 0.0
+      },
+      "PA": {
+        "covered": 17,
+        "of": 17,
+        "recall": 1.0
+      },
+      "PB": {
+        "covered": 0,
+        "of": 20,
+        "recall": 0.0
+      },
+      "SEED": {
+        "covered": 4,
+        "of": 5,
+        "recall": 0.8
+      },
+      "TK": {
+        "covered": 6,
+        "of": 6,
+        "recall": 1.0
+      }
+    },
+    "covered_at_10": 27,
+    "denominator_E_golds": 50,
+    "not_a_strawman": "PA (verbatim rule-prose) baseline = 17/17 = 1.0; the matcher answers its own idiom perfectly. TK (component tokens) = 6/6 = 1.0.",
+    "recall_at_10": 0.54,
+    "the_number_that_lies": "The pooled recall@10 0.54 hides the register split: the entire problem-language register (PB 0/20, CE 0/2) is 0.0. Read the by_qclass split, never the pool (m-e8ccb163)."
+  },
+  "ceilings_for_interpretation": {
+    "composite_matcher_reachable_ceiling": 1.0,
+    "content_coverage_E_over_total": 0.9667,
+    "content_coverage_mainstream": 1.0,
+    "engine_content_ceiling": "~1.0 of the E-golds: every E-gold exists in the corpus and is wired to be reachable (composite ceiling 1.0). The recall gap is purely REACHABILITY -- problem-language queries do not trigger the exact legs -- not content (m-0364c120)."
+  },
+  "is_the_bar_for": "the later Theia retrieval engine. S0 sets this bar; it does not run the engine.",
+  "re_freeze": "On corpus/benchmark drift (any pinned hash changes) re-freeze v1->v2; the v1 E-set must stay covered@10 by the engine (eviction FAILS).",
+  "set_after": "baseline_matcher_pinned.json (legs calibrated from the measured baseline, never before)",
+  "spec_id": "theia-Gmetric-v1-locked-legs",
+  "status": "LOCKED",
+  "story": "story-af407698",
+  "verdict_rule": "PASS = LEG_1 AND LEG_2 AND LEG_3. Any one failing = NOT a pass; return to council."
+}

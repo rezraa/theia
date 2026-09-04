@@ -39,7 +39,8 @@
         "Not announcing menu open/close state to screen readers"
       ],
       "design_tokens_needed": ["color.surface.navbar", "spacing.navbar.padding", "typography.nav.link", "elevation.navbar", "sizing.navbar.height"],
-      "signals": ["Fixed top bar", "Horizontal link list", "Logo on left", "Hamburger icon on mobile", "nav element at top of DOM"]
+      "signals": ["Fixed top bar", "Horizontal link list", "Logo on left", "Hamburger icon on mobile", "nav element at top of DOM", "SaaS product with persistent nav and content area", "admin interface with section-based navigation", "application with sidebar navigation", "tool with workspace and navigation panel"],
+      "related_patterns": ["bottom_navigation", "drawer", "responsive_columns", "sidebar", "sidebar_layout", "tabs"]
     },
     {
       "id": "sidebar",
@@ -76,7 +77,8 @@
         "Scrollbar inside sidebar not styled or accessible"
       ],
       "design_tokens_needed": ["color.surface.sidebar", "sizing.sidebar.width", "sizing.sidebar.collapsed_width", "spacing.sidebar.item.padding", "color.sidebar.active", "typography.sidebar.label"],
-      "signals": ["Vertical nav on left edge", "Icon + label items", "Collapsible sections", "Fixed height full viewport", "aside or nav element"]
+      "signals": ["Vertical nav on left edge", "Icon + label items", "Collapsible sections", "Fixed height full viewport", "aside or nav element", "SaaS product with persistent nav and content area", "admin interface with section-based navigation", "application with sidebar navigation", "documentation site with nested sections", "enterprise app with modules, sections, and pages", "file system or category browser", "navigation with 3+ levels of depth", "tool with workspace and navigation panel"],
+      "related_patterns": ["accordion", "breadcrumb", "command_palette", "drawer", "mega_menu", "navbar", "responsive_columns", "search_input", "sidebar_layout", "tree_view"]
     },
     {
       "id": "breadcrumb",
@@ -110,7 +112,8 @@
         "Incorrect hierarchy order"
       ],
       "design_tokens_needed": ["color.text.breadcrumb", "color.text.breadcrumb.active", "typography.breadcrumb", "spacing.breadcrumb.gap", "color.breadcrumb.separator"],
-      "signals": ["Horizontal text trail with separators", "Slash or chevron between items", "Located below navbar above content", "Last item is non-interactive"]
+      "signals": ["Horizontal text trail with separators", "Slash or chevron between items", "Located below navbar above content", "Last item is non-interactive", "documentation site with nested sections", "enterprise app with modules, sections, and pages", "file system or category browser", "navigation with 3+ levels of depth"],
+      "related_patterns": ["accordion", "command_palette", "mega_menu", "sidebar", "tree_view"]
     },
     {
       "id": "tabs",
@@ -148,7 +151,8 @@
         "Tabs wrapping to multiple rows instead of scrolling"
       ],
       "design_tokens_needed": ["color.tab.active", "color.tab.inactive", "color.tab.indicator", "spacing.tab.padding", "typography.tab.label", "sizing.tab.indicator.height"],
-      "signals": ["Horizontal row of labels", "One highlighted/underlined item", "Content changes below without page load", "role='tablist' in DOM"]
+      "signals": ["Horizontal row of labels", "One highlighted/underlined item", "Content changes below without page load", "role='tablist' in DOM", "5 or fewer top-level items", "consumer app with clear primary flows", "simple app with few main sections", "single-purpose tool with mode switching"],
+      "related_patterns": ["accordion", "autocomplete", "bottom_navigation", "command_palette", "dialog", "drawer", "form_validation", "navbar", "progress_bar", "responsive_columns", "search_input", "sidebar_layout", "stepper"]
     },
     {
       "id": "pagination",
@@ -184,7 +188,8 @@
         "Loading state not communicated to assistive tech"
       ],
       "design_tokens_needed": ["color.pagination.active", "color.pagination.default", "sizing.pagination.button", "spacing.pagination.gap", "border.pagination.radius"],
-      "signals": ["Row of numbers with arrows", "Previous/Next buttons", "Ellipsis between number groups", "Located at bottom of lists or tables"]
+      "signals": ["Row of numbers with arrows", "Previous/Next buttons", "Ellipsis between number groups", "Located at bottom of lists or tables", "100+ rows of structured data", "browsable content items with images", "database query results display", "large spreadsheet-like data view", "log viewer or audit trail", "media library with thumbnails", "portfolio or project listing", "product catalog or gallery"],
+      "related_patterns": ["card", "data_table", "grid"]
     },
     {
       "id": "command_palette",
@@ -221,7 +226,8 @@
         "Not restoring focus after palette closes"
       ],
       "design_tokens_needed": ["color.surface.palette", "elevation.palette", "sizing.palette.width", "sizing.palette.max_height", "color.palette.result.hover", "typography.palette.input"],
-      "signals": ["Centered floating search box", "Cmd+K or Ctrl+K trigger", "Categorized results list", "Keyboard shortcut hints on items", "Overlay with backdrop"]
+      "signals": ["Centered floating search box", "Cmd+K or Ctrl+K trigger", "Categorized results list", "Keyboard shortcut hints on items", "Overlay with backdrop", "8+ navigation items at top level", "content discovery interface", "enterprise application with many modules", "knowledge base or wiki", "marketplace or catalog with many items", "platform with extensive feature set", "search is primary interaction", "tool with many distinct workspaces"],
+      "related_patterns": ["accordion", "autocomplete", "breadcrumb", "drawer", "mega_menu", "search_input", "sidebar", "tabs", "tree_view"]
     },
     {
       "id": "bottom_navigation",
@@ -256,7 +262,8 @@
         "Navigation items triggering on touch-down instead of touch-up"
       ],
       "design_tokens_needed": ["color.surface.bottom_nav", "color.bottom_nav.active", "color.bottom_nav.inactive", "sizing.bottom_nav.height", "spacing.bottom_nav.item", "elevation.bottom_nav"],
-      "signals": ["Fixed bar at bottom of viewport", "3-5 icon+label items", "Only visible on mobile", "Active item highlighted"]
+      "signals": ["Fixed bar at bottom of viewport", "3-5 icon+label items", "Only visible on mobile", "Active item highlighted", "5 or fewer top-level items", "consumer app with clear primary flows", "mobile-first navigation", "progressive web app navigation", "responsive app targeting phone users", "simple app with few main sections", "single-purpose tool with mode switching", "touch-primary interface navigation"],
+      "related_patterns": ["drawer", "navbar", "tabs"]
     },
     {
       "id": "mega_menu",
@@ -293,7 +300,8 @@
         "Too many links overwhelming users"
       ],
       "design_tokens_needed": ["color.surface.mega_menu", "elevation.mega_menu", "spacing.mega_menu.column_gap", "typography.mega_menu.heading", "sizing.mega_menu.max_width"],
-      "signals": ["Large multi-column dropdown", "Categories with link lists", "Opens from top navigation item", "May contain images or promotions"]
+      "signals": ["Large multi-column dropdown", "Categories with link lists", "Opens from top navigation item", "May contain images or promotions", "8+ navigation items at top level", "enterprise application with many modules", "platform with extensive feature set", "tool with many distinct workspaces"],
+      "related_patterns": ["accordion", "breadcrumb", "command_palette", "drawer", "search_input", "sidebar", "tree_view"]
     },
     {
       "id": "stepper",
@@ -329,7 +337,8 @@
         "Not validating current step before allowing progression"
       ],
       "design_tokens_needed": ["color.stepper.completed", "color.stepper.current", "color.stepper.incomplete", "color.stepper.connector", "sizing.stepper.indicator", "typography.stepper.label"],
-      "signals": ["Numbered circles connected by lines", "Sequential step labels", "Current step highlighted", "Back/Next navigation buttons"]
+      "signals": ["Numbered circles connected by lines", "Sequential step labels", "Current step highlighted", "Back/Next navigation buttons", "checkout flow with multiple stages", "complex data entry interface", "configuration wizard with dependencies between steps", "form with 10+ fields", "insurance or financial application form", "multi-step process or onboarding", "registration or application form", "registration with progressive disclosure"],
+      "related_patterns": ["accordion", "dialog", "form_validation", "progress_bar", "tabs"]
     },
     {
       "id": "text_input",
@@ -440,7 +449,8 @@
         "Placeholder option ('Select...') submitted as valid value"
       ],
       "design_tokens_needed": ["color.select.trigger", "color.select.option.hover", "color.select.option.selected", "elevation.select.dropdown", "spacing.select.option.padding", "sizing.select.max_height"],
-      "signals": ["Dropdown arrow indicator", "Single value displayed in trigger", "Options list appears below on interaction", "select element or custom combobox pattern"]
+      "signals": ["Dropdown arrow indicator", "Single value displayed in trigger", "Options list appears below on interaction", "select element or custom combobox pattern", "data filtering controls", "faceted search interface", "product listing with refinement options", "report builder with parameter selection"],
+      "related_patterns": ["autocomplete", "checkbox", "date_picker", "radio_group", "slider"]
     },
     {
       "id": "checkbox",
@@ -476,7 +486,8 @@
         "Using checkboxes for mutually exclusive options (use radio)"
       ],
       "design_tokens_needed": ["color.checkbox.checked", "color.checkbox.border", "color.checkbox.checkmark", "sizing.checkbox", "border.checkbox.radius", "spacing.checkbox.gap"],
-      "signals": ["Small square with optional checkmark", "Label text beside square", "Multiple independent toggleable options", "input[type='checkbox'] in DOM"]
+      "signals": ["Small square with optional checkmark", "Label text beside square", "Multiple independent toggleable options", "input[type='checkbox'] in DOM", "data filtering controls", "faceted search interface", "product listing with refinement options", "report builder with parameter selection"],
+      "related_patterns": ["autocomplete", "date_picker", "radio_group", "select", "slider"]
     },
     {
       "id": "radio_group",
@@ -512,7 +523,8 @@
         "All radios in tab order instead of roving tabindex"
       ],
       "design_tokens_needed": ["color.radio.selected", "color.radio.border", "sizing.radio", "spacing.radio.gap", "color.radio.dot"],
-      "signals": ["Small circles with one filled", "Mutually exclusive options", "Grouped options with a question", "input[type='radio'] elements"]
+      "signals": ["Small circles with one filled", "Mutually exclusive options", "Grouped options with a question", "input[type='radio'] elements"],
+      "related_patterns": ["autocomplete", "checkbox", "date_picker", "select", "slider"]
     },
     {
       "id": "toggle_switch",
@@ -584,7 +596,8 @@
         "Track click doesn't move thumb to clicked position"
       ],
       "design_tokens_needed": ["color.slider.track", "color.slider.filled", "color.slider.thumb", "sizing.slider.thumb", "sizing.slider.track_height", "color.slider.tick"],
-      "signals": ["Horizontal track with draggable thumb", "Value label near thumb", "Min/max labels at ends", "input[type='range'] in DOM"]
+      "signals": ["Horizontal track with draggable thumb", "Value label near thumb", "Min/max labels at ends", "input[type='range'] in DOM", "data filtering controls", "faceted search interface", "product listing with refinement options", "report builder with parameter selection"],
+      "related_patterns": ["autocomplete", "checkbox", "date_picker", "radio_group", "select"]
     },
     {
       "id": "date_picker",
@@ -623,7 +636,8 @@
         "Calendar popup not repositioned to stay in viewport"
       ],
       "design_tokens_needed": ["color.datepicker.selected", "color.datepicker.today", "color.datepicker.range", "color.datepicker.disabled", "sizing.datepicker.day_cell", "elevation.datepicker", "typography.datepicker.day"],
-      "signals": ["Calendar grid with days", "Month/year navigation arrows", "Input field that opens calendar popup", "Date format in input field"]
+      "signals": ["Calendar grid with days", "Month/year navigation arrows", "Input field that opens calendar popup", "Date format in input field"],
+      "related_patterns": ["autocomplete", "checkbox", "radio_group", "select", "slider"]
     },
     {
       "id": "file_upload",
@@ -697,7 +711,8 @@
         "Race conditions between fast typing and slow API responses"
       ],
       "design_tokens_needed": ["color.autocomplete.suggestion.hover", "color.autocomplete.highlight", "elevation.autocomplete.list", "spacing.autocomplete.item.padding", "sizing.autocomplete.list.max_height"],
-      "signals": ["Input field with dropdown suggestions", "Suggestions update as user types", "Highlighted matching text in suggestions", "Loading spinner in input"]
+      "signals": ["Input field with dropdown suggestions", "Suggestions update as user types", "Highlighted matching text in suggestions", "Loading spinner in input", "content discovery interface", "data filtering controls", "faceted search interface", "knowledge base or wiki", "marketplace or catalog with many items", "product listing with refinement options", "report builder with parameter selection", "search is primary interaction"],
+      "related_patterns": ["checkbox", "command_palette", "date_picker", "radio_group", "search_input", "select", "slider", "tabs"]
     },
     {
       "id": "form_validation",
@@ -734,7 +749,8 @@
         "Displaying errors before user has finished typing"
       ],
       "design_tokens_needed": ["color.validation.error", "color.validation.success", "color.validation.warning", "typography.validation.message", "spacing.validation.gap", "sizing.validation.icon"],
-      "signals": ["Red border on input fields", "Error text below fields", "Error icon beside messages", "Error summary at form top"]
+      "signals": ["Red border on input fields", "Error text below fields", "Error icon beside messages", "Error summary at form top", "checkout flow with multiple stages", "complex data entry interface", "configuration wizard with dependencies between steps", "form submission with validation", "form with 10+ fields", "input fields with constraints", "insurance or financial application form", "multi-step process or onboarding", "real-time field validation", "registration or application form", "registration with progressive disclosure", "server-side validation errors"],
+      "related_patterns": ["accordion", "banner", "dialog", "progress_bar", "stepper", "tabs", "toast", "tooltip"]
     },
     {
       "id": "search_input",
@@ -770,7 +786,8 @@
         "Submit button hidden or missing"
       ],
       "design_tokens_needed": ["color.search.icon", "color.search.background", "spacing.search.padding", "border.search.radius", "sizing.search.height"],
-      "signals": ["Magnifying glass icon", "input[type='search']", "Clear (x) button when filled", "role='search' landmark"]
+      "signals": ["Magnifying glass icon", "input[type='search']", "Clear (x) button when filled", "role='search' landmark", "content discovery interface", "knowledge base or wiki", "marketplace or catalog with many items", "search is primary interaction"],
+      "related_patterns": ["autocomplete", "command_palette", "drawer", "mega_menu", "sidebar", "tabs"]
     },
     {
       "id": "number_input",
@@ -920,7 +937,8 @@
         "Missing caption or summary for table purpose"
       ],
       "design_tokens_needed": ["color.table.header", "color.table.row.stripe", "color.table.row.hover", "color.table.row.selected", "color.table.border", "spacing.table.cell.padding", "typography.table.header", "typography.table.cell"],
-      "signals": ["Rows and columns of data", "Column headers with sort arrows", "Alternating row colors", "table element with thead/tbody"]
+      "signals": ["Rows and columns of data", "Column headers with sort arrows", "Alternating row colors", "table element with thead/tbody", "100+ rows of structured data", "admin panel with overview statistics", "analytics page with charts and KPIs", "dashboard with metric cards and data tables", "database query results display", "large spreadsheet-like data view", "log viewer or audit trail", "monitoring interface with real-time data"],
+      "related_patterns": ["avatar", "badge", "card", "data_chart", "description_list", "grid", "list", "pagination", "responsive_columns", "stat_card", "timeline"]
     },
     {
       "id": "list",
@@ -958,7 +976,8 @@
         "Too many actions per item creating clutter"
       ],
       "design_tokens_needed": ["color.list.item.hover", "color.list.item.selected", "color.list.divider", "spacing.list.item.padding", "typography.list.primary", "typography.list.secondary"],
-      "signals": ["Vertically stacked items", "Consistent item structure", "Optional dividers between items", "ul or ol element in DOM"]
+      "signals": ["Vertically stacked items", "Consistent item structure", "Optional dividers between items", "ul or ol element in DOM"],
+      "related_patterns": ["avatar", "badge", "card", "data_table", "timeline"]
     },
     {
       "id": "card",
@@ -997,7 +1016,8 @@
         "Card actions with generic labels like 'Click here'"
       ],
       "design_tokens_needed": ["color.card.background", "color.card.border", "elevation.card", "border.card.radius", "spacing.card.padding", "spacing.card.gap"],
-      "signals": ["Rounded rectangle container", "Image above text content", "Action buttons at bottom", "Elevated or bordered block"]
+      "signals": ["Rounded rectangle container", "Image above text content", "Action buttons at bottom", "Elevated or bordered block", "browsable content items with images", "media library with thumbnails", "portfolio or project listing", "product catalog or gallery"],
+      "related_patterns": ["avatar", "badge", "data_chart", "data_table", "description_list", "grid", "list", "pagination", "responsive_columns", "stat_card", "timeline"]
     },
     {
       "id": "avatar",
@@ -1033,7 +1053,8 @@
         "Alt text says 'avatar' instead of user's name"
       ],
       "design_tokens_needed": ["sizing.avatar.xs", "sizing.avatar.sm", "sizing.avatar.md", "sizing.avatar.lg", "sizing.avatar.xl", "color.avatar.background", "color.avatar.initials", "color.avatar.status.online", "color.avatar.status.offline", "typography.avatar.initials"],
-      "signals": ["Circular image or colored circle with letters", "Small profile picture", "Status dot overlay", "Overlapping circle group"]
+      "signals": ["Circular image or colored circle with letters", "Small profile picture", "Status dot overlay", "Overlapping circle group", "activity feed or changelog", "audit log with timestamps", "chronological events or activity", "project milestone tracking"],
+      "related_patterns": ["badge", "card", "data_table", "list", "timeline"]
     },
     {
       "id": "badge",
@@ -1067,7 +1088,8 @@
         "Using badge color alone to convey meaning"
       ],
       "design_tokens_needed": ["color.badge.background", "color.badge.text", "sizing.badge.min_width", "sizing.badge.dot", "typography.badge", "spacing.badge.padding"],
-      "signals": ["Small circle overlaid on corner of element", "Number in colored circle", "Dot indicator on icon", "Position: top-right corner of anchor"]
+      "signals": ["Small circle overlaid on corner of element", "Number in colored circle", "Dot indicator on icon", "Position: top-right corner of anchor", "activity feed or changelog", "audit log with timestamps", "chronological events or activity", "project milestone tracking"],
+      "related_patterns": ["avatar", "card", "data_chart", "data_table", "grid", "list", "progress_bar", "stat_card", "timeline"]
     },
     {
       "id": "tag",
@@ -1141,7 +1163,8 @@
         "Used on touch devices where hover is unreliable"
       ],
       "design_tokens_needed": ["color.tooltip.background", "color.tooltip.text", "border.tooltip.radius", "spacing.tooltip.padding", "elevation.tooltip", "typography.tooltip", "motion.tooltip.delay"],
-      "signals": ["Small dark box near element on hover", "Arrow pointing to trigger element", "Text that appears/disappears on hover", "role='tooltip' in DOM"]
+      "signals": ["Small dark box near element on hover", "Arrow pointing to trigger element", "Text that appears/disappears on hover", "role='tooltip' in DOM", "click-to-edit fields in a detail view", "editable content in context", "in-place content modification", "spreadsheet-like editing"],
+      "related_patterns": ["banner", "drawer", "form_validation", "icon_button", "modal", "popover", "toast"]
     },
     {
       "id": "popover",
@@ -1178,7 +1201,8 @@
         "Popover renders off-screen without repositioning"
       ],
       "design_tokens_needed": ["color.popover.background", "elevation.popover", "border.popover.radius", "spacing.popover.padding", "sizing.popover.max_width"],
-      "signals": ["Floating box near trigger element", "Appears on click (not hover)", "Contains interactive content", "Arrow pointing to trigger"]
+      "signals": ["Floating box near trigger element", "Appears on click (not hover)", "Contains interactive content", "Arrow pointing to trigger", "item-specific actions in a list or grid", "overflow actions that do not fit in visible UI", "right-click or long-press actions", "secondary actions for selected content"],
+      "related_patterns": ["accordion", "drawer", "dropdown_menu", "icon_button", "modal", "toast", "tooltip"]
     },
     {
       "id": "stat_card",
@@ -1214,7 +1238,8 @@
         "Sparkline without accessible description"
       ],
       "design_tokens_needed": ["color.stat.positive", "color.stat.negative", "color.stat.neutral", "typography.stat.value", "typography.stat.label", "spacing.stat.padding"],
-      "signals": ["Large number prominently displayed", "Small label below or above number", "Arrow or percentage showing change", "Dashboard grid of metric blocks"]
+      "signals": ["Large number prominently displayed", "Small label below or above number", "Arrow or percentage showing change", "Dashboard grid of metric blocks", "KPI or metric display", "admin panel with overview statistics", "analytics page with charts and KPIs", "business intelligence summary", "dashboard with metric cards and data tables", "monitoring interface with real-time data", "performance indicators with trends", "real-time counters or gauges"],
+      "related_patterns": ["badge", "card", "data_chart", "data_table", "grid", "progress_bar", "responsive_columns"]
     },
     {
       "id": "timeline",
@@ -1250,7 +1275,8 @@
         "Timestamps in ambiguous format without locale handling"
       ],
       "design_tokens_needed": ["color.timeline.connector", "color.timeline.node", "sizing.timeline.node", "spacing.timeline.gap", "typography.timeline.timestamp"],
-      "signals": ["Vertical line with event dots", "Timestamps beside content blocks", "Sequential event display", "Status icons along axis"]
+      "signals": ["Vertical line with event dots", "Timestamps beside content blocks", "Sequential event display", "Status icons along axis", "activity feed or changelog", "audit log with timestamps", "chronological events or activity", "project milestone tracking"],
+      "related_patterns": ["avatar", "badge", "card", "data_table", "list"]
     },
     {
       "id": "tree_view",
@@ -1288,7 +1314,8 @@
         "Loading state not communicated when fetching children"
       ],
       "design_tokens_needed": ["spacing.tree.indent", "color.tree.node.selected", "color.tree.node.hover", "color.tree.guide", "sizing.tree.toggle", "typography.tree.label"],
-      "signals": ["Indented nested items", "Expand/collapse chevrons", "Folder/file icons", "Hierarchical structure"]
+      "signals": ["Indented nested items", "Expand/collapse chevrons", "Folder/file icons", "Hierarchical structure", "category taxonomy display", "documentation site with nested sections", "enterprise app with modules, sections, and pages", "file system or category browser", "navigation with 3+ levels of depth", "nested JSON or configuration viewer", "organizational chart or file browser", "tree or nested data"],
+      "related_patterns": ["accordion", "breadcrumb", "command_palette", "mega_menu", "sidebar"]
     },
     {
       "id": "accordion",
@@ -1325,7 +1352,8 @@
         "Expand/collapse animation ignoring prefers-reduced-motion"
       ],
       "design_tokens_needed": ["color.accordion.header", "color.accordion.header.hover", "color.accordion.border", "spacing.accordion.header.padding", "spacing.accordion.content.padding", "motion.accordion.duration"],
-      "signals": ["Stacked headers with expand icons", "Chevron rotates on expand", "Content slides open/closed", "Only visible headers when collapsed"]
+      "signals": ["Stacked headers with expand icons", "Chevron rotates on expand", "Content slides open/closed", "Only visible headers when collapsed", "category taxonomy display", "nested JSON or configuration viewer", "organizational chart or file browser", "tree or nested data"],
+      "related_patterns": ["breadcrumb", "command_palette", "dialog", "drawer", "form_validation", "mega_menu", "popover", "progress_bar", "responsive_columns", "sidebar", "sidebar_layout", "stepper", "tabs", "toast", "tree_view"]
     },
     {
       "id": "description_list",
@@ -1359,7 +1387,8 @@
         "No loading skeleton for async data"
       ],
       "design_tokens_needed": ["typography.dl.term", "typography.dl.description", "color.dl.stripe", "spacing.dl.gap", "spacing.dl.term_width", "color.dl.divider"],
-      "signals": ["Label: Value pairs in a list", "Two-column layout with terms and descriptions", "dl/dt/dd elements in DOM", "Profile or spec sheet layout"]
+      "signals": ["Label: Value pairs in a list", "Two-column layout with terms and descriptions", "dl/dt/dd elements in DOM", "Profile or spec sheet layout", "API response inspection", "configuration or settings display", "profile or detail page with labeled fields", "system information or diagnostics"],
+      "related_patterns": ["card", "data_table", "grid"]
     },
     {
       "id": "code_block",
@@ -1438,7 +1467,8 @@
         "Y-axis not starting at zero for bar charts (misleading)"
       ],
       "design_tokens_needed": ["color.chart.series_1", "color.chart.series_2", "color.chart.series_3", "color.chart.axis", "color.chart.grid", "typography.chart.label", "typography.chart.title"],
-      "signals": ["SVG or canvas rendering", "Axes with labels", "Colored bars, lines, or segments", "Legend showing data series"]
+      "signals": ["SVG or canvas rendering", "Axes with labels", "Colored bars, lines, or segments", "Legend showing data series", "KPI or metric display", "business intelligence summary", "correlation or relationship between variables", "distribution or composition analysis", "numeric data requiring visual interpretation", "performance indicators with trends", "real-time counters or gauges", "trends over time or comparisons between categories"],
+      "related_patterns": ["badge", "card", "data_table", "grid", "progress_bar", "responsive_columns", "stat_card"]
     },
     {
       "id": "alert",
@@ -1476,7 +1506,8 @@
         "Stacking too many alerts overwhelming the user"
       ],
       "design_tokens_needed": ["color.alert.info.background", "color.alert.success.background", "color.alert.warning.background", "color.alert.error.background", "color.alert.info.border", "spacing.alert.padding", "typography.alert.title", "typography.alert.message"],
-      "signals": ["Colored banner with icon", "Info/success/warning/error styling", "Located within content flow", "role='alert' or role='status' in DOM"]
+      "signals": ["Colored banner with icon", "Info/success/warning/error styling", "Located within content flow", "role='alert' or role='status' in DOM"],
+      "related_patterns": ["banner", "dialog", "empty_state", "error_boundary", "modal", "toast"]
     },
     {
       "id": "toast",
@@ -1513,7 +1544,8 @@
         "Action button not reachable by keyboard before auto-dismiss"
       ],
       "design_tokens_needed": ["color.toast.background", "color.toast.text", "elevation.toast", "border.toast.radius", "spacing.toast.padding", "motion.toast.enter", "motion.toast.exit", "timing.toast.duration"],
-      "signals": ["Small floating box at screen edge", "Appears and disappears automatically", "Fixed position on viewport", "Brief text message"]
+      "signals": ["Small floating box at screen edge", "Appears and disappears automatically", "Fixed position on viewport", "Brief text message", "API call with noticeable latency", "background processing or long operation", "batch operation processing", "file upload or export in progress", "maintenance announcement or downtime warning", "new feature announcement", "security alert or compliance notice", "system-wide notification"],
+      "related_patterns": ["accordion", "alert", "banner", "dialog", "drawer", "empty_state", "error_boundary", "form_validation", "popover", "progress_bar", "skeleton", "spinner", "tooltip"]
     },
     {
       "id": "modal",
@@ -1554,7 +1586,8 @@
         "Modal used for content that should be a page"
       ],
       "design_tokens_needed": ["color.modal.backdrop", "color.modal.background", "elevation.modal", "sizing.modal.width", "sizing.modal.max_height", "spacing.modal.padding", "border.modal.radius", "motion.modal.enter", "motion.modal.exit"],
-      "signals": ["Centered box over dimmed backdrop", "Close X in top corner", "Header/body/footer structure", "Backdrop click to close"]
+      "signals": ["Centered box over dimmed backdrop", "Close X in top corner", "Header/body/footer structure", "Backdrop click to close", "action requiring user decision", "critical error requiring acknowledgment", "permission request or consent collection", "unsaved changes warning on navigation"],
+      "related_patterns": ["alert", "banner", "dialog", "drawer", "icon_button", "popover", "tooltip"]
     },
     {
       "id": "dialog",
@@ -1591,7 +1624,8 @@
         "Focus on destructive button by default"
       ],
       "design_tokens_needed": ["color.dialog.background", "color.dialog.backdrop", "elevation.dialog", "spacing.dialog.padding", "sizing.dialog.max_width", "typography.dialog.title", "typography.dialog.message"],
-      "signals": ["Small centered overlay with question", "Two or three action buttons", "Warning icon for destructive actions", "Dimmed backdrop"]
+      "signals": ["Small centered overlay with question", "Two or three action buttons", "Warning icon for destructive actions", "Dimmed backdrop", "action requiring user decision", "critical error requiring acknowledgment", "permission request or consent collection", "unsaved changes warning on navigation"],
+      "related_patterns": ["accordion", "alert", "banner", "form_validation", "modal", "progress_bar", "stepper", "tabs", "toast"]
     },
     {
       "id": "progress_bar",
@@ -1627,7 +1661,8 @@
         "No error or completion state"
       ],
       "design_tokens_needed": ["color.progress.track", "color.progress.fill", "color.progress.buffer", "sizing.progress.height", "border.progress.radius", "motion.progress.indeterminate"],
-      "signals": ["Horizontal bar partially filled", "Percentage text nearby", "Animated fill or shimmer", "role='progressbar' in DOM"]
+      "signals": ["Horizontal bar partially filled", "Percentage text nearby", "Animated fill or shimmer", "role='progressbar' in DOM", "API call with noticeable latency", "background processing or long operation", "batch operation processing", "bulk import with file attachments", "checkout flow with multiple stages", "complex data entry interface", "configuration wizard with dependencies between steps", "document submission interface", "file upload or export in progress", "form with 10+ fields", "image gallery upload", "insurance or financial application form", "multi-step process or onboarding", "multiple file uploads", "registration or application form", "registration with progressive disclosure"],
+      "related_patterns": ["accordion", "badge", "banner", "data_chart", "dialog", "form_validation", "grid", "skeleton", "spinner", "stat_card", "stepper", "tabs", "toast"]
     },
     {
       "id": "progress_circle",
@@ -1696,7 +1731,8 @@
         "Using skeleton for actions that take under 300ms"
       ],
       "design_tokens_needed": ["color.skeleton.base", "color.skeleton.highlight", "border.skeleton.radius", "motion.skeleton.duration", "sizing.skeleton.text_height"],
-      "signals": ["Gray animated shapes matching content layout", "Shimmer or pulse animation", "Replaced by real content on load", "Rectangular and circular gray shapes"]
+      "signals": ["Gray animated shapes matching content layout", "Shimmer or pulse animation", "Replaced by real content on load", "Rectangular and circular gray shapes", "content loading from API", "initial page or section load", "lazy-loaded component appearing", "tab content fetching on switch"],
+      "related_patterns": ["banner", "empty_state", "progress_bar", "spinner", "toast"]
     },
     {
       "id": "spinner",
@@ -1731,7 +1767,8 @@
         "Animation continues after content has loaded"
       ],
       "design_tokens_needed": ["color.spinner.track", "color.spinner.fill", "sizing.spinner.sm", "sizing.spinner.md", "sizing.spinner.lg", "motion.spinner.duration"],
-      "signals": ["Rotating circular element", "Partial ring or dots in circle", "Centered in loading area", "Animated rotation"]
+      "signals": ["Rotating circular element", "Partial ring or dots in circle", "Centered in loading area", "Animated rotation", "API response pending", "lazy-loading component", "progressive content rendering", "waiting for content"],
+      "related_patterns": ["banner", "progress_bar", "skeleton", "toast"]
     },
     {
       "id": "empty_state",
@@ -1767,7 +1804,8 @@
         "Empty state not occupying enough visual space"
       ],
       "design_tokens_needed": ["sizing.empty_state.illustration", "typography.empty_state.title", "typography.empty_state.description", "spacing.empty_state.gap", "color.empty_state.text"],
-      "signals": ["Centered illustration with text", "Create or add action button", "Message like 'No items yet'", "Full-area placeholder"]
+      "signals": ["Centered illustration with text", "Create or add action button", "Message like 'No items yet'", "Full-area placeholder", "filtered view with no matches", "list or table with no items", "new account with no data", "search with zero results"],
+      "related_patterns": ["alert", "error_boundary", "skeleton", "toast"]
     },
     {
       "id": "error_boundary",
@@ -1803,7 +1841,8 @@
         "Retry causes same error in a loop without backoff"
       ],
       "design_tokens_needed": ["color.error_boundary.background", "color.error_boundary.icon", "typography.error_boundary.title", "spacing.error_boundary.padding", "border.error_boundary.radius"],
-      "signals": ["Error icon with message", "Retry button", "Located where component should render", "Fallback UI for crashed component"]
+      "signals": ["Error icon with message", "Retry button", "Located where component should render", "Fallback UI for crashed component", "API failure with no fallback data", "component crash or unhandled exception", "network disconnection during operation", "partial page failure in microfrontend"],
+      "related_patterns": ["alert", "empty_state", "toast"]
     },
     {
       "id": "banner",
@@ -1839,7 +1878,8 @@
         "Using banner for errors that should be inline alerts"
       ],
       "design_tokens_needed": ["color.banner.background", "color.banner.text", "color.banner.action", "spacing.banner.padding", "sizing.banner.height", "typography.banner"],
-      "signals": ["Full-width bar at top of page", "Announcement or status text", "Close X button", "Distinct background color from page"]
+      "signals": ["Full-width bar at top of page", "Announcement or status text", "Close X button", "Distinct background color from page", "maintenance announcement or downtime warning", "new feature announcement", "security alert or compliance notice", "system-wide notification"],
+      "related_patterns": ["alert", "dialog", "form_validation", "modal", "progress_bar", "skeleton", "spinner", "toast", "tooltip"]
     },
     {
       "id": "container",
@@ -1871,7 +1911,7 @@
         "Using container for full-bleed backgrounds (need wrapper outside)"
       ],
       "design_tokens_needed": ["sizing.container.sm", "sizing.container.md", "sizing.container.lg", "sizing.container.xl", "spacing.container.padding"],
-      "signals": ["Centered content block", "Max-width applied", "Consistent horizontal margins", "Content narrower than viewport"]
+      "signals": ["Centered content block", "Max-width applied", "Consistent horizontal margins", "Content narrower than viewport", "article or documentation page", "blog post or editorial content", "content-heavy page with long text", "legal or policy document display"]
     },
     {
       "id": "grid",
@@ -1906,7 +1946,8 @@
         "Using CSS grid order creating confusing tab sequences"
       ],
       "design_tokens_needed": ["sizing.grid.columns", "spacing.grid.gutter", "sizing.grid.max_width", "spacing.grid.margin"],
-      "signals": ["Multi-column content layout", "Consistent gutter spacing", "display: grid or column-based layout", "Items aligned in rows and columns"]
+      "signals": ["Multi-column content layout", "Consistent gutter spacing", "display: grid or column-based layout", "Items aligned in rows and columns", "API response inspection", "admin panel with overview statistics", "analytics page with charts and KPIs", "browsable content items with images", "configuration or settings display", "dashboard with metric cards and data tables", "media library with thumbnails", "monitoring interface with real-time data", "portfolio or project listing", "product catalog or gallery", "profile or detail page with labeled fields", "system information or diagnostics"],
+      "related_patterns": ["badge", "card", "data_chart", "data_table", "description_list", "pagination", "progress_bar", "responsive_columns", "stat_card"]
     },
     {
       "id": "stack",
@@ -2038,7 +2079,8 @@
         "Fixed column counts that don't adapt"
       ],
       "design_tokens_needed": ["sizing.column.min_width", "spacing.column.gutter", "sizing.column.max_count"],
-      "signals": ["Content in multiple columns that reflows", "auto-fit or auto-fill in CSS grid", "Column count changes at breakpoints", "Even-width content columns"]
+      "signals": ["Content in multiple columns that reflows", "auto-fit or auto-fill in CSS grid", "Column count changes at breakpoints", "Even-width content columns", "comparison or master-detail view", "email client with list and detail pane", "file browser with preview panel", "settings page with category list and detail"],
+      "related_patterns": ["accordion", "card", "data_chart", "data_table", "drawer", "grid", "navbar", "sidebar", "sidebar_layout", "stat_card", "tabs"]
     },
     {
       "id": "sidebar_layout",
@@ -2074,7 +2116,8 @@
         "No smooth transition between states"
       ],
       "design_tokens_needed": ["sizing.sidebar_layout.sidebar_width", "sizing.sidebar_layout.min_width", "spacing.sidebar_layout.gutter", "color.sidebar_layout.divider"],
-      "signals": ["Two-panel layout", "One narrow panel beside wide content", "Collapsible side panel", "aside element beside main element"]
+      "signals": ["Two-panel layout", "One narrow panel beside wide content", "Collapsible side panel", "aside element beside main element", "SaaS product with persistent nav and content area", "admin interface with section-based navigation", "application with sidebar navigation", "comparison or master-detail view", "email client with list and detail pane", "file browser with preview panel", "settings page with category list and detail", "tool with workspace and navigation panel"],
+      "related_patterns": ["accordion", "drawer", "navbar", "responsive_columns", "sidebar", "tabs"]
     },
     {
       "id": "drawer",
@@ -2112,7 +2155,8 @@
         "Closing animation janky or missing"
       ],
       "design_tokens_needed": ["color.drawer.background", "color.drawer.backdrop", "sizing.drawer.width", "sizing.drawer.max_width", "elevation.drawer", "motion.drawer.slide", "spacing.drawer.padding"],
-      "signals": ["Panel sliding from screen edge", "Overlay with backdrop", "Close button in header", "Slide-in animation"]
+      "signals": ["Panel sliding from screen edge", "Overlay with backdrop", "Close button in header", "Slide-in animation", "frequent modal interruptions", "mobile-first navigation", "modal within modal or nested modals", "overuse of modal dialogs in flow", "progressive web app navigation", "responsive app targeting phone users", "simple content displayed in modal", "touch-primary interface navigation"],
+      "related_patterns": ["accordion", "bottom_navigation", "command_palette", "icon_button", "mega_menu", "modal", "navbar", "popover", "responsive_columns", "search_input", "sidebar", "sidebar_layout", "tabs", "toast", "tooltip"]
     },
     {
       "id": "dropdown_menu",
@@ -2151,7 +2195,8 @@
         "Menu renders outside viewport"
       ],
       "design_tokens_needed": ["color.menu.background", "color.menu.item.hover", "elevation.menu", "spacing.menu.item.padding", "sizing.menu.min_width", "border.menu.radius", "typography.menu.item"],
-      "signals": ["Floating list of actions", "Appears below/beside trigger button", "Role='menu' in DOM", "Items with optional icons and shortcuts"]
+      "signals": ["Floating list of actions", "Appears below/beside trigger button", "Role='menu' in DOM", "Items with optional icons and shortcuts", "activity stream from various sources", "event-driven updates from background processes", "item-specific actions in a list or grid", "multiple notification types over time", "overflow actions that do not fit in visible UI", "right-click or long-press actions", "secondary actions for selected content", "unread message or alert management"],
+      "related_patterns": ["popover"]
     },
     {
       "id": "context_menu",
@@ -2301,7 +2346,8 @@
         "Using icon button for actions that need visible labels"
       ],
       "design_tokens_needed": ["sizing.icon_button.sm", "sizing.icon_button.md", "sizing.icon_button.lg", "color.icon_button.default", "color.icon_button.hover", "color.icon_button.active", "sizing.icon_button.icon"],
-      "signals": ["Small button with only an icon", "No visible text label", "Circular or square with rounded corners", "Common icons like X, hamburger, gear"]
+      "signals": ["Small button with only an icon", "No visible text label", "Circular or square with rounded corners", "Common icons like X, hamburger, gear", "click-to-edit fields in a detail view", "editable content in context", "in-place content modification", "spreadsheet-like editing"],
+      "related_patterns": ["drawer", "modal", "popover", "tooltip"]
     },
     {
       "id": "button_group",

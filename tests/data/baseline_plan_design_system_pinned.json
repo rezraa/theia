@@ -1,0 +1,80 @@
+{
+  "_meta": {
+    "spec_id": "theia-plan_design_system-baseline-capture",
+    "story": "story-0e030efd",
+    "what": "Pre-edit plan_design_system foundation output pinned for BAR-2 before/after (S5). Captured from the legacy base-system-match leg (plan_design_system.py:217-266) BEFORE the retrofit onto the shared Shape-C engine over a SECOND design_systems signal index. The leg scored keyword overlap against system.get('keywords') \u2014 a field 0/54 systems carry \u2014 so the +2 overlap term never fired; the only non-zero terms were a full brand-name substring (54/54 names are multi-word, e.g. 'Material Design 3 (Material You)') or a bare category taxonomy word ('system'/'layout') appearing verbatim in the product prose. On realistic problem-language product descriptions best_score stayed 0 -> ALWAYS 'custom', a SILENT husk with no reason and no retrieval envelope.",
+    "source_sha256_pre_edit": "0a64144f07d96967ec0f66b2be6eca259099da313a9d200ce91e2c098452fb1f",
+    "source_sha256_pre_edit_note": "sha256 of the pre-edit working-tree file (CRLF; core.autocrlf=true). Content-identical to HEAD blob 71ee6de9367716e1a9dba4f005646f6654562c256f01b4ff35c41741afc1a33c modulo EOL (HEAD-bytes with LF->CRLF hash to exactly this). S0-S4 never touched plan_design_system.py, so HEAD is the authoritative pre-edit reference.",
+    "scaffolding_start_marker": "    # 2. Build token architecture based on platforms",
+    "scaffolding_lf_sha256": "860c1e4363fc9a01ffc6e8f24ec16b8501b36f4a97c4184e4fd436f6cceb2f37",
+    "scaffolding_byte_unchanged_note": "sha256 (LF-normalized) of the generative token/hierarchy/responsive/theming scaffolding region — from the marker above to EOF. Byte-identical between HEAD and the post-S5 file (the S5 edit is entirely ABOVE the marker: imports, signature, docstring, and the base-system-match leg). The live test asserts the shipping file's scaffolding region still hashes to this, so any future edit to the generative scaffolding trips it.",
+    "n_systems": 54,
+    "n_systems_with_keywords_field": 0,
+    "legacy_foundation_keys_on_custom": [
+      "base_system",
+      "description",
+      "extend_or_fork",
+      "name",
+      "rationale"
+    ],
+    "frozen_grader_leg4_note": "grade.py LEG-4 _plan_design_system_keywords_leg is the FROZEN replica of this leg \u2014 the pre-S5 comparand; it STAYS frozen (out of scope, no --refreeze). On the parking query it returns the empty design-system id-list below (no match), never a component id.",
+    "frozen_grader_leg4_parking_output": []
+  },
+  "cases": {
+    "parking_app_always_custom": {
+      "product_description": "parking app for finding/reserving spaces",
+      "platforms": [
+        "mobile",
+        "web"
+      ],
+      "foundation": {
+        "base_system": "custom",
+        "name": "Custom Design System",
+        "description": "No existing system matched; building from scratch",
+        "rationale": "Product description did not match any existing system",
+        "extend_or_fork": "create"
+      },
+      "base_system": "custom",
+      "extend_or_fork": "create",
+      "has_retrieval_state_key": false,
+      "has_related_systems_key": false,
+      "silent_abstention": "custom with no reason-envelope; indistinguishable from a real miss vs an unrecognised product"
+    },
+    "names_a_system_still_custom": {
+      "product_description": "a material design 3 admin console",
+      "foundation": {
+        "base_system": "custom",
+        "name": "Custom Design System",
+        "description": "No existing system matched; building from scratch",
+        "rationale": "Product description did not match any existing system",
+        "extend_or_fork": "create"
+      },
+      "note": "even naming a system falls to custom: the leg needs the FULL brand name 'material design 3 (material you)' verbatim"
+    },
+    "existing_system_atomic_design_BYTE_UNCHANGED": {
+      "product_description": "whatever",
+      "existing_system": "atomic_design",
+      "foundation": {
+        "base_system": "atomic_design",
+        "name": "Atomic Design",
+        "description": "Brad Frost's methodology that breaks UI into five hierarchical levels: atoms, molecules, organisms, templates, and pages. Provides a clear mental model for building component libraries from the smallest indivisible elements up to full page compositions.",
+        "rationale": "Building on existing system: Atomic Design",
+        "extend_or_fork": "extend"
+      },
+      "note": "the existing_system explicit-id path \u2014 kept BYTE-UNCHANGED by S5; pinned so a regression to it is caught"
+    },
+    "always_custom_sweep": {
+      "probes": [
+        "parking app for finding/reserving spaces",
+        "operations dashboard with live health metrics and a table of alerts",
+        "settings page with many on/off toggles grouped into sections",
+        "a booking tool for reserving meeting rooms",
+        "a material design 3 admin console",
+        "an e-commerce checkout flow"
+      ],
+      "n_probes": 6,
+      "n_custom": 6,
+      "all_custom": true
+    }
+  }
+}

@@ -1,0 +1,92 @@
+{
+  "_meta": {
+    "spec_id": "theia-spec_component-baseline-capture",
+    "story": "story-57031f25",
+    "what": "Pre-edit spec_component output pinned for BAR-2 before/after (S4). Captured from the legacy source (exact-id lookup + the hardcoded _COMPONENT_ARCHETYPES 8-slug island + the generic ['container','content'] husk) BEFORE the SEED-FROM-NODE retrofit, over the v3 SEED stratum (the 5 SEED component types) plus an unknown type (the generic-husk probe). The legacy tool read a NON-EXISTENT a11y_role field + a hardcoded keyword_map and DROPPED each component's OWN accessibility_requirements even on a HIT.",
+    "source_sha256_pre_edit": "38deaa5459187bf7e9efdc7477eb22f9f3adaffc4e9575325902b71e1ffe616a",
+    "legacy_output_keys": ["accessibility", "anatomy", "common_mistakes", "component", "description", "design_tokens", "responsive_behavior", "states", "variants"],
+    "n_component_archetypes_island": 8,
+    "a11y_field_drop_bug": "legacy read kb_pattern.get('a11y_role') (0/66 components carry a11y_role) + a hardcoded keyword_map; the corpus field is 'accessibility_requirements'. On a HIT that is not one of the 8 archetype slugs (navbar/stepper/dropdown_menu), accessibility.role='' and wcag_requirements=[] — the component's own accessibility_requirements never surface. The legacy output has NO accessibility_requirements / retrieval_state / from_knowledge_base key at all.",
+    "husk_facts_the_retrofit_inverts": {
+      "hit_drops_own_a11y": "navbar/stepper/dropdown_menu HITs return accessibility.role='' + wcag_requirements=[]; their 6/5/7 own accessibility_requirements are dropped.",
+      "archetype_slugs_shadow_real_components": "'input' and 'navigation' do NOT resolve to a corpus id; the legacy tool returns the hardcoded archetype husk (input->textbox archetype anatomy, navigation->navigation archetype anatomy) instead of the real text_input/navbar rich fields.",
+      "generic_husk_on_unknown": "an unknown type returns anatomy ['container','content'], variants ['default'], empty common_mistakes/a11y — a confident husk, never a fail-closed abstention.",
+      "responsive_and_tokens_computed_not_own": "responsive_behavior is a computed _RESPONSIVE_BREAKPOINTS dict and design_tokens is generated from the component name — NOT the component's own responsive_behavior / design_tokens_needed corpus fields."
+    }
+  },
+  "cases": {
+    "navbar_HIT": {
+      "component_type": "navbar",
+      "resolved": true,
+      "anatomy": ["container", "brand_logo", "nav_links", "action_area", "mobile_toggle", "search_slot"],
+      "variants_count": 4,
+      "common_mistakes_count": 5,
+      "accessibility_role": "",
+      "wcag_requirements_count": 0,
+      "own_accessibility_requirements_count_in_corpus": 6,
+      "has_accessibility_requirements_key": false,
+      "has_retrieval_state_key": false,
+      "has_from_knowledge_base_key": false
+    },
+    "modal_HIT": {
+      "component_type": "modal",
+      "resolved": true,
+      "note": "modal is BOTH a corpus id AND an archetype slug, so the legacy a11y came from the archetype (role='dialog') + WCAG enrichment — never modal's own 8 accessibility_requirements.",
+      "variants_count": 5,
+      "common_mistakes_count": 6,
+      "accessibility_role": "dialog",
+      "own_accessibility_requirements_count_in_corpus": 8,
+      "has_accessibility_requirements_key": false
+    },
+    "stepper_HIT": {
+      "component_type": "stepper",
+      "resolved": true,
+      "variants_count": 4,
+      "common_mistakes_count": 5,
+      "accessibility_role": "",
+      "wcag_requirements_count": 0,
+      "own_accessibility_requirements_count_in_corpus": 5,
+      "has_accessibility_requirements_key": false
+    },
+    "dropdown_menu_HIT": {
+      "component_type": "dropdown_menu",
+      "resolved": true,
+      "variants_count": 5,
+      "common_mistakes_count": 5,
+      "accessibility_role": "",
+      "wcag_requirements_count": 0,
+      "own_accessibility_requirements_count_in_corpus": 7,
+      "has_accessibility_requirements_key": false
+    },
+    "input_husk_archetype": {
+      "component_type": "input",
+      "resolved": false,
+      "note": "'input' is an archetype slug, NOT a corpus id (the real component is text_input). Legacy returns the hardcoded textbox archetype husk.",
+      "legacy_anatomy": ["container", "label", "input-field", "helper-text", "error-text", "prefix (optional)", "suffix (optional)"],
+      "accessibility_role": "textbox",
+      "real_component_id": "text_input",
+      "real_component_accessibility_requirements_count": 6,
+      "has_accessibility_requirements_key": false
+    },
+    "navigation_husk_archetype": {
+      "component_type": "navigation",
+      "resolved": false,
+      "note": "'navigation' is an archetype slug, NOT a corpus id (the real component is navbar). Legacy returns the hardcoded navigation archetype husk.",
+      "legacy_anatomy": ["container", "nav-item", "active-indicator", "group-label (optional)", "collapse-toggle (optional)"],
+      "accessibility_role": "navigation",
+      "real_component_id": "navbar",
+      "real_component_accessibility_requirements_count": 6,
+      "has_accessibility_requirements_key": false
+    },
+    "unknown_generic_husk": {
+      "component_type": "sparkle_widget_xyz",
+      "resolved": false,
+      "anatomy": ["container", "content"],
+      "variants_count": 1,
+      "common_mistakes_count": 0,
+      "accessibility_role": "",
+      "has_accessibility_requirements_key": false,
+      "has_retrieval_state_key": false
+    }
+  }
+}

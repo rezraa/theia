@@ -9,6 +9,15 @@ import tempfile
 
 import pytest
 
+# The live Gmetric trust root is v3 (S0-FIX re-froze v2->v3 when the degenerate
+# benchmark recognizer was replaced by the curated blind-frozen recognition;
+# story-cb7e532b). Default the session to v3 so grade.py / the benchmark tests
+# resolve the v3 frozen set (same migrated corpus as v2 + the recognizer snapshot).
+# setdefault leaves an explicit THEIA_GMETRIC_VERSION=v1/v2 override in place (both
+# are retained on disk byte-identical; their pins predate the re-freeze, so an older
+# run correctly resolves its own frozen set).
+os.environ.setdefault("THEIA_GMETRIC_VERSION", "v3")
+
 from theia.tools._shared import get_knowledge
 
 
