@@ -1,0 +1,419 @@
+{
+  "1_grader": {
+    "method_baseline": "typed_index_bench.rank_system over the TWO-VIEW accessor: recognise matched system signal ids (OVERLAP + SHAPE / EXACT / SEED-FROM-NODE) against get_system_signal_index(), then loader.hydrate_systems (edge related_systems).",
+    "rule": "A gold is COVERED@k iff the method's rank-ordered top-k design-system ids intersect the gold's acceptable_ids. Only E golds are scored. ONE grader (grade.grade) is reused verbatim over this SYSTEM answer key -- no fork.",
+    "type": "curated_concept_map"
+  },
+  "2_denominators": {
+    "content_method_independent": {
+      "content_coverage_by_qclass": {
+        "SYS-PA": {
+          "E": 5,
+          "coverage_E_over_total": 1.0,
+          "total": 5
+        },
+        "SYS-PB": {
+          "E": 14,
+          "coverage_E_over_total": 1.0,
+          "total": 14
+        },
+        "SYS-TK": {
+          "E": 6,
+          "coverage_E_over_total": 1.0,
+          "total": 6
+        }
+      },
+      "definition": "Every gold is a real signal-bearing design-system node (direct corpus check).",
+      "signal_bearing_systems": 52,
+      "tally": {
+        "A_absent": 0,
+        "E_exists": 25
+      },
+      "total_systems": 54
+    },
+    "note": "Content EXISTS vs RECALL, kept distinct (m-0364c120). Never pooled with components.",
+    "reachable_set_for_recall": {
+      "FROZEN_reachable_denominator": 25,
+      "definition": "recall denominator = E-golds only."
+    }
+  },
+  "3_score": {
+    "answer_key_definition": "sha256 over sorted (problem_id, canonical, sorted(acceptable_ids)) tuples of every E-gold. Pinned in the freeze manifest; grade re-compares it so an acceptable_ids widening trips drift even when the graded result is unchanged.",
+    "answer_key_sha256": "f7ce41c87b81a5e472630511284197551cd01881ab99e8e7946631f2f11ec86b",
+    "formula": "recall@k = (# E-golds whose acceptable_ids intersect the method's top-k) / E-golds",
+    "metric": "system_recall_at_k",
+    "primary_cutoff_k": 10,
+    "secondary_cutoff_k": 5
+  },
+  "4_stratification": {
+    "dimensions": {
+      "qclass": {
+        "SYS-PA": "prose, verbatim system signal (EXACT leg)",
+        "SYS-PB": "prose, problem-language / blind (OVERLAP + SHAPE)",
+        "SYS-TK": "token, design-system id vocabulary (SEED-FROM-NODE leg)"
+      },
+      "register": [
+        "prose",
+        "token"
+      ],
+      "structure": "design-system category of each E-gold"
+    },
+    "rule": "m-e8ccb163: never a single pooled mean; qclass is primary."
+  },
+  "5_reproducibility": {
+    "corpus_snapshot_sha256": {
+      "accessibility_standards.json": "11716bc4a2d810ebb2087f53e9c05e5c91fbc672349fc4f00db36ecdef0c670c",
+      "component_patterns.json": "fe2ed49663e95e1974c9ffb1f4927b785de2e97aa85877a84f1e14161fc13aef",
+      "decision_rules.json": "d5e6971dbcaf4baa5c6dd7dbfd43da1bc2b26c9fe35e2e4adb3cf016c281e5b6",
+      "design_systems.json": "017e569c0558493898424ff8896e981fbeca58eae085a0154de221e9dc7e0a40"
+    },
+    "cutoffs": {
+      "primary_k": 10,
+      "secondary_k": 5
+    },
+    "n_problems": 25,
+    "problems_blind": {
+      "file": "problems_blind_sys_v1.json",
+      "sha256": "83d6d49a2e5dde714a58eb97d7107574901758c46e1efc2e56c4ade408ecc9f3"
+    },
+    "recompute_contract": "Given the pinned problems_blind_sys hash, the corpus hashes, k, and this map, recall@k is a pure function of a method's ranked output."
+  },
+  "authored_by": "Themis",
+  "design_authority": [
+    "council ae492280 (m-5a5837da)",
+    "root cause m-698d738c",
+    "discipline m-e8ccb163 (per-stratum, never pooled) + m-4d5383c2 (blind legs)"
+  ],
+  "one_line": "Design-system recall@10 over a blind method-independent set of E-golds, measured through the TWO-VIEW accessor (get_system_signal_index -> hydrate_systems). The bar S1's unified nested accessor must equal-or-beat on this stratum. Never pooled with the COMPONENT stratum.",
+  "reachable_set_map": [
+    {
+      "acceptable_ids": [
+        "material_design_3"
+      ],
+      "canonical": "material_design_3",
+      "concept": "Material Design 3",
+      "problem": "S01",
+      "qclass": "SYS-PA",
+      "register": "prose",
+      "role": "primary_fit",
+      "structure": "system",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "dark_mode"
+      ],
+      "canonical": "dark_mode",
+      "concept": "Dark Mode patterns",
+      "problem": "S02",
+      "qclass": "SYS-PA",
+      "register": "prose",
+      "role": "primary_fit",
+      "structure": "color",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "lightning_design"
+      ],
+      "canonical": "lightning_design",
+      "concept": "Lightning Design System",
+      "problem": "S03",
+      "qclass": "SYS-PA",
+      "register": "prose",
+      "role": "primary_fit",
+      "structure": "system",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "polaris"
+      ],
+      "canonical": "polaris",
+      "concept": "Shopify Polaris",
+      "problem": "S04",
+      "qclass": "SYS-PA",
+      "register": "prose",
+      "role": "primary_fit",
+      "structure": "system",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "carbon_design"
+      ],
+      "canonical": "carbon_design",
+      "concept": "Carbon Design System",
+      "problem": "S05",
+      "qclass": "SYS-PA",
+      "register": "prose",
+      "role": "primary_fit",
+      "structure": "system",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "material_design_3"
+      ],
+      "canonical": "material_design_3",
+      "concept": "Material Design 3",
+      "problem": "S06",
+      "qclass": "SYS-PB",
+      "register": "prose",
+      "role": "primary_fit",
+      "structure": "system",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "apple_hig"
+      ],
+      "canonical": "apple_hig",
+      "concept": "Apple Human Interface Guidelines",
+      "problem": "S07",
+      "qclass": "SYS-PB",
+      "register": "prose",
+      "role": "primary_fit",
+      "structure": "system",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "ant_design"
+      ],
+      "canonical": "ant_design",
+      "concept": "Ant Design",
+      "problem": "S08",
+      "qclass": "SYS-PB",
+      "register": "prose",
+      "role": "primary_fit",
+      "structure": "system",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "atomic_design"
+      ],
+      "canonical": "atomic_design",
+      "concept": "Atomic Design",
+      "problem": "S09",
+      "qclass": "SYS-PB",
+      "register": "prose",
+      "role": "primary_fit",
+      "structure": "methodology",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "user_centered_design"
+      ],
+      "canonical": "user_centered_design",
+      "concept": "User-Centered Design",
+      "problem": "S10",
+      "qclass": "SYS-PB",
+      "register": "prose",
+      "role": "primary_fit",
+      "structure": "methodology",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "chakra_patterns"
+      ],
+      "canonical": "chakra_patterns",
+      "concept": "Chakra UI philosophy",
+      "problem": "S11",
+      "qclass": "SYS-PB",
+      "register": "prose",
+      "role": "primary_fit",
+      "structure": "system",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "shadcn_patterns"
+      ],
+      "canonical": "shadcn_patterns",
+      "concept": "shadcn/ui philosophy",
+      "problem": "S12",
+      "qclass": "SYS-PB",
+      "register": "prose",
+      "role": "primary_fit",
+      "structure": "system",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "radix_patterns"
+      ],
+      "canonical": "radix_patterns",
+      "concept": "Radix UI headless architecture",
+      "problem": "S13",
+      "qclass": "SYS-PB",
+      "register": "prose",
+      "role": "primary_fit",
+      "structure": "system",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "color_theory"
+      ],
+      "canonical": "color_theory",
+      "concept": "Color Theory for interfaces",
+      "problem": "S14",
+      "qclass": "SYS-PB",
+      "register": "prose",
+      "role": "primary_fit",
+      "structure": "foundation",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "typography_scales"
+      ],
+      "canonical": "typography_scales",
+      "concept": "Typographic scales",
+      "problem": "S15",
+      "qclass": "SYS-PB",
+      "register": "prose",
+      "role": "primary_fit",
+      "structure": "foundation",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "spacing_systems"
+      ],
+      "canonical": "spacing_systems",
+      "concept": "Spacing systems",
+      "problem": "S16",
+      "qclass": "SYS-PB",
+      "register": "prose",
+      "role": "primary_fit",
+      "structure": "foundation",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "elevation_system"
+      ],
+      "canonical": "elevation_system",
+      "concept": "Elevation and depth system",
+      "problem": "S17",
+      "qclass": "SYS-PB",
+      "register": "prose",
+      "role": "primary_fit",
+      "structure": "foundation",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "container_queries"
+      ],
+      "canonical": "container_queries",
+      "concept": "Container queries",
+      "problem": "S18",
+      "qclass": "SYS-PB",
+      "register": "prose",
+      "role": "primary_fit",
+      "structure": "layout",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "design_tokens"
+      ],
+      "canonical": "design_tokens",
+      "concept": "Design tokens specification",
+      "problem": "S19",
+      "qclass": "SYS-PB",
+      "register": "prose",
+      "role": "primary_fit",
+      "structure": "token_system",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "material_design_3"
+      ],
+      "canonical": "material_design_3",
+      "concept": "Material Design 3",
+      "problem": "S20",
+      "qclass": "SYS-TK",
+      "register": "token",
+      "role": "primary_fit",
+      "structure": "system",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "tailwind_utility"
+      ],
+      "canonical": "tailwind_utility",
+      "concept": "Tailwind utility-first",
+      "problem": "S21",
+      "qclass": "SYS-TK",
+      "register": "token",
+      "role": "primary_fit",
+      "structure": "system",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "grid_systems"
+      ],
+      "canonical": "grid_systems",
+      "concept": "Grid systems",
+      "problem": "S22",
+      "qclass": "SYS-TK",
+      "register": "token",
+      "role": "primary_fit",
+      "structure": "layout",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "responsive_design"
+      ],
+      "canonical": "responsive_design",
+      "concept": "Responsive design",
+      "problem": "S23",
+      "qclass": "SYS-TK",
+      "register": "token",
+      "role": "primary_fit",
+      "structure": "layout",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "dark_mode"
+      ],
+      "canonical": "dark_mode",
+      "concept": "Dark Mode patterns",
+      "problem": "S24",
+      "qclass": "SYS-TK",
+      "register": "token",
+      "role": "primary_fit",
+      "structure": "color",
+      "verdict": "E"
+    },
+    {
+      "acceptable_ids": [
+        "contrast_ratios"
+      ],
+      "canonical": "contrast_ratios",
+      "concept": "WCAG contrast ratios",
+      "problem": "S25",
+      "qclass": "SYS-TK",
+      "register": "token",
+      "role": "primary_fit",
+      "structure": "color",
+      "verdict": "E"
+    }
+  ],
+  "spec_id": "theia-Gmetric-sys-v1",
+  "status": "FROZEN",
+  "story": "story-1c54b0b7",
+  "title": "Frozen blind design-system-selection recall scorecard (TYPED-INDEX S0, SYSTEM stratum)"
+}

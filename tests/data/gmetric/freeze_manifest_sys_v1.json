@@ -1,0 +1,15 @@
+{
+  "answer_key_sha256": "f7ce41c87b81a5e472630511284197551cd01881ab99e8e7946631f2f11ec86b",
+  "hash_algo": "sha256",
+  "pins": {
+    "accessibility_standards.json": "11716bc4a2d810ebb2087f53e9c05e5c91fbc672349fc4f00db36ecdef0c670c",
+    "component_patterns.json": "fe2ed49663e95e1974c9ffb1f4927b785de2e97aa85877a84f1e14161fc13aef",
+    "decision_rules.json": "d5e6971dbcaf4baa5c6dd7dbfd43da1bc2b26c9fe35e2e4adb3cf016c281e5b6",
+    "design_systems.json": "017e569c0558493898424ff8896e981fbeca58eae085a0154de221e9dc7e0a40",
+    "gmetric_sys_v1.json": "d9f950230909ba42d950ec4625df0f2f47d121c28922b9c0a0bc2d757a544c73",
+    "problems_blind_sys_v1.json": "83d6d49a2e5dde714a58eb97d7107574901758c46e1efc2e56c4ade408ecc9f3"
+  },
+  "spec_id": "theia-Gmetric-sys-v1-freeze-manifest",
+  "story": "story-1c54b0b7",
+  "what": "External trust root for the SYSTEM stratum. Pins problems_blind_sys + gmetric_sys + the four corpus snapshots + a content-hash over the E-gold answer key. grade._verify_substrate (reused verbatim) reads pins ONLY from here, never from gmetric_sys (CWE-345)."
+}

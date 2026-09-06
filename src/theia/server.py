@@ -17,7 +17,6 @@ from theia.tools.spec_component import spec_component as _spec_component
 from theia.tools.evaluate_accessibility import evaluate_accessibility as _evaluate_accessibility
 from theia.tools.log_decision import log_decision as _log_decision
 from theia.tools.get_signal_index import get_signal_index as _get_signal_index
-from theia.tools.get_signal_index import get_system_signal_index as _get_system_signal_index
 from theia.tools._shared import coerce
 
 
@@ -91,7 +90,7 @@ def plan_design_system(
 
     The base-system foundation is retrieved through the shared Shape-C engine over
     the design_systems signal index: the caller recognises the product's structural
-    signals against ``get_system_signal_index`` and passes the matched ids; the
+    signals against ``get_signal_index.system_signals`` and passes the matched ids; the
     nearest existing system is hydrated and fanned out over its ``related_systems``,
     or the tool abstains to an honest custom foundation with a reason (never a silent
     always-'custom'). The token / hierarchy / responsive / theming scaffolding is
@@ -107,7 +106,7 @@ def plan_design_system(
             ["professional", "warm", "accessible"].
         existing_system: Optional ID of an existing design system in the
             knowledge base to use as a starting point (explicit-id path).
-        matched_signal_ids: Signal ids recognised against ``get_system_signal_index``,
+        matched_signal_ids: Signal ids recognised against ``get_signal_index.system_signals``,
             e.g. ["sig-...", ...]; drives the base-system match when
             ``existing_system`` is not supplied.
         conn: Kuzu/LadybugDB connection for graph mode (injected by Othrys).
@@ -241,41 +240,26 @@ def log_decision(
 
 @mcp.tool()
 def get_signal_index(conn: Any = None) -> dict:
-    """Return the deterministic Shape-C component signal-index view.
+    """Return both deterministic Shape-C signal-index views in ONE nested composite.
 
-    A read-only accessor over every structural signal in the component corpus.
-    The agent recognises a problem's signals against this view in working memory
-    and passes the matched signal ids to the retrieval engine (wired to the
-    concern tools in S3-S5). This tool performs no matching itself.
+    The single read-only signal-index accessor. Exposes every structural signal in
+    BOTH corpora as two labelled surfaces: ``component_signals`` (component corpus)
+    and ``system_signals`` (design_systems corpus). The agent recognises a problem's
+    signals against the relevant surface in working memory and passes the matched
+    signal ids to the concern tools (``component_signals`` -> audit_design /
+    spec_component; ``system_signals`` -> plan_design_system). This tool performs no
+    matching itself. ONE public tool by design: the filename-keyed seed mints one
+    graph tool per file, so a single accessor is the reachability guarantee.
 
     Args:
         conn: Kuzu/LadybugDB connection for graph mode (injected by Othrys).
 
-    Returns: {signals: [{signal_id, signal_text, component_ids}, ...], count: N}
-        — sorted by signal_id with sorted component_ids so it serialises
-        identically on every call.
+    Returns: {component_signals: [{signal_id, signal_text, component_ids}, ...],
+              system_signals: [{signal_id, signal_text, system_ids}, ...]}
+        — each view sorted by signal_id with sorted id-lists so the composite
+        serialises identically on every call.
     """
     return _get_signal_index(conn=conn)
-
-
-@mcp.tool()
-def get_system_signal_index(conn: Any = None) -> dict:
-    """Return the deterministic Shape-C design_systems signal-index view.
-
-    The design-system analogue of ``get_signal_index`` (same engine, second corpus).
-    A read-only accessor over every structural signal in the design_systems corpus.
-    The agent recognises a product's signals against this view in working memory and
-    passes the matched signal ids to ``plan_design_system`` (which hydrates the
-    nearest existing system and fans out over its related_systems). No matching here.
-
-    Args:
-        conn: Kuzu/LadybugDB connection for graph mode (injected by Othrys).
-
-    Returns: {signals: [{signal_id, signal_text, system_ids}, ...], count: N}
-        — sorted by signal_id with sorted system_ids so it serialises identically
-        on every call.
-    """
-    return _get_system_signal_index(conn=conn)
 
 
 # ---------------------------------------------------------------------------

@@ -190,8 +190,8 @@ def plan_design_system(
 
     The base-system foundation is retrieved through the shared Shape-C engine over
     the design_systems signal index: the caller (the LLM) recognises the product's
-    structural signals against ``get_system_signal_index`` and passes the matched
-    ids; the nearest existing system is hydrated and fanned out over its
+    structural signals against ``get_signal_index.system_signals`` and passes the
+    matched ids; the nearest existing system is hydrated and fanned out over its
     ``related_systems``, or the tool ABSTAINS to an honest custom foundation with a
     reason. The generative token / hierarchy / responsive / theming scaffolding below
     is unchanged.
@@ -207,8 +207,8 @@ def plan_design_system(
         existing_system: Optional ID of an existing design system in the
             knowledge base to use as a starting point (explicit-id path).
         matched_signal_ids: Signal ids the caller recognised against
-            ``get_system_signal_index`` (problem-language -> sig-id). Drives the
-            base-system match when ``existing_system`` is not supplied; bounded at
+            ``get_signal_index.system_signals`` (problem-language -> sig-id). Drives
+            the base-system match when ``existing_system`` is not supplied; bounded at
             the caller boundary before hydrate.
         conn: Kuzu/LadybugDB connection for graph mode, or None for JSON.
 
@@ -247,8 +247,8 @@ def plan_design_system(
         # code. This REPLACES the degenerate keyword scorer that read a ``keywords``
         # field no system carries, so best_score stayed 0 and every product defaulted
         # to 'custom'. The caller recognised the product's signals against
-        # ``get_system_signal_index``; we hydrate the nearest existing system and fan
-        # out over its related_systems, or ABSTAIN with a reason (four-state envelope).
+        # ``get_signal_index.system_signals``; we hydrate the nearest existing system
+        # and fan out over its related_systems, or ABSTAIN (four-state envelope).
         res = kb.hydrate_systems(matched_signal_ids[:_MAX_MATCHED_SIGNALS])
         envelope = {
             "retrieval_state": res.state,

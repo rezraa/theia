@@ -159,16 +159,25 @@ def _query_to_pid() -> dict[tuple[str, ...], str]:
     return {tuple(p["query"]): p["id"] for p in _load_problems()}
 
 
-def recognize(loader, query: list[str], shape: str) -> list[str]:
-    """Recognise matched component signal ids for one problem. Deterministic, gold-blind.
+def _recognize_over(index, resolve_seed, query: list[str], shape: str) -> list[str]:
+    """Generic blind 3-leg recognizer over ANY signal-index surface (parameterized).
 
-    Union of three legs (see module docstring): OVERLAP (>= 2 stemmed content tokens
-    of query+shape against a signal text), EXACT (query verbatim == a signal text),
-    and SEED-FROM-NODE (a query token that IS a component id -> its own signals).
-    Returns a sorted, de-duplicated list of signal ids. Reads only its arguments +
-    the loader's live index — never the gold answer key.
+    The ONE recognition engine, shared by the component recognizer (:func:`recognize`,
+    below) and the design-system recognizer (``typed_index_bench``, the TYPED-INDEX S0
+    gate, story-1c54b0b7), so both index shapes run IDENTICAL legs from one source of
+    truth — no forked leg logic. A parity test (test_typed_index_s0) proves the system
+    path and this component path are the same behaviour on the shared engine.
+
+      1. OVERLAP — a signal whose text shares >= 2 stemmed content tokens with
+         (query + SHAPE working memory).
+      2. EXACT — a query string that verbatim IS a catalogued signal text.
+      3. SEED-FROM-NODE — ``resolve_seed(query_token)`` returns that node's own signal
+         ids when the token IS a node id, else ``[]``.
+
+    ``index`` is the ``[{signal_id, signal_text, ...}]`` view of the target surface;
+    ``resolve_seed`` closes over the loader's node getters. Returns a sorted, de-duped
+    list of signal ids. Reads only its arguments — never the gold answer key.
     """
-    index = loader.get_signal_index()
     q: set[str] = set()
     for qs in query:
         q |= _toks(qs)
@@ -177,22 +186,38 @@ def recognize(loader, query: list[str], shape: str) -> list[str]:
     text2id = {e["signal_text"].strip().lower(): e["signal_id"] for e in index}
     matched: set[str] = set()
 
-    # 1. OVERLAP leg — problem-language / rule-prose (PA/PB/CE).
+    # 1. OVERLAP leg — problem-language (PB) / rule-prose (PA/CE).
     for e in index:
         if len(q & _toks(e["signal_text"])) >= 2:
             matched.add(e["signal_id"])
-    # 2. EXACT leg — a query that verbatim IS a catalogued signal (PA migrated prose).
+    # 2. EXACT leg — a query that verbatim IS a catalogued signal.
     for qs in query:
         hit = text2id.get(qs.strip().lower())
         if hit is not None:
             matched.add(hit)
-    # 3. SEED-FROM-NODE leg — a query token that IS a component id (TK/SEED).
+    # 3. SEED-FROM-NODE leg — a query token that IS a node id.
     for qs in query:
-        t = qs.strip()
-        for cand in (t, t.replace("-", "_"), t.replace("_", "-")):
-            if loader.get_component_pattern(cand):
-                matched.update(loader.signal_ids_for(cand))
+        matched.update(resolve_seed(qs.strip()))
     return sorted(matched)
+
+
+def recognize(loader, query: list[str], shape: str) -> list[str]:
+    """Recognise matched component signal ids for one problem. Deterministic, gold-blind.
+
+    A thin binding of the shared :func:`_recognize_over` engine to the COMPONENT index:
+    the OVERLAP/EXACT legs read ``loader.get_signal_index()`` and the SEED-FROM-NODE leg
+    resolves a query token that IS a component id (kebab<->snake) to its own signal ids.
+    Returns a sorted, de-duplicated list of signal ids. Reads only its arguments +
+    the loader's live index — never the gold answer key.
+    """
+    def _component_seed(token: str) -> list[str]:
+        ids: list[str] = []
+        for cand in (token, token.replace("-", "_"), token.replace("_", "-")):
+            if loader.get_component_pattern(cand):
+                ids += loader.signal_ids_for(cand)
+        return ids
+
+    return _recognize_over(loader.get_signal_index(), _component_seed, query, shape)
 
 
 def build_matches(loader) -> dict[str, list[str]]:

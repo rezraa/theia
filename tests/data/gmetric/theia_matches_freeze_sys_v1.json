@@ -1,0 +1,11 @@
+{
+  "hash_algo": "sha256",
+  "pins": {
+    "design_systems.json": "017e569c0558493898424ff8896e981fbeca58eae085a0154de221e9dc7e0a40",
+    "problems_blind_sys_v1.json": "83d6d49a2e5dde714a58eb97d7107574901758c46e1efc2e56c4ade408ecc9f3",
+    "theia_matches_sys_v1.json": "48c30e8992f02410e21163902b0b59d9ee4f48c4e2ac248d2eaedf958bf2f47f"
+  },
+  "spec_id": "theia-Gmetric-sys-recognizer-freeze",
+  "story": "story-1c54b0b7",
+  "what": "Recognizer trust root: pins the frozen SYSTEM recognition snapshot + problems_blind_sys + design_systems.json (the sole corpus its system signal index derives from). Separate from the S0 freeze_manifest_sys (which grade._verify_substrate holds to an exact pin set)."
+}

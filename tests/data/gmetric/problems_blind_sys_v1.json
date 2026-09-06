@@ -1,0 +1,442 @@
+{
+  "n_problems": 25,
+  "problems": [
+    {
+      "golds": [
+        {
+          "canonical": "material_design_3",
+          "concept": "Material Design 3",
+          "role": "primary_fit",
+          "verdict": "E"
+        }
+      ],
+      "id": "S01",
+      "problem": "A team states a symptom that is catalogued verbatim as a Material Design 3 signal.",
+      "qclass": "SYS-PA",
+      "query": [
+        "Android-first or Android-primary product"
+      ],
+      "register": "prose"
+    },
+    {
+      "golds": [
+        {
+          "canonical": "dark_mode",
+          "concept": "Dark Mode patterns",
+          "role": "primary_fit",
+          "verdict": "E"
+        }
+      ],
+      "id": "S02",
+      "problem": "A team states a symptom catalogued verbatim as a Dark Mode signal.",
+      "qclass": "SYS-PA",
+      "query": [
+        "Users requesting dark mode support"
+      ],
+      "register": "prose"
+    },
+    {
+      "golds": [
+        {
+          "canonical": "lightning_design",
+          "concept": "Lightning Design System",
+          "role": "primary_fit",
+          "verdict": "E"
+        }
+      ],
+      "id": "S03",
+      "problem": "A team states a symptom catalogued verbatim as a Salesforce Lightning signal.",
+      "qclass": "SYS-PA",
+      "query": [
+        "Salesforce Lightning Web Components (LWC) codebase"
+      ],
+      "register": "prose"
+    },
+    {
+      "golds": [
+        {
+          "canonical": "polaris",
+          "concept": "Shopify Polaris",
+          "role": "primary_fit",
+          "verdict": "E"
+        }
+      ],
+      "id": "S04",
+      "problem": "A team states a symptom catalogued verbatim as a Shopify Polaris signal.",
+      "qclass": "SYS-PA",
+      "query": [
+        "Shopify app or plugin development"
+      ],
+      "register": "prose"
+    },
+    {
+      "golds": [
+        {
+          "canonical": "carbon_design",
+          "concept": "Carbon Design System",
+          "role": "primary_fit",
+          "verdict": "E"
+        }
+      ],
+      "id": "S05",
+      "problem": "A team states a symptom catalogued verbatim as a Carbon Design signal.",
+      "qclass": "SYS-PA",
+      "query": [
+        "IBM product or partner integration"
+      ],
+      "register": "prose"
+    },
+    {
+      "golds": [
+        {
+          "canonical": "material_design_3",
+          "concept": "Material Design 3",
+          "role": "primary_fit",
+          "verdict": "E"
+        }
+      ],
+      "id": "S06",
+      "problem": "An Android-first team building with Jetpack Compose wants the app to pick up the user's wallpaper colours for theming.",
+      "qclass": "SYS-PB",
+      "query": [
+        "We're an Android-first team building with Jetpack Compose and we want the app to pick up the user's wallpaper colours for theming."
+      ],
+      "register": "prose"
+    },
+    {
+      "golds": [
+        {
+          "canonical": "apple_hig",
+          "concept": "Apple Human Interface Guidelines",
+          "role": "primary_fit",
+          "verdict": "E"
+        }
+      ],
+      "id": "S07",
+      "problem": "A team shipping a native iPhone and iPad app wants it to feel native and pass App Store review.",
+      "qclass": "SYS-PB",
+      "query": [
+        "We're shipping a native iPhone and iPad app that should feel like it belongs on the platform, and we plan to distribute through the App Store."
+      ],
+      "register": "prose"
+    },
+    {
+      "golds": [
+        {
+          "canonical": "ant_design",
+          "concept": "Ant Design",
+          "role": "primary_fit",
+          "verdict": "E"
+        }
+      ],
+      "id": "S08",
+      "problem": "An internal enterprise back-office admin panel in React with lots of data tables, forms and filters.",
+      "qclass": "SYS-PB",
+      "query": [
+        "We're building an internal enterprise back-office admin panel in React with lots of data tables, forms and filters."
+      ],
+      "register": "prose"
+    },
+    {
+      "golds": [
+        {
+          "canonical": "atomic_design",
+          "concept": "Atomic Design",
+          "role": "primary_fit",
+          "verdict": "E"
+        }
+      ],
+      "id": "S09",
+      "problem": "Designers and developers keep disagreeing about what counts as a component, and the pattern library has no clear hierarchy or naming convention.",
+      "qclass": "SYS-PB",
+      "query": [
+        "Our designers and developers keep disagreeing about what counts as a component, and our pattern library has no clear hierarchy or naming convention."
+      ],
+      "register": "prose"
+    },
+    {
+      "golds": [
+        {
+          "canonical": "user_centered_design",
+          "concept": "User-Centered Design",
+          "role": "primary_fit",
+          "verdict": "E"
+        }
+      ],
+      "id": "S10",
+      "problem": "Usability problems keep surfacing late; user research is disconnected from decisions and there is no iterative evaluation cycle.",
+      "qclass": "SYS-PB",
+      "query": [
+        "We keep discovering usability problems late in development; our user research is disconnected from design decisions and we have no iterative evaluation cycle."
+      ],
+      "register": "prose"
+    },
+    {
+      "golds": [
+        {
+          "canonical": "chakra_patterns",
+          "concept": "Chakra UI philosophy",
+          "role": "primary_fit",
+          "verdict": "E"
+        }
+      ],
+      "id": "S11",
+      "problem": "A React team that cares about accessibility wants to move fast by styling at the component level instead of maintaining separate CSS.",
+      "qclass": "SYS-PB",
+      "query": [
+        "Our React team cares a lot about accessibility and wants to move fast by styling at the component level instead of maintaining separate CSS."
+      ],
+      "register": "prose"
+    },
+    {
+      "golds": [
+        {
+          "canonical": "shadcn_patterns",
+          "concept": "shadcn/ui philosophy",
+          "role": "primary_fit",
+          "verdict": "E"
+        }
+      ],
+      "id": "S12",
+      "problem": "A Next.js + Tailwind team wants to own the component code in their repo rather than depend on a library they cannot fully customise.",
+      "qclass": "SYS-PB",
+      "query": [
+        "We're on Next.js with Tailwind and want to own the component code in our own repo rather than depend on a library we can't fully customise."
+      ],
+      "register": "prose"
+    },
+    {
+      "golds": [
+        {
+          "canonical": "radix_patterns",
+          "concept": "Radix UI headless architecture",
+          "role": "primary_fit",
+          "verdict": "E"
+        }
+      ],
+      "id": "S13",
+      "problem": "A team needs unstyled, accessible primitives so designers can build a completely bespoke-looking component set on top; accessibility is a hard requirement.",
+      "qclass": "SYS-PB",
+      "query": [
+        "We need unstyled, accessible primitives so our designers can build a completely bespoke-looking component set on top, and accessibility is a hard requirement."
+      ],
+      "register": "prose"
+    },
+    {
+      "golds": [
+        {
+          "canonical": "color_theory",
+          "concept": "Color Theory for interfaces",
+          "role": "primary_fit",
+          "verdict": "E"
+        }
+      ],
+      "id": "S14",
+      "problem": "Colours across the product feel random and clash, and some brand colours fail the contrast checks the team runs.",
+      "qclass": "SYS-PB",
+      "query": [
+        "Colours across our product feel random and clash, and some of our brand colours fail the contrast checks we run."
+      ],
+      "register": "prose"
+    },
+    {
+      "golds": [
+        {
+          "canonical": "typography_scales",
+          "concept": "Typographic scales",
+          "role": "primary_fit",
+          "verdict": "E"
+        }
+      ],
+      "id": "S15",
+      "problem": "Font sizes are arbitrary pixel values with no consistent ratio between heading levels, so the hierarchy feels flat.",
+      "qclass": "SYS-PB",
+      "query": [
+        "Our font sizes are arbitrary pixel values with no consistent ratio between heading levels, so the hierarchy feels flat."
+      ],
+      "register": "prose"
+    },
+    {
+      "golds": [
+        {
+          "canonical": "spacing_systems",
+          "concept": "Spacing systems",
+          "role": "primary_fit",
+          "verdict": "E"
+        }
+      ],
+      "id": "S16",
+      "problem": "Spacing in the CSS is inconsistent and elements feel randomly placed; developers are guessing padding and margin values.",
+      "qclass": "SYS-PB",
+      "query": [
+        "Spacing in our CSS is inconsistent and elements feel randomly placed; developers are just guessing padding and margin values."
+      ],
+      "register": "prose"
+    },
+    {
+      "golds": [
+        {
+          "canonical": "elevation_system",
+          "concept": "Elevation and depth system",
+          "role": "primary_fit",
+          "verdict": "E"
+        }
+      ],
+      "id": "S17",
+      "problem": "Z-index values conflict and modals and dropdowns layer incorrectly; shadows are inconsistent and disappear in the dark theme.",
+      "qclass": "SYS-PB",
+      "query": [
+        "Our z-index values conflict and modals and dropdowns layer incorrectly; our shadows are inconsistent and disappear in the dark theme."
+      ],
+      "register": "prose"
+    },
+    {
+      "golds": [
+        {
+          "canonical": "container_queries",
+          "concept": "Container queries",
+          "role": "primary_fit",
+          "verdict": "E"
+        }
+      ],
+      "id": "S18",
+      "problem": "Components break when dropped into a narrower column; their responsiveness is tied to the viewport rather than the space they sit in.",
+      "qclass": "SYS-PB",
+      "query": [
+        "Our components break when we drop them into a narrower column; their responsiveness is tied to the viewport rather than the space they actually sit in."
+      ],
+      "register": "prose"
+    },
+    {
+      "golds": [
+        {
+          "canonical": "design_tokens",
+          "concept": "Design tokens specification",
+          "role": "primary_fit",
+          "verdict": "E"
+        }
+      ],
+      "id": "S19",
+      "problem": "Hardcoded colour values are scattered across the CSS and the design-to-code handoff loses fidelity across web, iOS and Android.",
+      "qclass": "SYS-PB",
+      "query": [
+        "We have hardcoded colour values scattered across our CSS and our design-to-code handoff loses fidelity across web, iOS and Android."
+      ],
+      "register": "prose"
+    },
+    {
+      "golds": [
+        {
+          "canonical": "material_design_3",
+          "concept": "Material Design 3",
+          "role": "primary_fit",
+          "verdict": "E"
+        }
+      ],
+      "id": "S20",
+      "problem": "The Material Design 3 system named directly by its id token.",
+      "qclass": "SYS-TK",
+      "query": [
+        "material_design_3"
+      ],
+      "register": "token"
+    },
+    {
+      "golds": [
+        {
+          "canonical": "tailwind_utility",
+          "concept": "Tailwind utility-first",
+          "role": "primary_fit",
+          "verdict": "E"
+        }
+      ],
+      "id": "S21",
+      "problem": "The Tailwind utility methodology named directly by its id token.",
+      "qclass": "SYS-TK",
+      "query": [
+        "tailwind_utility"
+      ],
+      "register": "token"
+    },
+    {
+      "golds": [
+        {
+          "canonical": "grid_systems",
+          "concept": "Grid systems",
+          "role": "primary_fit",
+          "verdict": "E"
+        }
+      ],
+      "id": "S22",
+      "problem": "The grid-systems foundation named directly by its id token.",
+      "qclass": "SYS-TK",
+      "query": [
+        "grid_systems"
+      ],
+      "register": "token"
+    },
+    {
+      "golds": [
+        {
+          "canonical": "responsive_design",
+          "concept": "Responsive design",
+          "role": "primary_fit",
+          "verdict": "E"
+        }
+      ],
+      "id": "S23",
+      "problem": "The responsive-design methodology named directly by its id token.",
+      "qclass": "SYS-TK",
+      "query": [
+        "responsive_design"
+      ],
+      "register": "token"
+    },
+    {
+      "golds": [
+        {
+          "canonical": "dark_mode",
+          "concept": "Dark Mode patterns",
+          "role": "primary_fit",
+          "verdict": "E"
+        }
+      ],
+      "id": "S24",
+      "problem": "The dark-mode color system named directly by its id token.",
+      "qclass": "SYS-TK",
+      "query": [
+        "dark_mode"
+      ],
+      "register": "token"
+    },
+    {
+      "golds": [
+        {
+          "canonical": "contrast_ratios",
+          "concept": "WCAG contrast ratios",
+          "role": "primary_fit",
+          "verdict": "E"
+        }
+      ],
+      "id": "S25",
+      "problem": "The WCAG contrast-ratio color system named directly by its id token.",
+      "qclass": "SYS-TK",
+      "query": [
+        "contrast_ratios"
+      ],
+      "register": "token"
+    }
+  ],
+  "qclasses": [
+    "SYS-PA",
+    "SYS-PB",
+    "SYS-TK"
+  ],
+  "registers": [
+    "prose",
+    "token"
+  ],
+  "spec_id": "theia-Gmetric-sys-v1",
+  "story": "story-1c54b0b7",
+  "what": "Blind, corpus-blind DESIGN-SYSTEM-SELECTION problems (the SYSTEM stratum of the TYPED-INDEX S0 gate). Each carries its FROZEN verbatim query and its gold design-system id. SYS-PA queries are verbatim system signals; SYS-PB problem-language is authored before grading and never tuned toward gold vocab; SYS-TK feeds the system id token AS the query. The grader reads THIS file and feeds 'query' unchanged."
+}

@@ -1,0 +1,380 @@
+{
+  "corpus_snapshot_sha256": {
+    "design_systems.json": "017e569c0558493898424ff8896e981fbeca58eae085a0154de221e9dc7e0a40"
+  },
+  "matches": {
+    "S01": [
+      "sig-a3bc533112ef"
+    ],
+    "S02": [
+      "sig-487f3461fa58",
+      "sig-8847c5799edc",
+      "sig-a8eae769a3fd",
+      "sig-d600708bd7ea",
+      "sig-e82be2e10cbd",
+      "sig-e8aa65633e82",
+      "sig-f3592e85682f"
+    ],
+    "S03": [
+      "sig-56aedd8fda0c",
+      "sig-6181d71714f3",
+      "sig-66cc211beedc"
+    ],
+    "S04": [
+      "sig-1019c2e2dad0",
+      "sig-110056736db4",
+      "sig-503dbd632518"
+    ],
+    "S05": [
+      "sig-110056736db4",
+      "sig-5ed42dfbc972"
+    ],
+    "S06": [
+      "sig-3340f78e74fb",
+      "sig-a3bc533112ef",
+      "sig-e28c4d5cd890"
+    ],
+    "S07": [
+      "sig-84ca9d337391",
+      "sig-c72b6075f579",
+      "sig-df718d75b409"
+    ],
+    "S08": [
+      "sig-1fde8c0a3fe4",
+      "sig-34861d6f43b0",
+      "sig-518548b933ef",
+      "sig-760673ec0257",
+      "sig-7eeb1ea2613b"
+    ],
+    "S09": [
+      "sig-174307213681",
+      "sig-2a6ee022254b",
+      "sig-563e028f0566",
+      "sig-6181d71714f3",
+      "sig-a86ee9acd29a",
+      "sig-b517c75925c0",
+      "sig-c0578b876621"
+    ],
+    "S10": [
+      "sig-32f90f1a8f73",
+      "sig-64d087d02c8e",
+      "sig-71b723b10699",
+      "sig-ad555496bb3e",
+      "sig-dc82c54cb977",
+      "sig-f9901e35675a"
+    ],
+    "S11": [
+      "sig-1ea543059e6d",
+      "sig-42ae45b78c01",
+      "sig-56aedd8fda0c",
+      "sig-670d246a7505",
+      "sig-a86ee9acd29a",
+      "sig-d808174d4186"
+    ],
+    "S12": [
+      "sig-2a6ee022254b",
+      "sig-39b1532b8fdb"
+    ],
+    "S13": [
+      "sig-0a4fbe204945",
+      "sig-174307213681",
+      "sig-2ece43efc5c6",
+      "sig-a86ee9acd29a",
+      "sig-bb633959c20f",
+      "sig-c9aa4e2df9c1",
+      "sig-f58c5cbdfb60"
+    ],
+    "S14": [
+      "sig-5da0945a9113",
+      "sig-600a21c5f2cc",
+      "sig-628d19175c8c",
+      "sig-85732bb68d62",
+      "sig-b20354fa0312",
+      "sig-d27afb63308e"
+    ],
+    "S15": [
+      "sig-1533a2d02a26",
+      "sig-158aef0e38e5",
+      "sig-334f47f3b86e",
+      "sig-4ce51049b6ee",
+      "sig-7f6d3a665a0c",
+      "sig-7fbb60466562",
+      "sig-8baacf6d357d",
+      "sig-967d3d3792f9",
+      "sig-9f9b338ef147",
+      "sig-a09633df09a4",
+      "sig-b71acbbdc696",
+      "sig-c765667eb399",
+      "sig-d253fa956eb0",
+      "sig-db172bffd8d4",
+      "sig-eb679d3ce4a1",
+      "sig-ed70b90a242e"
+    ],
+    "S16": [
+      "sig-7fbb60466562",
+      "sig-8a1aba569669",
+      "sig-8cce00b28f36",
+      "sig-967d3d3792f9",
+      "sig-b305395f4ac1",
+      "sig-c65756a38046",
+      "sig-db172bffd8d4",
+      "sig-e7b1eb2a121d",
+      "sig-fef79678a1a8"
+    ],
+    "S17": [
+      "sig-204abb58a16b",
+      "sig-5d4147b60989",
+      "sig-6f8913113304",
+      "sig-8847c5799edc",
+      "sig-967d3d3792f9",
+      "sig-b71acbbdc696",
+      "sig-c65756a38046"
+    ],
+    "S18": [
+      "sig-37cc931fc3dd",
+      "sig-4235d67e6b0b",
+      "sig-ff621c4251f2"
+    ],
+    "S19": [
+      "sig-2a6ee022254b",
+      "sig-85732bb68d62",
+      "sig-967d3d3792f9",
+      "sig-b305395f4ac1",
+      "sig-bf2c61df2f8b",
+      "sig-c65756a38046",
+      "sig-ca21b1a39eef",
+      "sig-fea8a49c1983"
+    ],
+    "S20": [
+      "sig-3340f78e74fb",
+      "sig-a3bc533112ef",
+      "sig-df9185ed9a9c",
+      "sig-e28c4d5cd890"
+    ],
+    "S21": [
+      "sig-0981b23cadef",
+      "sig-7d8a4a9afff0",
+      "sig-b195fc678e26",
+      "sig-f04fa75a5267"
+    ],
+    "S22": [
+      "sig-15c09274d890",
+      "sig-7305863d78f3",
+      "sig-be76c84de348",
+      "sig-c1e33e05563a",
+      "sig-f844837e3417"
+    ],
+    "S23": [
+      "sig-279fc98aad29",
+      "sig-918d563a7d05",
+      "sig-91c1af0881fd",
+      "sig-ff621c4251f2"
+    ],
+    "S24": [
+      "sig-2cb50e10586d",
+      "sig-487f3461fa58",
+      "sig-8847c5799edc",
+      "sig-a8eae769a3fd",
+      "sig-d600708bd7ea",
+      "sig-e82be2e10cbd",
+      "sig-e8aa65633e82",
+      "sig-f3592e85682f"
+    ],
+    "S25": [
+      "sig-83ce4f980d1f",
+      "sig-8c2a9241d150",
+      "sig-aa3357621189",
+      "sig-e010e49cb4ec"
+    ]
+  },
+  "matches_by_signal_text": {
+    "S01": [
+      "Android-first or Android-primary product"
+    ],
+    "S02": [
+      "Color palette does not scale to dark mode",
+      "Dark mode shadows are invisible or muddy",
+      "Dark mode implementation has pure black backgrounds",
+      "Dark mode implementation requires finding every color usage",
+      "Dark mode is planned or requested by users",
+      "Colors that look fine in light mode are garish in dark mode",
+      "Users requesting dark mode support"
+    ],
+    "S03": [
+      "Web components or React-based creative tools",
+      "Codebase has components at mixed granularity with no naming convention",
+      "Salesforce Lightning Web Components (LWC) codebase"
+    ],
+    "S04": [
+      "GitHub App or Action development",
+      "Adobe product integration or plugin development",
+      "Shopify app or plugin development"
+    ],
+    "S05": [
+      "Adobe product integration or plugin development",
+      "IBM product or partner integration"
+    ],
+    "S06": [
+      "Requirement for wallpaper-based dynamic theming",
+      "Android-first or Android-primary product",
+      "Flutter or Jetpack Compose codebase"
+    ],
+    "S07": [
+      "App Store distribution planned",
+      "Product targets iPhone, iPad, Mac, or Apple Watch",
+      "Users expect native platform behavior"
+    ],
+    "S08": [
+      "React codebase for enterprise application",
+      "Complex data tables, forms, and filters",
+      "Admin panel or back-office tool",
+      "Enterprise React application",
+      "React codebase targeting enterprise users"
+    ],
+    "S09": [
+      "Designers and developers disagree on what constitutes a component",
+      "No clear contract between design specs and component code",
+      "Content pages lack clear information hierarchy",
+      "Codebase has components at mixed granularity with no naming convention",
+      "Team has designers creating bespoke component designs",
+      "Type hierarchy exists but lacks clear visual steps",
+      "Pattern library lacks organizational hierarchy"
+    ],
+    "S10": [
+      "User research is disconnected from design decisions",
+      "Need for rapid UI development with consistent design",
+      "No iterative evaluation cycle exists",
+      "Research insights are not being synthesized into actionable problem statements",
+      "Usability issues are discovered late in development",
+      "Weeks pass between design and user validation"
+    ],
+    "S11": [
+      "React codebase with emphasis on accessibility",
+      "Team prefers component-level styling over separate CSS",
+      "Web components or React-based creative tools",
+      "Components use global CSS variables causing unintended side effects",
+      "Team has designers creating bespoke component designs",
+      "Component styling is tightly coupled to implementation details"
+    ],
+    "S12": [
+      "No clear contract between design specs and component code",
+      "Next.js + Tailwind CSS project"
+    ],
+    "S13": [
+      "Strong accessibility compliance requirements",
+      "Designers and developers disagree on what constitutes a component",
+      "Application needs persistent top and side navigation",
+      "Team has designers creating bespoke component designs",
+      "Accessibility compliance is a hard requirement",
+      "Same component needs different breakpoints in different locations",
+      "Primitive color names used directly in component styles"
+    ],
+    "S14": [
+      "Page load animations feel random or uncoordinated",
+      "Colors feel random or clash visually",
+      "Current scale feels too subtle for the brand personality",
+      "Transitions have inconsistent timing across the product",
+      "Motion is inconsistent in duration and style across the product",
+      "Brand colors fail accessibility contrast checks"
+    ],
+    "S15": [
+      "Font sizes in codebase are arbitrary px values",
+      "Current font sizes are arbitrary without a systematic ratio",
+      "Multiple media queries exist solely for font-size changes",
+      "Headings feel too similar in size to body text",
+      "Interface feels monotone or lacks visual hierarchy",
+      "Spacing between sections feels inconsistent",
+      "Navigation between views feels disconnected",
+      "Spacing values in CSS are arbitrary and inconsistent",
+      "No consistent ratio between heading levels",
+      "Type sizes jump inconsistently between heading levels",
+      "Z-index values are arbitrary and conflicting",
+      "Few heading levels but need clear visual weight",
+      "Heading levels are hard to distinguish visually",
+      "Line-heights are arbitrary values without relationship to spacing",
+      "Type hierarchy is flat and lacks visual distinction",
+      "Font sizes jump abruptly at breakpoints"
+    ],
+    "S16": [
+      "Spacing between sections feels inconsistent",
+      "Developers are guessing spacing values",
+      "Elements feel randomly placed without visual rhythm",
+      "Spacing values in CSS are arbitrary and inconsistent",
+      "Hardcoded color values scattered across CSS files",
+      "Multiple platforms (web, iOS, Android) with inconsistent values",
+      "Line-heights are arbitrary values without relationship to spacing",
+      "Margins used for spacing between flex children",
+      "Padding and margins differ between similar components"
+    ],
+    "S17": [
+      "Shadows are inconsistent across components",
+      "Modal and dropdown layering causes rendering issues",
+      "Modals appear and disappear abruptly",
+      "Dark mode shadows are invisible or muddy",
+      "Spacing values in CSS are arbitrary and inconsistent",
+      "Z-index values are arbitrary and conflicting",
+      "Multiple platforms (web, iOS, Android) with inconsistent values"
+    ],
+    "S18": [
+      "Components break when moved to a narrower container",
+      "Responsive behavior is tied to viewport rather than available space",
+      "Layout breaks or overflows at certain viewport widths"
+    ],
+    "S19": [
+      "No clear contract between design specs and component code",
+      "Transitions have inconsistent timing across the product",
+      "Spacing values in CSS are arbitrary and inconsistent",
+      "Hardcoded color values scattered across CSS files",
+      "Design-to-code handoff loses fidelity",
+      "Multiple platforms (web, iOS, Android) with inconsistent values",
+      "Design requires intermediate weight values",
+      "Custom cubic-bezier values without design rationale"
+    ],
+    "S20": [
+      "Requirement for wallpaper-based dynamic theming",
+      "Android-first or Android-primary product",
+      "Cross-platform product needing unified design language",
+      "Flutter or Jetpack Compose codebase"
+    ],
+    "S21": [
+      "PostCSS or Vite with Tailwind plugin configured",
+      "@apply directives in CSS files",
+      "Class strings with patterns like p-4 text-lg bg-blue-500",
+      "tailwind.config.js or tailwind.config.ts in project root"
+    ],
+    "S22": [
+      "Design specs show different column structures per page",
+      "Layout breaks at certain screen sizes",
+      "Content alignment is inconsistent across pages",
+      "Float-based grid system still in use",
+      "Developers are creating custom grid solutions per page"
+    ],
+    "S23": [
+      "Content is hidden on mobile instead of reorganized",
+      "Touch targets are too small on mobile",
+      "Separate mobile site exists (m.example.com)",
+      "Layout breaks or overflows at certain viewport widths"
+    ],
+    "S24": [
+      "prefers-color-scheme: dark not being respected",
+      "Color palette does not scale to dark mode",
+      "Dark mode shadows are invisible or muddy",
+      "Dark mode implementation has pure black backgrounds",
+      "Dark mode implementation requires finding every color usage",
+      "Dark mode is planned or requested by users",
+      "Colors that look fine in light mode are garish in dark mode",
+      "Users requesting dark mode support"
+    ],
+    "S25": [
+      "Colored text on colored backgrounds without testing",
+      "Light gray text on white backgrounds",
+      "Automated accessibility audit flags contrast failures",
+      "Users report difficulty reading text"
+    ]
+  },
+  "n_problems": 25,
+  "recognition_rule": "signal matched iff (query + SYS SHAPE) overlaps its text by >= 2 stemmed tokens, OR query == signal_text (EXACT), OR a query token IS a design-system id (SEED-FROM-NODE). SHAPE is space-separated words, never a system id. Audit matches_by_signal_text against problems_blind_sys.",
+  "spec_id": "theia-Gmetric-sys-recognizer",
+  "story": "story-1c54b0b7",
+  "what": "FROZEN gold-blind SYSTEM recognition {problem_id -> matched system signal_ids} bridging each frozen query to the hydrate_systems path. Produced by typed_index_bench.build_matches over problems_blind_sys + the system signal index; never reads gmetric_sys (gold-blind)."
+}

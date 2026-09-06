@@ -1,0 +1,985 @@
+{
+  "RESULT_baseline": {
+    "by_qclass": {
+      "SYS-PA": {
+        "10": {
+          "covered": 5,
+          "of": 5,
+          "recall": 1.0
+        },
+        "5": {
+          "covered": 5,
+          "of": 5,
+          "recall": 1.0
+        }
+      },
+      "SYS-PB": {
+        "10": {
+          "covered": 14,
+          "of": 14,
+          "recall": 1.0
+        },
+        "5": {
+          "covered": 14,
+          "of": 14,
+          "recall": 1.0
+        }
+      },
+      "SYS-TK": {
+        "10": {
+          "covered": 6,
+          "of": 6,
+          "recall": 1.0
+        },
+        "5": {
+          "covered": 6,
+          "of": 6,
+          "recall": 1.0
+        }
+      }
+    },
+    "by_register": {
+      "prose": {
+        "10": {
+          "covered": 19,
+          "of": 19,
+          "recall": 1.0
+        },
+        "5": {
+          "covered": 19,
+          "of": 19,
+          "recall": 1.0
+        }
+      },
+      "token": {
+        "10": {
+          "covered": 6,
+          "of": 6,
+          "recall": 1.0
+        },
+        "5": {
+          "covered": 6,
+          "of": 6,
+          "recall": 1.0
+        }
+      }
+    },
+    "by_structure": {
+      "color": {
+        "10": {
+          "covered": 3,
+          "of": 3,
+          "recall": 1.0
+        },
+        "5": {
+          "covered": 3,
+          "of": 3,
+          "recall": 1.0
+        }
+      },
+      "foundation": {
+        "10": {
+          "covered": 4,
+          "of": 4,
+          "recall": 1.0
+        },
+        "5": {
+          "covered": 4,
+          "of": 4,
+          "recall": 1.0
+        }
+      },
+      "layout": {
+        "10": {
+          "covered": 3,
+          "of": 3,
+          "recall": 1.0
+        },
+        "5": {
+          "covered": 3,
+          "of": 3,
+          "recall": 1.0
+        }
+      },
+      "methodology": {
+        "10": {
+          "covered": 2,
+          "of": 2,
+          "recall": 1.0
+        },
+        "5": {
+          "covered": 2,
+          "of": 2,
+          "recall": 1.0
+        }
+      },
+      "system": {
+        "10": {
+          "covered": 12,
+          "of": 12,
+          "recall": 1.0
+        },
+        "5": {
+          "covered": 12,
+          "of": 12,
+          "recall": 1.0
+        }
+      },
+      "token_system": {
+        "10": {
+          "covered": 1,
+          "of": 1,
+          "recall": 1.0
+        },
+        "5": {
+          "covered": 1,
+          "of": 1,
+          "recall": 1.0
+        }
+      }
+    },
+    "covered": {
+      "10": 25,
+      "5": 25
+    },
+    "denominator_E_golds": 25,
+    "method": "system_two_view_hydrate",
+    "per_problem": {
+      "S01": {
+        "grades": {
+          "10": {
+            "covered": 1,
+            "covered_golds": [
+              "material_design_3"
+            ],
+            "of": 1
+          },
+          "5": {
+            "covered": 1,
+            "covered_golds": [
+              "material_design_3"
+            ],
+            "of": 1
+          }
+        },
+        "n_gold_E": 1,
+        "qclass": "SYS-PA",
+        "ranked_top10": [
+          "material_design_3",
+          "color_theory",
+          "design_tokens",
+          "elevation_system",
+          "semantic_tokens"
+        ],
+        "register": "prose"
+      },
+      "S02": {
+        "grades": {
+          "10": {
+            "covered": 1,
+            "covered_golds": [
+              "dark_mode"
+            ],
+            "of": 1
+          },
+          "5": {
+            "covered": 1,
+            "covered_golds": [
+              "dark_mode"
+            ],
+            "of": 1
+          }
+        },
+        "n_gold_E": 1,
+        "qclass": "SYS-PA",
+        "ranked_top10": [
+          "dark_mode",
+          "color_theory",
+          "elevation_system",
+          "semantic_tokens",
+          "theme_tokens",
+          "contrast_ratios",
+          "color_60_30_10",
+          "design_tokens",
+          "color_semantics",
+          "component_tokens"
+        ],
+        "register": "prose"
+      },
+      "S03": {
+        "grades": {
+          "10": {
+            "covered": 1,
+            "covered_golds": [
+              "lightning_design"
+            ],
+            "of": 1
+          },
+          "5": {
+            "covered": 1,
+            "covered_golds": [
+              "lightning_design"
+            ],
+            "of": 1
+          }
+        },
+        "n_gold_E": 1,
+        "qclass": "SYS-PA",
+        "ranked_top10": [
+          "atomic_design",
+          "lightning_design",
+          "spectrum_design",
+          "design_tokens",
+          "color_semantics",
+          "color_theory",
+          "dark_mode",
+          "grid_systems",
+          "material_design_3",
+          "responsive_design"
+        ],
+        "register": "prose"
+      },
+      "S04": {
+        "grades": {
+          "10": {
+            "covered": 1,
+            "covered_golds": [
+              "polaris"
+            ],
+            "of": 1
+          },
+          "5": {
+            "covered": 1,
+            "covered_golds": [
+              "polaris"
+            ],
+            "of": 1
+          }
+        },
+        "n_gold_E": 1,
+        "qclass": "SYS-PA",
+        "ranked_top10": [
+          "polaris",
+          "primer",
+          "spectrum_design",
+          "design_tokens",
+          "dark_mode",
+          "color_semantics",
+          "color_theory",
+          "contrast_ratios",
+          "responsive_design",
+          "spacing_systems"
+        ],
+        "register": "prose"
+      },
+      "S05": {
+        "grades": {
+          "10": {
+            "covered": 1,
+            "covered_golds": [
+              "carbon_design"
+            ],
+            "of": 1
+          },
+          "5": {
+            "covered": 1,
+            "covered_golds": [
+              "carbon_design"
+            ],
+            "of": 1
+          }
+        },
+        "n_gold_E": 1,
+        "qclass": "SYS-PA",
+        "ranked_top10": [
+          "carbon_design",
+          "spectrum_design",
+          "design_tokens",
+          "color_theory",
+          "contrast_ratios",
+          "dark_mode",
+          "grid_systems",
+          "motion_principles",
+          "typography_scales"
+        ],
+        "register": "prose"
+      },
+      "S06": {
+        "grades": {
+          "10": {
+            "covered": 1,
+            "covered_golds": [
+              "material_design_3"
+            ],
+            "of": 1
+          },
+          "5": {
+            "covered": 1,
+            "covered_golds": [
+              "material_design_3"
+            ],
+            "of": 1
+          }
+        },
+        "n_gold_E": 1,
+        "qclass": "SYS-PB",
+        "ranked_top10": [
+          "material_design_3",
+          "color_theory",
+          "design_tokens",
+          "elevation_system",
+          "semantic_tokens"
+        ],
+        "register": "prose"
+      },
+      "S07": {
+        "grades": {
+          "10": {
+            "covered": 1,
+            "covered_golds": [
+              "apple_hig"
+            ],
+            "of": 1
+          },
+          "5": {
+            "covered": 1,
+            "covered_golds": [
+              "apple_hig"
+            ],
+            "of": 1
+          }
+        },
+        "n_gold_E": 1,
+        "qclass": "SYS-PB",
+        "ranked_top10": [
+          "apple_hig",
+          "dark_mode",
+          "motion_principles",
+          "spacing_systems",
+          "typography_scales"
+        ],
+        "register": "prose"
+      },
+      "S08": {
+        "grades": {
+          "10": {
+            "covered": 1,
+            "covered_golds": [
+              "ant_design"
+            ],
+            "of": 1
+          },
+          "5": {
+            "covered": 1,
+            "covered_golds": [
+              "ant_design"
+            ],
+            "of": 1
+          }
+        },
+        "n_gold_E": 1,
+        "qclass": "SYS-PB",
+        "ranked_top10": [
+          "ant_design",
+          "carbon_design",
+          "fluent_design",
+          "design_tokens",
+          "grid_systems",
+          "color_semantics",
+          "semantic_tokens",
+          "motion_principles",
+          "contrast_ratios",
+          "elevation_system"
+        ],
+        "register": "prose"
+      },
+      "S09": {
+        "grades": {
+          "10": {
+            "covered": 1,
+            "covered_golds": [
+              "atomic_design"
+            ],
+            "of": 1
+          },
+          "5": {
+            "covered": 1,
+            "covered_golds": [
+              "atomic_design"
+            ],
+            "of": 1
+          }
+        },
+        "n_gold_E": 1,
+        "qclass": "SYS-PB",
+        "ranked_top10": [
+          "atomic_design",
+          "component_tokens",
+          "radix_patterns",
+          "type_scale_major_third",
+          "type_scale_perfect_fourth",
+          "design_tokens",
+          "shadcn_patterns",
+          "material_design_3",
+          "fluid_typography",
+          "typography_scales"
+        ],
+        "register": "prose"
+      },
+      "S10": {
+        "grades": {
+          "10": {
+            "covered": 1,
+            "covered_golds": [
+              "user_centered_design"
+            ],
+            "of": 1
+          },
+          "5": {
+            "covered": 1,
+            "covered_golds": [
+              "user_centered_design"
+            ],
+            "of": 1
+          }
+        },
+        "n_gold_E": 1,
+        "qclass": "SYS-PB",
+        "ranked_top10": [
+          "user_centered_design",
+          "chakra_patterns",
+          "double_diamond",
+          "lean_ux",
+          "design_thinking",
+          "jobs_to_be_done",
+          "dark_mode",
+          "design_tokens",
+          "radix_patterns",
+          "shadcn_patterns"
+        ],
+        "register": "prose"
+      },
+      "S11": {
+        "grades": {
+          "10": {
+            "covered": 1,
+            "covered_golds": [
+              "chakra_patterns"
+            ],
+            "of": 1
+          },
+          "5": {
+            "covered": 1,
+            "covered_golds": [
+              "chakra_patterns"
+            ],
+            "of": 1
+          }
+        },
+        "n_gold_E": 1,
+        "qclass": "SYS-PB",
+        "ranked_top10": [
+          "chakra_patterns",
+          "component_tokens",
+          "radix_patterns",
+          "spectrum_design",
+          "design_tokens",
+          "dark_mode",
+          "shadcn_patterns",
+          "lightning_design",
+          "semantic_tokens",
+          "theme_tokens"
+        ],
+        "register": "prose"
+      },
+      "S12": {
+        "grades": {
+          "10": {
+            "covered": 1,
+            "covered_golds": [
+              "shadcn_patterns"
+            ],
+            "of": 1
+          },
+          "5": {
+            "covered": 1,
+            "covered_golds": [
+              "shadcn_patterns"
+            ],
+            "of": 1
+          }
+        },
+        "n_gold_E": 1,
+        "qclass": "SYS-PB",
+        "ranked_top10": [
+          "component_tokens",
+          "shadcn_patterns",
+          "design_tokens",
+          "atomic_design",
+          "lightning_design",
+          "radix_patterns",
+          "semantic_tokens",
+          "tailwind_utility",
+          "theme_tokens"
+        ],
+        "register": "prose"
+      },
+      "S13": {
+        "grades": {
+          "10": {
+            "covered": 1,
+            "covered_golds": [
+              "radix_patterns"
+            ],
+            "of": 1
+          },
+          "5": {
+            "covered": 1,
+            "covered_golds": [
+              "radix_patterns"
+            ],
+            "of": 1
+          }
+        },
+        "n_gold_E": 1,
+        "qclass": "SYS-PB",
+        "ranked_top10": [
+          "radix_patterns",
+          "atomic_design",
+          "carbon_design",
+          "container_queries",
+          "holy_grail_layout",
+          "semantic_tokens",
+          "contrast_ratios",
+          "design_tokens",
+          "grid_systems",
+          "shadcn_patterns"
+        ],
+        "register": "prose"
+      },
+      "S14": {
+        "grades": {
+          "10": {
+            "covered": 1,
+            "covered_golds": [
+              "color_theory"
+            ],
+            "of": 1
+          },
+          "5": {
+            "covered": 1,
+            "covered_golds": [
+              "color_theory"
+            ],
+            "of": 1
+          }
+        },
+        "n_gold_E": 1,
+        "qclass": "SYS-PB",
+        "ranked_top10": [
+          "color_theory",
+          "choreography",
+          "easing_curves",
+          "motion_principles",
+          "type_scale_augmented_fourth",
+          "micro_interactions",
+          "transition_patterns",
+          "color_60_30_10",
+          "color_semantics",
+          "contrast_ratios"
+        ],
+        "register": "prose"
+      },
+      "S15": {
+        "grades": {
+          "10": {
+            "covered": 1,
+            "covered_golds": [
+              "typography_scales"
+            ],
+            "of": 1
+          },
+          "5": {
+            "covered": 1,
+            "covered_golds": [
+              "typography_scales"
+            ],
+            "of": 1
+          }
+        },
+        "n_gold_E": 1,
+        "qclass": "SYS-PB",
+        "ranked_top10": [
+          "typography_scales",
+          "fluid_typography",
+          "type_scale_major_third",
+          "type_scale_perfect_fourth",
+          "vertical_rhythm",
+          "color_60_30_10",
+          "elevation_system",
+          "spacing_systems",
+          "transition_patterns",
+          "type_scale_augmented_fourth"
+        ],
+        "register": "prose"
+      },
+      "S16": {
+        "grades": {
+          "10": {
+            "covered": 1,
+            "covered_golds": [
+              "spacing_systems"
+            ],
+            "of": 1
+          },
+          "5": {
+            "covered": 1,
+            "covered_golds": [
+              "spacing_systems"
+            ],
+            "of": 1
+          }
+        },
+        "n_gold_E": 1,
+        "qclass": "SYS-PB",
+        "ranked_top10": [
+          "spacing_systems",
+          "design_tokens",
+          "vertical_rhythm",
+          "flexbox_patterns",
+          "grid_systems",
+          "gestalt_principles",
+          "tailwind_utility",
+          "component_tokens",
+          "material_design_3",
+          "semantic_tokens"
+        ],
+        "register": "prose"
+      },
+      "S17": {
+        "grades": {
+          "10": {
+            "covered": 1,
+            "covered_golds": [
+              "elevation_system"
+            ],
+            "of": 1
+          },
+          "5": {
+            "covered": 1,
+            "covered_golds": [
+              "elevation_system"
+            ],
+            "of": 1
+          }
+        },
+        "n_gold_E": 1,
+        "qclass": "SYS-PB",
+        "ranked_top10": [
+          "elevation_system",
+          "design_tokens",
+          "spacing_systems",
+          "transition_patterns",
+          "material_design_3",
+          "dark_mode",
+          "fluent_design",
+          "choreography",
+          "component_tokens",
+          "easing_curves"
+        ],
+        "register": "prose"
+      },
+      "S18": {
+        "grades": {
+          "10": {
+            "covered": 1,
+            "covered_golds": [
+              "container_queries"
+            ],
+            "of": 1
+          },
+          "5": {
+            "covered": 1,
+            "covered_golds": [
+              "container_queries"
+            ],
+            "of": 1
+          }
+        },
+        "n_gold_E": 1,
+        "qclass": "SYS-PB",
+        "ranked_top10": [
+          "container_queries",
+          "responsive_design",
+          "grid_systems",
+          "css_grid_patterns",
+          "fluid_typography",
+          "tailwind_utility"
+        ],
+        "register": "prose"
+      },
+      "S19": {
+        "grades": {
+          "10": {
+            "covered": 1,
+            "covered_golds": [
+              "design_tokens"
+            ],
+            "of": 1
+          },
+          "5": {
+            "covered": 1,
+            "covered_golds": [
+              "design_tokens"
+            ],
+            "of": 1
+          }
+        },
+        "n_gold_E": 1,
+        "qclass": "SYS-PB",
+        "ranked_top10": [
+          "design_tokens",
+          "easing_curves",
+          "component_tokens",
+          "spacing_systems",
+          "variable_fonts",
+          "semantic_tokens",
+          "theme_tokens",
+          "material_design_3",
+          "micro_interactions",
+          "motion_principles"
+        ],
+        "register": "prose"
+      },
+      "S20": {
+        "grades": {
+          "10": {
+            "covered": 1,
+            "covered_golds": [
+              "material_design_3"
+            ],
+            "of": 1
+          },
+          "5": {
+            "covered": 1,
+            "covered_golds": [
+              "material_design_3"
+            ],
+            "of": 1
+          }
+        },
+        "n_gold_E": 1,
+        "qclass": "SYS-TK",
+        "ranked_top10": [
+          "material_design_3",
+          "color_theory",
+          "design_tokens",
+          "elevation_system",
+          "semantic_tokens"
+        ],
+        "register": "token"
+      },
+      "S21": {
+        "grades": {
+          "10": {
+            "covered": 1,
+            "covered_golds": [
+              "tailwind_utility"
+            ],
+            "of": 1
+          },
+          "5": {
+            "covered": 1,
+            "covered_golds": [
+              "tailwind_utility"
+            ],
+            "of": 1
+          }
+        },
+        "n_gold_E": 1,
+        "qclass": "SYS-TK",
+        "ranked_top10": [
+          "tailwind_utility",
+          "design_tokens",
+          "responsive_design",
+          "shadcn_patterns",
+          "spacing_systems"
+        ],
+        "register": "token"
+      },
+      "S22": {
+        "grades": {
+          "10": {
+            "covered": 1,
+            "covered_golds": [
+              "grid_systems"
+            ],
+            "of": 1
+          },
+          "5": {
+            "covered": 1,
+            "covered_golds": [
+              "grid_systems"
+            ],
+            "of": 1
+          }
+        },
+        "n_gold_E": 1,
+        "qclass": "SYS-TK",
+        "ranked_top10": [
+          "grid_systems",
+          "css_grid_patterns",
+          "flexbox_patterns",
+          "responsive_design",
+          "spacing_systems",
+          "holy_grail_layout"
+        ],
+        "register": "token"
+      },
+      "S23": {
+        "grades": {
+          "10": {
+            "covered": 1,
+            "covered_golds": [
+              "responsive_design"
+            ],
+            "of": 1
+          },
+          "5": {
+            "covered": 1,
+            "covered_golds": [
+              "responsive_design"
+            ],
+            "of": 1
+          }
+        },
+        "n_gold_E": 1,
+        "qclass": "SYS-TK",
+        "ranked_top10": [
+          "responsive_design",
+          "container_queries",
+          "fluid_typography",
+          "grid_systems",
+          "tailwind_utility"
+        ],
+        "register": "token"
+      },
+      "S24": {
+        "grades": {
+          "10": {
+            "covered": 1,
+            "covered_golds": [
+              "dark_mode"
+            ],
+            "of": 1
+          },
+          "5": {
+            "covered": 1,
+            "covered_golds": [
+              "dark_mode"
+            ],
+            "of": 1
+          }
+        },
+        "n_gold_E": 1,
+        "qclass": "SYS-TK",
+        "ranked_top10": [
+          "dark_mode",
+          "color_theory",
+          "elevation_system",
+          "semantic_tokens",
+          "theme_tokens",
+          "contrast_ratios",
+          "color_60_30_10",
+          "design_tokens",
+          "color_semantics",
+          "component_tokens"
+        ],
+        "register": "token"
+      },
+      "S25": {
+        "grades": {
+          "10": {
+            "covered": 1,
+            "covered_golds": [
+              "contrast_ratios"
+            ],
+            "of": 1
+          },
+          "5": {
+            "covered": 1,
+            "covered_golds": [
+              "contrast_ratios"
+            ],
+            "of": 1
+          }
+        },
+        "n_gold_E": 1,
+        "qclass": "SYS-TK",
+        "ranked_top10": [
+          "contrast_ratios",
+          "color_semantics",
+          "color_theory",
+          "dark_mode",
+          "theme_tokens"
+        ],
+        "register": "token"
+      }
+    },
+    "recall": {
+      "10": 1.0,
+      "5": 1.0
+    }
+  },
+  "arm": "baseline_two_view (kb.get_signal_index + kb.get_system_signal_index, read separately)",
+  "captured_utc": "2026-09-06T02:23:13Z",
+  "determinism": {
+    "answer_key_sha256": "f7ce41c87b81a5e472630511284197551cd01881ab99e8e7946631f2f11ec86b",
+    "fresh_loader_runs": 3,
+    "note": "byte-identical across fresh loaders + PYTHONHASHSEED (system ids are content hashes).",
+    "result_core_sha256": "0be3af703fbc74b369ab1b20eaf097f32b4f7dda8b4cb652096b61cf8941b0e1"
+  },
+  "spec_id": "theia-Gmetric-sys-v1-baseline-capture",
+  "story": "story-1c54b0b7",
+  "substrate_self_certification": {
+    "checks": {
+      "accessibility_standards.json": {
+        "cur": "11716bc4a2d810ebb2087f53e9c05e5c91fbc672349fc4f00db36ecdef0c670c",
+        "match": true,
+        "pin": "11716bc4a2d810ebb2087f53e9c05e5c91fbc672349fc4f00db36ecdef0c670c"
+      },
+      "answer_key_sha256": {
+        "cur": "f7ce41c87b81a5e472630511284197551cd01881ab99e8e7946631f2f11ec86b",
+        "match": true,
+        "pin": "f7ce41c87b81a5e472630511284197551cd01881ab99e8e7946631f2f11ec86b"
+      },
+      "component_patterns.json": {
+        "cur": "fe2ed49663e95e1974c9ffb1f4927b785de2e97aa85877a84f1e14161fc13aef",
+        "match": true,
+        "pin": "fe2ed49663e95e1974c9ffb1f4927b785de2e97aa85877a84f1e14161fc13aef"
+      },
+      "decision_rules.json": {
+        "cur": "d5e6971dbcaf4baa5c6dd7dbfd43da1bc2b26c9fe35e2e4adb3cf016c281e5b6",
+        "match": true,
+        "pin": "d5e6971dbcaf4baa5c6dd7dbfd43da1bc2b26c9fe35e2e4adb3cf016c281e5b6"
+      },
+      "design_systems.json": {
+        "cur": "017e569c0558493898424ff8896e981fbeca58eae085a0154de221e9dc7e0a40",
+        "match": true,
+        "pin": "017e569c0558493898424ff8896e981fbeca58eae085a0154de221e9dc7e0a40"
+      },
+      "gmetric_sys_v1.json": {
+        "cur": "d9f950230909ba42d950ec4625df0f2f47d121c28922b9c0a0bc2d757a544c73",
+        "match": true,
+        "pin": "d9f950230909ba42d950ec4625df0f2f47d121c28922b9c0a0bc2d757a544c73"
+      },
+      "problems_blind_sys_v1.json": {
+        "cur": "83d6d49a2e5dde714a58eb97d7107574901758c46e1efc2e56c4ade408ecc9f3",
+        "match": true,
+        "pin": "83d6d49a2e5dde714a58eb97d7107574901758c46e1efc2e56c4ade408ecc9f3"
+      }
+    },
+    "trust_root": "freeze_manifest_sys_v1.json"
+  },
+  "what_this_is": "Pinned TWO-VIEW design-system baseline (get_system_signal_index -> hydrate_systems) over the frozen SYSTEM set. This is the number S1's UNIFIED nested accessor must equal-or-beat on the SYSTEM stratum. The COMPONENT stratum bar is the frozen v3 engine recall (theia_engine_bench.rank_engine); the two are NEVER pooled."
+}
