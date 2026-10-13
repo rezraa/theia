@@ -21,9 +21,11 @@ What is MEASURED here (not asserted):
     equals-or-beats the frozen S0 per-stratum baseline: SYSTEM covered@10 >= 25,
     COMPONENT covered@10 >= 45. Reuses the frozen S0 grader/benches verbatim; never
     refreezes or mutates the key/corpus; the two strata are NEVER pooled (m-e8ccb163).
-  * DETERMINISM — each nested view is sorted by ``signal_id`` with sorted id-lists, and
-    the composite is byte-identical to a fresh loader's two separate views (only
-    presentation shape changed).
+  * COMPACT, LOSSLESS, BYTE-STABLE (council 1e970338) — each group is the compact
+    ``{owner_id: {signal_id: signal_text}}`` projection of its loader view with that
+    view's own owner key: every (signal, text, owner) triple kept, the loader view
+    exactly recoverable, owners and signals in sorted id order, byte-identical across
+    calls and PYTHONHASHSEED, and smaller than the loader views.
   * END-TO-END (Directive 8, ids taken from the accessor's OWN output, never hand-built)
     — a known SYSTEM signal -> plan_design_system -> base_system != 'custom' AND
     related_systems non-empty; a known COMPONENT signal -> audit_design / spec_component
@@ -42,6 +44,8 @@ from __future__ import annotations
 import ast
 import inspect
 import json
+import os
+import subprocess
 import sys
 from pathlib import Path
 
@@ -58,12 +62,13 @@ import theia_engine_bench as eng  # noqa: E402  (frozen COMPONENT recognizer)
 import typed_index_bench as sysb  # noqa: E402  (SYSTEM recognizer + arm harness)
 import test_typed_index_s0 as s0  # noqa: E402  (frozen S0 gate: _grade_sys + per-stratum bars)
 
-from theia.knowledge.loader import KnowledgeLoader, NO_MATCH  # noqa: E402
+from theia.knowledge.loader import KnowledgeLoader, NO_MATCH, compact_signal_view  # noqa: E402
 from theia.tools import get_signal_index as gsi_mod  # noqa: E402  (the tool MODULE)
 from theia.tools.get_signal_index import get_signal_index  # noqa: E402  (the ONE public fn)
 from theia.tools.plan_design_system import plan_design_system  # noqa: E402
 from theia.tools.spec_component import spec_component  # noqa: E402
 from theia.tools.audit_design import audit_design  # noqa: E402
+from tests._accessor_views import GROUP_ID_KEYS, accessor_views  # noqa: E402
 
 _KDIR = grade.KDIR
 _SYS_COVERED_10 = s0._SYS_COVERED_10   # 25 — the frozen SYSTEM two-view bar (m-68d8ff4e)
@@ -113,40 +118,113 @@ class TestReachabilityByConstruction:
         tools = [t for t in _mcp_tool_functions(Path(inspect.getsourcefile(server))) if "signal_index" in t]
         assert tools == ["get_signal_index"], f"expected one signal-index @mcp.tool, found {tools}"
 
-    def test_accessor_returns_both_nested_views(self) -> None:
+    def test_accessor_returns_both_compact_nested_views(self) -> None:
         view = get_signal_index()
-        assert set(view) == {"component_signals", "system_signals"}
-        assert view["component_signals"] and view["system_signals"]
-        for entry in view["component_signals"]:
-            assert set(entry) == {"signal_id", "signal_text", "component_ids"}
-        for entry in view["system_signals"]:
-            assert set(entry) == {"signal_id", "signal_text", "system_ids"}
+        assert set(view) == set(GROUP_ID_KEYS)
+        for group in view.values():
+            assert group
+            for owner, signals in group.items():
+                assert isinstance(owner, str) and isinstance(signals, dict) and signals
+                assert all(isinstance(k, str) and isinstance(v, str) for k, v in signals.items())
+        distinct = {g: len({sid for sigs in view[g].values() for sid in sigs}) for g in view}
+        assert distinct == {"component_signals": 394, "system_signals": 206}
 
 
 # ==========================================================================
-# DETERMINISM — sorted views, byte-identical to the fresh two-view (shape only)
+# COMPACT VIEW — lossless projection of the loader views, sorted, byte-stable
 # ==========================================================================
 
-class TestDeterminism:
-    def test_each_view_sorted_by_signal_id_with_sorted_id_lists(self) -> None:
-        view = get_signal_index()
-        for surface, id_field in (("component_signals", "component_ids"), ("system_signals", "system_ids")):
-            entries = view[surface]
-            assert [e["signal_id"] for e in entries] == sorted(e["signal_id"] for e in entries), surface
-            for e in entries:
-                assert e[id_field] == sorted(e[id_field]), f"{surface} {e['signal_id']} id-list unsorted"
+_LOADER_VIEWS = {"component_signals": KnowledgeLoader.get_signal_index,
+                 "system_signals": KnowledgeLoader.get_system_signal_index}
+_HYDRATE = {"component_signals": KnowledgeLoader.hydrate,
+            "system_signals": KnowledgeLoader.hydrate_systems}
 
-    def test_composite_is_the_two_views_only_reshaped(self) -> None:
-        """Only presentation shape changed: the composite re-presents the SAME frozen
-        signal_ids under two labels, so recall is identical-by-construction."""
-        fresh = KnowledgeLoader(knowledge_dir=_KDIR)
-        view = get_signal_index()
-        assert view["component_signals"] == fresh.get_signal_index()
-        assert view["system_signals"] == fresh.get_system_signal_index()
 
-    def test_composite_byte_identical_across_fresh_calls(self) -> None:
-        dumps = {json.dumps(get_signal_index(), sort_keys=True) for _ in range(3)}
-        assert len(dumps) == 1
+def _triples(group: dict) -> set:
+    return {(sid, text, owner) for owner, signals in group.items() for sid, text in signals.items()}
+
+
+class TestCompactView:
+    @pytest.fixture(scope="class")
+    def kb(self) -> KnowledgeLoader:
+        return KnowledgeLoader(knowledge_dir=_KDIR)
+
+    def test_tool_is_the_mirrored_projection(self, kb) -> None:
+        """The tool adds nothing beyond the one projection the parity case binds, each
+        group with its OWN owner key."""
+        assert get_signal_index() == {
+            g: compact_signal_view(_LOADER_VIEWS[g](kb), GROUP_ID_KEYS[g]) for g in GROUP_ID_KEYS}
+
+    @pytest.mark.parametrize("group", sorted(GROUP_ID_KEYS))
+    def test_round_trip_preserves_every_triple(self, kb, group) -> None:
+        """Flattening a group gives exactly its loader view's (signal_id, signal_text,
+        owner) triples — nothing dropped, nothing invented. A multi-owner signal counts
+        once per owner, so distinct signal ids alone would miss a dropped owner."""
+        id_key = GROUP_ID_KEYS[group]
+        assert _triples(get_signal_index()[group]) == {
+            (e["signal_id"], e["signal_text"], o) for e in _LOADER_VIEWS[group](kb) for o in e[id_key]}
+
+    def test_triple_counts(self) -> None:
+        view = get_signal_index()
+        assert {g: len(_triples(view[g])) for g in view} == {"component_signals": 523, "system_signals": 206}
+
+    @pytest.mark.parametrize("group", sorted(GROUP_ID_KEYS))
+    def test_loader_view_is_exactly_recoverable(self, kb, group) -> None:
+        """Inverting a group rebuilds its loader view entry-for-entry — same order, same
+        owner lists in the same order — not merely the same set of triples."""
+        assert accessor_views()[group] == _LOADER_VIEWS[group](kb)
+
+    @pytest.mark.parametrize("group", sorted(GROUP_ID_KEYS))
+    def test_every_served_signal_alone_hydrates_to_its_owner(self, kb, group) -> None:
+        """Single-signal round trip: each served signal_id, hydrated ON ITS OWN through
+        its group's hydrate path, returns the owner it is served under."""
+        hydrate = _HYDRATE[group]
+        for owner, signals in get_signal_index()[group].items():
+            for sid in signals:
+                assert owner in {p["id"] for p in hydrate(kb, [sid], k=50).patterns}, (owner, sid)
+
+    def test_compact_signal_view_on_synthetic_unsorted_multi_owner_input(self) -> None:
+        """Titan-local proof (independent of the Coeus parity case, which skips when the
+        sibling is absent): input order is irrelevant, owners and signals come out
+        sorted, a multi-owner signal appears under EACH owner, and a signal repeated
+        under one owner is kept once."""
+        view = [
+            {"signal_id": "s3", "signal_text": "three", "component_ids": ["z", "a"]},
+            {"signal_id": "s1", "signal_text": "one", "component_ids": ["z"]},
+            {"signal_id": "s2", "signal_text": "two", "component_ids": ["a", "m"]},
+            {"signal_id": "s1", "signal_text": "one", "component_ids": ["z"]},
+        ]
+        expected = '{"a": {"s2": "two", "s3": "three"}, "m": {"s2": "two"}, "z": {"s1": "one", "s3": "three"}}'
+        assert json.dumps(compact_signal_view(view, "component_ids")) == expected
+        assert json.dumps(compact_signal_view(list(reversed(view)), "component_ids")) == expected
+        assert compact_signal_view([], "component_ids") == {}
+
+    def test_owners_and_signals_in_sorted_id_order(self) -> None:
+        for group in get_signal_index().values():
+            assert list(group) == sorted(group)
+            for signals in group.values():
+                assert list(signals) == sorted(signals)
+
+    def test_smaller_than_the_loader_views(self, kb) -> None:
+        full = json.dumps({g: view(kb) for g, view in _LOADER_VIEWS.items()}, ensure_ascii=False)
+        assert len(json.dumps(get_signal_index(), ensure_ascii=False)) < 0.6 * len(full)
+
+    def test_byte_identical_across_calls_and_pythonhashseed(self) -> None:
+        """No ``sort_keys``: the emitted order itself is deterministic, in-process and
+        across processes — a cacheable prefix."""
+        assert len({json.dumps(get_signal_index()) for _ in range(3)}) == 1
+        snippet = ("import json,hashlib;"
+                   "from theia.tools.get_signal_index import get_signal_index as g;"
+                   "print(hashlib.sha256(json.dumps(g()).encode()).hexdigest())")
+        src = str(Path(inspect.getsourcefile(gsi_mod)).resolve().parents[2])
+        outs = set()
+        for seed in ("0", "1"):
+            r = subprocess.run([sys.executable, "-c", snippet], stdin=subprocess.DEVNULL,
+                               capture_output=True, text=True, timeout=120,
+                               env={**os.environ, "PYTHONPATH": src, "PYTHONHASHSEED": seed})
+            assert r.returncode == 0, r.stderr
+            outs.add(r.stdout.strip())
+        assert len(outs) == 1, f"compact view bytes moved across PYTHONHASHSEED: {outs}"
 
 
 # ==========================================================================
@@ -162,7 +240,7 @@ class _ProdUnifiedProxy:
 
     def __init__(self, loader) -> None:
         self._loader = loader
-        self._nested = get_signal_index()  # conn=None -> singleton over the same corpus
+        self._nested = accessor_views()  # conn=None -> singleton over the same corpus
 
     def get_signal_index(self):
         return self._nested["component_signals"]
@@ -175,7 +253,7 @@ class _ProdUnifiedProxy:
 
 
 def _rank_system_unified_prod(loader, query):
-    return sysb.rank_system(loader, query, index=get_signal_index()["system_signals"])
+    return sysb.rank_system(loader, query, index=accessor_views()["system_signals"])
 
 
 def _rank_component_unified_prod(loader, query):
@@ -206,7 +284,7 @@ class TestRecallGuard:
 # ==========================================================================
 
 def _view() -> dict:
-    return get_signal_index()
+    return accessor_views()
 
 
 def _a_system_signal_with_related() -> str:

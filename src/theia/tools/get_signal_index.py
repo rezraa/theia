@@ -1,11 +1,17 @@
 # Copyright (c) 2026 Reza Malik. Licensed under the Apache License, Version 2.0.
 """MCP tool: get_signal_index
 
-ONE read-only accessor over BOTH Shape-C signal indices, returning a NESTED typed
-view — ``{component_signals: [{signal_id, signal_text, component_ids}],
-system_signals: [{signal_id, signal_text, system_ids}]}`` — composed from the two
-loader views (``kb.get_signal_index()`` over the 66 components and
-``kb.get_system_signal_index()`` over the 54 design systems), the SAME engine, one
+ONE read-only accessor over BOTH Shape-C signal indices, returning a COMPACT
+NESTED typed view::
+
+    {
+      "component_signals": {component_id: {signal_id: signal_text}},
+      "system_signals":    {system_id:    {signal_id: signal_text}},
+    }
+
+each group projected by ``loader.compact_signal_view`` from its own loader view
+(``kb.get_signal_index()`` over the components, ``kb.get_system_signal_index()``
+over the design systems) with that view's own owner-id key — the SAME engine, one
 corpus per surface.
 
 The agent (LLM) recognises a problem's structural signals against the relevant
@@ -25,23 +31,32 @@ single tool identity and the second is silently dropped — the system accessor 
 graph identity and every live summon raised LookupError. A single public function
 makes that drop impossible by construction.
 
-WHY nested (not a flat per-entry type tag): the id columns (``component_ids`` /
-``system_ids``) already encode a signal's corpus, so nesting keeps that typing
+WHY nested (not a flat per-entry type tag): the group already encodes a signal's
+corpus, so nesting keeps that typing
 without a redundant tag; it also avoids a cross-corpus ``signal_id`` collision were
 two signal texts ever to coincide (each surface is a separate map), and the agent
 still recognises against two clearly labelled surfaces. Routing stays unambiguous
 with no new code: the id-spaces are disjoint, so a mis-typed id misses in the wrong
 corpus and the downstream hydrate abstains via NO_MATCH + unmatched_signals, never a
 silent custom.
+
+WHY this compact inner shape (council 1e970338): the whole view is read in-model on
+every recognition, so its size is the recognition cost. Keying signals by their
+owning node carries exactly what the loader view carries (the view is recoverable
+from it) with no per-entry field names and no per-signal id list. It is also a
+cacheable prefix: owners and signals are emitted in sorted id order and the view is
+a pure function of the corpus, so every call on one corpus serialises to the same
+bytes.
 """
 
 from __future__ import annotations
 
+from theia.knowledge.loader import compact_signal_view
 from theia.tools._shared import get_knowledge
 
 
 def get_signal_index(conn: object = None) -> dict:
-    """Return both deterministic signal-index views in ONE nested composite.
+    """Return both compact, byte-stable signal-index views in ONE nested composite.
 
     Args:
         conn: Optional Kuzu/LadybugDB connection. ``None`` -> JSON singleton
@@ -49,13 +64,13 @@ def get_signal_index(conn: object = None) -> dict:
             modes and both corpora).
 
     Returns:
-        ``{"component_signals": [{signal_id, signal_text, component_ids}, ...],
-           "system_signals": [{signal_id, signal_text, system_ids}, ...]}`` — each
-        view sorted by ``signal_id`` with sorted id-lists (``component_ids`` /
-        ``system_ids``), so the composite serialises identically on every call.
+        ``{"component_signals": {component_id: {signal_id: signal_text}},
+           "system_signals": {system_id: {signal_id: signal_text}}}`` — owners and
+        each owner's signals in sorted id order. A signal owned by several nodes
+        appears under each of them.
     """
     kb = get_knowledge(conn)
     return {
-        "component_signals": kb.get_signal_index(),
-        "system_signals": kb.get_system_signal_index(),
+        "component_signals": compact_signal_view(kb.get_signal_index(), "component_ids"),
+        "system_signals": compact_signal_view(kb.get_system_signal_index(), "system_ids"),
     }

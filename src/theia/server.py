@@ -240,7 +240,7 @@ def log_decision(
 
 @mcp.tool()
 def get_signal_index(conn: Any = None) -> dict:
-    """Return both deterministic Shape-C signal-index views in ONE nested composite.
+    """Return both compact, byte-stable Shape-C signal-index views in ONE nested composite.
 
     The single read-only signal-index accessor. Exposes every structural signal in
     BOTH corpora as two labelled surfaces: ``component_signals`` (component corpus)
@@ -254,10 +254,11 @@ def get_signal_index(conn: Any = None) -> dict:
     Args:
         conn: Kuzu/LadybugDB connection for graph mode (injected by Othrys).
 
-    Returns: {component_signals: [{signal_id, signal_text, component_ids}, ...],
-              system_signals: [{signal_id, signal_text, system_ids}, ...]}
-        — each view sorted by signal_id with sorted id-lists so the composite
-        serialises identically on every call.
+    Returns: {component_signals: {component_id: {signal_id: signal_text}},
+              system_signals: {system_id: {signal_id: signal_text}}}
+        — owners and each owner's signals in sorted id order (a multi-owner signal
+        appears under each owner), so the composite serialises identically on every
+        call.
     """
     return _get_signal_index(conn=conn)
 
